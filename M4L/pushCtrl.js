@@ -57,14 +57,6 @@ function setLayer(layerName) {
     initBanks()
 }
 
-function log(message) {
-    var file = new File('C:/Code/ableton-workflow/M4L/logs/' + activeVoiceName + '.txt', 'write', 'TEXT')
-
-    file.position = file.eof
-    file.writeline(new Date() + ': ' + message)
-    file.close()
-}
-
 function setValue(layerName, propertyName, value) {
     if (!devices.isInitialised()) {
         return
