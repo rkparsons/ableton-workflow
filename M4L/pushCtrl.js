@@ -4,7 +4,6 @@ outlets = 1
 
 var activeVoiceName = jsarguments[1]
 var activeLayer = ''
-var previousActiveLayer = ''
 var isDeviceEnabled = false
 
 var constants = require('constants')
@@ -14,6 +13,7 @@ var push = require('push')
 var utilities = require('utilities')
 var properties = require('properties')
 var macroLayouts = require('macroLayouts')
+var macroGlobals = require('macroGlobals')
 var activeVoice = require('voice_' + activeVoiceName).voice
 
 // public functions
@@ -74,15 +74,6 @@ function setValue(layerName, propertyName, value) {
 
 // private functions
 
-// function toggleActivePage() {
-//     if (isDeviceEnabled) {
-//         objects.messagePageInput(activeVoice[previousActiveLayer].index)
-//     } else {
-//         previousActiveLayer = activeLayer
-//         objects.messagePageInput(0)
-//     }
-// }
-
 function setSubPage(subPage, layerName) {
     var isMuted = subPage === constants.offPageName ? 1 : 0
     var layer = activeVoice[layerName]
@@ -101,6 +92,23 @@ function initBanks() {
     if (devices.isInitialised()) {
         objects.messageBanks(getBanksMessage())
     }
+}
+
+function initGlobalBanks() {
+    if (devices.isInitialised()) {
+        objects.messageBanks(getGlobalBanksMessage('volume'))
+    }
+}
+
+function getGlobalBanksMessage(paramName) {
+    var banksMessage = ['edit', 0, 'Global']
+    var macros = macroGlobals[paramName]
+
+    for (var i = 0; i < 8; i++) {
+        banksMessage.push(i, macros[i])
+    }
+
+    return banksMessage
 }
 
 function getBanksMessage() {
