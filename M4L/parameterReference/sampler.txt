@@ -1,0 +1,127 @@
+Reverse
+Snap
+Sample Selector
+Osc On
+O Mode
+O Type
+O Volume
+O Vol < Vel
+O Fix On
+O Coarse
+O Fine
+O Fix Freq
+O Fix Freq Mul
+Oe Attack
+Oe Init
+Oe A Slope
+Oe Decay
+Oe Peak
+Oe D Slope
+Oe Sustain
+Oe Release
+Oe End
+Oe R Slope
+Oe Mode
+Oe Loop
+Oe Retrig
+Oe R < Vel
+Spread
+Key Zone Shift
+Glide Mode
+Glide Time
+Time
+Time < Key
+Transpose
+Detune
+Pitch < LFO
+Pe On
+Pe < Env
+Pe Attack
+Pe Init
+Pe A Slope
+Pe Decay
+Pe Peak
+Pe D Slope
+Pe Sustain
+Pe Release
+Pe End
+Pe R Slope
+Pe Mode
+Pe Loop
+Pe Retrig
+Pe R < Vel
+Volume
+Vol < Vel
+Vol < LFO
+Pan
+Pan < Rnd
+Pan < LFO
+Ve Attack
+Ve Init
+Ve A Slope
+Ve Decay
+Ve Peak
+Ve D Slope
+Ve Sustain
+Ve Release
+Ve R Slope
+Ve Mode
+Ve Loop
+Ve Retrig
+Ve R < Vel
+Fade In
+Trigger Mode
+Fade Out
+F On
+Filter Type
+Filter Circuit - LP/HP
+Filter Circuit - BP/NO/Morph
+Filter Slope
+Filter Freq
+Filter Res
+Filter Morph
+Filter Drive
+Fe On
+Fe < Env
+Fe Attack
+Fe Init
+Fe A Slope
+Fe Decay
+Fe Peak
+Fe D Slope
+Fe Sustain
+Fe Release
+Fe End
+Fe R Slope
+Fe Mode
+Fe Loop
+Fe Retrig
+Fe R < Vel
+Filt < Key
+Filt < Vel
+Filt < LFO
+Shaper On
+Shaper Type
+Shaper Amt
+Shaper Pre-Filter
+L 1 On
+L 1 Wave
+L 1 Sync
+L 1 Rate
+L 1 Sync Rate
+L 1 R < Key
+L 1 Attack
+L 1 Retrig
+L 1 Offset
+L 2 On
+L 2 Wave
+L 2 Sync
+L 2 Rate
+L 2 Sync Rate
+L 2 R < Key
+L 2 Attack
+L 2 St Mode
+L 2 Phase
+L 2 Spin
+L 2 Retrig
+L 2 Offset

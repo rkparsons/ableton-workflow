@@ -1,0 +1,51 @@
+type SpecialPhysicalDisplay 
+description      Special physical display subclass that handles custom and special characters      
+child canonical_parent Push 
+property ascii_translations dict 
+property display_indexes set 
+property display_slice slice 
+property display_string str 
+property message_header tuple 
+property message_tail tuple 
+property name str 
+property num_segments int 
+property optimized_send_midi bool 
+property proxied_interface ProxiedInterface 
+property resource ProxyResource 
+property segments tuple 
+property width int 
+function can_be_translated 
+function clear_send_cache 
+function disconnect 
+function disconnect_disconnectable 
+function display_message 
+function find_disconnectable 
+function get_control 
+function get_control_names 
+function grab_control 
+function grab_midi 
+function has_disconnectable 
+function nested_display_resource_factory 
+function notify_ownership_change 
+function notify_value 
+function register_disconnectable 
+function register_disconnectables 
+function register_slot 
+function release_control 
+function release_midi 
+function reset 
+function reset_state 
+function segment 
+function send_midi 
+function send_midi 
+function send_receive_sysex 
+function set_block_messages 
+function set_clear_all_message 
+function set_data_sources 
+function set_message_parts 
+function set_num_segments 
+function set_translation_table 
+function subdisplay 
+function unregister_disconnectable 
+function update 
+function value_listener_count
