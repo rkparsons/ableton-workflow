@@ -26,6 +26,7 @@ function reload() {
 
 function initObjects() {
     objects.initialise(this.patcher, activeVoice, properties)
+    log('initialising ' + activeVoiceName)
 }
 
 function initLiveApi() {
@@ -60,6 +61,14 @@ function setLayer(layerName) {
     setLayerSolo()
 
     initBanks()
+}
+
+function log(message) {
+    var file = new File('C:/Code/ableton-workflow/M4L/logs/' + activeVoiceName + '.txt', 'write', 'TEXT')
+
+    file.position = file.eof
+    file.writeline(new Date() + ': ' + message)
+    file.close()
 }
 
 function setValue(layerName, propertyName, value) {
