@@ -149,13 +149,7 @@ function onAppointedDeviceEvent(args) {
     if (args[0] !== 'appointed_device') {
         return
     }
-    trackControlTouchApis.forEach(function(x) {
-        x.property = ''
-    })
-    metronomeButtonApi.property = ''
-    masterVolumeControlApi.property = ''
-    trackSelectButtonsApi.property = ''
-    trackStateButtonsApi.property = ''
+    clearObservers()
     appointedDeviceId = parseInt(args[2])
 
     initialiseAppointedDevice()
@@ -163,6 +157,16 @@ function onAppointedDeviceEvent(args) {
     if (isExitingDevice()) {
         releaseControls()
     }
+}
+
+function clearObservers() {
+    trackControlTouchApis.forEach(function(x) {
+        x.property = ''
+    })
+    metronomeButtonApi.property = ''
+    masterVolumeControlApi.property = ''
+    trackSelectButtonsApi.property = ''
+    trackStateButtonsApi.property = ''
 }
 
 function onMetronomeButtonEvent(args) {
