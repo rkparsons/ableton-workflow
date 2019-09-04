@@ -26,7 +26,6 @@ function reload() {
 
 function initObjects() {
     objects.initialise(this.patcher, activeVoice, properties)
-    log('initialising ' + activeVoiceName)
 }
 
 function initLiveApi() {
