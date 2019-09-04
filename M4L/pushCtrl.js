@@ -18,11 +18,6 @@ var activeVoice = require('voice_' + activeVoiceName).voice
 
 // public functions
 
-function reload() {
-    initObjects()
-    initLiveApi()
-}
-
 function initObjects() {
     objects.initialise(this.patcher, activeVoice, properties)
 }
