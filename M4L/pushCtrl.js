@@ -54,11 +54,6 @@ function setSoloFocus(value) {
     isSoloFocus = value
 }
 
-// can this be removed?
-function syncLayer(layerIndex) {
-    objects.messagePageInput(layerIndex)
-}
-
 function setLayer(layerName) {
     activeLayer = layerName
 

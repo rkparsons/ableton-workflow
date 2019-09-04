@@ -224,7 +224,7 @@ function onTrackSelectButtonsEvent(args) {
     }
 
     if (mode === 'layer') {
-        syncLayer(buttonIndex + 1)
+        setLayer(Object.keys(activeVoice)[buttonIndex + 1])
     } else {
         setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
     }
