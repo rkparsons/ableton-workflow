@@ -156,6 +156,7 @@ exports.sampler = [
     },
     {
         name: constants.sampleTypeName,
+        displayName: 'Category',
         path: 'devices 1 parameters 29',
         inputType: 'live.menu',
         unitType: constants.unitType.ENUM,

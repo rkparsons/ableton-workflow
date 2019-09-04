@@ -154,10 +154,9 @@ function createPropertyInput(subpatchXPosition, property, layerSubpatcher, trigg
     var prependSet = layerSubpatcher.newdefault(subpatchXPosition, 90, 'prepend', 'set')
     var input = layerSubpatcher.newdefault(subpatchXPosition, 120, property.inputType || 'live.numbox')
     var prependProperty = layerSubpatcher.newdefault(subpatchXPosition, 180, 'prepend', property.name)
-    var displayName = property.name === constants.sampleTypeName ? activeVoiceName : property.displayName
 
     connectInput(subpatchXPosition, property, layerSubpatcher, trigger, prependSet, input, prependProperty, prependSetValue)
-    configureInputParameters(input, inputName, displayName, inputRange, property.unitType, property.unitStyle, property.exponent)
+    configureInputParameters(input, inputName, property.displayName, inputRange, property.unitType, property.unitStyle, property.exponent)
 }
 
 function connectInput(subpatchXPosition, property, layerSubpatcher, trigger, prependSet, input, prependProperty, prependSetValue) {
