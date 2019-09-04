@@ -1,10 +1,3 @@
-exports.settings = [
-    {
-        name: 'default',
-        macros: ['preview', 'soloFocus', null, null, null, null, null, null],
-    },
-]
-
 exports.sampler = [
     {
         name: constants.offPageName,

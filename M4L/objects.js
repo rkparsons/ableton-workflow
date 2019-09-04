@@ -42,13 +42,9 @@ exports.syncInputToValue = function(propertyName, layerName, value) {
 function initPropertyInputs(voice) {
     var xPosition = 20
     for (var layerName in voice) {
-        var layer = voice[layerName]
+        initPropertyInputsForLayer(xPosition, layerName, voice[layerName])
 
-        if (layer.index) {
-            initPropertyInputsForLayer(xPosition, layerName, layer)
-
-            xPosition += 120
-        }
+        xPosition += 120
     }
 }
 
@@ -101,47 +97,47 @@ function initPropertyInputsForLayer(xPosition, layerName, layer) {
 
     layerSubpatcher.connect(prepend, 0, send, 0)
 
-    initPropertyInputsForDevices(subpatchXPosition, layerName, layer, layerSubpatcher, prepend)
+    initPropertyInputsForDevices(subpatchXPosition, layer, layerSubpatcher, prepend)
 }
 
-function initPropertyInputsForDevices(subpatchXPosition, layerName, layer, layerSubpatcher, prepend) {
+function initPropertyInputsForDevices(subpatchXPosition, layer, layerSubpatcher, prepend) {
     for (var deviceIndex in layer.devices) {
         var deviceName = layer.devices[deviceIndex]
 
         for (var propertyIndex in properties[deviceName]) {
-            initPropertyInputsForDevice(subpatchXPosition, deviceName, propertyIndex, layerSubpatcher, layerName, layer, prepend)
+            initPropertyInputsForDevice(subpatchXPosition, deviceName, propertyIndex, layerSubpatcher, layer, prepend)
             subpatchXPosition += 120
         }
     }
 }
 
-function initPropertyInputsForDevice(subpatchXPosition, deviceName, propertyIndex, layerSubpatcher, layerName, layer, prepend) {
+function initPropertyInputsForDevice(subpatchXPosition, deviceName, propertyIndex, layerSubpatcher, layer, prepend) {
     var property = properties[deviceName][propertyIndex]
     var trigger = layerSubpatcher.newdefault(subpatchXPosition, 20, 'trigger', 'l')
     trigger.varname = 'trig' + '[' + property.name + ']'
 
     if (property.name === constants.chainSelectName) {
-        initChainSelectInputs(subpatchXPosition, layerName, layer, property, layerSubpatcher, trigger, prepend)
+        initChainSelectInputs(subpatchXPosition, layer, property, layerSubpatcher, trigger, prepend)
     } else {
-        initPropertyInput(subpatchXPosition, property, layerName, layer, layerSubpatcher, trigger, prepend)
+        initPropertyInput(subpatchXPosition, property, layer, layerSubpatcher, trigger, prepend)
     }
 }
 
-function initPropertyInput(subpatchXPosition, property, layerName, layer, layerSubpatcher, trigger, prepend) {
+function initPropertyInput(subpatchXPosition, property, layer, layerSubpatcher, trigger, prepend) {
     var inputName = property.name + '[' + layer.index + ']'
     var inputRange = getInputRange(layer, property)
 
-    createPropertyInput(subpatchXPosition, layerName, property, layerSubpatcher, trigger, prepend, inputName, inputRange)
+    createPropertyInput(subpatchXPosition, property, layerSubpatcher, trigger, prepend, inputName, inputRange)
 
     subpatchXPosition += 150
 }
 
-function initChainSelectInputs(subpatchXPosition, layerName, layer, property, layerSubpatcher, trigger, prepend) {
+function initChainSelectInputs(subpatchXPosition, layer, property, layerSubpatcher, trigger, prepend) {
     var sampleTypeIndex = 0
     for (var sampleTypeName in layer.samples) {
         var inputName = property.name + '[' + layer.index + ']' + '[' + sampleTypeIndex + ']'
         var inputRange = getChainSelectInputRange(layer, sampleTypeName)
-        createPropertyInput(subpatchXPosition, layerName, property, layerSubpatcher, trigger, prepend, inputName, inputRange)
+        createPropertyInput(subpatchXPosition, property, layerSubpatcher, trigger, prepend, inputName, inputRange)
         subpatchXPosition += 150
     }
 }
@@ -154,7 +150,7 @@ function initSubpatcher(patcherName, xPosition, yPosition) {
     return patcher.subpatcher()
 }
 
-function createPropertyInput(subpatchXPosition, layerName, property, layerSubpatcher, trigger, prependSetValue, inputName, inputRange) {
+function createPropertyInput(subpatchXPosition, property, layerSubpatcher, trigger, prependSetValue, inputName, inputRange) {
     var prependSet = layerSubpatcher.newdefault(subpatchXPosition, 90, 'prepend', 'set')
     var input = layerSubpatcher.newdefault(subpatchXPosition, 120, property.inputType || 'live.numbox')
     var prependProperty = layerSubpatcher.newdefault(subpatchXPosition, 180, 'prepend', property.name)

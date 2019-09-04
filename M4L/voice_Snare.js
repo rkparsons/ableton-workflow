@@ -1,10 +1,6 @@
 exports.voice = {
-    Settings: {
-        macroLayout: 'settings',
-    },
-
     Drum_A: {
-        index: 1,
+        index: 0,
         basePath: 'snare',
         samples: ['high', 'tight', 'grit', 'mid'],
         devices: ['chain', 'midi', 'sampler'],
@@ -12,7 +8,7 @@ exports.voice = {
     },
 
     Drum_B: {
-        index: 2,
+        index: 1,
         basePath: 'snare',
         samples: ['punch', 'layer', 'synth'],
         devices: ['chain', 'midi', 'sampler'],
@@ -20,7 +16,7 @@ exports.voice = {
     },
 
     Trans: {
-        index: 3,
+        index: 2,
         basePath: 'trans',
         samples: ['soft', 'hard', 'clap', 'click', 'body'],
         devices: ['chain', 'midi', 'sampler'],
@@ -28,7 +24,7 @@ exports.voice = {
     },
 
     Layer: {
-        index: 4,
+        index: 3,
         basePath: 'layer',
         samples: ['kick', 'snare', 'clap', 'static', 'organic', 'synth'],
         devices: ['chain', 'midi', 'sampler'],
@@ -36,7 +32,7 @@ exports.voice = {
     },
 
     Acoustic: {
-        index: 5,
+        index: 4,
         samples: ['close', 'cold', 'cop', 'dry', 'light', 'old', 'steel', 'vista'],
         overrideSampleNames: ['hit', 'rim'],
         devices: ['chain', 'midi', 'sampler'],
@@ -44,7 +40,7 @@ exports.voice = {
     },
 
     Synth: {
-        index: 6,
+        index: 5,
         devices: ['chain', 'midi', 'synth_snare'],
         macroLayout: 'synth_snare',
     },

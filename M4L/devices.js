@@ -87,7 +87,7 @@ function createObserver(api, apiProperty, layerName, property) {
 }
 
 function createApi(activeVoice, layerName, property, apiProperty) {
-    var chainIndex = activeVoice[layerName].index - 1
+    var chainIndex = activeVoice[layerName].index
     var path = [constants.chainsPath, chainIndex, property.path].join(' ')
     var api = new LiveAPI(onValueEvent, path)
     api.property = apiProperty

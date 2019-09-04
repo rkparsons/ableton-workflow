@@ -6,7 +6,6 @@ var activeVoiceName = jsarguments[1]
 var activeLayer = ''
 var previousActiveLayer = ''
 var isDeviceEnabled = false
-var isSoloFocus = false
 
 var constants = require('constants')
 var objects = require('objects')
@@ -31,7 +30,6 @@ function initObjects() {
 function initLiveApi() {
     devices.initialise()
     push.initialise()
-    setLayerSolo()
     initBanks()
 
     utilities.log(activeVoiceName, 'initialising...done.')
@@ -41,7 +39,6 @@ function setEnabled(value) {
     isDeviceEnabled = value == 1
 
     if (devices.isInitialised()) {
-        toggleActivePage()
         devices.toggle(isDeviceEnabled)
     }
 }
@@ -56,8 +53,6 @@ function setSoloFocus(value) {
 
 function setLayer(layerName) {
     activeLayer = layerName
-
-    setLayerSolo()
 
     initBanks()
 }
@@ -92,24 +87,14 @@ function setValue(layerName, propertyName, value) {
 
 // private functions
 
-function toggleActivePage() {
-    if (isDeviceEnabled) {
-        objects.messagePageInput(activeVoice[previousActiveLayer].index)
-    } else {
-        previousActiveLayer = activeLayer
-        objects.messagePageInput(0)
-    }
-}
-
-function setLayerSolo() {
-    for (var layerName in activeVoice) {
-        var layer = activeVoice[layerName]
-        if (layer.index) {
-            var isSolo = layerName === activeLayer && isDeviceEnabled && isSoloFocus ? 1 : 0
-            setValue(layerName, 'solo', isSolo)
-        }
-    }
-}
+// function toggleActivePage() {
+//     if (isDeviceEnabled) {
+//         objects.messagePageInput(activeVoice[previousActiveLayer].index)
+//     } else {
+//         previousActiveLayer = activeLayer
+//         objects.messagePageInput(0)
+//     }
+// }
 
 function setSubPage(subPage, layerName) {
     var isMuted = subPage === constants.offPageName ? 1 : 0
@@ -201,7 +186,7 @@ function getSubPagesCount() {
 }
 
 function getMacroString(layer, macroName) {
-    var isGlobalMacro = !layer.index || macroName === 'page'
+    var isGlobalMacro = macroName === 'page'
     var macroSuffix = !isGlobalMacro ? '[' + layer.index + ']' : ''
 
     if (macroName === constants.chainSelectName) {

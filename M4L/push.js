@@ -224,7 +224,7 @@ function onTrackSelectButtonsEvent(args) {
     }
 
     if (mode === 'layer') {
-        setLayer(Object.keys(activeVoice)[buttonIndex + 1])
+        setLayer(Object.keys(activeVoice)[buttonIndex])
     } else {
         setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
     }
@@ -238,15 +238,14 @@ function onTrackStateButtonsEvent(args) {
     }
 
     var isPressed = args[1] == 127
-    var buttonIndex = parseInt(args[2])
+    var layerIndex = parseInt(args[2])
 
     if (isPressed) {
-        var layerIndex = buttonIndex + 1
         var layerName = getLayerName(layerIndex)
         var isOn = activeVoice[layerName].activePage === 'Off'
 
         setValue(layerName, constants.muteName, isOn ? 0 : 1)
-        updateTrackStateButton(buttonIndex, isOn)
+        updateTrackStateButton(layerIndex, isOn)
 
         subPageDecimal = isOn ? 0 : 1
     }
@@ -254,11 +253,10 @@ function onTrackStateButtonsEvent(args) {
 
 function updateTrackSelectButtons() {
     if (mode === 'layer') {
-        var selectedButtonIndex = activeVoice[activeLayer].index - 1
-        var buttonCount = Object.keys(activeVoice).length - 1
+        var buttonCount = Object.keys(activeVoice).length
 
         for (var i = 0; i < 8; i++) {
-            var buttonValue = i >= buttonCount ? 0 : i == selectedButtonIndex ? 19 : 13
+            var buttonValue = i >= buttonCount ? 0 : i == activeVoice[activeLayer].index ? 19 : 13
             trackSelectButtonApis[i].call('send_value', buttonValue)
         }
     } else if (mode === 'subPage') {
@@ -275,7 +273,7 @@ function updateTrackSelectButtons() {
 function updateTrackStateButtons() {
     if (mode === 'layer') {
         for (var i = 0; i < 8; i++) {
-            var layerName = getLayerName(i + 1)
+            var layerName = getLayerName(i)
             var isOn = layerName && activeVoice[layerName].activePage !== 'Off'
             updateTrackStateButton(i, isOn)
         }
@@ -287,7 +285,7 @@ function updateTrackStateButtons() {
 }
 
 function updateTrackStateButton(buttonIndex, isOn) {
-    var buttonCount = Object.keys(activeVoice).length - 1
+    var buttonCount = Object.keys(activeVoice).length
     var buttonValue = buttonIndex >= buttonCount ? 0 : isOn ? 13 : 15
 
     trackStateButtonApis[buttonIndex].call('send_value', buttonValue)
@@ -297,7 +295,7 @@ function updateDisplayLine2() {}
 
 function updateDisplayLine3() {
     if (mode === 'layer') {
-        var layerNames = Object.keys(activeVoice).slice(1)
+        var layerNames = Object.keys(activeVoice)
         var menuItems = getDisplayMenuItems(layerNames, activeLayer)
 
         displayLine3Api.call('display_message', menuItems)

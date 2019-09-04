@@ -1,10 +1,6 @@
 exports.voice = {
-    Settings: {
-        macroLayout: 'settings',
-    },
-
     Drum_A: {
-        index: 1,
+        index: 0,
         basePath: 'tom low',
         samples: ['clean', 'tube'],
         devices: ['chain', 'midi', 'sampler'],
@@ -12,7 +8,7 @@ exports.voice = {
     },
 
     Drum_B: {
-        index: 2,
+        index: 1,
         basePath: 'tom low',
         samples: ['grit', 'synth', 'decay'],
         devices: ['chain', 'midi', 'sampler'],
@@ -20,7 +16,7 @@ exports.voice = {
     },
 
     Trans: {
-        index: 3,
+        index: 2,
         basePath: 'trans',
         samples: ['soft', 'hard', 'clap', 'click', 'body'],
         devices: ['chain', 'midi', 'sampler'],
@@ -28,7 +24,7 @@ exports.voice = {
     },
 
     Layer: {
-        index: 4,
+        index: 3,
         basePath: 'layer',
         samples: ['kick', 'snare', 'clap', 'static', 'organic', 'synth'],
         devices: ['chain', 'midi', 'sampler'],
