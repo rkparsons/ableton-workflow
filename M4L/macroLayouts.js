@@ -1,3 +1,10 @@
+// exports.global = [
+//     {
+//         name: 'volume'
+//         macros: [null, null, null, null, null, null, null, null],
+//     },
+// ]
+
 exports.sampler = [
     {
         name: constants.offPageName,

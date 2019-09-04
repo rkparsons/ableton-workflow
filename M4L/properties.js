@@ -28,6 +28,14 @@ exports.chain = [
         unitType: constants.unitType.INT,
         unitStyle: constants.unitStyle.PAN,
     },
+    {
+        name: 'volume',
+        path: 'mixer_device volume',
+        inputRange: [-24, 0],
+        outputRange: [0.302414, 0.85],
+        unitType: constants.unitType.INT,
+        unitStyle: constants.unitStyle.DECIBEL,
+    },
 ]
 
 exports.midi = [
