@@ -291,7 +291,13 @@ function updateTrackStateButton(buttonIndex, isOn) {
     trackStateButtonApis[buttonIndex].call('send_value', buttonValue)
 }
 
-function updateDisplayLine2() {}
+function updateDisplayLine2() {
+    if (mode === 'layer') {
+        displayLine2Api.call('display_message', activeVoiceName)
+    } else if (mode === 'subPage') {
+        displayLine2Api.call('display_message', activeLayer)
+    }
+}
 
 function updateDisplayLine3() {
     if (mode === 'layer') {
