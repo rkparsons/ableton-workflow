@@ -136,6 +136,7 @@ function onAppointedDeviceEvent(args) {
     }
     clearObservers()
     appointedDeviceId = parseInt(args[2])
+    mode = constants.mode.VOICE_MIXER
 
     initialiseAppointedDevice()
 
