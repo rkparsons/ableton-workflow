@@ -130,7 +130,7 @@ function syncValue(layerName, propertyName, apiProperty, value) {
 function syncBanksToSampleType(layerName, sampleTypeIndex) {
     activeVoice[layerName].activeSampleTypeIndex = sampleTypeIndex
 
-    initBanks()
+    updateLiveBanks()
 }
 
 function syncSubPageInputToMute(layerName, isMuted) {
@@ -142,7 +142,7 @@ function syncSubPageInputToMute(layerName, isMuted) {
     layer.activePage = subPage
 
     objects.syncInputToValue(constants.subPageName, layerName, subPageIndex)
-    initBanks()
+    updateLiveBanks()
 }
 
 function previewChange(apiProperty, propertyName) {

@@ -1,31 +1,32 @@
 deviceIds = []
-mode = 'layer'
-var subPageDecimal = null
 var deviceId = null
 var appointedDeviceId = null
 var metronomeButtonApi = null
+var deviceButtonApi = null
+var trackButtonApi = null
 var appointedDeviceApi = null
 var controlSurfaceApi = null
 var trackSelectButtonsApi = null
 var trackStateButtonsApi = null
-var masterVolumeControlApi = null
-var displayLine1Api = null
+var displayLine0Api = null
 var displayLine2Api = null
 var displayLine3Api = null
 var trackSelectButtonApis = []
 var trackStateButtonApis = []
 var metronomeButton = {}
+var deviceButton = {}
+var trackButton = {}
 var trackSelectButtons = {}
 var trackStateButtons = {}
-var displayLine1 = {}
+var displayLine0 = {}
 var displayLine2 = {}
 var displayLine3 = {}
-var masterVolumeControl = {}
 
 exports.initialise = function() {
     initialisePushApis()
+    observeTrackButton()
+    observeDeviceButton()
     observeMetronomeButton()
-    observeMasterVolumeControl()
     observeTrackSelectButtons()
     observeTrackStateButtons()
     observeAppointedDevice()
@@ -35,18 +36,13 @@ exports.initialise = function() {
 function initialiseAppointedDevice() {
     if (deviceId == appointedDeviceId) {
         subPageDecimal = getSubPageIndex()
+        trackButtonApi.property = 'value'
+        deviceButtonApi.property = 'value'
         metronomeButtonApi.property = 'value'
-        masterVolumeControlApi.property = 'value'
         trackSelectButtonsApi.property = 'value'
         trackStateButtonsApi.property = 'value'
 
-        grabControls()
-        updateDisplayLine1()
-        updateDisplayLine2()
-        updateDisplayLine3()
-        updateTrackSelectButtons()
-        updateTrackStateButtons()
-        updateBanks()
+        updateControlSurface()
     }
 }
 
@@ -55,7 +51,6 @@ function initialisePushApis() {
     deviceIds.push(deviceId)
     appointedDeviceId = new LiveAPI('live_set').get('appointed_device')[1]
     controlSurfaceApi = new LiveAPI('control_surfaces 0')
-    masterVolumeControl = controlSurfaceApi.call('get_control_by_name', ['Master_Volume_Control'])
 
     initialiseDisplay()
     initialiseTrackSelectButtons()
@@ -63,10 +58,10 @@ function initialisePushApis() {
 }
 
 function initialiseDisplay() {
-    displayLine1 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_1'])
+    displayLine0 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_0'])
     displayLine2 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_2'])
     displayLine3 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_3'])
-    displayLine1Api = new LiveAPI(function() {}, displayLine1)
+    displayLine0Api = new LiveAPI(function() {}, displayLine0)
     displayLine2Api = new LiveAPI(function() {}, displayLine2)
     displayLine3Api = new LiveAPI(function() {}, displayLine3)
 }
@@ -97,15 +92,22 @@ function observeAppointedDevice() {
     appointedDeviceApi.property = 'appointed_device'
 }
 
+function observeTrackButton() {
+    trackButton = controlSurfaceApi.call('get_control_by_name', 'Single_Track_Mode_Button')
+    trackButtonApi = new LiveAPI(onTrackButtonEvent, trackButton)
+    trackButtonApi.property = 'value'
+}
+
+function observeDeviceButton() {
+    deviceButton = controlSurfaceApi.call('get_control_by_name', 'Device_Mode_Button')
+    deviceButtonApi = new LiveAPI(onDeviceButtonEvent, deviceButton)
+    deviceButtonApi.property = 'value'
+}
+
 function observeMetronomeButton() {
     metronomeButton = controlSurfaceApi.call('get_control_by_name', 'Metronome_Button')
     metronomeButtonApi = new LiveAPI(onMetronomeButtonEvent, metronomeButton)
     metronomeButtonApi.property = 'value'
-}
-
-function observeMasterVolumeControl() {
-    masterVolumeControlApi = new LiveAPI(onMasterVolumeControlEvent, masterVolumeControl)
-    masterVolumeControlApi.property = 'value'
 }
 
 function observeTrackSelectButtons() {
@@ -143,162 +145,176 @@ function onAppointedDeviceEvent(args) {
 }
 
 function clearObservers() {
+    trackButtonApi.property = ''
+    deviceButtonApi.property = ''
     metronomeButtonApi.property = ''
-    masterVolumeControlApi.property = ''
     trackSelectButtonsApi.property = ''
     trackStateButtonsApi.property = ''
 }
 
-function onMetronomeButtonEvent(args) {
+function onTrackButtonEvent(args) {
     if (args[0] !== 'value' || args[1] !== 127) {
         return
     }
 
-    mode = mode === 'subPage' ? 'layer' : 'subPage'
+    mode = constants.mode.VOICE_MIXER
 
-    updateBanks()
-    updateDisplayLine1()
+    updateControlSurface()
+}
+
+function onDeviceButtonEvent(args) {
+    if (args[0] !== 'value' || args[1] !== 127) {
+        return
+    }
+
+    mode = constants.mode.LAYER_DEVICE
+
+    updateControlSurface()
+}
+
+function onMetronomeButtonEvent(args) {}
+
+function onTrackSelectButtonsEvent(args) {
+    if (args[0] !== 'value' || args[1] !== 127) {
+        return
+    }
+
+    var buttonIndex = parseInt(args[2])
+
+    if (mode === constants.mode.VOICE_MIXER) {
+        setLayer(Object.keys(activeVoice)[buttonIndex])
+        updateControlSurface()
+    } else if (mode === constants.mode.LAYER_DEVICE) {
+        setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
+        updateDisplayLine3()
+    }
+}
+
+function onTrackStateButtonsEvent(args) {
+    if (args[0] !== 'value' || args[1] !== 127) {
+        return
+    }
+
+    if (mode === constants.mode.VOICE_MIXER) {
+        var layerIndex = parseInt(args[2])
+        var layerName = getLayerName(layerIndex)
+        var isOn = activeVoice[layerName].activePage === 'Off'
+
+        setValue(layerName, constants.muteName, isOn ? 0 : 1)
+        updateTrackStateButtons(layerIndex, isOn)
+    }
+}
+
+function updateControlSurface() {
+    grabControls()
+    updateLiveBanks()
+    updateDisplayLine0()
     updateDisplayLine2()
     updateDisplayLine3()
     updateTrackSelectButtons()
     updateTrackStateButtons()
 }
 
-function onMasterVolumeControlEvent(args) {
-    if (args[0] !== 'value' || typeof args[1] !== 'number') {
-        return
-    }
-
-    var subPageIndex = getSubPageIndexFromVolumeControl(args[1])
-
-    setSubPage(getSubPageName(subPageIndex), activeLayer)
-    updateDisplayLine3()
-    updateTrackSelectButtons()
-    updateTrackStateButtons()
-}
-
-function getSubPageIndexFromVolumeControl(delta) {
-    subPageDecimal += (delta < 50 ? delta : delta - 128) / 10
-    subPageDecimal = Math.max(0, subPageDecimal)
-    subPageDecimal = Math.min(getSubPagesCount() - 1, subPageDecimal)
-    var subPageIndex = Math.floor(subPageDecimal)
-    return subPageIndex
-}
-
-function onTrackSelectButtonsEvent(args) {
-    var isPressed = args[1] == 127
-    var buttonIndex = parseInt(args[2])
-
-    if (!isPressed) {
-        return
-    }
-
-    if (mode === 'layer') {
-        setLayer(Object.keys(activeVoice)[buttonIndex])
+function updateDisplayLine0() {
+    if (mode === constants.mode.VOICE_MIXER) {
+        displayLayerSelect(displayLine0Api)
     } else {
-        setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
-    }
-    updateBanks()
-    updateTrackSelectButtons()
-    updateDisplayLine3()
-}
-
-function onTrackStateButtonsEvent(args) {
-    if (mode === 'subPage') {
-        return
-    }
-
-    var isPressed = args[1] == 127
-    var layerIndex = parseInt(args[2])
-
-    if (isPressed) {
-        var layerName = getLayerName(layerIndex)
-        var isOn = activeVoice[layerName].activePage === 'Off'
-
-        setValue(layerName, constants.muteName, isOn ? 0 : 1)
-        updateTrackStateButton(layerIndex, isOn)
-
-        subPageDecimal = isOn ? 0 : 1
-    }
-}
-
-function updateBanks() {
-    if (mode === 'layer') {
-        initGlobalBanks()
-    } else {
-        initBanks()
-    }
-}
-
-function updateTrackSelectButtons() {
-    if (mode === 'layer') {
-        var buttonCount = Object.keys(activeVoice).length
-
-        for (var i = 0; i < 8; i++) {
-            var buttonValue = i >= buttonCount ? 0 : i == activeVoice[activeLayer].index ? 19 : 13
-            trackSelectButtonApis[i].call('send_value', buttonValue)
-        }
-    } else if (mode === 'subPage') {
-        var selectedButtonIndex = getSubPageIndex() - 1
-        var buttonCount = getSubPagesCount() - 1
-
-        for (var i = 0; i < 8; i++) {
-            var buttonValue = i >= buttonCount ? 0 : i == selectedButtonIndex ? 4 : 1
-            trackSelectButtonApis[i].call('send_value', buttonValue)
-        }
-    }
-}
-
-function updateTrackStateButtons() {
-    if (mode === 'layer') {
-        for (var i = 0; i < 8; i++) {
-            var layerName = getLayerName(i)
-            var isOn = layerName && activeVoice[layerName].activePage !== 'Off'
-            updateTrackStateButton(i, isOn)
-        }
-    } else if (mode === 'subPage') {
-        for (var i = 0; i < 8; i++) {
-            trackStateButtonApis[i].call('send_value', 0)
-        }
-    }
-}
-
-function updateTrackStateButton(buttonIndex, isOn) {
-    var buttonCount = Object.keys(activeVoice).length
-    var buttonValue = buttonIndex >= buttonCount ? 0 : isOn ? 13 : 15
-
-    trackStateButtonApis[buttonIndex].call('send_value', buttonValue)
-}
-
-function updateDisplayLine1() {
-    if (mode === 'layer') {
-        displayLine2Api.call('display_message', activeVoiceName)
-    } else if (mode === 'subPage') {
-        displayLine2Api.call('display_message', activeLayer)
+        releaseControl(displayLine0)
     }
 }
 
 function updateDisplayLine2() {
-    if (mode === 'layer') {
-        displayLine2Api.call('display_message', activeVoiceName)
-    } else if (mode === 'subPage') {
-        displayLine2Api.call('display_message', activeLayer)
-    }
+    displayBlank(displayLine2Api)
 }
 
 function updateDisplayLine3() {
-    if (mode === 'layer') {
-        var layerNames = Object.keys(activeVoice)
-        var menuItems = getDisplayMenuItems(layerNames, activeLayer)
-
-        displayLine3Api.call('display_message', menuItems)
-    } else if (mode === 'subPage') {
-        var pageNames = getPageNames().slice(1)
-        var activePage = activeVoice[activeLayer].activePage
-        var menuItems = getDisplayMenuItems(pageNames, activePage)
-
-        displayLine3Api.call('display_message', menuItems)
+    if (mode === constants.mode.VOICE_MIXER) {
+        displayActiveVoice(displayLine3Api)
+    } else if (mode === constants.mode.LAYER_DEVICE) {
+        displayLayerParamSelect(displayLine3Api)
+    } else {
+        displayBlank(displayLine3Api)
     }
+}
+
+function updateTrackSelectButtons() {
+    if (mode === constants.mode.VOICE_MIXER) {
+        mapButtonsToLayerSelect(trackSelectButtonApis)
+    } else if (mode === constants.mode.LAYER_DEVICE) {
+        mapButtonsToLayerParamSelect(trackSelectButtonApis)
+    } else {
+        mapButtonsToBlank(trackSelectButtonApis)
+    }
+}
+
+function updateTrackStateButtons(updatedIndex, isOn) {
+    if (mode === constants.mode.VOICE_MIXER) {
+        mapButtonsToLayerToggle(trackStateButtonApis, updatedIndex, isOn)
+    } else {
+        mapButtonsToBlank(trackStateButtonApis)
+    }
+}
+
+function mapButtonsToLayerSelect(buttonApis) {
+    var buttonCount = Object.keys(activeVoice).length
+
+    for (var i = 0; i < 8; i++) {
+        var buttonValue = i >= buttonCount ? 0 : i == activeVoice[activeLayer].index ? 19 : 13
+        buttonApis[i].call('send_value', buttonValue)
+    }
+}
+
+function mapButtonsToLayerToggle(buttonApis, updatedIndex, updatedValue) {
+    for (var i = 0; i < 8; i++) {
+        var layerName = getLayerName(i)
+        var isOn = i === updatedIndex ? updatedValue : layerName && activeVoice[layerName].activePage !== 'Off'
+        var buttonCount = Object.keys(activeVoice).length
+        var buttonValue = i >= buttonCount ? 0 : isOn ? 13 : 15
+
+        buttonApis[i].call('send_value', buttonValue)
+    }
+}
+
+function mapButtonsToLayerParamSelect(buttonApis) {
+    var selectedButtonIndex = getSubPageIndex() - 1
+    var buttonCount = getSubPagesCount() - 1
+
+    for (var i = 0; i < 8; i++) {
+        var buttonValue = i >= buttonCount ? 0 : i == selectedButtonIndex ? 4 : 1
+        buttonApis[i].call('send_value', buttonValue)
+    }
+}
+
+function mapButtonsToBlank(buttonApis) {
+    for (var i = 0; i < 8; i++) {
+        buttonApis[i].call('send_value', 0)
+    }
+}
+
+function displayLayerSelect(displayApi) {
+    var layerNames = Object.keys(activeVoice)
+    var menuItems = getDisplayMenuItems(layerNames, activeLayer)
+
+    displayApi.call('display_message', menuItems)
+}
+
+function displayActiveVoice(displayApi) {
+    displayApi.call('display_message', activeVoiceName)
+}
+
+function displayActiveLayer(displayApi) {
+    displayApi.call('display_message', activeLayer)
+}
+
+function displayLayerParamSelect(displayApi) {
+    var pageNames = getPageNames().slice(1)
+    var menuItems = getDisplayMenuItems(pageNames, activeVoice[activeLayer].activePage)
+
+    displayApi.call('display_message', menuItems)
+}
+
+function displayBlank(displayApi) {
+    displayApi.call('display_message', ' ')
 }
 
 function getDisplayMenuItems(items, selectedItem) {
@@ -319,20 +335,32 @@ function getDisplayMenuItems(items, selectedItem) {
     return itemsPadded
 }
 
+function grabControl(control) {
+    controlSurfaceApi.call('grab_control', control)
+}
+
+function releaseControl(control) {
+    controlSurfaceApi.call('release_control', control)
+}
+
 function grabControls() {
-    controlSurfaceApi.call('grab_control', metronomeButton)
-    controlSurfaceApi.call('grab_control', masterVolumeControl)
-    controlSurfaceApi.call('grab_control', displayLine2)
-    controlSurfaceApi.call('grab_control', displayLine3)
-    controlSurfaceApi.call('grab_control', trackSelectButtons)
-    controlSurfaceApi.call('grab_control', trackStateButtons)
+    grabControl(trackButton)
+    grabControl(deviceButton)
+    grabControl(metronomeButton)
+    grabControl(displayLine0)
+    grabControl(displayLine2)
+    grabControl(displayLine3)
+    grabControl(trackSelectButtons)
+    grabControl(trackStateButtons)
 }
 
 function releaseControls() {
-    controlSurfaceApi.call('release_control', metronomeButton)
-    controlSurfaceApi.call('release_control', masterVolumeControl)
-    controlSurfaceApi.call('release_control', displayLine2)
-    controlSurfaceApi.call('release_control', displayLine3)
-    controlSurfaceApi.call('release_control', trackSelectButtons)
-    controlSurfaceApi.call('release_control', trackStateButtons)
+    releaseControl(trackButton)
+    releaseControl(deviceButton)
+    releaseControl(metronomeButton)
+    releaseControl(displayLine0)
+    releaseControl(displayLine2)
+    releaseControl(displayLine3)
+    releaseControl(trackSelectButtons)
+    releaseControl(trackStateButtons)
 }

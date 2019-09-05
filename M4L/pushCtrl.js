@@ -16,6 +16,8 @@ var macroLayouts = require('macroLayouts')
 var macroGlobals = require('macroGlobals')
 var activeVoice = require('voice_' + activeVoiceName).voice
 
+mode = constants.mode.LAYER_DEVICE
+
 // public functions
 
 function initObjects() {
@@ -25,7 +27,7 @@ function initObjects() {
 function initLiveApi() {
     devices.initialise()
     push.initialise()
-    initBanks()
+    updateLiveBanks()
 
     utilities.log(activeVoiceName, 'initialising...done.')
 }
@@ -49,7 +51,7 @@ function setSoloFocus(value) {
 function setLayer(layerName) {
     activeLayer = layerName
 
-    initBanks()
+    updateLiveBanks()
 }
 
 function setValue(layerName, propertyName, value) {
@@ -84,20 +86,32 @@ function setSubPage(subPage, layerName) {
     }
 
     if (layerName === activeLayer) {
-        initBanks()
+        updateLiveBanks()
     }
 }
 
-function initBanks() {
-    if (devices.isInitialised()) {
-        objects.messageBanks(getBanksMessage())
+function updateLiveBanks() {
+    if (!devices.isInitialised()) {
+        return
     }
-}
 
-function initGlobalBanks() {
-    if (devices.isInitialised()) {
+    if (mode === constants.mode.VOICE_MIXER) {
         objects.messageBanks(getGlobalBanksMessage('volume'))
+    } else if (mode === constants.mode.LAYER_DEVICE) {
+        objects.messageBanks(getBanksMessage())
+    } else {
+        objects.messageBanks(getBlankBanksMessage())
     }
+}
+
+function getBlankBanksMessage() {
+    var banksMessage = ['edit', 0, 'Global']
+
+    for (var i = 0; i < 8; i++) {
+        banksMessage.push(i, '-')
+    }
+
+    return banksMessage
 }
 
 function getGlobalBanksMessage(paramName) {

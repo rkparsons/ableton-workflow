@@ -26,3 +26,11 @@ exports.unitStyle = {
     CUSTOM: 9,
     NATIVE: 10,
 }
+
+exports.mode = {
+    VOICE_MIXER: 0,
+    VOICE_EFFECT: 1,
+    VOICE_SEQUENCE: 2,
+    LAYER_DEVICE: 8,
+    LAYER_EFFECT: 9,
+}
