@@ -119,7 +119,9 @@ function getGlobalBanksMessage(paramName) {
     var macros = macroGlobals[paramName]
 
     for (var i = 0; i < 8; i++) {
-        banksMessage.push(i, macros[i])
+        var layerName = getLayerName(i)
+        var isOn = layerName && activeVoice[layerName].activePage !== 'Off'
+        banksMessage.push(i, isOn ? macros[i] : '-')
     }
 
     return banksMessage

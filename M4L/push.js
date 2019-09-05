@@ -183,6 +183,7 @@ function onTrackSelectButtonsEvent(args) {
 
     if (mode === constants.mode.VOICE_MIXER) {
         setLayer(Object.keys(activeVoice)[buttonIndex])
+        mode = constants.mode.LAYER_DEVICE
         updateControlSurface()
     } else if (mode === constants.mode.LAYER_DEVICE) {
         setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
@@ -325,7 +326,7 @@ function getDisplayMenuItems(items, selectedItem) {
         var length = 8 - (i % 2)
         var item = items[i] || ''
 
-        if (item === selectedItem) {
+        if (selectedItem && selectedItem === item) {
             item = '>' + item
         }
 
