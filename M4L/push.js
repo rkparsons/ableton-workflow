@@ -179,15 +179,11 @@ function onTrackSelectButtonsEvent(args) {
         return
     }
 
-    var buttonIndex = parseInt(args[2])
-
-    if (mode === constants.mode.VOICE_MIXER) {
+    if (mode === constants.mode.VOICE_MIXER || mode === constants.mode.LAYER_DEVICE) {
+        var buttonIndex = parseInt(args[2])
         setLayer(Object.keys(activeVoice)[buttonIndex])
         mode = constants.mode.LAYER_DEVICE
         updateControlSurface()
-    } else if (mode === constants.mode.LAYER_DEVICE) {
-        setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
-        updateDisplayLine3()
     }
 }
 
@@ -196,13 +192,18 @@ function onTrackStateButtonsEvent(args) {
         return
     }
 
+    var buttonIndex = parseInt(args[2])
+
     if (mode === constants.mode.VOICE_MIXER) {
-        var layerIndex = parseInt(args[2])
-        var layerName = getLayerName(layerIndex)
+        var layerName = getLayerName(buttonIndex)
         var isOn = activeVoice[layerName].activePage === 'Off'
 
         setValue(layerName, constants.muteName, isOn ? 0 : 1)
-        updateTrackStateButtons(layerIndex, isOn)
+        updateTrackStateButtons(buttonIndex, isOn)
+    } else if (mode === constants.mode.LAYER_DEVICE) {
+        setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
+        updateTrackStateButtons(buttonIndex)
+        updateDisplayLine3()
     }
 }
 
@@ -217,16 +218,12 @@ function updateControlSurface() {
 }
 
 function updateDisplayLine0() {
-    if (mode === constants.mode.VOICE_MIXER) {
-        displayLayerSelect(displayLine0Api)
-    } else {
-        releaseControl(displayLine0)
-    }
+    releaseControl(displayLine0)
 }
 
 function updateDisplayLine2() {
-    if (mode === constants.mode.LAYER_DEVICE) {
-        displayActiveLayer(displayLine2Api)
+    if (mode === constants.mode.VOICE_MIXER || mode === constants.mode.LAYER_DEVICE) {
+        displayLayerSelect(displayLine2Api)
     } else {
         displayBlank(displayLine2Api)
     }
@@ -243,10 +240,8 @@ function updateDisplayLine3() {
 }
 
 function updateTrackSelectButtons() {
-    if (mode === constants.mode.VOICE_MIXER) {
-        mapButtonsToLayerSelect(trackSelectButtonApis)
-    } else if (mode === constants.mode.LAYER_DEVICE) {
-        mapButtonsToLayerParamSelect(trackSelectButtonApis)
+    if (mode === constants.mode.VOICE_MIXER || mode === constants.mode.LAYER_DEVICE) {
+        mapButtonsToLayerSelect(trackSelectButtonApis, constants.selectButtonColour.BLACK, constants.selectButtonColour.GREEN_DIM, constants.selectButtonColour.GREEN_BRIGHT)
     } else {
         mapButtonsToBlank(trackSelectButtonApis)
     }
@@ -255,16 +250,18 @@ function updateTrackSelectButtons() {
 function updateTrackStateButtons(updatedIndex, isOn) {
     if (mode === constants.mode.VOICE_MIXER) {
         mapButtonsToLayerToggle(trackStateButtonApis, updatedIndex, isOn)
+    } else if (mode === constants.mode.LAYER_DEVICE) {
+        mapButtonsToLayerParamSelect(trackStateButtonApis, constants.stateButtonColour.BLACK, constants.stateButtonColour.BLUE_DIM, constants.stateButtonColour.BLUE_BRIGHT, updatedIndex)
     } else {
         mapButtonsToBlank(trackStateButtonApis)
     }
 }
 
-function mapButtonsToLayerSelect(buttonApis) {
+function mapButtonsToLayerSelect(buttonApis, colourOff, colourInactive, colourActive) {
     var buttonCount = Object.keys(activeVoice).length
 
     for (var i = 0; i < 8; i++) {
-        var buttonValue = i >= buttonCount ? 0 : i == activeVoice[activeLayer].index ? 19 : 13
+        var buttonValue = i >= buttonCount ? colourOff : i == activeVoice[activeLayer].index ? colourActive : colourInactive
         buttonApis[i].call('send_value', buttonValue)
     }
 }
@@ -280,12 +277,12 @@ function mapButtonsToLayerToggle(buttonApis, updatedIndex, updatedValue) {
     }
 }
 
-function mapButtonsToLayerParamSelect(buttonApis) {
-    var selectedButtonIndex = getSubPageIndex() - 1
+function mapButtonsToLayerParamSelect(buttonApis, colourOff, colourInactive, colourActive, updatedIndex) {
+    var selectedButtonIndex = updatedIndex || getSubPageIndex() - 1
     var buttonCount = getSubPagesCount() - 1
 
     for (var i = 0; i < 8; i++) {
-        var buttonValue = i >= buttonCount ? 0 : i == selectedButtonIndex ? 4 : 1
+        var buttonValue = i >= buttonCount ? colourOff : i == selectedButtonIndex ? colourActive : colourInactive
         buttonApis[i].call('send_value', buttonValue)
     }
 }
@@ -298,7 +295,7 @@ function mapButtonsToBlank(buttonApis) {
 
 function displayLayerSelect(displayApi) {
     var layerNames = Object.keys(activeVoice)
-    var menuItems = getDisplayMenuItems(layerNames)
+    var menuItems = getDisplayMenuItems(layerNames, activeLayer)
 
     displayApi.call('display_message', menuItems)
 }

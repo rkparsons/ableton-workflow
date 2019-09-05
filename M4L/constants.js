@@ -34,3 +34,15 @@ exports.mode = {
     LAYER_DEVICE: 8,
     LAYER_EFFECT: 9,
 }
+
+exports.selectButtonColour = {
+    BLACK: 0,
+    GREEN_DIM: 13,
+    GREEN_BRIGHT: 19,
+}
+
+exports.stateButtonColour = {
+    BLACK: 0,
+    BLUE_BRIGHT: 45,
+    BLUE_DIM: 47,
+}
