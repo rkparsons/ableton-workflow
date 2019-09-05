@@ -218,12 +218,16 @@ function updateControlSurface() {
 }
 
 function updateDisplayLine0() {
-    releaseControl(displayLine0)
+    if (mode === constants.mode.VOICE_MIXER) {
+        displayLayerSelect(displayLine0Api)
+    } else {
+        releaseControl(displayLine0)
+    }
 }
 
 function updateDisplayLine2() {
-    if (mode === constants.mode.VOICE_MIXER || mode === constants.mode.LAYER_DEVICE) {
-        displayLayerSelect(displayLine2Api)
+    if (mode === constants.mode.LAYER_DEVICE) {
+        displayActiveLayer(displayLine2Api)
     } else {
         displayBlank(displayLine2Api)
     }
@@ -293,7 +297,7 @@ function mapButtonsToBlank(buttonApis) {
     }
 }
 
-function displayLayerSelect(displayApi) {
+function displayLayerSelect(displayApi, activeLayer) {
     var layerNames = Object.keys(activeVoice)
     var menuItems = getDisplayMenuItems(layerNames, activeLayer)
 
