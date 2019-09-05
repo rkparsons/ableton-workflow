@@ -16,7 +16,7 @@ var macroLayouts = require('macroLayouts')
 var macroGlobals = require('macroGlobals')
 var activeVoice = require('voice_' + activeVoiceName).voice
 
-mode = constants.mode.LAYER_DEVICE
+mode = constants.mode.VOICE_MIXER
 
 // public functions
 

@@ -183,7 +183,8 @@ function onTrackSelectButtonsEvent(args) {
 
     if (mode === constants.mode.VOICE_MIXER) {
         setLayer(Object.keys(activeVoice)[buttonIndex])
-        updateTrackSelectButtons()
+        mode = constants.mode.LAYER_DEVICE
+        updateControlSurface()
     } else if (mode === constants.mode.LAYER_DEVICE) {
         setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
         updateDisplayLine3()
