@@ -40,8 +40,8 @@ function setEnabled(value) {
     }
 }
 
-function setPreview(value) {
-    devices.setPreview(value)
+function setTransportState(isTransportRunning) {
+    devices.setPreview(!isTransportRunning)
 }
 
 function setSoloFocus(value) {
