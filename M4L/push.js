@@ -1,6 +1,7 @@
 deviceIds = []
 var deviceId = null
 var appointedDeviceId = null
+var trackControlTouchApis = []
 var metronomeButtonApi = null
 var deviceButtonApi = null
 var trackButtonApi = null
@@ -13,6 +14,7 @@ var displayLine2Api = null
 var displayLine3Api = null
 var trackSelectButtonApis = []
 var trackStateButtonApis = []
+var trackControlTouches = []
 var metronomeButton = {}
 var deviceButton = {}
 var trackButton = {}
@@ -21,9 +23,11 @@ var trackStateButtons = {}
 var displayLine0 = {}
 var displayLine2 = {}
 var displayLine3 = {}
+var onTrackControlTouchEvents = [onTrackControlTouch0Event, onTrackControlTouch1Event, onTrackControlTouch2Event, onTrackControlTouch3Event, onTrackControlTouch4Event, onTrackControlTouch5Event, onTrackControlTouch6Event, onTrackControlTouch7Event]
 
 exports.initialise = function() {
     initialisePushApis()
+    observeTrackControlTouches()
     observeTrackButton()
     observeDeviceButton()
     observeMetronomeButton()
@@ -41,6 +45,9 @@ function initialiseAppointedDevice() {
         metronomeButtonApi.property = 'value'
         trackSelectButtonsApi.property = 'value'
         trackStateButtonsApi.property = 'value'
+        trackControlTouchApis.forEach(function(x) {
+            x.property = 'value'
+        })
 
         updateControlSurface()
     }
@@ -52,9 +59,17 @@ function initialisePushApis() {
     appointedDeviceId = new LiveAPI('live_set').get('appointed_device')[1]
     controlSurfaceApi = new LiveAPI('control_surfaces 0')
 
+    initialiseTrackControlTouches()
     initialiseDisplay()
     initialiseTrackSelectButtons()
     initialiseTrackStateButtons()
+}
+
+function initialiseTrackControlTouches() {
+    for (var i = 0; i < 8; i++) {
+        trackControlTouch = controlSurfaceApi.call('get_control_by_name', ['Track_Control_Touch_' + i])
+        trackControlTouches.push(trackControlTouch)
+    }
 }
 
 function initialiseDisplay() {
@@ -83,6 +98,15 @@ function initialiseTrackStateButtons() {
         var trackStateButton = controlSurfaceApi.call('get_control_by_name', 'Track_State_Button' + i)
         var trackStateButtonApi = new LiveAPI(function() {}, trackStateButton)
         trackStateButtonApis.push(trackStateButtonApi)
+    }
+}
+
+function observeTrackControlTouches() {
+    for (var i in trackControlTouches) {
+        trackControlTouchApi = new LiveAPI(onTrackControlTouchEvents[i], trackControlTouches[i])
+        trackControlTouchApi.property = 'value'
+
+        trackControlTouchApis.push(trackControlTouchApi)
     }
 }
 
@@ -145,11 +169,56 @@ function onAppointedDeviceEvent(args) {
 }
 
 function clearObservers() {
+    trackControlTouchApis.forEach(function(x) {
+        x.property = ''
+    })
     trackButtonApi.property = ''
     deviceButtonApi.property = ''
     metronomeButtonApi.property = ''
     trackSelectButtonsApi.property = ''
     trackStateButtonsApi.property = ''
+}
+
+function onTrackControlTouch0Event(args) {
+    onTrackControlTouchEvent(0, args)
+}
+
+function onTrackControlTouch1Event(args) {
+    onTrackControlTouchEvent(1, args)
+}
+
+function onTrackControlTouch2Event(args) {
+    onTrackControlTouchEvent(2, args)
+}
+
+function onTrackControlTouch3Event(args) {
+    onTrackControlTouchEvent(3, args)
+}
+
+function onTrackControlTouch4Event(args) {
+    onTrackControlTouchEvent(4, args)
+}
+
+function onTrackControlTouch5Event(args) {
+    onTrackControlTouchEvent(5, args)
+}
+
+function onTrackControlTouch6Event(args) {
+    onTrackControlTouchEvent(6, args)
+}
+
+function onTrackControlTouch7Event(args) {
+    onTrackControlTouchEvent(7, args)
+}
+
+function onTrackControlTouchEvent(touchControlIndex, args) {
+    if (args[0] !== 'value' || args[1] !== 127) {
+        return
+    }
+
+    setLayer(Object.keys(activeVoice)[touchControlIndex])
+    mode = constants.mode.LAYER_DEVICE
+    updateControlSurface()
 }
 
 function onTrackButtonEvent(args) {
