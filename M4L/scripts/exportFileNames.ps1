@@ -1,1 +1,0 @@
-dir > _dirlist.txt

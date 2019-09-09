@@ -5,7 +5,7 @@ exports.chainSelectName = 'chain_select'
 exports.sampleTypeName = 'sample_type'
 exports.muteName = 'mute'
 exports.chainsPath = 'this_device canonical_parent devices 1 chains'
-exports.drumSamplesPath = 'D:/Dropbox/Documents/Ableton/User Library/Samples/1. Drum hit'
+exports.drumSamplesPath = 'C:/Code/ableton-workflow/Samples'
 
 exports.unitType = {
     FLOAT: 0,

@@ -259,7 +259,8 @@ function getChainSelectInputRange(layer, sampleTypeName) {
     }
 
     var samples = []
-    var folder = new Folder(constants.drumSamplesPath + '/' + activeVoiceName + '/' + layer.samples[sampleTypeName])
+    var samplesPath = constants.drumSamplesPath + '/' + layer.basePath + '/' + layer.samples[sampleTypeName]
+    var folder = new Folder(samplesPath)
     folder.typelist = ['WAVE']
 
     folder.next()
