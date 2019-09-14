@@ -32,3 +32,9 @@ exports.setTimeout = function(task, timeout) {
     tsk.interval = timeout
     tsk.repeat(2)
 }
+
+exports.deferLow = function(funcToDefer, context) {
+    new Task(function() {
+        funcToDefer()
+    }, context).schedule(0)
+}

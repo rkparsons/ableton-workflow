@@ -1,373 +1,169 @@
-deviceIds = []
-var deviceId = null
-var appointedDeviceId = null
-var metronomeButtonApi = null
-var deviceButtonApi = null
-var trackButtonApi = null
-var appointedDeviceApi = null
-var controlSurfaceApi = null
-var trackSelectButtonsApi = null
-var trackStateButtonsApi = null
-var displayLine0Api = null
-var displayLine2Api = null
-var displayLine3Api = null
-var trackSelectButtonApis = []
-var trackStateButtonApis = []
-var metronomeButton = {}
-var deviceButton = {}
-var trackButton = {}
-var trackSelectButtons = {}
-var trackStateButtons = {}
-var displayLine0 = {}
-var displayLine2 = {}
-var displayLine3 = {}
-
-exports.initialise = function() {
-    initialisePushApis()
-    observeTrackButton()
-    observeDeviceButton()
-    observeMetronomeButton()
-    observeTrackSelectButtons()
-    observeTrackStateButtons()
-    observeAppointedDevice()
-    utilities.setTimeout(initialiseAppointedDevice, 0)
-}
-
-function initialiseAppointedDevice() {
-    if (deviceId == appointedDeviceId) {
-        subPageDecimal = getSubPageIndex()
-        trackButtonApi.property = 'value'
-        deviceButtonApi.property = 'value'
-        metronomeButtonApi.property = 'value'
-        trackSelectButtonsApi.property = 'value'
-        trackStateButtonsApi.property = 'value'
-
-        updateControlSurface()
-    }
-}
-
-function initialisePushApis() {
-    deviceId = new LiveAPI('this_device').id
-    deviceIds.push(deviceId)
-    appointedDeviceId = new LiveAPI('live_set').get('appointed_device')[1]
-    controlSurfaceApi = new LiveAPI('control_surfaces 0')
-
-    initialiseDisplay()
-    initialiseTrackSelectButtons()
-    initialiseTrackStateButtons()
-}
-
-function initialiseDisplay() {
-    displayLine0 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_0'])
-    displayLine2 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_2'])
-    displayLine3 = controlSurfaceApi.call('get_control_by_name', ['Display_Line_3'])
-    displayLine0Api = new LiveAPI(function() {}, displayLine0)
-    displayLine2Api = new LiveAPI(function() {}, displayLine2)
-    displayLine3Api = new LiveAPI(function() {}, displayLine3)
-}
-
-function initialiseTrackSelectButtons() {
-    trackSelectButtons = controlSurfaceApi.call('get_control_by_name', ['Track_Select_Buttons'])
-
-    for (var i = 0; i < 8; i++) {
-        var trackSelectButton = controlSurfaceApi.call('get_control_by_name', 'Track_Select_Button' + i)
-        var trackSelectButtonApi = new LiveAPI(function() {}, trackSelectButton)
-        trackSelectButtonApis.push(trackSelectButtonApi)
-    }
-}
-
-function initialiseTrackStateButtons() {
-    trackStateButtons = controlSurfaceApi.call('get_control_by_name', ['Track_State_Buttons'])
-
-    for (var i = 0; i < 8; i++) {
-        var trackStateButton = controlSurfaceApi.call('get_control_by_name', 'Track_State_Button' + i)
-        var trackStateButtonApi = new LiveAPI(function() {}, trackStateButton)
-        trackStateButtonApis.push(trackStateButtonApi)
-    }
-}
-
-function observeAppointedDevice() {
-    appointedDeviceApi = new LiveAPI(onAppointedDeviceEvent)
-    appointedDeviceApi.path = 'live_set'
-    appointedDeviceApi.property = 'appointed_device'
-}
-
-function observeTrackButton() {
-    trackButton = controlSurfaceApi.call('get_control_by_name', 'Single_Track_Mode_Button')
-    trackButtonApi = new LiveAPI(onTrackButtonEvent, trackButton)
-    trackButtonApi.property = 'value'
-}
-
-function observeDeviceButton() {
-    deviceButton = controlSurfaceApi.call('get_control_by_name', 'Device_Mode_Button')
-    deviceButtonApi = new LiveAPI(onDeviceButtonEvent, deviceButton)
-    deviceButtonApi.property = 'value'
-}
-
-function observeMetronomeButton() {
-    metronomeButton = controlSurfaceApi.call('get_control_by_name', 'Metronome_Button')
-    metronomeButtonApi = new LiveAPI(onMetronomeButtonEvent, metronomeButton)
-    metronomeButtonApi.property = 'value'
-}
-
-function observeTrackSelectButtons() {
-    trackSelectButtonsApi = new LiveAPI(onTrackSelectButtonsEvent, trackSelectButtons)
-    trackSelectButtonsApi.property = 'value'
-}
-
-function observeTrackStateButtons() {
-    trackStateButtonsApi = new LiveAPI(onTrackStateButtonsEvent, trackStateButtons)
-    trackStateButtonsApi.property = 'value'
-}
-
-function isExitingDevice() {
-    for (var i = 0; i < deviceIds.length; i++) {
-        if (deviceIds[i] == appointedDeviceId) {
-            return false
-        }
-    }
-
-    return true
-}
-
-function onAppointedDeviceEvent(args) {
-    if (args[0] !== 'appointed_device') {
-        return
-    }
-    clearObservers()
-    appointedDeviceId = parseInt(args[2])
-    mode = constants.mode.VOICE_MIXER
-
-    initialiseAppointedDevice()
-
-    if (isExitingDevice()) {
-        releaseControls()
-    }
-}
-
-function clearObservers() {
-    trackButtonApi.property = ''
-    deviceButtonApi.property = ''
-    metronomeButtonApi.property = ''
-    trackSelectButtonsApi.property = ''
-    trackStateButtonsApi.property = ''
-}
-
-function onTrackButtonEvent(args) {
-    if (args[0] !== 'value' || args[1] !== 127) {
-        return
-    }
-
-    mode = constants.mode.VOICE_MIXER
-
-    updateControlSurface()
-}
-
-function onDeviceButtonEvent(args) {
-    if (args[0] !== 'value' || args[1] !== 127) {
-        return
-    }
-
-    mode = constants.mode.LAYER_DEVICE
-
-    updateControlSurface()
-}
-
-function onMetronomeButtonEvent(args) {}
-
-function onTrackSelectButtonsEvent(args) {
-    if (args[0] !== 'value' || args[1] !== 127) {
-        return
-    }
-
-    if (mode === constants.mode.VOICE_MIXER || mode === constants.mode.LAYER_DEVICE) {
-        var buttonIndex = parseInt(args[2])
-        setLayer(Object.keys(activeVoice)[buttonIndex])
-        mode = constants.mode.LAYER_DEVICE
-        updateControlSurface()
-    }
-}
-
-function onTrackStateButtonsEvent(args) {
-    if (args[0] !== 'value' || args[1] !== 127) {
-        return
-    }
-
-    var buttonIndex = parseInt(args[2])
-
-    if (mode === constants.mode.VOICE_MIXER) {
-        var layerName = getLayerName(buttonIndex)
-        var isOn = activeVoice[layerName].activePage === 'Off'
-
-        setValue(layerName, constants.muteName, isOn ? 0 : 1)
-        updateTrackStateButtons(buttonIndex, isOn)
-    } else if (mode === constants.mode.LAYER_DEVICE) {
-        setSubPage(getSubPageName(buttonIndex + 1), activeLayer)
-        updateTrackStateButtons(buttonIndex)
-        updateDisplayLine3()
-    }
-}
-
-function updateControlSurface() {
-    grabControls()
-    updateLiveBanks()
-    updateDisplayLine0()
-    updateDisplayLine2()
-    updateDisplayLine3()
-    updateTrackSelectButtons()
-    updateTrackStateButtons()
-}
-
-function updateDisplayLine0() {
-    if (mode === constants.mode.VOICE_MIXER) {
-        displayLayerSelect(displayLine0Api)
-    } else {
-        releaseControl(displayLine0)
-    }
-}
-
-function updateDisplayLine2() {
-    if (mode === constants.mode.LAYER_DEVICE) {
-        displayActiveLayer(displayLine2Api)
-    } else {
-        displayBlank(displayLine2Api)
-    }
-}
-
-function updateDisplayLine3() {
-    if (mode === constants.mode.VOICE_MIXER) {
-        displayActiveVoice(displayLine3Api)
-    } else if (mode === constants.mode.LAYER_DEVICE) {
-        displayLayerParamSelect(displayLine3Api)
-    } else {
-        displayBlank(displayLine3Api)
-    }
-}
-
-function updateTrackSelectButtons() {
-    if (mode === constants.mode.VOICE_MIXER || mode === constants.mode.LAYER_DEVICE) {
-        mapButtonsToLayerSelect(trackSelectButtonApis, constants.selectButtonColour.BLACK, constants.selectButtonColour.GREEN_DIM, constants.selectButtonColour.GREEN_BRIGHT)
-    } else {
-        mapButtonsToBlank(trackSelectButtonApis)
-    }
-}
-
-function updateTrackStateButtons(updatedIndex, isOn) {
-    if (mode === constants.mode.VOICE_MIXER) {
-        mapButtonsToLayerToggle(trackStateButtonApis, updatedIndex, isOn)
-    } else if (mode === constants.mode.LAYER_DEVICE) {
-        mapButtonsToLayerParamSelect(trackStateButtonApis, constants.stateButtonColour.BLACK, constants.stateButtonColour.BLUE_DIM, constants.stateButtonColour.BLUE_BRIGHT, updatedIndex)
-    } else {
-        mapButtonsToBlank(trackStateButtonApis)
-    }
-}
-
-function mapButtonsToLayerSelect(buttonApis, colourOff, colourInactive, colourActive) {
-    var buttonCount = Object.keys(activeVoice).length
-
-    for (var i = 0; i < 8; i++) {
-        var buttonValue = i >= buttonCount ? colourOff : i == activeVoice[activeLayer].index ? colourActive : colourInactive
-        buttonApis[i].call('send_value', buttonValue)
-    }
-}
-
-function mapButtonsToLayerToggle(buttonApis, updatedIndex, updatedValue) {
-    for (var i = 0; i < 8; i++) {
-        var layerName = getLayerName(i)
-        var isOn = i === updatedIndex ? updatedValue : layerName && activeVoice[layerName].activePage !== 'Off'
-        var buttonCount = Object.keys(activeVoice).length
-        var buttonValue = i >= buttonCount ? 0 : isOn ? 13 : 15
-
-        buttonApis[i].call('send_value', buttonValue)
-    }
-}
-
-function mapButtonsToLayerParamSelect(buttonApis, colourOff, colourInactive, colourActive, updatedIndex) {
-    var selectedButtonIndex = updatedIndex || getSubPageIndex() - 1
-    var buttonCount = getSubPagesCount() - 1
-
-    for (var i = 0; i < 8; i++) {
-        var buttonValue = i >= buttonCount ? colourOff : i == selectedButtonIndex ? colourActive : colourInactive
-        buttonApis[i].call('send_value', buttonValue)
-    }
-}
-
-function mapButtonsToBlank(buttonApis) {
-    for (var i = 0; i < 8; i++) {
-        buttonApis[i].call('send_value', 0)
-    }
-}
-
-function displayLayerSelect(displayApi, activeLayer) {
-    var layerNames = Object.keys(activeVoice)
-    var menuItems = getDisplayMenuItems(layerNames, activeLayer)
-
-    displayApi.call('display_message', menuItems)
-}
-
-function displayActiveVoice(displayApi) {
-    displayApi.call('display_message', activeVoiceName)
-}
-
-function displayActiveLayer(displayApi) {
-    displayApi.call('display_message', activeLayer)
-}
-
-function displayLayerParamSelect(displayApi) {
-    var pageNames = getPageNames().slice(1)
-    var menuItems = getDisplayMenuItems(pageNames, activeVoice[activeLayer].activePage)
-
-    displayApi.call('display_message', menuItems)
-}
-
-function displayBlank(displayApi) {
-    displayApi.call('display_message', ' ')
-}
-
-function getDisplayMenuItems(items, selectedItem) {
-    var padding = '        '
-    var itemsPadded = []
-
-    for (var i = 0; i < 8; i++) {
-        var length = 8 - (i % 2)
-        var item = items[i] || ''
-
-        if (selectedItem && selectedItem === item) {
-            item = '>' + item
-        }
-
-        itemsPadded.push((item + padding).slice(0, length))
-    }
-
-    return itemsPadded
-}
-
-function grabControl(control) {
-    controlSurfaceApi.call('grab_control', control)
-}
-
-function releaseControl(control) {
-    controlSurfaceApi.call('release_control', control)
-}
-
-function grabControls() {
-    grabControl(trackButton)
-    grabControl(deviceButton)
-    grabControl(metronomeButton)
-    grabControl(displayLine0)
-    grabControl(displayLine2)
-    grabControl(displayLine3)
-    grabControl(trackSelectButtons)
-    grabControl(trackStateButtons)
-}
-
-function releaseControls() {
-    releaseControl(trackButton)
-    releaseControl(deviceButton)
-    releaseControl(metronomeButton)
-    releaseControl(displayLine0)
-    releaseControl(displayLine2)
-    releaseControl(displayLine3)
-    releaseControl(trackSelectButtons)
-    releaseControl(trackStateButtons)
-}
+exports.controlNames = [
+    'Foot_Pedal',
+    'Up_Arrow',
+    'Down_Arrow',
+    'Left_Arrow',
+    'Right_Arrow',
+    'Shift_Button',
+    'Select_Button',
+    'Delete_Button',
+    'Duplicate_Button',
+    'Quantization_Button',
+    'Accent_Button',
+    'In_Button',
+    'Out_Button',
+    'Master_Select_Button',
+    'Octave_Down_Button',
+    'Octave_Up_Button',
+    'Repeat_Button',
+    'Global_Mute_Button',
+    'Global_Solo_Button',
+    'Track_Stop_Button',
+    'Scale_Presets_Button',
+    'Vol_Mix_Mode_Button',
+    'Device_Mode_Button',
+    'Clip_Mode_Button',
+    'Browse_Mode_Button',
+    'Single_Track_Mode_Button',
+    'Pan_Send_Mode_Button',
+    'Note_Mode_Button',
+    'Session_Mode_Button',
+    // 'Play_Button',
+    'New_Button',
+    'Automation_Button',
+    'Tap_Tempo_Button',
+    'Metronome_Button',
+    'Fixed_Length_Button',
+    // 'Record_Button',
+    'Undo_Button',
+    'Create_Device_Button',
+    'Create_Track_Button',
+    'Double_Button',
+    'User_Button',
+    'Track_Select_Button0',
+    'Track_Select_Button1',
+    'Track_Select_Button2',
+    'Track_Select_Button3',
+    'Track_Select_Button4',
+    'Track_Select_Button5',
+    'Track_Select_Button6',
+    'Track_Select_Button7',
+    'Track_Select_Buttons',
+    'Track_State_Button0',
+    'Track_State_Button1',
+    'Track_State_Button2',
+    'Track_State_Button3',
+    'Track_State_Button4',
+    'Track_State_Button5',
+    'Track_State_Button6',
+    'Track_State_Button7',
+    'Track_State_Buttons',
+    'Scene_Launch_Button7',
+    'Scene_Launch_Button6',
+    'Scene_Launch_Button5',
+    'Scene_Launch_Button4',
+    'Scene_Launch_Button3',
+    'Scene_Launch_Button2',
+    'Scene_Launch_Button1',
+    'Scene_Launch_Button0',
+    'Scene_Launch_Buttons',
+    // '0_Clip_0_Button',
+    // '1_Clip_0_Button',
+    // '2_Clip_0_Button',
+    // '3_Clip_0_Button',
+    // '4_Clip_0_Button',
+    // '5_Clip_0_Button',
+    // '6_Clip_0_Button',
+    // '7_Clip_0_Button',
+    // '0_Clip_1_Button',
+    // '1_Clip_1_Button',
+    // '2_Clip_1_Button',
+    // '3_Clip_1_Button',
+    // '4_Clip_1_Button',
+    // '5_Clip_1_Button',
+    // '6_Clip_1_Button',
+    // '7_Clip_1_Button',
+    // '0_Clip_2_Button',
+    // '1_Clip_2_Button',
+    // '2_Clip_2_Button',
+    // '3_Clip_2_Button',
+    // '4_Clip_2_Button',
+    // '5_Clip_2_Button',
+    // '6_Clip_2_Button',
+    // '7_Clip_2_Button',
+    // '0_Clip_3_Button',
+    // '1_Clip_3_Button',
+    // '2_Clip_3_Button',
+    // '3_Clip_3_Button',
+    // '4_Clip_3_Button',
+    // '5_Clip_3_Button',
+    // '6_Clip_3_Button',
+    // '7_Clip_3_Button',
+    // '0_Clip_4_Button',
+    // '1_Clip_4_Button',
+    // '2_Clip_4_Button',
+    // '3_Clip_4_Button',
+    // '4_Clip_4_Button',
+    // '5_Clip_4_Button',
+    // '6_Clip_4_Button',
+    // '7_Clip_4_Button',
+    // '0_Clip_5_Button',
+    // '1_Clip_5_Button',
+    // '2_Clip_5_Button',
+    // '3_Clip_5_Button',
+    // '4_Clip_5_Button',
+    // '5_Clip_5_Button',
+    // '6_Clip_5_Button',
+    // '7_Clip_5_Button',
+    // '0_Clip_6_Button',
+    // '1_Clip_6_Button',
+    // '2_Clip_6_Button',
+    // '3_Clip_6_Button',
+    // '4_Clip_6_Button',
+    // '5_Clip_6_Button',
+    // '6_Clip_6_Button',
+    // '7_Clip_6_Button',
+    // '0_Clip_7_Button',
+    // '1_Clip_7_Button',
+    // '2_Clip_7_Button',
+    // '3_Clip_7_Button',
+    // '4_Clip_7_Button',
+    // '5_Clip_7_Button',
+    // '6_Clip_7_Button',
+    // '7_Clip_7_Button',
+    // 'Button_Matrix',
+    // 'Double_Press_Matrix',
+    'Single_Press_Event_Matrix',
+    'Double_Press_Event_Matrix',
+    'Tempo_Control_Tap',
+    'Tempo_Control',
+    'Swing_Control_Tap',
+    'Swing_Control',
+    'Master_Volume_Tap',
+    'Master_Volume_Control',
+    // 'Track_Control_Touch_0',
+    // 'Track_Control_Touch_1',
+    // 'Track_Control_Touch_2',
+    // 'Track_Control_Touch_3',
+    // 'Track_Control_Touch_4',
+    // 'Track_Control_Touch_5',
+    // 'Track_Control_Touch_6',
+    // 'Track_Control_Touch_7',
+    // 'Track_Control_Touches',
+    // 'Track_Control_0',
+    // 'Track_Control_1',
+    // 'Track_Control_2',
+    // 'Track_Control_3',
+    // 'Track_Control_4',
+    // 'Track_Control_5',
+    // 'Track_Control_6',
+    // 'Track_Control_7',
+    // 'Track_Controls',
+    'Display_Line_0',
+    'Display_Line_1',
+    'Display_Line_2',
+    'Display_Line_3',
+    'Shifted_Button_Matrix',
+    'Touch_Strip_Tap',
+    'Touch_Strip_Control',
+]
