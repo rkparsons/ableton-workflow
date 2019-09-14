@@ -56,7 +56,6 @@ function Push() {
     }
 
     this.grabControls = function() {
-        utilities.log('grabControls')
         this.isActive = true
 
         this.enableObservers()
@@ -67,7 +66,6 @@ function Push() {
     }
 
     this.releaseControls = function() {
-        utilities.log('releaseControls')
         this.isActive = false
 
         this.disableObservers()
