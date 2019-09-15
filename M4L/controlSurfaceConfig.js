@@ -1,4 +1,4 @@
-exports = [
+exports.controlNames = [
     'Foot_Pedal',
     'Up_Arrow',
     'Down_Arrow',

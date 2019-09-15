@@ -1,4 +1,4 @@
-const controlNames = require('controlSurfaceConfig')
+const controlNames = require('controlSurfaceConfig').controlNames
 
 exports.create = function() {
     return new ControlSurface()
@@ -7,38 +7,43 @@ exports.create = function() {
 function ControlSurface() {
     this.isActive = false
     this.controls = []
-    this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
+    this.controlSurfaceApi = undefined
     this.displayApi = []
     this.sceneLaunchButtonsApi = undefined
-    this.displayApi[0] = new LiveAPI(function() {}, getControlApi('Display_Line_0'))
-    this.displayApi[1] = new LiveAPI(function() {}, getControlApi('Display_Line_1'))
-    this.displayApi[2] = new LiveAPI(function() {}, getControlApi('Display_Line_2'))
-    this.displayApi[3] = new LiveAPI(function() {}, getControlApi('Display_Line_3'))
 
-    getControls()
-    releaseControls()
+    this.initialise = function() {
+        this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
+
+        this.displayApi[0] = new LiveAPI(function() {}, this._getControlApi('Display_Line_0'))
+        this.displayApi[1] = new LiveAPI(function() {}, this._getControlApi('Display_Line_1'))
+        this.displayApi[2] = new LiveAPI(function() {}, this._getControlApi('Display_Line_2'))
+        this.displayApi[3] = new LiveAPI(function() {}, this._getControlApi('Display_Line_3'))
+
+        this._getControls()
+        this._releaseControls()
+    }
 
     this.displayValues = function(values) {
-        this.displayApi[1].call('display_message', createDisplayMessage(values))
+        this.displayApi[1].call('display_message', this._createDisplayMessage(values))
     }
 
     this.toggleActive = function() {
-        this.isActive ? releaseControls() : grabControls()
+        this.isActive ? this._releaseControls() : this._grabControls()
     }
 
     this.onEncoderTurned = function(callback) {
-        this.observeControl('Track_Controls', callback)
+        this._observeControl('Track_Controls', callback)
     }
 
     this.onTapTempoButtonPressed = function(callback) {
-        this.observeControl('Tap_Tempo_Button', callback)
+        this._observeControl('Tap_Tempo_Button', callback)
     }
 
     this.onSceneLaunchButtonPressed = function(callback) {
-        this.sceneLaunchButtonsApi = observeControl('Scene_Launch_Buttons', callback)
+        this.sceneLaunchButtonsApi = this._observeControl('Scene_Launch_Buttons', callback)
     }
 
-    function observeControl(controlName, callback) {
+    this._observeControl = function(controlName, callback) {
         const control = this.controlSurfaceApi.call('get_control_by_name', controlName)
         const controlApi = new LiveAPI(callback, control)
         controlApi.property = 'value'
@@ -46,45 +51,49 @@ function ControlSurface() {
         return controlApi
     }
 
-    function getControlApi(controlName) {
+    this._getControlApi = function(controlName) {
         return this.controlSurfaceApi.call('get_control_by_name', [controlName])
     }
 
-    function getControls() {
+    this._getControls = function() {
         for (var i in controlNames) {
             this.controls.push(this.controlSurfaceApi.call('get_control_by_name', controlNames[i]))
         }
     }
 
-    function grabControls() {
+    this._grabControls = function() {
         this.isActive = true
 
-        enableObservers()
+        this._enableObservers()
 
         for (var i in this.controls) {
             this.controlSurfaceApi.call('grab_control', this.controls[i])
         }
     }
 
-    function releaseControls() {
+    this._releaseControls = function() {
         this.isActive = false
 
-        disableObservers()
+        this._disableObservers()
 
         for (var i in this.controls) {
             this.controlSurfaceApi.call('release_control', this.controls[i])
         }
     }
 
-    function enableObservers() {
-        this.sceneLaunchButtonsApi.property = 'value'
+    this._enableObservers = function() {
+        if (this.sceneLaunchButtonsApi) {
+            this.sceneLaunchButtonsApi.property = 'value'
+        }
     }
 
-    function disableObservers() {
-        this.sceneLaunchButtonsApi.property = ''
+    this._disableObservers = function() {
+        if (this.sceneLaunchButtonsApi) {
+            this.sceneLaunchButtonsApi.property = ''
+        }
     }
 
-    function createDisplayMessage(values) {
+    this._createDisplayMessage = function(values) {
         var padding = '        '
         var itemsPadded = []
 
