@@ -3,25 +3,21 @@ inlets = 1
 outlets = 1
 
 const utilities = require('utilities')
-const pushWrapper = require('pushWrapper')
-const drumRackWrapper = require('drumRackWrapper')
-const push = pushWrapper.push()
-const drumRack = drumRackWrapper.drumRack()
+const pushFactory = require('push')
+const drumRackFactory = require('drumRack')
+const push = pushFactory.create()
+const drumRack = drumRackFactory.create()
 const context = this
 
 function initLiveApi() {
     push.initialise()
+    push.onEncoderTurned(sendValue)
     push.onTapTempoButtonPressed(pushToggleActive)
     push.onSceneLaunchButtonPressed(focusLayer)
     push.releaseControls()
 
+    drumRack.onValueChanged(receiveValue)
     drumRack.onDrumPadSelected(focusVoice)
-    drumRack.onChain0VolumeChange(function(args) {
-        if (args[0] === 'value') {
-            drumRack.cacheChain0Volume(args[1])
-            updateDisplay()
-        }
-    })
 }
 
 function pushToggleActive(args) {
@@ -41,10 +37,32 @@ function focusVoice(args) {
 
 function focusLayer(args) {
     if (args[1] === 127) {
-        drumRack.focusLayer(args[2])
+        drumRack.activeVoice().focusLayer(args[2])
     }
 }
 
 function updateDisplay() {
-    push.displayValuesOnLine(1, drumRack.getFocussedParamValues())
+    push.displayValues(
+        drumRack
+            .activeVoice()
+            .activeLayer()
+            .activePage()
+            .getParameterValues()
+    )
+}
+
+function receiveValue(args) {
+    updateDisplay()
+}
+
+function sendValue(args) {
+    if (args[3] >= 0) {
+        drumRack
+            .activeVoice()
+            .activeLayer()
+            .activePage()
+            .getParameter(args[3])
+            .updateValue(args[1])
+        updateDisplay()
+    }
 }

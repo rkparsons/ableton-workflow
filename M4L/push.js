@@ -1,169 +1,106 @@
-exports.controlNames = [
-    'Foot_Pedal',
-    'Up_Arrow',
-    'Down_Arrow',
-    'Left_Arrow',
-    'Right_Arrow',
-    'Shift_Button',
-    'Select_Button',
-    'Delete_Button',
-    'Duplicate_Button',
-    'Quantization_Button',
-    'Accent_Button',
-    'In_Button',
-    'Out_Button',
-    'Master_Select_Button',
-    'Octave_Down_Button',
-    'Octave_Up_Button',
-    'Repeat_Button',
-    'Global_Mute_Button',
-    'Global_Solo_Button',
-    'Track_Stop_Button',
-    'Scale_Presets_Button',
-    'Vol_Mix_Mode_Button',
-    'Device_Mode_Button',
-    'Clip_Mode_Button',
-    'Browse_Mode_Button',
-    'Single_Track_Mode_Button',
-    'Pan_Send_Mode_Button',
-    'Note_Mode_Button',
-    'Session_Mode_Button',
-    // 'Play_Button',
-    'New_Button',
-    'Automation_Button',
-    'Tap_Tempo_Button',
-    'Metronome_Button',
-    'Fixed_Length_Button',
-    // 'Record_Button',
-    'Undo_Button',
-    'Create_Device_Button',
-    'Create_Track_Button',
-    'Double_Button',
-    'User_Button',
-    'Track_Select_Button0',
-    'Track_Select_Button1',
-    'Track_Select_Button2',
-    'Track_Select_Button3',
-    'Track_Select_Button4',
-    'Track_Select_Button5',
-    'Track_Select_Button6',
-    'Track_Select_Button7',
-    'Track_Select_Buttons',
-    'Track_State_Button0',
-    'Track_State_Button1',
-    'Track_State_Button2',
-    'Track_State_Button3',
-    'Track_State_Button4',
-    'Track_State_Button5',
-    'Track_State_Button6',
-    'Track_State_Button7',
-    'Track_State_Buttons',
-    'Scene_Launch_Button7',
-    'Scene_Launch_Button6',
-    'Scene_Launch_Button5',
-    'Scene_Launch_Button4',
-    'Scene_Launch_Button3',
-    'Scene_Launch_Button2',
-    'Scene_Launch_Button1',
-    'Scene_Launch_Button0',
-    'Scene_Launch_Buttons',
-    // '0_Clip_0_Button',
-    // '1_Clip_0_Button',
-    // '2_Clip_0_Button',
-    // '3_Clip_0_Button',
-    // '4_Clip_0_Button',
-    // '5_Clip_0_Button',
-    // '6_Clip_0_Button',
-    // '7_Clip_0_Button',
-    // '0_Clip_1_Button',
-    // '1_Clip_1_Button',
-    // '2_Clip_1_Button',
-    // '3_Clip_1_Button',
-    // '4_Clip_1_Button',
-    // '5_Clip_1_Button',
-    // '6_Clip_1_Button',
-    // '7_Clip_1_Button',
-    // '0_Clip_2_Button',
-    // '1_Clip_2_Button',
-    // '2_Clip_2_Button',
-    // '3_Clip_2_Button',
-    // '4_Clip_2_Button',
-    // '5_Clip_2_Button',
-    // '6_Clip_2_Button',
-    // '7_Clip_2_Button',
-    // '0_Clip_3_Button',
-    // '1_Clip_3_Button',
-    // '2_Clip_3_Button',
-    // '3_Clip_3_Button',
-    // '4_Clip_3_Button',
-    // '5_Clip_3_Button',
-    // '6_Clip_3_Button',
-    // '7_Clip_3_Button',
-    // '0_Clip_4_Button',
-    // '1_Clip_4_Button',
-    // '2_Clip_4_Button',
-    // '3_Clip_4_Button',
-    // '4_Clip_4_Button',
-    // '5_Clip_4_Button',
-    // '6_Clip_4_Button',
-    // '7_Clip_4_Button',
-    // '0_Clip_5_Button',
-    // '1_Clip_5_Button',
-    // '2_Clip_5_Button',
-    // '3_Clip_5_Button',
-    // '4_Clip_5_Button',
-    // '5_Clip_5_Button',
-    // '6_Clip_5_Button',
-    // '7_Clip_5_Button',
-    // '0_Clip_6_Button',
-    // '1_Clip_6_Button',
-    // '2_Clip_6_Button',
-    // '3_Clip_6_Button',
-    // '4_Clip_6_Button',
-    // '5_Clip_6_Button',
-    // '6_Clip_6_Button',
-    // '7_Clip_6_Button',
-    // '0_Clip_7_Button',
-    // '1_Clip_7_Button',
-    // '2_Clip_7_Button',
-    // '3_Clip_7_Button',
-    // '4_Clip_7_Button',
-    // '5_Clip_7_Button',
-    // '6_Clip_7_Button',
-    // '7_Clip_7_Button',
-    // 'Button_Matrix',
-    // 'Double_Press_Matrix',
-    'Single_Press_Event_Matrix',
-    'Double_Press_Event_Matrix',
-    'Tempo_Control_Tap',
-    'Tempo_Control',
-    'Swing_Control_Tap',
-    'Swing_Control',
-    'Master_Volume_Tap',
-    'Master_Volume_Control',
-    'Track_Control_Touch_0',
-    'Track_Control_Touch_1',
-    'Track_Control_Touch_2',
-    'Track_Control_Touch_3',
-    'Track_Control_Touch_4',
-    'Track_Control_Touch_5',
-    'Track_Control_Touch_6',
-    'Track_Control_Touch_7',
-    'Track_Control_Touches',
-    'Track_Control_0',
-    'Track_Control_1',
-    'Track_Control_2',
-    'Track_Control_3',
-    'Track_Control_4',
-    'Track_Control_5',
-    'Track_Control_6',
-    'Track_Control_7',
-    'Track_Controls',
-    'Display_Line_0',
-    'Display_Line_1',
-    'Display_Line_2',
-    'Display_Line_3',
-    'Shifted_Button_Matrix',
-    'Touch_Strip_Tap',
-    'Touch_Strip_Control',
-]
+const controlNames = require('pushConfig')
+
+exports.push = function() {
+    return new Push()
+}
+
+function Push() {
+    this.controls = []
+    this.displayApi = []
+    this.controlSurfaceApi = undefined
+    this.sceneLaunchButtonsApi = undefined
+    this.isActive = false
+
+    this.initialise = function() {
+        this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
+        this.getControls()
+        this.displayApi[0] = new LiveAPI(function() {}, this.getControlApi('Display_Line_0'))
+        this.displayApi[1] = new LiveAPI(function() {}, this.getControlApi('Display_Line_1'))
+        this.displayApi[2] = new LiveAPI(function() {}, this.getControlApi('Display_Line_2'))
+        this.displayApi[3] = new LiveAPI(function() {}, this.getControlApi('Display_Line_3'))
+    }
+
+    this.toggleActive = function() {
+        this.isActive ? this.releaseControls() : this.grabControls()
+    }
+
+    this.onEncoderTurned = function(callback) {
+        this.observeControl('Track_Controls', callback)
+    }
+
+    this.onTapTempoButtonPressed = function(callback) {
+        this.observeControl('Tap_Tempo_Button', callback)
+    }
+
+    this.onSceneLaunchButtonPressed = function(callback) {
+        this.sceneLaunchButtonsApi = this.observeControl('Scene_Launch_Buttons', callback)
+    }
+
+    this.observeControl = function(controlName, callback) {
+        const control = this.controlSurfaceApi.call('get_control_by_name', controlName)
+        const controlApi = new LiveAPI(callback, control)
+        controlApi.property = 'value'
+
+        return controlApi
+    }
+
+    this.getControlApi = function(controlName) {
+        return this.controlSurfaceApi.call('get_control_by_name', [controlName])
+    }
+
+    this.getDrumPadNameById = function(id) {
+        // possibly cache id-name mapping, or being able to move drum pad might be useful
+        return new LiveAPI(null, 'id ' + id).get('name')
+    }
+
+    this.getControls = function() {
+        for (var i in controlNames) {
+            this.controls.push(this.controlSurfaceApi.call('get_control_by_name', controlNames[i]))
+        }
+    }
+
+    this.grabControls = function() {
+        this.isActive = true
+
+        this.enableObservers()
+
+        for (var i in this.controls) {
+            this.controlSurfaceApi.call('grab_control', this.controls[i])
+        }
+    }
+
+    this.releaseControls = function() {
+        this.isActive = false
+
+        this.disableObservers()
+
+        for (var i in this.controls) {
+            this.controlSurfaceApi.call('release_control', this.controls[i])
+        }
+    }
+
+    this.enableObservers = function() {
+        this.sceneLaunchButtonsApi.property = 'value'
+    }
+
+    this.disableObservers = function() {
+        this.sceneLaunchButtonsApi.property = ''
+    }
+
+    this.displayValues = function(values) {
+        this.displayApi[1].call('display_message', this.createDisplayMessage(values))
+    }
+
+    this.createDisplayMessage = function(values) {
+        var padding = '        '
+        var itemsPadded = []
+
+        for (i in values) {
+            var length = 8 - (i % 2)
+
+            itemsPadded.push(('  ' + values[i] + padding).slice(0, length))
+        }
+
+        return itemsPadded
+    }
+}
