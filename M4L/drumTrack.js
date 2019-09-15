@@ -1,4 +1,3 @@
-const utilities = require('utilities')
 const controlSurface = require('controlSurface').create()
 const drumRack = require('drumRack').create()
 
@@ -17,8 +16,8 @@ function DrumTrack() {
         controlSurface.onTapTempoButtonPressed(this._pushToggleActive)
         // controlSurface.onSceneLaunchButtonPressed(focusLayer)
 
-        // drumRack.onValueChanged(receiveValue)
-        // drumRack.onDrumPadSelected(focusVoice)
+        drumRack.onDrumPadSelected(this._focusVoice)
+        drumRack.onValueChanged(this._receiveValue)
     }
 
     this._pushToggleActive = function(args) {
@@ -28,13 +27,10 @@ function DrumTrack() {
         }
     }
 
-    // function focusVoice(args) {
-    //     if (args[0] === 'selected_drum_pad') {
-    //         utilities.deferLow(function() {
-    //             drumRack.focusVoice(args[2])
-    //         }, this.context)
-    //     }
-    // }
+    this._focusVoice = function(args) {
+        drumRack.focusVoice(args[2])
+        // this._updateDisplay()
+    }
 
     // function focusLayer(args) {
     //     if (args[1] === 127) {
@@ -52,9 +48,10 @@ function DrumTrack() {
     //     )
     // }
 
-    // function receiveValue(args) {
-    //     updateDisplay()
-    // }
+    this._receiveValue = function(args) {
+        utilities.log('_receiveValue')
+        // updateDisplay()
+    }
 
     // function sendValue(args) {
     //     if (args[3] >= 0) {
