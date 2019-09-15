@@ -1,6 +1,6 @@
 const drumLayerFactory = require('drumLayer')
 
-exports.voice = function(voiceName, callback) {
+exports.create = function(voiceName, callback) {
     return new Voice(voiceName, callback)
 }
 

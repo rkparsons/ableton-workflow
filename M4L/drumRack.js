@@ -1,6 +1,6 @@
 const drumVoiceFactory = require('drumVoice')
 
-exports.drumRack = function() {
+exports.create = function() {
     return new DrumRack()
 }
 
@@ -29,7 +29,7 @@ function DrumRack() {
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    this.focusVoice = function(voiceName) {
-        this.focussedVoiceName = voiceName
+    this.focusVoice = function(drumPadId) {
+        this.focussedVoiceName = new LiveAPI(null, 'id ' + drumPadId).get('name')
     }
 }

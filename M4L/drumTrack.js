@@ -1,68 +1,70 @@
-autowatch = 1
-inlets = 1
-outlets = 1
-
 const utilities = require('utilities')
-const pushFactory = require('push')
-const drumRackFactory = require('drumRack')
-const push = pushFactory.create()
-const drumRack = drumRackFactory.create()
-const context = this
 
-function initLiveApi() {
-    push.initialise()
-    push.onEncoderTurned(sendValue)
-    push.onTapTempoButtonPressed(pushToggleActive)
-    push.onSceneLaunchButtonPressed(focusLayer)
-    push.releaseControls()
-
-    drumRack.onValueChanged(receiveValue)
-    drumRack.onDrumPadSelected(focusVoice)
+exports.create = function() {
+    return new DrumTrack()
 }
 
-function pushToggleActive(args) {
-    if (args[1] === 127) {
-        push.toggleActive()
-        updateDisplay()
+function DrumTrack() {
+    this.controlSurface = require('controlSurface').create()
+    this.drumRack = require('drumRack').create()
+    this.context = this
+
+    this.initialise = function() {
+        // this.drumRack = require('drumRack').create()
+
+        this.controlSurface.initialise()
+        // this.controlSurface.onEncoderTurned(sendValue)
+        // this.controlSurface.onTapTempoButtonPressed(pushToggleActive)
+        // this.controlSurface.onSceneLaunchButtonPressed(focusLayer)
+
+        // this.drumRack.onValueChanged(receiveValue)
+        // this.drumRack.onDrumPadSelected(focusVoice)
     }
-}
 
-function focusVoice(args) {
-    if (args[0] === 'selected_drum_pad') {
-        utilities.deferLow(function() {
-            drumRack.focusVoice(push.getDrumPadNameById(args[2]))
-        }, context)
-    }
-}
+    // function pushToggleActive(args) {
+    //     if (args[1] === 127) {
+    //         this.controlSurface.toggleActive()
+    //         updateDisplay()
+    //     }
+    // }
 
-function focusLayer(args) {
-    if (args[1] === 127) {
-        drumRack.activeVoice().focusLayer(args[2])
-    }
-}
+    // function focusVoice(args) {
+    //     if (args[0] === 'selected_drum_pad') {
+    //         utilities.deferLow(function() {
+    //             this.drumRack.focusVoice(args[2])
+    //         }, this.context)
+    //     }
+    // }
 
-function updateDisplay() {
-    push.displayValues(
-        drumRack
-            .activeVoice()
-            .activeLayer()
-            .activePage()
-            .getParameterValues()
-    )
-}
+    // function focusLayer(args) {
+    //     if (args[1] === 127) {
+    //         this.drumRack.activeVoice().focusLayer(args[2])
+    //     }
+    // }
 
-function receiveValue(args) {
-    updateDisplay()
-}
+    // function updateDisplay() {
+    //     this.controlSurface.displayValues(
+    //         this.drumRack
+    //             .activeVoice()
+    //             .activeLayer()
+    //             .activePage()
+    //             .getParameterValues()
+    //     )
+    // }
 
-function sendValue(args) {
-    if (args[3] >= 0) {
-        drumRack
-            .activeVoice()
-            .activeLayer()
-            .activePage()
-            .getParameter(args[3])
-            .updateValue(args[1])
-        updateDisplay()
-    }
+    // function receiveValue(args) {
+    //     updateDisplay()
+    // }
+
+    // function sendValue(args) {
+    //     if (args[3] >= 0) {
+    //         this.drumRack
+    //             .activeVoice()
+    //             .activeLayer()
+    //             .activePage()
+    //             .getParameter(args[3])
+    //             .updateValue(args[1])
+    //         updateDisplay()
+    //     }
+    // }
 }

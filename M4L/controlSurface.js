@@ -1,27 +1,29 @@
-const controlNames = require('pushConfig')
+const controlNames = require('controlSurfaceConfig')
 
-exports.push = function() {
-    return new Push()
+exports.create = function() {
+    return new ControlSurface()
 }
 
-function Push() {
-    this.controls = []
-    this.displayApi = []
-    this.controlSurfaceApi = undefined
-    this.sceneLaunchButtonsApi = undefined
+function ControlSurface() {
     this.isActive = false
+    this.controls = []
+    this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
+    this.displayApi = []
+    this.sceneLaunchButtonsApi = undefined
+    this.displayApi[0] = new LiveAPI(function() {}, getControlApi('Display_Line_0'))
+    this.displayApi[1] = new LiveAPI(function() {}, getControlApi('Display_Line_1'))
+    this.displayApi[2] = new LiveAPI(function() {}, getControlApi('Display_Line_2'))
+    this.displayApi[3] = new LiveAPI(function() {}, getControlApi('Display_Line_3'))
 
-    this.initialise = function() {
-        this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
-        this.getControls()
-        this.displayApi[0] = new LiveAPI(function() {}, this.getControlApi('Display_Line_0'))
-        this.displayApi[1] = new LiveAPI(function() {}, this.getControlApi('Display_Line_1'))
-        this.displayApi[2] = new LiveAPI(function() {}, this.getControlApi('Display_Line_2'))
-        this.displayApi[3] = new LiveAPI(function() {}, this.getControlApi('Display_Line_3'))
+    getControls()
+    releaseControls()
+
+    this.displayValues = function(values) {
+        this.displayApi[1].call('display_message', createDisplayMessage(values))
     }
 
     this.toggleActive = function() {
-        this.isActive ? this.releaseControls() : this.grabControls()
+        this.isActive ? releaseControls() : grabControls()
     }
 
     this.onEncoderTurned = function(callback) {
@@ -33,10 +35,10 @@ function Push() {
     }
 
     this.onSceneLaunchButtonPressed = function(callback) {
-        this.sceneLaunchButtonsApi = this.observeControl('Scene_Launch_Buttons', callback)
+        this.sceneLaunchButtonsApi = observeControl('Scene_Launch_Buttons', callback)
     }
 
-    this.observeControl = function(controlName, callback) {
+    function observeControl(controlName, callback) {
         const control = this.controlSurfaceApi.call('get_control_by_name', controlName)
         const controlApi = new LiveAPI(callback, control)
         controlApi.property = 'value'
@@ -44,54 +46,45 @@ function Push() {
         return controlApi
     }
 
-    this.getControlApi = function(controlName) {
+    function getControlApi(controlName) {
         return this.controlSurfaceApi.call('get_control_by_name', [controlName])
     }
 
-    this.getDrumPadNameById = function(id) {
-        // possibly cache id-name mapping, or being able to move drum pad might be useful
-        return new LiveAPI(null, 'id ' + id).get('name')
-    }
-
-    this.getControls = function() {
+    function getControls() {
         for (var i in controlNames) {
             this.controls.push(this.controlSurfaceApi.call('get_control_by_name', controlNames[i]))
         }
     }
 
-    this.grabControls = function() {
+    function grabControls() {
         this.isActive = true
 
-        this.enableObservers()
+        enableObservers()
 
         for (var i in this.controls) {
             this.controlSurfaceApi.call('grab_control', this.controls[i])
         }
     }
 
-    this.releaseControls = function() {
+    function releaseControls() {
         this.isActive = false
 
-        this.disableObservers()
+        disableObservers()
 
         for (var i in this.controls) {
             this.controlSurfaceApi.call('release_control', this.controls[i])
         }
     }
 
-    this.enableObservers = function() {
+    function enableObservers() {
         this.sceneLaunchButtonsApi.property = 'value'
     }
 
-    this.disableObservers = function() {
+    function disableObservers() {
         this.sceneLaunchButtonsApi.property = ''
     }
 
-    this.displayValues = function(values) {
-        this.displayApi[1].call('display_message', this.createDisplayMessage(values))
-    }
-
-    this.createDisplayMessage = function(values) {
+    function createDisplayMessage(values) {
         var padding = '        '
         var itemsPadded = []
 

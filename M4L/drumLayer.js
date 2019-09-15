@@ -1,6 +1,6 @@
 const parameterPageFactory = require('parameterPage')
 
-exports.layer = function(layerName, callback) {
+exports.create = function(layerName, callback) {
     return new Layer(layerName, callback)
 }
 

@@ -1,6 +1,6 @@
 const parameterFactory = require('parameter')
 
-exports.parameterPage = function(pageName, callback) {
+exports.create = function(pageName, callback) {
     return new ParameterPage(pageName, callback)
 }
 

@@ -1,4 +1,4 @@
-exports.parameter = function(parameterName, callback) {
+exports.create = function(parameterName, callback) {
     const config = require('parameterConfig')[parameterName]
 
     return new Parameter(config, callback)
