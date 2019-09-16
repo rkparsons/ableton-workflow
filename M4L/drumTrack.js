@@ -4,17 +4,14 @@ exports.create = function() {
 
 function DrumTrack() {
     this.controlSurface = require('controlSurface').create()
-    this.drumRack = require('drumRack').create()
+    this.drumRack = require('drumRackFactory').create()
 
     this.initialise = function() {
-        // this.drumRack = require('drumRack').create()
-
         this.controlSurface.initialise()
         // this.controlSurface.onEncoderTurned(sendValue)
         this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive.bind(this))
-        // this.controlSurface.onSceneLaunchButtonPressed(focusLayer)
+        this.controlSurface.onSceneLaunchButtonPressed(this._focusDrumLayer.bind(this))
 
-        this.drumRack.initialise()
         this.drumRack.onDrumPadSelected(this._focusDrumPad.bind(this))
         this.drumRack.onValueChanged(this._receiveValue)
     }
@@ -33,11 +30,11 @@ function DrumTrack() {
         }
     }
 
-    // function focusLayer(args) {
-    //     if (args[1] === 127) {
-    //         this.drumRack.activeDrumPad().focusLayer(args[2])
-    //     }
-    // }
+    this._focusDrumLayer = function(args) {
+        if (args[1] === 127) {
+            this.drumRack.activeDrumPad().focusDrumLayer(args[2])
+        }
+    }
 
     // function updateDisplay() {
     //     this.controlSurface.displayValues(

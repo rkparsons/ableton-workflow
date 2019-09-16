@@ -1,20 +1,7 @@
-const drumLayerFactory = require('drumLayer')
-
-exports.create = function(name) {
-    return new DrumPad(name)
-}
-
 function DrumPad(name) {
     this.name = name
-    this.focussedLayerIndex
-
-    // get from voice config
-    this.layerNames = []
-    this.layers = []
-
-    for (layerIndex in this.layerNames) {
-        this.layers.push(drumLayerFactory.create(this.layerNames[layerIndex]))
-    }
+    this.activeLayerIndex = 0
+    this.drumLayers = []
 
     this.onValueChanged = function(callback) {
         for (layer in this.layers) {

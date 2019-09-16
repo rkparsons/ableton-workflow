@@ -1,13 +1,7 @@
-exports.create = function(parameterName) {
-    const config = require('parameterConfig')[parameterName]
-
-    return new Parameter(config)
-}
-
-function Parameter(config) {
-    this.name = config.name
-    this.min = config.min
-    this.max = config.max
+function Parameter(name, min, max) {
+    this.name = name
+    this.min = min
+    this.max = max
     this.api = null
 
     this.onValueChanged = function(callback) {
