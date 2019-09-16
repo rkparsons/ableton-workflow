@@ -1,49 +1,47 @@
-const controlSurface = require('controlSurface').create()
-const drumRack = require('drumRack').create()
-
 exports.create = function() {
     return new DrumTrack()
 }
 
 function DrumTrack() {
-    this.context = this
+    this.controlSurface = require('controlSurface').create()
+    this.drumRack = require('drumRack').create()
 
     this.initialise = function() {
-        // drumRack = require('drumRack').create()
+        // this.drumRack = require('drumRack').create()
 
-        controlSurface.initialise()
-        // controlSurface.onEncoderTurned(sendValue)
-        controlSurface.onTapTempoButtonPressed(this._pushToggleActive)
-        // controlSurface.onSceneLaunchButtonPressed(focusLayer)
+        this.controlSurface.initialise()
+        // this.controlSurface.onEncoderTurned(sendValue)
+        this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive)
+        // this.controlSurface.onSceneLaunchButtonPressed(focusLayer)
 
-        drumRack.initialise()
-        drumRack.onDrumPadSelected(this._focusVoice)
-        drumRack.onValueChanged(this._receiveValue)
+        this.drumRack.initialise()
+        this.drumRack.onDrumPadSelected(this._focusVoice.bind(this))
+        this.drumRack.onValueChanged(this._receiveValue)
     }
 
     this._pushToggleActive = function(args) {
         if (args[1] === 127) {
-            controlSurface.toggleActive()
+            this.controlSurface.toggleActive()
             // this._updateDisplay()
         }
     }
 
     this._focusVoice = function(args) {
         if (args[0] === 'selected_drum_pad') {
-            drumRack.focusVoice(args[2])
+            this.drumRack.focusVoice(args[2])
             // this._updateDisplay()
         }
     }
 
     // function focusLayer(args) {
     //     if (args[1] === 127) {
-    //         drumRack.activeVoice().focusLayer(args[2])
+    //         this.drumRack.activeVoice().focusLayer(args[2])
     //     }
     // }
 
     // function updateDisplay() {
-    //     controlSurface.displayValues(
-    //         drumRack
+    //     this.controlSurface.displayValues(
+    //         this.drumRack
     //             .activeVoice()
     //             .activeLayer()
     //             .activePage()
@@ -58,7 +56,7 @@ function DrumTrack() {
 
     // function sendValue(args) {
     //     if (args[3] >= 0) {
-    //         drumRack
+    //         this.drumRack
     //             .activeVoice()
     //             .activeLayer()
     //             .activePage()
