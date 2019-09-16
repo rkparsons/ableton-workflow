@@ -47,7 +47,6 @@ function DrumTrack() {
     // }
 
     this._receiveValue = function(args) {
-        utilities.log('_receiveValue')
         // updateDisplay()
     }
 
