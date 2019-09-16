@@ -1,19 +1,21 @@
-exports.create = function(parameterName, callback) {
+exports.create = function(parameterName) {
     const config = require('parameterConfig')[parameterName]
 
-    return new Parameter(config, callback)
+    return new Parameter(config)
 }
 
-function Parameter(config, callback) {
+function Parameter(config) {
     this.name = config.name
     this.min = config.min
     this.max = config.max
+    this.api = null
 
-    this.api = new LiveAPI(function(args) {
-        this.value = args[1]
-        callback()
-    }, livePath)
-    this.api.property = config.liveProperty
+    this.onValueChanged = function(callback) {
+        this.api = new LiveAPI(function(args) {
+            this.value = args[1]
+            callback()
+        }, livePath)
+    }
 
     this.updateValue = function(delta) {
         this.value += (delta < 50 ? delta : delta - 128) / 100

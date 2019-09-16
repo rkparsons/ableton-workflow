@@ -15,11 +15,17 @@ function DrumRack() {
 
     this.selectedPadApi = null
 
-    this.onValueChanged = function(callback) {
+    this.initialise = function() {
         for (var i = 0; i < this.voiceNames.length; i++) {
             const voiceApi = new LiveAPI(this._focusVoice, this.path + ' chains ' + i)
 
-            this.voices[voiceApi.id] = drumVoiceFactory.create(voiceApi.get('name'), callback)
+            this.voices['voice_' + voiceApi.id] = drumVoiceFactory.create(voiceApi.get('name'))
+        }
+    }
+
+    this.onValueChanged = function(callback) {
+        for (i in this.voices) {
+            this.voices[i].onValueChanged(callback)
         }
     }
 
@@ -34,5 +40,8 @@ function DrumRack() {
 
     this.focusVoice = function(voiceId) {
         this.activeVoiceId = voiceId
+
+        utilities.log('voice_' + voiceId)
+        utilities.log(this.voices)
     }
 }

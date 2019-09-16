@@ -1,10 +1,10 @@
 const drumLayerFactory = require('drumLayer')
 
-exports.create = function(voiceName, callback) {
-    return new Voice(voiceName, callback)
+exports.create = function(voiceName) {
+    return new Voice(voiceName)
 }
 
-function Voice(voiceName, callback) {
+function Voice(voiceName) {
     this.voiceName = voiceName
     this.focussedLayerIndex
 
@@ -13,7 +13,13 @@ function Voice(voiceName, callback) {
     this.layers = []
 
     for (layerIndex in this.layerNames) {
-        this.layers.push(drumLayerFactory.create(this.layerNames[layerIndex], callback))
+        this.layers.push(drumLayerFactory.create(this.layerNames[layerIndex]))
+    }
+
+    this.onValueChanged = function(callback) {
+        for (layer in this.layers) {
+            this.layers[i].onValueChanged(callback)
+        }
     }
 
     this.activeLayer = function() {

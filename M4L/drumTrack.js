@@ -16,6 +16,7 @@ function DrumTrack() {
         controlSurface.onTapTempoButtonPressed(this._pushToggleActive)
         // controlSurface.onSceneLaunchButtonPressed(focusLayer)
 
+        drumRack.initialise()
         drumRack.onDrumPadSelected(this._focusVoice)
         drumRack.onValueChanged(this._receiveValue)
     }
@@ -28,8 +29,10 @@ function DrumTrack() {
     }
 
     this._focusVoice = function(args) {
-        drumRack.focusVoice(args[2])
-        // this._updateDisplay()
+        if (args[0] === 'selected_drum_pad') {
+            drumRack.focusVoice(args[2])
+            // this._updateDisplay()
+        }
     }
 
     // function focusLayer(args) {

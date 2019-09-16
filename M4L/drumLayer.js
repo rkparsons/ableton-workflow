@@ -1,10 +1,10 @@
 const parameterPageFactory = require('parameterPage')
 
-exports.create = function(layerName, callback) {
-    return new Layer(layerName, callback)
+exports.create = function(layerName) {
+    return new Layer(layerName)
 }
 
-function Layer(layerName, callback) {
+function Layer(layerName) {
     this.layerName = layerName
     this.parameterPages = []
 
@@ -13,7 +13,13 @@ function Layer(layerName, callback) {
     this.parameterPageNames = ['Sample', 'Amp', 'Pitch', 'Filter', 'Tone', 'Osc', 'Velo', 'Rand']
     
     for (parameterPageIndex in this.parameterPageNames) {
-        this.parameterPages.push(parameterPageFactory.create(this.parameterPageNames[parameterPageIndex], callback))
+        this.parameterPages.push(parameterPageFactory.create(this.parameterPageNames[parameterPageIndex]))
+    }
+
+    this.onValueChanged = function(callback) {
+        for (i in this.parameterPages) {
+            this.parameterPages[i].onValueChanged(callback)
+        }
     }
 
     this.focusPage() = function(pageIndex) {
