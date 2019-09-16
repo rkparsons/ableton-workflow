@@ -1,11 +1,11 @@
 const drumLayerFactory = require('drumLayer')
 
-exports.create = function(voiceName) {
-    return new Voice(voiceName)
+exports.create = function(name) {
+    return new DrumPad(name)
 }
 
-function Voice(voiceName) {
-    this.voiceName = voiceName
+function DrumPad(name) {
+    this.name = name
     this.focussedLayerIndex
 
     // get from voice config

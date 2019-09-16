@@ -1,25 +1,24 @@
-const drumVoiceFactory = require('drumVoice')
+const drumPadFactory = require('drumPad')
 
 exports.create = function() {
     return new DrumRack()
 }
 
 function DrumRack() {
-    this.voices = {}
-    this.activeVoiceId = null
+    this.drumPads = {}
+    this.activeDrumPadId = null
     this.focussedLayerIndex = 0
     this.path = 'this_device canonical_parent devices 1'
-    // populate dynamically
-    this.voiceNames = ['Kick', 'Snare', 'TomLow', 'TomMid', 'Perc', 'HHTip', 'HHShank']
-    this.voices = {}
 
     this.selectedPadApi = null
 
     this.initialise = function() {
-        for (var i = 0; i < this.voiceNames.length; i++) {
-            const voiceApi = new LiveAPI(this._focusVoice, this.path + ' chains ' + i)
+        for (var i = 0; i < 16; i++) {
+            const drumPadApi = new LiveAPI(this._focusVoice, this.path + ' visible_drum_pads ' + i)
 
-            this.voices['voice_' + voiceApi.id] = drumVoiceFactory.create(voiceApi.get('name'))
+            if (drumPadApi.get('chains')[1]) {
+                this.drumPads[drumPadApi.id] = drumPadFactory.create(drumPadApi.get('name'))
+            }
         }
     }
 
@@ -38,10 +37,11 @@ function DrumRack() {
         return this.voices[this.activeVoiceId]
     }
 
-    this.focusVoice = function(voiceId) {
-        this.activeVoiceId = voiceId
+    this.focusVoice = function(drumPadId) {
+        this.activeDrumPadId = drumPadId
 
-        utilities.log('voice_' + voiceId)
-        utilities.log(this.voices)
+        if (this.drumPads[drumPadId]) {
+            utilities.log(this.drumPads[drumPadId].name)
+        }
     }
 }
