@@ -1,19 +1,19 @@
-function DrumPad(name) {
+function DrumPad(name, drumLayers) {
     this.name = name
-    this.activeLayerIndex = 0
-    this.drumLayers = []
+    this.activeDrumLayerIndex = 0
+    this.drumLayers = drumLayers
 
     this.onValueChanged = function(callback) {
-        for (layer in this.layers) {
-            this.layers[i].onValueChanged(callback)
+        for (i in this.drumLayers) {
+            this.drumLayers[i].onValueChanged(callback)
         }
     }
 
-    this.activeLayer = function() {
-        return this.layers[this.focussedLayerName]
+    this.getActiveDrumLayer = function() {
+        return this.drumLayers[this.activeDrumLayerIndex]
     }
 
-    this.focusLayer = function(layerIndex) {
-        this.focussedLayerIndex = layerIndex
+    this.setActiveDrumLayer = function(drumLayerIndex) {
+        this.activeDrumLayerIndex = drumLayerIndex
     }
 }

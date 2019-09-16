@@ -1,7 +1,7 @@
-function DrumLayer(name) {
+function DrumLayer(name, parameterPages) {
     this.name = name
-    this.parameterPages = []
-    this.focussedPageIndex = 0
+    this.parameterPages = parameterPages
+    this.activeParameterPageIndex = 0
 
     this.onValueChanged = function(callback) {
         for (i in this.parameterPages) {
@@ -9,11 +9,11 @@ function DrumLayer(name) {
         }
     }
 
-    this.focusPage = function(pageIndex) {
-        this.focussedPageIndex = pageIndex
+    this.getActiveParameterPage = function() {
+        return this.parameterPages[this.activeParameterPageIndex]
     }
 
-    this.activePage = function() {
-        return this.parameterPages[this.focussedPageIndex]
+    this.setActiveParameterPage = function(index) {
+        this.activeParameterPageIndex = index
     }
 }

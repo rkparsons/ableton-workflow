@@ -15,11 +15,11 @@ function DrumRack(pathToDrumRack, drumPads) {
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    this.activeDrumPad = function() {
+    this.getActiveDrumPad = function() {
         return this.drumPads[this.activeDrumPadId]
     }
 
-    this.focusDrumPad = function(drumPadId) {
+    this.setActiveDrumPad = function(drumPadId) {
         this.activeDrumPadId = drumPadId
     }
 }
