@@ -11,7 +11,7 @@ function DrumTrack() {
 
         this.controlSurface.initialise()
         // this.controlSurface.onEncoderTurned(sendValue)
-        this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive)
+        this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive.bind(this))
         // this.controlSurface.onSceneLaunchButtonPressed(focusLayer)
 
         this.drumRack.initialise()
