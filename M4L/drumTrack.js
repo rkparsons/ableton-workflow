@@ -15,7 +15,7 @@ function DrumTrack() {
         // this.controlSurface.onSceneLaunchButtonPressed(focusLayer)
 
         this.drumRack.initialise()
-        this.drumRack.onDrumPadSelected(this._focusVoice.bind(this))
+        this.drumRack.onDrumPadSelected(this._focusDrumPad.bind(this))
         this.drumRack.onValueChanged(this._receiveValue)
     }
 
@@ -26,23 +26,23 @@ function DrumTrack() {
         }
     }
 
-    this._focusVoice = function(args) {
+    this._focusDrumPad = function(args) {
         if (args[0] === 'selected_drum_pad') {
-            this.drumRack.focusVoice(args[2])
+            this.drumRack.focusDrumPad(args[2])
             // this._updateDisplay()
         }
     }
 
     // function focusLayer(args) {
     //     if (args[1] === 127) {
-    //         this.drumRack.activeVoice().focusLayer(args[2])
+    //         this.drumRack.activeDrumPad().focusLayer(args[2])
     //     }
     // }
 
     // function updateDisplay() {
     //     this.controlSurface.displayValues(
     //         this.drumRack
-    //             .activeVoice()
+    //             .activeDrumPad()
     //             .activeLayer()
     //             .activePage()
     //             .getParameterValues()
@@ -57,7 +57,7 @@ function DrumTrack() {
     // function sendValue(args) {
     //     if (args[3] >= 0) {
     //         this.drumRack
-    //             .activeVoice()
+    //             .activeDrumPad()
     //             .activeLayer()
     //             .activePage()
     //             .getParameter(args[3])

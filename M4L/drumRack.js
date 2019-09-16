@@ -14,7 +14,7 @@ function DrumRack() {
 
     this.initialise = function() {
         for (var i = 0; i < 16; i++) {
-            const drumPadApi = new LiveAPI(this._focusVoice, this.path + ' visible_drum_pads ' + i)
+            const drumPadApi = new LiveAPI(this._focusDrumPad, this.path + ' visible_drum_pads ' + i)
 
             if (drumPadApi.get('chains')[1]) {
                 this.drumPads[drumPadApi.id] = drumPadFactory.create(drumPadApi.get('name'))
@@ -23,8 +23,8 @@ function DrumRack() {
     }
 
     this.onValueChanged = function(callback) {
-        for (i in this.voices) {
-            this.voices[i].onValueChanged(callback)
+        for (i in this.drumPads) {
+            this.drumPads[i].onValueChanged(callback)
         }
     }
 
@@ -33,11 +33,11 @@ function DrumRack() {
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    this.activeVoice = function() {
-        return this.voices[this.activeVoiceId]
+    this.activeDrumPad = function() {
+        return this.drumPads[this.activeDrumPadId]
     }
 
-    this.focusVoice = function(drumPadId) {
+    this.focusDrumPad = function(drumPadId) {
         this.activeDrumPadId = drumPadId
 
         if (this.drumPads[drumPadId]) {
