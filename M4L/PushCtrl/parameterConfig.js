@@ -78,14 +78,12 @@ constants = require('constants')
 // }
 
 // // sampler
-// exports.xxx = {
-//     name: 'reverse',
-//     displayName: 'Playback',
-//     path: 'devices 1 parameters 1',
-//     inputRange: ['<<<', '>>>'],
-//     outputRange: [1, 0],
-//     unitType: constants.unitType.ENUM,
-// }
+exports.reverse = {
+    displayName: 'Playback',
+    path: 'devices 1 parameters 1',
+    options: [{ value: 0, display: '>>>' }, { value: 1, display: '<<<' }],
+}
+
 // exports.xxx = {
 //     name: constants.chainSelectName,
 //     displayName: 'Sample',
