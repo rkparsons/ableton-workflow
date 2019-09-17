@@ -1,10 +1,11 @@
 include('parameter')
 const config = require('parameterConfig')
 
-exports.create = function(name) {
-    if (config[name]) {
-        utilities.log(name, config[name])
+exports.create = function(targetDeviceName, targetParameterName, targetDevicePath) {
+    const deviceConfig = config[targetDeviceName]
+    const parameterConfig = deviceConfig ? deviceConfig[targetParameterName] : null
 
-        return new Parameter(name, config[name].min, config[name].max)
+    if (deviceConfig && parameterConfig) {
+        return new Parameter(targetParameterName, parameterConfig, targetDevicePath + ' ' + parameterConfig.path)
     }
 }

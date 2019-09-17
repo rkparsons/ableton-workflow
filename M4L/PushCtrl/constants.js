@@ -4,19 +4,19 @@ exports.unitType = {
     ENUM: 2,
 }
 
-// exports.unitStyle = {
-//     INT: 0,
-//     FLOAT: 1,
-//     TIME: 2,
-//     HERTZ: 3,
-//     DECIBEL: 4,
-//     PERCENT: 5,
-//     PAN: 6,
-//     SEMITONES: 7,
-//     MIDI: 8,
-//     CUSTOM: 9,
-//     NATIVE: 10,
-// }
+exports.unitStyle = {
+    INT: 0,
+    FLOAT: 1,
+    TIME: 2,
+    HERTZ: 3,
+    DECIBEL: 4,
+    PERCENT: 5,
+    PAN: 6,
+    SEMITONES: 7,
+    MIDI: 8,
+    CUSTOM: 9,
+    NATIVE: 10,
+}
 
 // exports.mode = {
 //     VOICE_MIXER: 0,

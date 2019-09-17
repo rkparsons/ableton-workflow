@@ -1,7 +1,7 @@
 exports.Sampler = [
     {
         name: 'Sample',
-        parameters: ['sample_type', 'sample_select', 'delay', 'start', 'reverse', 'solo', null, null],
+        parameters: ['Sampler_SampleType', 'Sampler_SampleSelect', 'CC_Delay', 'CC_Start', 'Sampler_Reverse', 'Layer_Solo', null, null],
     },
     {
         name: 'Amp',
