@@ -9,9 +9,10 @@ exports.create = function(pathToDrumPad, name) {
     var drumLayers = []
 
     for (var i = 0; i < drumLayerCount; i++) {
-        const drumLayerApi = new LiveAPI(null, pathToDrumLayers + ' chains ' + i)
+        const pathToDrumLayer = pathToDrumLayers + ' chains ' + i
+        const drumLayerApi = new LiveAPI(null, pathToDrumLayer)
 
-        drumLayers[drumLayerApi.id] = drumLayerFactory.create(drumLayerApi.get('name'))
+        drumLayers[drumLayerApi.id] = drumLayerFactory.create(drumLayerApi, pathToDrumLayer)
     }
 
     return new DrumPad(name, drumLayers)

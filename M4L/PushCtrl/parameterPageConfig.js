@@ -1,4 +1,4 @@
-exports.sampler = [
+exports.Sampler = [
     {
         name: 'Sample',
         parameters: ['sample_type', 'sample_select', 'delay', 'start', 'reverse', 'solo', null, null],
