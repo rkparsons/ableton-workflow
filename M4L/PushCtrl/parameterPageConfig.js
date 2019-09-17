@@ -33,7 +33,7 @@ exports.Sampler = [
     },
 ]
 
-exports.synth_kick = [
+exports.KickSynth = [
     {
         name: 'On',
         parameters: ['decay', 'pitch', 'env', 'drive', 'tone', 'solo', null, null],
@@ -44,14 +44,14 @@ exports.synth_kick = [
     },
 ]
 
-exports.synth_snare = [
+exports.SnareSynth = [
     {
         name: 'On',
         parameters: ['decay', 'tune', 'filter', 'tone', 'colour', 'solo', null, null],
     },
 ]
 
-exports.tension = [
+exports.Tension = [
     {
         name: 'String',
         parameters: ['string_decay', 'string_ratio', 'string_inharm', 'string_damping', 'string_octave', 'string_semi', 'string_error', null],
@@ -82,7 +82,7 @@ exports.tension = [
     },
 ]
 
-exports.collision = [
+exports.Collision = [
     {
         name: 'Mallet',
         parameters: ['mallet_volume', 'mallet_volume_vel', 'mallet_stiffness', 'mallet_stiffness_vel', 'mallet_noise', 'mallet_noise_vel', 'mallet_colour', null],
