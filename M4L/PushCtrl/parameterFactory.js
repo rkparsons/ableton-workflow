@@ -1,6 +1,5 @@
 exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
     include('parameter')
-    include('parameterEnum')
     const config = require('parameterConfig')
 
     var parameters = []
@@ -11,7 +10,7 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
             const targetDeviceType = parameterNameParts[0]
             const targetParameterName = parameterNameParts[1]
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-            const targetDevicePath = targetDeviceIndex ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
+            const targetDevicePath = targetDeviceIndex !== undefined ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
             const deviceConfig = config[targetDeviceType]
             const parameterConfig = deviceConfig ? deviceConfig[targetParameterName] : null
 
@@ -24,9 +23,9 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
             const apiPath = targetDevicePath + ' ' + parameterConfig.path
 
             if (parameterConfig.unitType === constants.unitType.ENUM) {
-                parameters.push(new ParameterEnum(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
+                parameters.push(new EnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
             } else {
-                parameters.push(new Parameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.inputRange, parameterConfig.displayRange))
+                parameters.push(new ValueParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.inputRange, parameterConfig.displayRange))
             }
         }
     }

@@ -1,12 +1,7 @@
-function Parameter(displayName, livePath, property, unitType, inputRange, displayRange) {
+function Parameter(displayName, livePath, property) {
     this.displayName = displayName
     this.livePath = livePath
     this.property = property
-    this.unitType = unitType
-    this.inputRange = inputRange
-    this.displayRange = displayRange
-    this.min = this.inputRange[0]
-    this.max = this.inputRange[1]
 
     this.api = null
     this.value = null
@@ -30,6 +25,22 @@ function Parameter(displayName, livePath, property, unitType, inputRange, displa
         return this.displayName
     }
 
+    this._observeValue = function(args) {
+        if (args[0] === this.property) {
+            this.value = args[1]
+            this.callback()
+        }
+    }
+}
+
+function ValueParameter(displayName, livePath, property, unitType, inputRange, displayRange) {
+    Parameter.call(this, displayName, livePath, property)
+    this.unitType = unitType
+    this.inputRange = inputRange
+    this.displayRange = displayRange
+    this.min = this.inputRange[0]
+    this.max = this.inputRange[1]
+
     this.getDisplayValue = function() {
         var value = this.value
 
@@ -47,11 +58,20 @@ function Parameter(displayName, livePath, property, unitType, inputRange, displa
     this._getOutputValue = function() {
         return this.unitType === constants.unitType.INT ? Math.floor(this.value) : this.value
     }
+}
 
-    this._observeValue = function(args) {
-        if (args[0] === this.property) {
-            this.value = args[1]
-            this.callback()
-        }
+function EnumParameter(displayName, livePath, property, options) {
+    Parameter.call(this, displayName, livePath, property)
+    this.options = options
+    this.optionKeys = Object.keys(options)
+    this.min = this.optionKeys[0]
+    this.max = this.optionKeys[this.optionKeys.length - 1]
+
+    this.getDisplayValue = function() {
+        return this.options[Math.floor(this.value)]
+    }
+
+    this._getOutputValue = function() {
+        return Math.floor(this.value)
     }
 }
