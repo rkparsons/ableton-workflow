@@ -10,14 +10,24 @@ function ParameterPage(pageName, parameters) {
         }
     }
 
-    this.getParameterValues = function() {
-        var parameterValues = []
+    this.getParameterNames = function() {
+        var names = []
 
         for (i in this.parameters) {
-            parameterValues.push(this.parameters[i] ? this.parameters[i].getDisplayValue() : '')
+            names.push(this.parameters[i] ? this.parameters[i].getDisplayName() : '')
         }
 
-        return parameterValues
+        return names
+    }
+
+    this.getParameterValues = function() {
+        var values = []
+
+        for (i in this.parameters) {
+            values.push(this.parameters[i] ? this.parameters[i].getDisplayValue() : '')
+        }
+
+        return values
     }
 
     this.getParameter = function(parameterIndex) {

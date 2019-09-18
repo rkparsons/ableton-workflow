@@ -23,9 +23,9 @@ function ControlSurface() {
         this._releaseControls()
     }
 
-    this.displayValues = function(values) {
+    this.display = function(lineIndex, values) {
         if (this.isActive) {
-            this.displayApi[1].call('display_message', this._createDisplayMessage(values))
+            this.displayApi[lineIndex].call('display_message', this._createDisplayMessage(values))
         }
     }
 
@@ -95,14 +95,14 @@ function ControlSurface() {
         }
     }
 
-    this._createDisplayMessage = function(values) {
-        var padding = '        '
+    this._createDisplayMessage = function(messageItems) {
+        const paddingEnd = '        '
         var itemsPadded = []
 
-        for (i in values) {
+        for (i in messageItems) {
             var length = 8 - (i % 2)
 
-            itemsPadded.push(('  ' + values[i] + padding).slice(0, length))
+            itemsPadded.push((messageItems[i] + paddingEnd).slice(0, length))
         }
 
         return itemsPadded

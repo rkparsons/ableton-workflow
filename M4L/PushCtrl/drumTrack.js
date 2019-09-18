@@ -36,13 +36,13 @@ function DrumTrack() {
     }
 
     this._updateDisplay = function() {
-        this.controlSurface.displayValues(
-            this.drumRack
-                .getActiveDrumPad()
-                .getActiveDrumLayer()
-                .getActiveParameterPage()
-                .getParameterValues()
-        )
+        const activeParameterPage = this.drumRack
+            .getActiveDrumPad()
+            .getActiveDrumLayer()
+            .getActiveParameterPage()
+
+        this.controlSurface.display(0, activeParameterPage.getParameterNames())
+        this.controlSurface.display(1, activeParameterPage.getParameterValues())
     }
 
     this._receiveValue = function(args) {

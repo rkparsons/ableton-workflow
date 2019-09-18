@@ -1,7 +1,7 @@
 function Parameter(name, config, livePath) {
     this.name = name
     this.livePath = livePath
-    this.config = config
+    this.displayName = config.displayName
     // this.min = min
     // this.max = max
     this.api = null
@@ -18,6 +18,10 @@ function Parameter(name, config, livePath) {
         // this.value += (delta < 50 ? delta : delta - 128) / 100
         // this.value = Math.max(this.min, this.value)
         // this.value = Math.min(this.max, this.value)
+    }
+
+    this.getDisplayName = function() {
+        return this.displayName
     }
 
     this.getDisplayValue = function() {
