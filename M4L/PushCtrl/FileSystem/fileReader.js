@@ -4,8 +4,6 @@ exports.getCategories = function(drumPadName, layerName) {
     const samplesFolder = new Folder(constants.samplesFolder + '/' + drumPadFolder + '/' + layerName)
     samplesFolder.typelist = ['fold']
 
-    log(samplesFolder.pathname)
-
     var categories = {}
     var categoryIndex = 0
 
