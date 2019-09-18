@@ -1,6 +1,7 @@
-exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
+exports.create = function(drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
     include('parameter')
     const config = require('parameterConfig')
+    const fileReader = require('fileReader')
 
     var parameters = []
 
@@ -23,6 +24,9 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
             const apiPath = targetDevicePath + ' ' + parameterConfig.path
 
             if (parameterConfig.unitType === constants.unitType.ENUM) {
+                if (targetParameterName === 'Category') {
+                    parameterConfig.options = fileReader.getCategories(drumPadName, drumLayerName)
+                }
                 parameters.push(new EnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
             } else {
                 parameters.push(new ValueParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.inputRange, parameterConfig.displayRange))

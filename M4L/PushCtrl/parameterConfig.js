@@ -75,13 +75,13 @@ exports.CC = {
 }
 
 exports.Sampler = {
-    SampleType: {
+    Category: {
         displayName: 'Category',
         path: 'parameters 29',
         options: [],
         unitType: constants.unitType.ENUM,
     },
-    SampleSelect: {
+    Select: {
         displayName: 'Sample',
         path: 'parameters 3',
         options: [],

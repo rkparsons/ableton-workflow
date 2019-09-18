@@ -14,7 +14,7 @@ function Parameter(displayName, livePath, property) {
     }
 
     this.sendValue = function(delta) {
-        this.value += delta < 50 ? delta : delta - 128
+        this.value += this._getIncrement(delta)
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
 
@@ -49,14 +49,18 @@ function ValueParameter(displayName, livePath, property, unitType, inputRange, d
         }
 
         if (this.unitType === constants.unitType.INT) {
-            return Math.floor(value)
+            return Math.round(value)
         } else {
             return Math.round(value * 100) / 100
         }
     }
 
     this._getOutputValue = function() {
-        return this.unitType === constants.unitType.INT ? Math.floor(this.value) : this.value
+        return this.unitType === constants.unitType.INT ? Math.round(this.value) : this.value
+    }
+
+    this._getIncrement = function(delta) {
+        return delta < 50 ? delta : delta - 128
     }
 }
 
@@ -66,12 +70,17 @@ function EnumParameter(displayName, livePath, property, options) {
     this.optionKeys = Object.keys(options)
     this.min = this.optionKeys[0]
     this.max = this.optionKeys[this.optionKeys.length - 1]
+    this.speed = 0.05
 
     this.getDisplayValue = function() {
-        return this.options[Math.floor(this.value)]
+        return this.options[Math.round(this.value)]
     }
 
     this._getOutputValue = function() {
-        return Math.floor(this.value)
+        return Math.round(this.value)
+    }
+
+    this._getIncrement = function(delta) {
+        return 0.05 * (delta < 50 ? delta : delta - 128)
     }
 }

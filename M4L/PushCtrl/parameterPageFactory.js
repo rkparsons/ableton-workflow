@@ -1,4 +1,4 @@
-exports.create = function(pathToDrumLayer, devicesCount) {
+exports.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
     include('parameterPage')
     const config = require('parameterPageConfig')
     const parameterFactory = require('parameterFactory')
@@ -20,7 +20,7 @@ exports.create = function(pathToDrumLayer, devicesCount) {
 
     for (i in config[instrumentType]) {
         const page = config[instrumentType][i]
-        const parameters = parameterFactory.create(page.parameters, deviceTypeToIndex, pathToDrumLayer)
+        const parameters = parameterFactory.create(drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
         parameterPages.push(new ParameterPage(page.name, parameters))
     }
 
