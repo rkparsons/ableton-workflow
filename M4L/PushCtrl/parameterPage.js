@@ -1,11 +1,12 @@
-function ParameterPage(pageName) {
+function ParameterPage(pageName, parameters) {
     this.pageName = pageName
-
-    this.parameters = []
+    this.parameters = parameters
 
     this.onValueChanged = function(callback) {
         for (i in this.parameters) {
-            this.parameters[i].onValueChanged(callback)
+            if (this.parameters[i]) {
+                this.parameters[i].onValueChanged(callback)
+            }
         }
     }
 
@@ -13,7 +14,7 @@ function ParameterPage(pageName) {
         var parameterValues = []
 
         for (i in this.parameters) {
-            parameterValues.push(this.parameters[i].getDisplayValue())
+            parameterValues.push(this.parameters[i] ? this.parameters[i].getDisplayValue() : '')
         }
 
         return parameterValues

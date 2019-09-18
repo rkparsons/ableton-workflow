@@ -16,5 +16,5 @@ exports.create = function(name, parameterNames, deviceTypeToIndex, pathToDrumLay
         }
     }
 
-    return new ParameterPage(name)
+    return new ParameterPage(name, parameters)
 }

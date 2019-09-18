@@ -12,7 +12,7 @@ exports.create = function(pathToDrumPad, name) {
         const pathToDrumLayer = pathToDrumLayers + ' chains ' + i
         const drumLayerApi = new LiveAPI(null, pathToDrumLayer)
 
-        drumLayers[drumLayerApi.id] = drumLayerFactory.create(drumLayerApi, pathToDrumLayer)
+        drumLayers[i] = drumLayerFactory.create(drumLayerApi, pathToDrumLayer)
     }
 
     return new DrumPad(name, drumLayers)
