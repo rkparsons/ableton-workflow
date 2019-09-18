@@ -8,7 +8,7 @@ function ControlSurface() {
     this.controlSurfaceApi = undefined
     this.displayApi = []
     this.sceneLaunchButtonsApi = undefined
-    this.controlNames = require('controlSurfaceConfig').controlNames
+    this.controlNames = constants.pushControls
 
     this.initialise = function() {
         this.controlSurfaceApi = new LiveAPI('control_surfaces 0')

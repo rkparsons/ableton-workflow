@@ -1,9 +1,10 @@
 exports.getCategories = function(drumPadName, layerName) {
     const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(layerName.toString()) >= 0
-    const sampleRootFolder = isSharedSampleFolder ? 'Shared' : drumPadName
-    // const samplesFolder = new Folder('/../../Samples/' + sampleRootFolder)
-    const samplesFolder = new Folder('C:/Code/ableton-workflow/Samples/' + sampleRootFolder + '/' + layerName)
+    const drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName
+    const samplesFolder = new Folder(constants.samplesFolder + '/' + drumPadFolder + '/' + layerName)
     samplesFolder.typelist = ['fold']
+
+    log(samplesFolder.pathname)
 
     var categories = {}
     var categoryIndex = 0
