@@ -11,7 +11,7 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
             const targetDeviceType = parameterNameParts[0]
             const targetParameterName = parameterNameParts[1]
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-            const targetDevicePath = pathToDrumLayer + ' devices ' + targetDeviceIndex
+            const targetDevicePath = targetDeviceIndex ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
             const deviceConfig = config[targetDeviceType]
             const parameterConfig = deviceConfig ? deviceConfig[targetParameterName] : null
 
@@ -20,7 +20,7 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
                 continue
             }
 
-            const apiProperty = config.property ? config.property : 'value'
+            const apiProperty = parameterConfig.property ? parameterConfig.property : 'value'
             const apiPath = targetDevicePath + ' ' + parameterConfig.path
 
             if (parameterConfig.unitType === constants.unitType.ENUM) {
