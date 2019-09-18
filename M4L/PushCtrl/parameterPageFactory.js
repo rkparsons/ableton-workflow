@@ -1,20 +1,29 @@
 include('parameterPage')
+const config = require('parameterPageConfig')
 const parameterFactory = require('parameterFactory')
 
-exports.create = function(name, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
-    var parameters = []
+exports.create = function(pathToDrumLayer, devicesCount) {
+    var parameterPages = []
+    var deviceTypeToIndex = {}
+    var instrumentType = null
 
-    for (i in parameterNames) {
-        if (parameterNames[i]) {
-            const parameterNameParts = parameterNames[i].split('_')
-            const targetDeviceType = parameterNameParts[0]
-            const targetParameterName = parameterNameParts[1]
-            const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-            const targetDevicePath = pathToDrumLayer + ' devices ' + targetDeviceIndex
+    for (var deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
+        const deviceApi = new LiveAPI(null, pathToDrumLayer + ' devices ' + deviceIndex)
+        const deviceType = parseInt(deviceApi.get('type'))
+        const deviceName = deviceApi.get('name')
 
-            parameters.push(parameterFactory.create(targetDeviceType, targetParameterName, targetDevicePath))
+        deviceTypeToIndex[deviceName] = deviceIndex
+
+        if (deviceType === 1) {
+            instrumentType = deviceName
         }
     }
 
-    return new ParameterPage(name, parameters)
+    for (i in config[instrumentType]) {
+        const page = config[instrumentType][i]
+        const parameters = parameterFactory.create(page.parameters, deviceTypeToIndex, pathToDrumLayer)
+        parameterPages.push(new ParameterPage(page.name, parameters))
+    }
+
+    return parameterPages
 }

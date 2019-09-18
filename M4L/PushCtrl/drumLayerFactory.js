@@ -1,29 +1,17 @@
 include('drumLayer')
 const parameterPageFactory = require('parameterPageFactory')
-const parameterPageConfig = require('parameterPageConfig')
 
-exports.create = function(drumLayerApi, pathToDrumLayer) {
-    const devicesCount = drumLayerApi.get('devices').length / 2
-    var parameterPages = []
-    var deviceNameToIndex = {}
-    var instrumentType = null
+exports.create = function(pathToDrumLayers, drumLayerCount) {
+    var drumLayers = []
 
-    for (var deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
-        const deviceApi = new LiveAPI(null, pathToDrumLayer + ' devices ' + deviceIndex)
-        const deviceType = parseInt(deviceApi.get('type'))
-        const deviceName = deviceApi.get('name')
+    for (var i = 0; i < drumLayerCount; i++) {
+        const pathToDrumLayer = pathToDrumLayers + ' chains ' + i
+        const drumLayerApi = new LiveAPI(null, pathToDrumLayer)
+        const devicesCount = drumLayerApi.get('devices').length / 2
+        const parameterPages = parameterPageFactory.create(pathToDrumLayer, devicesCount)
 
-        deviceNameToIndex[deviceName] = deviceIndex
-
-        if (deviceType === 1) {
-            instrumentType = deviceName
-        }
+        drumLayers[i] = new DrumLayer(drumLayerApi.get('name'), parameterPages)
     }
 
-    for (i in parameterPageConfig[instrumentType]) {
-        const page = parameterPageConfig[instrumentType][i]
-        parameterPages.push(parameterPageFactory.create(page.name, page.parameters, deviceNameToIndex, pathToDrumLayer))
-    }
-
-    return new DrumLayer(drumLayerApi.get('name'), parameterPages)
+    return drumLayers
 }

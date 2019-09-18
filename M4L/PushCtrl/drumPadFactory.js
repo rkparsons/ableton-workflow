@@ -1,19 +1,22 @@
 include('drumPad')
 const drumLayerFactory = require('drumLayerFactory')
 
-exports.create = function(pathToDrumPad, name) {
-    const pathToDrumLayers = pathToDrumPad + ' chains 0 devices 0'
-    const drumLayersApi = new LiveAPI(null, pathToDrumLayers)
-    const drumLayerCount = drumLayersApi.get('chains').length / 2
+exports.create = function(pathToDrumRack) {
+    var drumPads = []
 
-    var drumLayers = []
+    for (var i = 0; i < 16; i++) {
+        const pathToDrumPad = pathToDrumRack + ' visible_drum_pads ' + i
+        const drumPadApi = new LiveAPI(null, pathToDrumPad)
 
-    for (var i = 0; i < drumLayerCount; i++) {
-        const pathToDrumLayer = pathToDrumLayers + ' chains ' + i
-        const drumLayerApi = new LiveAPI(null, pathToDrumLayer)
+        if (drumPadApi.get('chains')[1]) {
+            const pathToDrumLayers = pathToDrumPad + ' chains 0 devices 0'
+            const drumLayersApi = new LiveAPI(null, pathToDrumLayers)
+            const drumLayerCount = drumLayersApi.get('chains').length / 2
+            const drumLayers = drumLayerFactory.create(pathToDrumLayers, drumLayerCount)
 
-        drumLayers[i] = drumLayerFactory.create(drumLayerApi, pathToDrumLayer)
+            drumPads[drumPadApi.id] = new DrumPad(drumPadApi.get('name'), drumLayers)
+        }
     }
 
-    return new DrumPad(name, drumLayers)
+    return drumPads
 }
