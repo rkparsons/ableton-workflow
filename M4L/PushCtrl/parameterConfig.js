@@ -2,48 +2,48 @@ constants = require('constants')
 
 // global
 
-// exports.xxx = {
-// exports.xxx = {
-//     name: constants.muteName,
-//     apiProperty: 'mute',
-//     path: '',
-//     inputRange: ['off', 'on'],
-//     unitType: constants.unitType.ENUM,
-// }
-// exports.xxx = {
-//     name: 'solo',
-//     displayName: 'Solo',
-//     apiProperty: 'solo',
-//     path: '',
-//     inputRange: ['off', 'on'],
-//     unitType: constants.unitType.ENUM,
-// }
-// exports.xxx = {
-//     name: 'panning',
-//     path: 'mixer_device panning',
-//     inputRange: [-50, 50],
-//     outputRange: ['-1.', '1.'],
-//     unitType: constants.unitType.INT,
-//     unitStyle: constants.unitStyle.PAN,
-// }
-// exports.xxx = {
-//     name: 'volume',
-//     path: 'mixer_device volume',
-//     inputRange: [-24, 0],
-//     outputRange: [0.302414, 0.85],
-//     unitType: constants.unitType.INT,
-//     unitStyle: constants.unitStyle.DECIBEL,
-// }
+exports.Layer = {
+    // exports.xxx = {
+    //     name: constants.muteName,
+    //     apiProperty: 'mute',
+    //     path: '',
+    //     inputRange: ['off', 'on'],
+    //     unitType: constants.unitType.ENUM,
+    // }
+    Solo: {
+        displayName: 'Solo',
+        apiProperty: 'solo',
+        path: '',
+        options: ['off', 'on'],
+        unitType: constants.unitType.ENUM,
+    },
+    // exports.xxx = {
+    //     name: 'panning',
+    //     path: 'mixer_device panning',
+    //     inputRange: [-50, 50],
+    //     outputRange: ['-1.', '1.'],
+    //     unitType: constants.unitType.INT,
+    //     unitStyle: constants.unitStyle.PAN,
+    // }
+    // exports.xxx = {
+    //     name: 'volume',
+    //     path: 'mixer_device volume',
+    //     inputRange: [-24, 0],
+    //     outputRange: [0.302414, 0.85],
+    //     unitType: constants.unitType.INT,
+    //     unitStyle: constants.unitStyle.DECIBEL,
+    // }
+}
 
 exports.CC = {
-    // exports.xxx = {
-    //     name: 'delay',
-    //     displayName: 'Delay',
-    //     path: 'devices 0 parameters 1',
-    //     inputRange: [0, 200],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.TIME,
-    // }
+    Delay: {
+        displayName: 'Delay',
+        path: 'parameters 1',
+        inputRange: [0, 200],
+        outputRange: [0, 127],
+        unitType: constants.unitType.FLOAT,
+        unitStyle: constants.unitStyle.TIME,
+    },
     Start: {
         displayName: 'Start',
         path: 'parameters 2',
@@ -80,20 +80,24 @@ exports.CC = {
 }
 
 exports.Sampler = {
+    SampleType: {
+        displayName: 'Category',
+        path: 'parameters 29',
+        options: [],
+        unitType: constants.unitType.ENUM,
+    },
+    SampleSelect: {
+        displayName: 'Sample',
+        path: 'parameters 3',
+        options: [],
+        unitType: constants.unitType.ENUM,
+    },
     Reverse: {
         displayName: 'Playback',
         path: 'parameters 1',
         options: [{ value: 0, display: '>>>' }, { value: 1, display: '<<<' }],
         unitType: constants.unitType.ENUM,
     },
-
-    // exports.xxx = {
-    //     name: constants.chainSelectName,
-    //     displayName: 'Sample',
-    //     path: 'devices 1 parameters 3',
-    //     inputType: 'live.menu',
-    //     unitType: constants.unitType.ENUM,
-    // }
     // exports.xxx = {
     //     name: 'o_wave',
     //     displayName: '/\\/',
@@ -156,13 +160,6 @@ exports.Sampler = {
     //     inputRange: [0, 100],
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
-    // }
-    // exports.xxx = {
-    //     name: constants.sampleTypeName,
-    //     displayName: 'Category',
-    //     path: 'devices 1 parameters 29',
-    //     inputType: 'live.menu',
-    //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'pitch',
