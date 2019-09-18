@@ -24,7 +24,9 @@ function ControlSurface() {
     }
 
     this.displayValues = function(values) {
-        this.displayApi[1].call('display_message', this._createDisplayMessage(values))
+        if (this.isActive) {
+            this.displayApi[1].call('display_message', this._createDisplayMessage(values))
+        }
     }
 
     this.toggleActive = function() {
