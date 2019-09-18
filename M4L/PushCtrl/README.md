@@ -11,5 +11,6 @@
 ## Liveset
 
 1. sampler zones must be arranged alphabetically
-2. sample category maps to zone key (starting at C3)
-3. sample select maps to zone chain (starting at 0)
+2. each individual sample chain must be set to scale 0
+3. sample category maps to zone key (starting at C3)
+4. sample select maps to zone chain (starting at 0)
