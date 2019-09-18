@@ -15,9 +15,6 @@ exports.getCategories = function(drumPadName, layerName) {
     }
     samplesFolder.close()
 
-    log('constants.samplesFolder', constants.samplesFolder)
-    log(drumPadName, layerName, categories)
-
     return categories
 }
 
