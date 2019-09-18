@@ -53,10 +53,10 @@ function DrumTrack() {
         if (args[3] >= 0) {
             this.drumRack
                 .getActiveDrumPad()
-                .getActiveLayer()
+                .getActiveDrumLayer()
                 .getActiveParameterPage()
-                .getParameter(args[3])
-                .updateValue(args[1])
+                .getParameter(args[2])
+                .sendValue(args[1])
 
             this._updateDisplay()
         }

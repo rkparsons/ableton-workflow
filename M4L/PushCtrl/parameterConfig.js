@@ -1,6 +1,4 @@
-constants = require('constants')
-
-// global
+const constants = require('constants')
 
 exports.Layer = {
     // exports.xxx = {
@@ -12,7 +10,7 @@ exports.Layer = {
     // }
     Solo: {
         displayName: 'Solo',
-        apiProperty: 'solo',
+        property: 'solo',
         path: '',
         options: ['off', 'on'],
         unitType: constants.unitType.ENUM,
@@ -40,15 +38,14 @@ exports.CC = {
         displayName: 'Delay',
         path: 'parameters 1',
         inputRange: [0, 200],
-        outputRange: [0, 127],
-        unitType: constants.unitType.FLOAT,
+        unitType: constants.unitType.INT,
         unitStyle: constants.unitStyle.TIME,
     },
     Start: {
         displayName: 'Start',
         path: 'parameters 2',
-        inputRange: [0, 100],
-        outputRange: [0, 127],
+        inputRange: [0, 127],
+        displayRange: [0, 100],
         unitType: constants.unitType.INT,
         unitStyle: constants.unitStyle.PERCENT,
     },
@@ -95,7 +92,7 @@ exports.Sampler = {
     Reverse: {
         displayName: 'Playback',
         path: 'parameters 1',
-        options: [{ value: 0, display: '>>>' }, { value: 1, display: '<<<' }],
+        options: { 0: '>>>', 1: '<<<' },
         unitType: constants.unitType.ENUM,
     },
     // exports.xxx = {

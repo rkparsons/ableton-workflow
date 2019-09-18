@@ -1,8 +1,7 @@
-include('parameterPage')
-const config = require('parameterPageConfig')
-const parameterFactory = require('parameterFactory')
-
 exports.create = function(pathToDrumLayer, devicesCount) {
+    include('parameterPage')
+    const config = require('parameterPageConfig')
+    const parameterFactory = require('parameterFactory')
     var parameterPages = []
     var deviceTypeToIndex = {}
     var instrumentType = null

@@ -16,25 +16,19 @@ exports.log = function() {
     post('\n')
 }
 
-exports.setTimeout = function(task, timeout) {
-    this.allowExecution = false
+// exports.setTimeout = function(task, timeout) {
+//     this.allowExecution = false
 
-    var tsk = new Task(function() {
-        if (this.allowExecution) {
-            task()
+//     var tsk = new Task(function() {
+//         if (this.allowExecution) {
+//             task()
 
-            arguments.callee.task.cancel()
-        }
+//             arguments.callee.task.cancel()
+//         }
 
-        this.allowExecution = true
-    }, this)
+//         this.allowExecution = true
+//     }, this)
 
-    tsk.interval = timeout
-    tsk.repeat(2)
-}
-
-exports.deferLow = function(funcToDefer, context) {
-    new Task(function() {
-        funcToDefer()
-    }, context).schedule(0)
-}
+//     tsk.interval = timeout
+//     tsk.repeat(2)
+// }

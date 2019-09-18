@@ -1,7 +1,6 @@
-include('drumPad')
-const drumLayerFactory = require('drumLayerFactory')
-
 exports.create = function(pathToDrumRack) {
+    include('drumPad')
+    const drumLayerFactory = require('drumLayerFactory')
     var drumPads = []
 
     for (var i = 0; i < 16; i++) {

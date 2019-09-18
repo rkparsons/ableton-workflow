@@ -1,7 +1,6 @@
-include('drumLayer')
-const parameterPageFactory = require('parameterPageFactory')
-
 exports.create = function(pathToDrumLayers, drumLayerCount) {
+    include('drumLayer')
+    const parameterPageFactory = require('parameterPageFactory')
     var drumLayers = []
 
     for (var i = 0; i < drumLayerCount; i++) {

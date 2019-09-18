@@ -1,7 +1,8 @@
-include('parameter')
-const config = require('parameterConfig')
-
 exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
+    include('parameter')
+    include('parameterEnum')
+    const config = require('parameterConfig')
+    const constants = require('constants')
     var parameters = []
 
     for (i in parameterNames) {
@@ -14,8 +15,18 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
             const deviceConfig = config[targetDeviceType]
             const parameterConfig = deviceConfig ? deviceConfig[targetParameterName] : null
 
-            if (parameterConfig) {
-                parameters.push(new Parameter(targetParameterName, parameterConfig, targetDevicePath + ' ' + parameterConfig.path))
+            // can remove this check
+            if (!parameterConfig) {
+                continue
+            }
+
+            const apiProperty = config.property ? config.property : 'value'
+            const apiPath = targetDevicePath + ' ' + parameterConfig.path
+
+            if (parameterConfig.unitType === constants.unitType.ENUM) {
+                parameters.push(new ParameterEnum(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
+            } else {
+                parameters.push(new Parameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.inputRange, parameterConfig.displayRange))
             }
         }
     }
