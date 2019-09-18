@@ -1,5 +1,3 @@
-const constants = require('constants')
-
 function Parameter(displayName, livePath, property, unitType, inputRange, displayRange) {
     this.displayName = displayName
     this.livePath = livePath

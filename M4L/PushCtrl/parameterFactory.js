@@ -2,7 +2,7 @@ exports.create = function(parameterNames, deviceTypeToIndex, pathToDrumLayer) {
     include('parameter')
     include('parameterEnum')
     const config = require('parameterConfig')
-    const constants = require('constants')
+
     var parameters = []
 
     for (i in parameterNames) {

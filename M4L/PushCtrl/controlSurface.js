@@ -1,5 +1,3 @@
-const controlNames = require('controlSurfaceConfig').controlNames
-
 exports.create = function() {
     return new ControlSurface()
 }
@@ -10,6 +8,7 @@ function ControlSurface() {
     this.controlSurfaceApi = undefined
     this.displayApi = []
     this.sceneLaunchButtonsApi = undefined
+    this.controlNames = require('controlSurfaceConfig').controlNames
 
     this.initialise = function() {
         this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
@@ -58,8 +57,8 @@ function ControlSurface() {
     }
 
     this._getControls = function() {
-        for (var i in controlNames) {
-            this.controls.push(this.controlSurfaceApi.call('get_control_by_name', controlNames[i]))
+        for (var i in this.controlNames) {
+            this.controls.push(this.controlSurfaceApi.call('get_control_by_name', this.controlNames[i]))
         }
     }
 

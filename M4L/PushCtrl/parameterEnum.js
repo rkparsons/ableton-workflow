@@ -19,8 +19,8 @@ function ParameterEnum(displayName, livePath, property, options) {
 
     this.sendValue = function(delta) {
         this.value += delta < 50 ? delta : delta - 128
-        this.value = Math.max(min, this.value)
-        this.value = Math.min(max, this.value)
+        this.value = Math.max(this.min, this.value)
+        this.value = Math.min(this.max, this.value)
 
         this.api.set(this.property, Math.floor(this.value))
     }
