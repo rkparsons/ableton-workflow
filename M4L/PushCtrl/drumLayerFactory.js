@@ -27,5 +27,3 @@ exports.create = function(drumLayerApi, pathToDrumLayer) {
 
     return new DrumLayer(drumLayerApi.get('name'), parameterPages)
 }
-
-function getInstrumentType(pathToDrumLayer) {}

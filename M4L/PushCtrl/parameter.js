@@ -1,5 +1,4 @@
 function Parameter(name, config, livePath) {
-    utilities.log(name, livePath)
     this.name = name
     this.livePath = livePath
     this.config = config

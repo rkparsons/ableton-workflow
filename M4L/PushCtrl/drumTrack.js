@@ -8,7 +8,7 @@ function DrumTrack() {
 
     this.initialise = function() {
         this.controlSurface.initialise()
-        // this.controlSurface.onEncoderTurned(sendValue.bind(this))
+        this.controlSurface.onEncoderTurned(sendValue.bind(this))
         this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive.bind(this))
         this.controlSurface.onSceneLaunchButtonPressed(this._focusDrumLayer.bind(this))
         this.drumRack.onDrumPadSelected(this._focusDrumPad.bind(this))
@@ -36,28 +36,29 @@ function DrumTrack() {
     }
 
     this._updateDisplay = function() {
-        // this.controlSurface.displayValues(
-        //     this.drumRack
-        //         .getActiveDrumPad()
-        //         .getActiveDrumLayer()
-        //         .getActiveParameterPage()
-        //         .getParameterValues()
-        // )
+        this.controlSurface.displayValues(
+            this.drumRack
+                .getActiveDrumPad()
+                .getActiveDrumLayer()
+                .getActiveParameterPage()
+                .getParameterValues()
+        )
     }
 
     this._receiveValue = function(args) {
-        // updateDisplay()
+        this._updateDisplay()
     }
 
-    // function sendValue(args) {
-    //     if (args[3] >= 0) {
-    //         this.drumRack
-    //             .activeDrumPad()
-    //             .activeLayer()
-    //             .activePage()
-    //             .getParameter(args[3])
-    //             .updateValue(args[1])
-    //         updateDisplay()
-    //     }
-    // }
+    function sendValue(args) {
+        if (args[3] >= 0) {
+            this.drumRack
+                .getActiveDrumPad()
+                .getActiveLayer()
+                .getActiveParameterPage()
+                .getParameter(args[3])
+                .updateValue(args[1])
+
+            this._updateDisplay()
+        }
+    }
 }
