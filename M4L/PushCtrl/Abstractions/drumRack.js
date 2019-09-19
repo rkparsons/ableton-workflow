@@ -1,25 +1,29 @@
-function DrumRack(pathToDrumRack, drumPads) {
-    this.drumPads = drumPads
-    this.activeDrumPadId = null
-    this.pathToDrumRack = pathToDrumRack
-    this.selectedPadApi = null
+var DrumRack = (function() {
+    function DrumRack(pathToDrumRack, drumPads) {
+        this.drumPads = drumPads
+        this.activeDrumPadId = null
+        this.pathToDrumRack = pathToDrumRack
+        this.selectedPadApi = null
+    }
 
-    this.onValueChanged = function(callback) {
+    DrumRack.prototype.onValueChanged = function(callback) {
         for (i in this.drumPads) {
             this.drumPads[i].onValueChanged(callback)
         }
     }
 
-    this.onDrumPadSelected = function(callback) {
+    DrumRack.prototype.onDrumPadSelected = function(callback) {
         this.selectedPadApi = new LiveAPI(callback, this.pathToDrumRack + ' view')
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    this.getActiveDrumPad = function() {
+    DrumRack.prototype.getActiveDrumPad = function() {
         return this.drumPads[this.activeDrumPadId]
     }
 
-    this.setActiveDrumPad = function(drumPadId) {
+    DrumRack.prototype.setActiveDrumPad = function(drumPadId) {
         this.activeDrumPadId = drumPadId
     }
-}
+
+    return DrumRack
+})()
