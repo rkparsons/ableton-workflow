@@ -1,7 +1,7 @@
-exports.getCategories = function(drumPadName, layerName) {
-    const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(layerName.toString()) >= 0
+exports.getCategories = function(drumPadName, drumLayerName) {
+    const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(drumLayerName.toString()) >= 0
     const drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName
-    const samplesFolder = new Folder(constants.samplesFolder + '/' + drumPadFolder + '/' + layerName)
+    const samplesFolder = new Folder(constants.samplesFolder + '/' + drumPadFolder + '/' + drumLayerName)
     samplesFolder.typelist = ['fold']
 
     var categories = {}
