@@ -1,12 +1,14 @@
-function DrumTrack(drumRack, controlSurface) {
-    this.drumRack = drumRack
-    log(this.drumRack)
-    this.controlSurface = controlSurface
-    this.controlSurface.onEncoderTurned(sendValue.bind(this))
-    this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))
-    this.controlSurface.onSceneLaunchButtonPressed(focusDrumLayer.bind(this))
-    this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
-    this.drumRack.onValueChanged(receiveValue.bind(this))
+var DrumTrack = (function() {
+    function DrumTrack(drumRack, controlSurface) {
+        this.drumRack = drumRack
+        log(this.drumRack)
+        this.controlSurface = controlSurface
+        this.controlSurface.onEncoderTurned(sendValue.bind(this))
+        this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))
+        this.controlSurface.onSceneLaunchButtonPressed(focusDrumLayer.bind(this))
+        this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
+        this.drumRack.onValueChanged(receiveValue.bind(this))
+    }
 
     function pushToggleActive(args) {
         if (args[1] === 127) {
@@ -54,4 +56,6 @@ function DrumTrack(drumRack, controlSurface) {
             updateDisplay.call(this)
         }
     }
-}
+
+    return DrumTrack
+})()
