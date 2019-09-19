@@ -1,19 +1,23 @@
-function DrumPad(name, drumLayers) {
-    this.name = name
-    this.activeDrumLayerIndex = 0
-    this.drumLayers = drumLayers
+var DrumPad = (function() {
+    function DrumPad(name, drumLayers) {
+        this.name = name
+        this.activeDrumLayerIndex = 0
+        this.drumLayers = drumLayers
+    }
 
-    this.onValueChanged = function(callback) {
+    DrumPad.prototype.onValueChanged = function(callback) {
         for (i in this.drumLayers) {
             this.drumLayers[i].onValueChanged(callback)
         }
     }
 
-    this.getActiveDrumLayer = function() {
+    DrumPad.prototype.getActiveDrumLayer = function() {
         return this.drumLayers[this.activeDrumLayerIndex]
     }
 
-    this.setActiveDrumLayer = function(drumLayerIndex) {
+    DrumPad.prototype.setActiveDrumLayer = function(drumLayerIndex) {
         this.activeDrumLayerIndex = drumLayerIndex
     }
-}
+
+    return DrumPad
+})()
