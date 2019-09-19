@@ -18,7 +18,6 @@ function DrumTrack() {
     }
 
     this._pushToggleActive = function(args) {
-        log('onTapTempoButtonPressed', args)
         if (args[1] === 127) {
             this.controlSurface.toggleActive()
             this._updateDisplay()

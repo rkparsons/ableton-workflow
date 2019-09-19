@@ -8,7 +8,7 @@ function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParam
         this.callback = callback
         for (i in this.parameters) {
             if (this.parameters[i]) {
-                this.parameters[i].onValueChanged(this._handleParameterChange.bind(this, i, callback))
+                this.parameters[i].onValueChanged(this._handleParameterChange.bind(this, parseInt(i), callback))
             }
         }
     }
@@ -38,7 +38,7 @@ function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParam
     }
 
     this._handleParameterChange = function(i, callback) {
-        this._handleSampleCategoryChange()
+        this._handleSampleCategoryChange(i)
         callback()
     }
 

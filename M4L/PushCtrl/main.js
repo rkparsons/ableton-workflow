@@ -7,6 +7,7 @@ constants.samplesFolder = constants.projectFolder + '/Samples'
 
 function initLiveApi() {
     const drumTrack = require('drumTrack').create()
+    log(drumTrack)
 
     drumTrack.initialise()
 }

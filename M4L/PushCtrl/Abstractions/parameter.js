@@ -110,11 +110,9 @@ function FilteredEnumParameter(displayName, livePath, property, optionGroups) {
 
     this._applyFilter = function() {
         this.options = this.optionGroups[this.optionGroupKey]
-        this.optionKeys = Object.keys(options)
+        this.optionKeys = Object.keys(this.options)
         this.min = this.optionKeys[0]
         this.max = this.optionKeys[this.optionKeys.length - 1]
-
-        log(displayName, this.options)
     }
 
     this._getOutputValue = function() {
