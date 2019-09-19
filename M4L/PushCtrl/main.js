@@ -6,10 +6,7 @@ constants.projectFolder = this.patcher.filepath.slice(0, this.patcher.filepath.l
 constants.samplesFolder = constants.projectFolder + '/Samples'
 
 function initLiveApi() {
-    const drumTrack = require('drumTrack').create()
-    log(drumTrack)
-
-    drumTrack.initialise()
+    const drumTrack = require('drumTrackFactory').create()
 }
 
 function log() {

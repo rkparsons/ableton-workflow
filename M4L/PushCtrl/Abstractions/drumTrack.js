@@ -1,41 +1,34 @@
-exports.create = function() {
-    return new DrumTrack()
-}
+function DrumTrack(drumRack, controlSurface) {
+    this.drumRack = drumRack
+    log(this.drumRack)
+    this.controlSurface = controlSurface
+    this.controlSurface.onEncoderTurned(sendValue.bind(this))
+    this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))
+    this.controlSurface.onSceneLaunchButtonPressed(focusDrumLayer.bind(this))
+    this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
+    this.drumRack.onValueChanged(receiveValue.bind(this))
 
-function DrumTrack() {
-    this.controlSurface = require('controlSurface').create()
-    this.drumRack = require('drumRackFactory').create()
-
-    this.initialise = function() {
-        this.controlSurface.initialise(constants.pushTapTempoControl)
-        this.controlSurface.onEncoderTurned(sendValue.bind(this))
-        this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive.bind(this))
-        this.controlSurface.onSceneLaunchButtonPressed(this._focusDrumLayer.bind(this))
-        this.drumRack.onDrumPadSelected(this._focusDrumPad.bind(this))
-        this.drumRack.onValueChanged(this._receiveValue.bind(this))
-    }
-
-    this._pushToggleActive = function(args) {
+    function pushToggleActive(args) {
         if (args[1] === 127) {
             this.controlSurface.toggleActive()
-            this._updateDisplay()
+            updateDisplay.call(this)
         }
     }
 
-    this._focusDrumPad = function(args) {
+    function focusDrumPad(args) {
         if (args[0] === 'selected_drum_pad') {
             this.drumRack.setActiveDrumPad(args[2])
-            this._updateDisplay()
+            updateDisplay.call(this)
         }
     }
 
-    this._focusDrumLayer = function(args) {
+    function focusDrumLayer(args) {
         if (args[1] === 127) {
             this.drumRack.getActiveDrumPad().setActiveDrumLayer(args[2])
         }
     }
 
-    this._updateDisplay = function() {
+    function updateDisplay() {
         const activeParameterPage = this.drumRack
             .getActiveDrumPad()
             .getActiveDrumLayer()
@@ -45,8 +38,8 @@ function DrumTrack() {
         this.controlSurface.display(1, activeParameterPage.getParameterValues())
     }
 
-    this._receiveValue = function(args) {
-        this._updateDisplay()
+    function receiveValue(args) {
+        updateDisplay.call(this)
     }
 
     function sendValue(args) {
@@ -58,7 +51,7 @@ function DrumTrack() {
                 .getParameter(args[2])
                 .sendValue(args[1])
 
-            this._updateDisplay()
+            updateDisplay.call(this)
         }
     }
 }

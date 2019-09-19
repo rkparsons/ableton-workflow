@@ -1,8 +1,4 @@
-exports.create = function() {
-    return new ControlSurface()
-}
-
-function ControlSurface() {
+function ControlSurface(onOffControlName) {
     this.isActive = false
     this.onOffControl = null
     this.controls = []
@@ -10,19 +6,7 @@ function ControlSurface() {
     this.displayApi = []
     this.sceneLaunchButtonsApi = undefined
     this.controlNames = constants.pushControls
-
-    this.initialise = function(onOffControlName) {
-        this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
-
-        this.displayApi[0] = new LiveAPI(function() {}, this._getControlApi('Display_Line_0'))
-        this.displayApi[1] = new LiveAPI(function() {}, this._getControlApi('Display_Line_1'))
-        this.displayApi[2] = new LiveAPI(function() {}, this._getControlApi('Display_Line_2'))
-        this.displayApi[3] = new LiveAPI(function() {}, this._getControlApi('Display_Line_3'))
-
-        this._getControls(onOffControlName)
-        this._grabOnOffControl()
-        this._releaseControls()
-    }
+    this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
 
     this.display = function(lineIndex, values) {
         if (this.isActive) {
@@ -116,4 +100,13 @@ function ControlSurface() {
 
         return itemsPadded
     }
+
+    this.displayApi[0] = new LiveAPI(function() {}, this._getControlApi('Display_Line_0'))
+    this.displayApi[1] = new LiveAPI(function() {}, this._getControlApi('Display_Line_1'))
+    this.displayApi[2] = new LiveAPI(function() {}, this._getControlApi('Display_Line_2'))
+    this.displayApi[3] = new LiveAPI(function() {}, this._getControlApi('Display_Line_3'))
+
+    this._getControls(onOffControlName)
+    this._grabOnOffControl()
+    this._releaseControls()
 }
