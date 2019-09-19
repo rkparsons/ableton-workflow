@@ -1,6 +1,6 @@
 // break down into smaller components
-var ControlSurface = (function() {
-    function ControlSurface(onOffControlName) {
+var ControlSurface = defclass(Object, function() {
+    this.constructor = function(onOffControlName) {
         this.isActive = false
         this.onOffControl = null
         this.controls = []
@@ -19,25 +19,25 @@ var ControlSurface = (function() {
         releaseControls.call(this)
     }
 
-    ControlSurface.prototype.display = function(lineIndex, values) {
+    this.display = function(lineIndex, values) {
         if (this.isActive) {
             this.displayApi[lineIndex].call('display_message', createDisplayMessage.call(this, values))
         }
     }
 
-    ControlSurface.prototype.toggleActive = function() {
+    this.toggleActive = function() {
         this.isActive ? releaseControls.call(this) : grabControls.call(this)
     }
 
-    ControlSurface.prototype.onEncoderTurned = function(callback) {
+    this.onEncoderTurned = function(callback) {
         observeControl.call(this, 'Track_Controls', callback)
     }
 
-    ControlSurface.prototype.onTapTempoButtonPressed = function(callback) {
+    this.onTapTempoButtonPressed = function(callback) {
         observeControl.call(this, 'Tap_Tempo_Button', callback)
     }
 
-    ControlSurface.prototype.onSceneLaunchButtonPressed = function(callback) {
+    this.onSceneLaunchButtonPressed = function(callback) {
         this.sceneLaunchButtonsApi = observeControl.call(this, 'Scene_Launch_Buttons', callback)
     }
 
@@ -111,6 +111,4 @@ var ControlSurface = (function() {
 
         return itemsPadded
     }
-
-    return ControlSurface
-})()
+})
