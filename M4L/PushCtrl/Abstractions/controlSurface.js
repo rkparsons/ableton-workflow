@@ -1,5 +1,5 @@
+// break down into smaller components
 var ControlSurface = (function() {
-    // Constructor
     function ControlSurface(onOffControlName) {
         this.isActive = false
         this.onOffControl = null
@@ -19,7 +19,6 @@ var ControlSurface = (function() {
         releaseControls.call(this)
     }
 
-    // Public
     ControlSurface.prototype.display = function(lineIndex, values) {
         if (this.isActive) {
             this.displayApi[lineIndex].call('display_message', createDisplayMessage.call(this, values))
@@ -42,7 +41,6 @@ var ControlSurface = (function() {
         this.sceneLaunchButtonsApi = observeControl.call(this, 'Scene_Launch_Buttons', callback)
     }
 
-    // Private
     function observeControl(controlName, callback) {
         const control = this.controlSurfaceApi.call('get_control_by_name', controlName)
         const controlApi = new LiveAPI(callback, control)

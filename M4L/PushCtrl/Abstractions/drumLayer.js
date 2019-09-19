@@ -1,19 +1,23 @@
-function DrumLayer(name, parameterPages) {
-    this.name = name
-    this.parameterPages = parameterPages
-    this.activeParameterPageIndex = 0
+var DrumLayer = (function() {
+    function DrumLayer(name, parameterPages) {
+        this.name = name
+        this.parameterPages = parameterPages
+        this.activeParameterPageIndex = 0
+    }
 
-    this.onValueChanged = function(callback) {
+    DrumLayer.prototype.onValueChanged = function(callback) {
         for (i in this.parameterPages) {
             this.parameterPages[i].onValueChanged(callback)
         }
     }
 
-    this.getActiveParameterPage = function() {
+    DrumLayer.prototype.getActiveParameterPage = function() {
         return this.parameterPages[this.activeParameterPageIndex]
     }
 
-    this.setActiveParameterPage = function(index) {
+    DrumLayer.prototype.setActiveParameterPage = function(index) {
         this.activeParameterPageIndex = index
     }
-}
+
+    return DrumLayer
+})()
