@@ -1,19 +1,21 @@
-function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
-    this.pageName = pageName
-    this.parameters = parameters
-    this.categoryParameterIndex = categoryParameterIndex
-    this.sampleParameterIndex = sampleParameterIndex
+var ParameterPage = (function() {
+    function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
+        this.pageName = pageName
+        this.parameters = parameters
+        this.categoryParameterIndex = categoryParameterIndex
+        this.sampleParameterIndex = sampleParameterIndex
+    }
 
-    this.onValueChanged = function(callback) {
+    ParameterPage.prototype.onValueChanged = function(callback) {
         this.callback = callback
         for (i in this.parameters) {
             if (this.parameters[i]) {
-                this.parameters[i].onValueChanged(this._handleParameterChange.bind(this, parseInt(i), callback))
+                this.parameters[i].onValueChanged(handleParameterChange.bind(this, parseInt(i), callback))
             }
         }
     }
 
-    this.getParameterNames = function() {
+    ParameterPage.prototype.getParameterNames = function() {
         var names = []
 
         for (i in this.parameters) {
@@ -23,7 +25,7 @@ function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParam
         return names
     }
 
-    this.getParameterValues = function() {
+    ParameterPage.prototype.getParameterValues = function() {
         var values = []
 
         for (i in this.parameters) {
@@ -33,18 +35,20 @@ function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParam
         return values
     }
 
-    this.getParameter = function(parameterIndex) {
+    ParameterPage.prototype.getParameter = function(parameterIndex) {
         return this.parameters[parameterIndex]
     }
 
-    this._handleParameterChange = function(i, callback) {
-        this._handleSampleCategoryChange(i)
+    function handleParameterChange(i, callback) {
+        handleSampleCategoryChange.call(this, i)
         callback()
     }
 
-    this._handleSampleCategoryChange = function(i) {
+    function handleSampleCategoryChange(i) {
         if (i === this.categoryParameterIndex) {
             this.parameters[this.sampleParameterIndex].filterOptions(this.parameters[i].getDisplayValue())
         }
     }
-}
+
+    return ParameterPage
+})()

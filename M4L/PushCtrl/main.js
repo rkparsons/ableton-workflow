@@ -5,8 +5,10 @@ constants = require('constants') // remove global constants
 constants.projectFolder = this.patcher.filepath.slice(0, this.patcher.filepath.lastIndexOf('/'))
 constants.samplesFolder = constants.projectFolder + '/Samples'
 
+include('drumTrackFactory')
+
 function initLiveApi() {
-    const drumTrack = require('drumTrackFactory').create()
+    const drumTrack = new DrumTrackFactory().create()
 }
 
 function log() {
@@ -25,4 +27,12 @@ function log() {
         }
     }
     post('\n')
+}
+
+function defclass(base, body) {
+    var uber = base.prototype
+    var prototype = Object.create(uber)
+    var constructor = (body.call(prototype, uber), prototype.constructor)
+    constructor.prototype = prototype
+    return constructor
 }

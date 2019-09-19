@@ -1,7 +1,6 @@
 var DrumTrack = (function() {
     function DrumTrack(drumRack, controlSurface) {
         this.drumRack = drumRack
-        log(this.drumRack)
         this.controlSurface = controlSurface
         this.controlSurface.onEncoderTurned(sendValue.bind(this))
         this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))

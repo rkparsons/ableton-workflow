@@ -1,9 +1,17 @@
-exports.create = function() {
-    include('drumRack')
-    const drumPadFactory = require('drumPadFactory')
-    const pathToDrumRack = 'this_device canonical_parent devices 1'
+include('drumRack')
+include('drumPadFactory')
 
-    const drumPads = drumPadFactory.create(pathToDrumRack)
+var DrumRackFactory = (function() {
+    function DrumRackFactory() {
+        this.pathToDrumRack = 'this_device canonical_parent devices 1'
+        this.drumPadFactory = new DrumPadFactory()
+    }
 
-    return new DrumRack(pathToDrumRack, drumPads)
-}
+    DrumRackFactory.prototype.create = function() {
+        const drumPads = this.drumPadFactory.create(this.pathToDrumRack)
+
+        return new DrumRack(this.pathToDrumRack, drumPads)
+    }
+
+    return DrumRackFactory
+})()
