@@ -7,9 +7,7 @@ function DrumTrack() {
     this.drumRack = require('drumRackFactory').create()
 
     this.initialise = function() {
-        const onOffControl = constants.pushTapTempoControl
-
-        this.controlSurface.initialise(onOffControl)
+        this.controlSurface.initialise(constants.pushTapTempoControl)
         this.controlSurface.onEncoderTurned(sendValue.bind(this))
         this.controlSurface.onTapTempoButtonPressed(this._pushToggleActive.bind(this))
         this.controlSurface.onSceneLaunchButtonPressed(this._focusDrumLayer.bind(this))
