@@ -30,9 +30,9 @@ function log() {
 }
 
 function defclass(base, body) {
-    var uber = base.prototype
-    var prototype = Object.create(uber)
-    var constructor = (body.call(prototype, uber), prototype.constructor)
-    constructor.prototype = prototype
-    return constructor
+    const prototype = Object.create(base.prototype)
+    body.call(prototype, base.prototype)
+    prototype.constructor.prototype = prototype
+
+    return prototype.constructor
 }
