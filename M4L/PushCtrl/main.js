@@ -1,7 +1,7 @@
 autowatch = 1
 inlets = 1
 outlets = 1
-constants = require('constants')
+constants = require('constants') // remove global constants
 constants.projectFolder = this.patcher.filepath.slice(0, this.patcher.filepath.lastIndexOf('/'))
 constants.samplesFolder = constants.projectFolder + '/Samples'
 
