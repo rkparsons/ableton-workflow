@@ -1,5 +1,5 @@
-var DrumTrack = (function() {
-    function DrumTrack(drumRack, controlSurface) {
+var DrumTrack = defclass(Object, function() {
+    this.constructor = function(drumRack, controlSurface) {
         this.drumRack = drumRack
         this.controlSurface = controlSurface
         this.controlSurface.onEncoderTurned(sendValue.bind(this))
@@ -55,6 +55,4 @@ var DrumTrack = (function() {
             updateDisplay.call(this)
         }
     }
-
-    return DrumTrack
-})()
+})

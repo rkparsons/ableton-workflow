@@ -1,29 +1,30 @@
-var DrumRack = (function() {
-    function DrumRack(pathToDrumRack, drumPads) {
+//todo: move onvaluechanged into subclass
+var DrumRack = defclass(Object, function() {
+    this.constructor = function(pathToDrumRack, drumPads) {
         this.drumPads = drumPads
         this.activeDrumPadId = null
         this.pathToDrumRack = pathToDrumRack
         this.selectedPadApi = null
     }
 
-    DrumRack.prototype.onValueChanged = function(callback) {
+    this.onValueChanged = function(callback) {
         for (i in this.drumPads) {
             this.drumPads[i].onValueChanged(callback)
         }
     }
 
-    DrumRack.prototype.onDrumPadSelected = function(callback) {
+    this.onDrumPadSelected = function(callback) {
         this.selectedPadApi = new LiveAPI(callback, this.pathToDrumRack + ' view')
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    DrumRack.prototype.getActiveDrumPad = function() {
+    this.getActiveDrumPad = function() {
         return this.drumPads[this.activeDrumPadId]
     }
 
-    DrumRack.prototype.setActiveDrumPad = function(drumPadId) {
+    this.setActiveDrumPad = function(drumPadId) {
         this.activeDrumPadId = drumPadId
     }
 
     return DrumRack
-})()
+})

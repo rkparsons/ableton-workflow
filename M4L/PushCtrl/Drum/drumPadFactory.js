@@ -1,12 +1,12 @@
 include('drumPad')
 include('drumLayerFactory')
 
-var DrumPadFactory = (function() {
-    function DrumPadFactory() {
+var DrumPadFactory = defclass(Object, function() {
+    this.constructor = function() {
         this.drumLayerFactory = new DrumLayerFactory()
     }
 
-    DrumPadFactory.prototype.create = function(pathToDrumRack) {
+    this.create = function(pathToDrumRack) {
         var drumPads = {}
 
         for (var i = 0; i < 16; i++) {
@@ -26,6 +26,4 @@ var DrumPadFactory = (function() {
 
         return drumPads
     }
-
-    return DrumPadFactory
-})()
+})

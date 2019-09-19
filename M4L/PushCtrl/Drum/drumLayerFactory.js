@@ -1,12 +1,12 @@
 include('drumLayer')
 include('parameterPageFactory')
 
-var DrumLayerFactory = (function() {
-    function DrumLayerFactory() {
+var DrumLayerFactory = defclass(Object, function() {
+    this.constructor = function() {
         this.parameterPageFactory = new ParameterPageFactory()
     }
 
-    DrumLayerFactory.prototype.create = function(drumPadName, pathToDrumLayers, drumLayerCount) {
+    this.create = function(drumPadName, pathToDrumLayers, drumLayerCount) {
         var drumLayers = []
 
         for (var i = 0; i < drumLayerCount; i++) {
@@ -21,6 +21,4 @@ var DrumLayerFactory = (function() {
 
         return drumLayers
     }
-
-    return DrumLayerFactory
-})()
+})

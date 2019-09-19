@@ -1,13 +1,13 @@
 include('parameterPage')
 include('parameterFactory')
 
-var ParameterPageFactory = (function() {
-    function ParameterPageFactory() {
+var ParameterPageFactory = defclass(Object, function() {
+    this.constructor = function() {
         this.parameterFactory = new ParameterFactory()
         this.config = require('parameterPageConfig')
     }
 
-    ParameterPageFactory.prototype.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
+    this.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
         var parameterPages = []
         var deviceTypeToIndex = {}
         var instrumentType = null
@@ -33,6 +33,4 @@ var ParameterPageFactory = (function() {
 
         return parameterPages
     }
-
-    return ParameterPageFactory
-})()
+})

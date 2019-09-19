@@ -1,12 +1,12 @@
-var ParameterPage = (function() {
-    function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
+var ParameterPage = defclass(Object, function() {
+    this.constructor = function(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
         this.pageName = pageName
         this.parameters = parameters
         this.categoryParameterIndex = categoryParameterIndex
         this.sampleParameterIndex = sampleParameterIndex
     }
 
-    ParameterPage.prototype.onValueChanged = function(callback) {
+    this.onValueChanged = function(callback) {
         this.callback = callback
         for (i in this.parameters) {
             if (this.parameters[i]) {
@@ -15,7 +15,7 @@ var ParameterPage = (function() {
         }
     }
 
-    ParameterPage.prototype.getParameterNames = function() {
+    this.getParameterNames = function() {
         var names = []
 
         for (i in this.parameters) {
@@ -25,7 +25,7 @@ var ParameterPage = (function() {
         return names
     }
 
-    ParameterPage.prototype.getParameterValues = function() {
+    this.getParameterValues = function() {
         var values = []
 
         for (i in this.parameters) {
@@ -35,7 +35,7 @@ var ParameterPage = (function() {
         return values
     }
 
-    ParameterPage.prototype.getParameter = function(parameterIndex) {
+    this.getParameter = function(parameterIndex) {
         return this.parameters[parameterIndex]
     }
 
@@ -49,6 +49,4 @@ var ParameterPage = (function() {
             this.parameters[this.sampleParameterIndex].filterOptions(this.parameters[i].getDisplayValue())
         }
     }
-
-    return ParameterPage
-})()
+})

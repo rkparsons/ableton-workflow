@@ -1,14 +1,15 @@
 include('enumParameter')
 include('filteredEnumParameter')
 include('valueParameter')
+include('fileReader')
 
-var ParameterFactory = (function() {
-    function ParameterFactory() {
+var ParameterFactory = defclass(Object, function() {
+    this.constructor = function() {
         this.config = require('parameterConfig')
-        this.fileReader = require('fileReader')
+        this.fileReader = new FileReader()
     }
 
-    ParameterFactory.prototype.create = function(drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
+    this.create = function(drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
         var parameters = []
         var categoryParameterIndex = null
         var sampleParameterIndex = null
@@ -56,6 +57,4 @@ var ParameterFactory = (function() {
             sampleParameterIndex: sampleParameterIndex,
         }
     }
-
-    return ParameterFactory
-})()
+})
