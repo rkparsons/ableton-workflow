@@ -1,40 +1,54 @@
 exports.getCategories = function(drumPadName, drumLayerName) {
-    const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(drumLayerName.toString()) >= 0
-    const drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName
-    const samplesFolder = new Folder(constants.samplesFolder + '/' + drumPadFolder + '/' + drumLayerName)
-    samplesFolder.typelist = ['fold']
+    const folder = new Folder(getSamplesFolderPath(drumPadName, drumLayerName))
+    folder.typelist = ['fold']
 
     var categories = {}
     var categoryIndex = 0
 
-    samplesFolder.next()
-    while (!samplesFolder.end) {
-        categories[categoryIndex] = samplesFolder.filename
-        samplesFolder.next()
+    folder.next()
+    while (!folder.end) {
+        categories[categoryIndex] = folder.filename
+        folder.next()
         categoryIndex++
     }
-    samplesFolder.close()
+    folder.close()
 
     return categories
 }
 
-exports.getSamples = function(drumPadName, layerName, category) {
-    // ***ignore multisample index***
-    // if (layer.overrideSampleNames) {
-    //     return layer.overrideSampleNames
-    // }
-    // var samples = []
-    // var samplesPath = constants.drumSamplesPath + '/' + layer.basePath + '/' + layer.samples[sampleTypeName]
-    // var folder = new Folder(samplesPath)
-    // folder.typelist = ['WAVE']
-    // folder.next()
-    // while (!folder.end) {
-    //     var indexStart = folder.filename.indexOf('_') + 1
-    //     var indexEnd = folder.filename.indexOf('.')
-    //     var sample = folder.filename.slice(indexStart, indexEnd)
-    //     samples.push(sample)
-    //     folder.next()
-    // }
-    // folder.close()
-    // return samples
+exports.getSampleGroups = function(drumPadName, drumLayerName, categories) {
+    // todo handle multisamples
+    var sampleGroups = {}
+
+    for (i in categories) {
+        sampleGroups[categories[i]] = getSamples(drumPadName, drumLayerName, categories[i])
+    }
+
+    return sampleGroups
+}
+
+function getSamples(drumPadName, drumLayerName, category) {
+    const folder = new Folder(getSamplesFolderPath(drumPadName, drumLayerName) + '/' + category)
+    folder.typelist = ['WAVE']
+
+    var samples = []
+
+    folder.next()
+    while (!folder.end) {
+        var indexStart = folder.filename.indexOf('_') + 1
+        var indexEnd = folder.filename.indexOf('.')
+        var sample = folder.filename.slice(indexStart, indexEnd)
+        samples.push(sample)
+        folder.next()
+    }
+    folder.close()
+
+    return samples
+}
+
+function getSamplesFolderPath(drumPadName, drumLayerName) {
+    const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(drumLayerName.toString()) >= 0
+    const drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName
+
+    return constants.samplesFolder + '/' + drumPadFolder + '/' + drumLayerName
 }

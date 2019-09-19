@@ -1,11 +1,14 @@
-function ParameterPage(pageName, parameters) {
+function ParameterPage(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
     this.pageName = pageName
     this.parameters = parameters
+    this.categoryParameterIndex = categoryParameterIndex
+    this.sampleParameterIndex = sampleParameterIndex
 
     this.onValueChanged = function(callback) {
+        this.callback = callback
         for (i in this.parameters) {
             if (this.parameters[i]) {
-                this.parameters[i].onValueChanged(callback)
+                this.parameters[i].onValueChanged(this._handleParameterChange.bind(this, i, callback))
             }
         }
     }
@@ -32,5 +35,16 @@ function ParameterPage(pageName, parameters) {
 
     this.getParameter = function(parameterIndex) {
         return this.parameters[parameterIndex]
+    }
+
+    this._handleParameterChange = function(i, callback) {
+        this._handleSampleCategoryChange()
+        callback()
+    }
+
+    this._handleSampleCategoryChange = function(i) {
+        if (i === this.categoryParameterIndex) {
+            this.parameters[this.sampleParameterIndex].filterOptions(this.parameters[i].getDisplayValue())
+        }
     }
 }

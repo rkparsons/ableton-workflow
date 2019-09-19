@@ -20,8 +20,9 @@ exports.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCo
 
     for (i in config[instrumentType]) {
         const page = config[instrumentType][i]
-        const parameters = parameterFactory.create(drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
-        parameterPages.push(new ParameterPage(page.name, parameters))
+        const result = parameterFactory.create(drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
+
+        parameterPages.push(new ParameterPage(page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
     }
 
     return parameterPages

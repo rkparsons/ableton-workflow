@@ -84,3 +84,44 @@ function EnumParameter(displayName, livePath, property, options) {
         return 0.05 * (delta < 50 ? delta : delta - 128)
     }
 }
+
+function FilteredEnumParameter(displayName, livePath, property, optionGroups) {
+    Parameter.call(this, displayName, livePath, property)
+    this.optionGroups = optionGroups
+    this.optionGroupKey = null
+
+    this.optionKeys = null
+    this.min = null
+    this.max = null
+
+    this.speed = 0.05
+
+    this.getDisplayValue = function() {
+        if (this.options) {
+            return this.options[Math.round(this.value)]
+        }
+    }
+
+    this.filterOptions = function(optionGroupKey) {
+        this.optionGroupKey = optionGroupKey
+
+        this._applyFilter()
+    }
+
+    this._applyFilter = function() {
+        this.options = this.optionGroups[this.optionGroupKey]
+        this.optionKeys = Object.keys(options)
+        this.min = this.optionKeys[0]
+        this.max = this.optionKeys[this.optionKeys.length - 1]
+
+        log(displayName, this.options)
+    }
+
+    this._getOutputValue = function() {
+        return Math.round(this.value)
+    }
+
+    this._getIncrement = function(delta) {
+        return 0.05 * (delta < 50 ? delta : delta - 128)
+    }
+}

@@ -38,6 +38,8 @@ exports.unitStyle = {
 //     BLUE_DIM: 47,
 // }
 
+exports.pushTapTempoControl = 'Tap_Tempo_Button'
+
 exports.pushControls = [
     'Foot_Pedal',
     'Up_Arrow',
@@ -71,7 +73,7 @@ exports.pushControls = [
     // 'Play_Button',
     'New_Button',
     'Automation_Button',
-    'Tap_Tempo_Button',
+    exports.pushTapTempoControl,
     'Metronome_Button',
     'Fixed_Length_Button',
     // 'Record_Button',

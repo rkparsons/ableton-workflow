@@ -4,10 +4,13 @@ exports.create = function(drumPadName, drumLayerName, parameterNames, deviceType
     const fileReader = require('fileReader')
 
     var parameters = []
+    var categoryParameterIndex = null
+    var sampleParameterIndex = null
+    var sampleCategories = null
 
-    for (i in parameterNames) {
-        if (parameterNames[i]) {
-            const parameterNameParts = parameterNames[i].split('_')
+    for (var parameterindex = 0; parameterindex < parameterNames.length; parameterindex++) {
+        if (parameterNames[parameterindex]) {
+            const parameterNameParts = parameterNames[parameterindex].split('_')
             const targetDeviceType = parameterNameParts[0]
             const targetParameterName = parameterNameParts[1]
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
@@ -23,10 +26,17 @@ exports.create = function(drumPadName, drumLayerName, parameterNames, deviceType
             const apiProperty = parameterConfig.property ? parameterConfig.property : 'value'
             const apiPath = targetDevicePath + ' ' + parameterConfig.path
 
-            if (parameterConfig.unitType === constants.unitType.ENUM) {
-                if (targetParameterName === 'Category') {
-                    parameterConfig.options = fileReader.getCategories(drumPadName, drumLayerName)
-                }
+            if (targetParameterName === 'Category') {
+                sampleCategories = fileReader.getCategories(drumPadName, drumLayerName)
+                parameterConfig.options = sampleCategories
+                categoryParameterIndex = parameterindex
+
+                parameters.push(new EnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
+            } else if (targetParameterName === 'Select') {
+                parameterConfig.options = fileReader.getSampleGroups(drumPadName, drumLayerName, sampleCategories)
+                sampleParameterIndex = parameterindex
+                parameters.push(new FilteredEnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
+            } else if (parameterConfig.unitType === constants.unitType.ENUM) {
                 parameters.push(new EnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
             } else {
                 parameters.push(new ValueParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.inputRange, parameterConfig.displayRange))
@@ -34,5 +44,9 @@ exports.create = function(drumPadName, drumLayerName, parameterNames, deviceType
         }
     }
 
-    return parameters
+    return {
+        parameters: parameters,
+        categoryParameterIndex: categoryParameterIndex,
+        sampleParameterIndex: sampleParameterIndex,
+    }
 }
