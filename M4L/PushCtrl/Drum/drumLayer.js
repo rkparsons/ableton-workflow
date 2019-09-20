@@ -1,11 +1,7 @@
-const { defclass } = require('util')
-
-exports.DrumLayer = defclass(Object, function() {
-    this.constructor = function(name, parameterPages) {
-        this.name = name
-        this.parameterPages = parameterPages
-        this.activeParameterPageIndex = 0
-    }
+exports.DrumLayer = function(name, parameterPages) {
+    this.name = name
+    this.parameterPages = parameterPages
+    this.activeParameterPageIndex = 0
 
     this.onValueChanged = function(callback) {
         for (i in this.parameterPages) {
@@ -20,4 +16,4 @@ exports.DrumLayer = defclass(Object, function() {
     this.setActiveParameterPage = function(index) {
         this.activeParameterPageIndex = index
     }
-})
+}

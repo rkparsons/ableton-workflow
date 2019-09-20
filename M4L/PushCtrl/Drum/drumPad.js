@@ -1,11 +1,7 @@
-const { defclass } = require('util')
-
-exports.DrumPad = defclass(Object, function() {
-    this.constructor = function(name, drumLayers) {
-        this.name = name
-        this.activeDrumLayerIndex = 0
-        this.drumLayers = drumLayers
-    }
+exports.DrumPad = function(name, drumLayers) {
+    this.name = name
+    this.activeDrumLayerIndex = 0
+    this.drumLayers = drumLayers
 
     this.onValueChanged = function(callback) {
         for (i in this.drumLayers) {
@@ -20,4 +16,4 @@ exports.DrumPad = defclass(Object, function() {
     this.setActiveDrumLayer = function(drumLayerIndex) {
         this.activeDrumLayerIndex = drumLayerIndex
     }
-})
+}

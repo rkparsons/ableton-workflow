@@ -1,15 +1,11 @@
-const { defclass } = require('util')
-
-exports.DrumTrack = defclass(Object, function() {
-    this.constructor = function(drumRack, controlSurface) {
-        this.drumRack = drumRack
-        this.controlSurface = controlSurface
-        this.controlSurface.onEncoderTurned(sendValue.bind(this))
-        this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))
-        this.controlSurface.onSceneLaunchButtonPressed(focusDrumLayer.bind(this))
-        this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
-        this.drumRack.onValueChanged(receiveValue.bind(this))
-    }
+exports.DrumTrack = function(drumRack, controlSurface) {
+    this.drumRack = drumRack
+    this.controlSurface = controlSurface
+    this.controlSurface.onEncoderTurned(sendValue.bind(this))
+    this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))
+    this.controlSurface.onSceneLaunchButtonPressed(focusDrumLayer.bind(this))
+    this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
+    this.drumRack.onValueChanged(receiveValue.bind(this))
 
     function pushToggleActive(args) {
         if (args[1] === 127) {
@@ -57,4 +53,4 @@ exports.DrumTrack = defclass(Object, function() {
             updateDisplay.call(this)
         }
     }
-})
+}

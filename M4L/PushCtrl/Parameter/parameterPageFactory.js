@@ -1,12 +1,9 @@
-const { defclass } = require('util')
 const { ParameterPage } = require('parameterPage')
 const { ParameterFactory } = require('parameterFactory')
 const config = require('parameterPageConfig')
 
-exports.ParameterPageFactory = defclass(Object, function() {
-    this.constructor = function(samplesFolder) {
-        this.parameterFactory = new ParameterFactory(samplesFolder)
-    }
+exports.ParameterPageFactory = function(samplesFolder) {
+    this.parameterFactory = new ParameterFactory(samplesFolder)
 
     this.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
         var parameterPages = []
@@ -34,4 +31,4 @@ exports.ParameterPageFactory = defclass(Object, function() {
 
         return parameterPages
     }
-})
+}

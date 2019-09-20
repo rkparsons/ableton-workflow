@@ -1,11 +1,9 @@
-const { defclass } = require('util')
 const { DrumLayer } = require('drumLayer')
 const { ParameterPageFactory } = require('parameterPageFactory')
 
-exports.DrumLayerFactory = defclass(Object, function() {
-    this.constructor = function(samplesFolder) {
-        this.parameterPageFactory = new ParameterPageFactory(samplesFolder)
-    }
+//todo: refactor factory to be pure function
+exports.DrumLayerFactory = function(samplesFolder) {
+    this.parameterPageFactory = new ParameterPageFactory(samplesFolder)
 
     this.create = function(drumPadName, pathToDrumLayers, drumLayerCount) {
         var drumLayers = []
@@ -22,4 +20,4 @@ exports.DrumLayerFactory = defclass(Object, function() {
 
         return drumLayers
     }
-})
+}

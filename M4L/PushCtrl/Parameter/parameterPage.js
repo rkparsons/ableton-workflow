@@ -1,12 +1,8 @@
-const { defclass } = require('util')
-
-exports.ParameterPage = defclass(Object, function() {
-    this.constructor = function(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
-        this.pageName = pageName
-        this.parameters = parameters
-        this.categoryParameterIndex = categoryParameterIndex
-        this.sampleParameterIndex = sampleParameterIndex
-    }
+exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
+    this.pageName = pageName
+    this.parameters = parameters
+    this.categoryParameterIndex = categoryParameterIndex
+    this.sampleParameterIndex = sampleParameterIndex
 
     this.onValueChanged = function(callback) {
         this.callback = callback
@@ -51,4 +47,4 @@ exports.ParameterPage = defclass(Object, function() {
             this.parameters[this.sampleParameterIndex].filterOptions(this.parameters[i].getDisplayValue())
         }
     }
-})
+}

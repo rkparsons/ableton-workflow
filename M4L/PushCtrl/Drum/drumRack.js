@@ -1,12 +1,8 @@
-const { defclass } = require('util')
-
-exports.DrumRack = defclass(Object, function() {
-    this.constructor = function(pathToDrumRack, drumPads) {
-        this.drumPads = drumPads
-        this.activeDrumPadId = null
-        this.pathToDrumRack = pathToDrumRack
-        this.selectedPadApi = null
-    }
+exports.DrumRack = function(pathToDrumRack, drumPads) {
+    this.drumPads = drumPads
+    this.activeDrumPadId = null
+    this.pathToDrumRack = pathToDrumRack
+    this.selectedPadApi = null
 
     this.onValueChanged = function(callback) {
         for (i in this.drumPads) {
@@ -26,4 +22,4 @@ exports.DrumRack = defclass(Object, function() {
     this.setActiveDrumPad = function(drumPadId) {
         this.activeDrumPadId = drumPadId
     }
-})
+}

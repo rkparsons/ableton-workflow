@@ -1,25 +1,22 @@
-const { defclass } = require('util')
 const constants = require('constants')
 
-exports.ControlSurface = defclass(Object, function() {
-    this.constructor = function(onOffControlName) {
-        this.isActive = false
-        this.onOffControl = null
-        this.controls = []
-        this.controlSurfaceApi = undefined
-        this.displayApi = []
-        this.sceneLaunchButtonsApi = undefined
-        this.controlNames = constants.pushControls
-        this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
-        this.displayApi[0] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_0'))
-        this.displayApi[1] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_1'))
-        this.displayApi[2] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_2'))
-        this.displayApi[3] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_3'))
+exports.ControlSurface = function(onOffControlName) {
+    this.isActive = false
+    this.onOffControl = null
+    this.controls = []
+    this.controlSurfaceApi = undefined
+    this.displayApi = []
+    this.sceneLaunchButtonsApi = undefined
+    this.controlNames = constants.pushControls
+    this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
+    this.displayApi[0] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_0'))
+    this.displayApi[1] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_1'))
+    this.displayApi[2] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_2'))
+    this.displayApi[3] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_3'))
 
-        getControls.call(this, onOffControlName)
-        grabOnOffControl.call(this)
-        releaseControls.call(this)
-    }
+    getControls.call(this, onOffControlName)
+    grabOnOffControl.call(this)
+    releaseControls.call(this)
 
     this.display = function(lineIndex, values) {
         if (this.isActive) {
@@ -113,4 +110,4 @@ exports.ControlSurface = defclass(Object, function() {
 
         return itemsPadded
     }
-})
+}

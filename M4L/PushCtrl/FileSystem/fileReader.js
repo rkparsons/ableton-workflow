@@ -1,9 +1,6 @@
-const { defclass } = require('util')
-
-exports.FileReader = defclass(Object, function() {
-    this.constructor = function(samplesFolder) {
-        this.samplesFolder = samplesFolder
-    }
+//todo: make pure function
+exports.FileReader = function(samplesFolder) {
+    this.samplesFolder = samplesFolder
 
     this.getCategories = function(drumPadName, drumLayerName) {
         const folder = new Folder(getSamplesFolderPath.call(this, drumPadName, drumLayerName))
@@ -59,4 +56,4 @@ exports.FileReader = defclass(Object, function() {
 
         return this.samplesFolder + '/' + drumPadFolder + '/' + drumLayerName
     }
-})
+}

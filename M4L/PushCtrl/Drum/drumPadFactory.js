@@ -1,11 +1,8 @@
-const { defclass } = require('util')
 const { DrumPad } = require('drumPad')
 const { DrumLayerFactory } = require('drumLayerFactory')
 
-exports.DrumPadFactory = defclass(Object, function() {
-    this.constructor = function(samplesFolder) {
-        this.drumLayerFactory = new DrumLayerFactory(samplesFolder)
-    }
+exports.DrumPadFactory = function(samplesFolder) {
+    this.drumLayerFactory = new DrumLayerFactory(samplesFolder)
 
     this.create = function(pathToDrumRack) {
         var drumPads = {}
@@ -27,4 +24,4 @@ exports.DrumPadFactory = defclass(Object, function() {
 
         return drumPads
     }
-})
+}
