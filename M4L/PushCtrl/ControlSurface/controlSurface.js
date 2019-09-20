@@ -9,6 +9,7 @@ exports.ControlSurface = function(onOffControlName) {
     this.sceneLaunchButtonsApi = undefined
     this.controlNames = constants.pushControls
     this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
+    //todo: replace hardcoded control names with constants
     this.displayApi[0] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_0'))
     this.displayApi[1] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_1'))
     this.displayApi[2] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_2'))
@@ -34,6 +35,10 @@ exports.ControlSurface = function(onOffControlName) {
 
     this.onTapTempoButtonPressed = function(callback) {
         observeControl.call(this, 'Tap_Tempo_Button', callback)
+    }
+
+    this.onTrackSelectButtonPressed = function(callback) {
+        observeControl.call(this, 'Track_Select_Buttons', callback)
     }
 
     this.onSceneLaunchButtonPressed = function(callback) {

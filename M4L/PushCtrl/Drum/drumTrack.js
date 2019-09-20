@@ -1,8 +1,9 @@
 exports.DrumTrack = function(drumRack, controlSurface) {
     this.drumRack = drumRack
     this.controlSurface = controlSurface
-    this.controlSurface.onEncoderTurned(sendValue.bind(this))
     this.controlSurface.onTapTempoButtonPressed(pushToggleActive.bind(this))
+    this.controlSurface.onEncoderTurned(sendValue.bind(this))
+    this.controlSurface.onTrackSelectButtonPressed(focusParameterPage.bind(this))
     this.controlSurface.onSceneLaunchButtonPressed(focusDrumLayer.bind(this))
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
@@ -17,6 +18,16 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     function focusDrumPad(args) {
         if (args[0] === 'selected_drum_pad') {
             this.drumRack.setActiveDrumPad(args[2])
+            updateDisplay.call(this)
+        }
+    }
+
+    function focusParameterPage(args) {
+        if (args[1] === 127) {
+            this.drumRack
+                .getActiveDrumPad()
+                .getActiveDrumLayer()
+                .setActiveParameterPage(args[2])
             updateDisplay.call(this)
         }
     }
