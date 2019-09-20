@@ -28,13 +28,12 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     }
 
     function updateDisplay() {
-        const activeParameterPage = this.drumRack
-            .getActiveDrumPad()
-            .getActiveDrumLayer()
-            .getActiveParameterPage()
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+        const activeParameterPage = activeDrumLayer.getActiveParameterPage()
 
         this.controlSurface.display(0, activeParameterPage.getParameterNames())
         this.controlSurface.display(1, activeParameterPage.getParameterValues())
+        this.controlSurface.display(3, activeDrumLayer.getParameterPageNames())
     }
 
     function receiveValue(args) {

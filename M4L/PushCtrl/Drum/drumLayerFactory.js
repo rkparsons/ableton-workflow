@@ -9,9 +9,9 @@ exports.createDrumLayers = function(samplesFolder, drumPadName, pathToDrumLayers
         const drumLayerApi = new LiveAPI(null, pathToDrumLayer)
         const drumLayerName = drumLayerApi.get('name')
         const devicesCount = drumLayerApi.get('devices').length / 2
-        const parameterPages = createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount)
+        const result = createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount)
 
-        drumLayers[i] = new DrumLayer(drumLayerName, parameterPages)
+        drumLayers[i] = new DrumLayer(drumLayerName, result.parameterPages, result.parameterPageNames)
     }
 
     return drumLayers

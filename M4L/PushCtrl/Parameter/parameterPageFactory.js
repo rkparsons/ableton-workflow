@@ -4,6 +4,7 @@ const config = require('parameterPageConfig')
 
 exports.createParameterPages = function(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
     var parameterPages = []
+    var parameterPageNames = []
     var deviceTypeToIndex = {}
     var instrumentType = null
 
@@ -24,7 +25,8 @@ exports.createParameterPages = function(samplesFolder, drumPadName, drumLayerNam
         const result = createParameters(samplesFolder, drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
 
         parameterPages.push(new ParameterPage(page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
+        parameterPageNames.push(page.name)
     }
 
-    return parameterPages
+    return { parameterPages: parameterPages, parameterPageNames: parameterPageNames }
 }

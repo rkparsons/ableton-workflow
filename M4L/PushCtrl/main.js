@@ -1,3 +1,5 @@
+include('log')
+
 function initLiveApi() {
     const { createDrumTrack } = require('drumTrackFactory')
 
