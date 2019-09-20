@@ -4,6 +4,8 @@ include('drumRackFactory')
 include('controlSurfaceFactory')
 
 var DrumTrackFactory = defclass(Object, function() {
+    const constants = require('constants')
+
     this.constructor = function(samplesFolder) {
         this.controlSurfaceFactory = new ControlSurfaceFactory()
         this.drumRackFactory = new DrumRackFactory(samplesFolder)

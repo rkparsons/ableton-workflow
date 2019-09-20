@@ -1,6 +1,8 @@
 include('Parameter')
 
 var EnumParameter = defclass(Parameter, function() {
+    const constants = require('constants')
+
     this.constructor = function(displayName, livePath, property, options) {
         Parameter.call(this, displayName, livePath, property, constants.unitType.ENUM)
         this.options = options

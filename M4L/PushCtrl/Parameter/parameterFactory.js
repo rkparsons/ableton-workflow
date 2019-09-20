@@ -4,8 +4,10 @@ include('valueParameter')
 include('fileReader')
 
 var ParameterFactory = defclass(Object, function() {
+    const constants = require('constants')
+    const config = require('parameterConfig')
+
     this.constructor = function(samplesFolder) {
-        this.config = require('parameterConfig')
         this.fileReader = new FileReader(samplesFolder)
     }
 
@@ -22,7 +24,7 @@ var ParameterFactory = defclass(Object, function() {
                 const targetParameterName = parameterNameParts[1]
                 const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
                 const targetDevicePath = targetDeviceIndex !== undefined ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
-                const deviceConfig = this.config[targetDeviceType]
+                const deviceConfig = config[targetDeviceType]
                 const parameterConfig = deviceConfig ? deviceConfig[targetParameterName] : null
 
                 // can remove this check

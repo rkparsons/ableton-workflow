@@ -1,5 +1,7 @@
 // break down into smaller components
 var ControlSurface = defclass(Object, function() {
+    const constants = require('constants')
+
     this.constructor = function(onOffControlName) {
         this.isActive = false
         this.onOffControl = null

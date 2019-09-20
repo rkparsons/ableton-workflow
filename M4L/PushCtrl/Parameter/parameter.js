@@ -1,4 +1,6 @@
 var Parameter = defclass(Object, function() {
+    const constants = require('constants')
+
     this.constructor = function(displayName, livePath, property, unitType) {
         this.displayName = displayName
         this.livePath = livePath

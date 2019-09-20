@@ -1,6 +1,8 @@
 include('Parameter')
 
 var ValueParameter = defclass(Parameter, function() {
+    const constants = require('constants')
+
     this.constructor = function(displayName, livePath, property, unitType, inputRange, displayRange) {
         Parameter.call(this, displayName, livePath, property, unitType)
         this.inputRange = inputRange

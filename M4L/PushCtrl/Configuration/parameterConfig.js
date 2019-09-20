@@ -1,3 +1,5 @@
+const constants = require('constants')
+
 exports.Layer = {
     // exports.xxx = {
     //     name: constants.muteName,

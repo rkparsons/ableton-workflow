@@ -1,5 +1,3 @@
-constants = require('constants') // remove global constants
-
 function initLiveApi() {
     include('drumTrackFactory')
 
