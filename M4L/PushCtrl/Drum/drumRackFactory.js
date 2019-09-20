@@ -1,13 +1,10 @@
 const { DrumRack } = require('drumRack')
-const { DrumPadFactory } = require('drumPadFactory')
+const { createDrumPads } = require('drumPadFactory')
 
-exports.DrumRackFactory = function(samplesFolder) {
+exports.createDrumRack = function(samplesFolder) {
     this.pathToDrumRack = 'this_device canonical_parent devices 1'
-    this.drumPadFactory = new DrumPadFactory(samplesFolder)
 
-    this.create = function() {
-        const drumPads = this.drumPadFactory.create(this.pathToDrumRack)
+    const drumPads = createDrumPads(samplesFolder, this.pathToDrumRack)
 
-        return new DrumRack(this.pathToDrumRack, drumPads)
-    }
+    return new DrumRack(this.pathToDrumRack, drumPads)
 }

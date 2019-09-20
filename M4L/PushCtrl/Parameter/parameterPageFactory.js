@@ -1,34 +1,30 @@
 const { ParameterPage } = require('parameterPage')
-const { ParameterFactory } = require('parameterFactory')
+const { createParameters } = require('parameterFactory')
 const config = require('parameterPageConfig')
 
-exports.ParameterPageFactory = function(samplesFolder) {
-    this.parameterFactory = new ParameterFactory(samplesFolder)
+exports.createParameterPages = function(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
+    var parameterPages = []
+    var deviceTypeToIndex = {}
+    var instrumentType = null
 
-    this.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
-        var parameterPages = []
-        var deviceTypeToIndex = {}
-        var instrumentType = null
+    for (var deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
+        const deviceApi = new LiveAPI(null, pathToDrumLayer + ' devices ' + deviceIndex)
+        const deviceType = parseInt(deviceApi.get('type'))
+        const deviceName = deviceApi.get('name')
 
-        for (var deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
-            const deviceApi = new LiveAPI(null, pathToDrumLayer + ' devices ' + deviceIndex)
-            const deviceType = parseInt(deviceApi.get('type'))
-            const deviceName = deviceApi.get('name')
+        deviceTypeToIndex[deviceName] = deviceIndex
 
-            deviceTypeToIndex[deviceName] = deviceIndex
-
-            if (deviceType === 1) {
-                instrumentType = deviceName
-            }
+        if (deviceType === 1) {
+            instrumentType = deviceName
         }
-
-        for (i in config[instrumentType]) {
-            const page = config[instrumentType][i]
-            const result = this.parameterFactory.create(drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
-
-            parameterPages.push(new ParameterPage(page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
-        }
-
-        return parameterPages
     }
+
+    for (i in config[instrumentType]) {
+        const page = config[instrumentType][i]
+        const result = createParameters(samplesFolder, drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
+
+        parameterPages.push(new ParameterPage(page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
+    }
+
+    return parameterPages
 }
