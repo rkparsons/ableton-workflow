@@ -2,8 +2,8 @@ include('parameterPage')
 include('parameterFactory')
 
 var ParameterPageFactory = defclass(Object, function() {
-    this.constructor = function() {
-        this.parameterFactory = new ParameterFactory()
+    this.constructor = function(samplesFolder) {
+        this.parameterFactory = new ParameterFactory(samplesFolder)
         this.config = require('parameterPageConfig')
     }
 

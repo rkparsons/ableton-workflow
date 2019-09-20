@@ -4,9 +4,9 @@ include('valueParameter')
 include('fileReader')
 
 var ParameterFactory = defclass(Object, function() {
-    this.constructor = function() {
+    this.constructor = function(samplesFolder) {
         this.config = require('parameterConfig')
-        this.fileReader = new FileReader()
+        this.fileReader = new FileReader(samplesFolder)
     }
 
     this.create = function(drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {

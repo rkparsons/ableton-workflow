@@ -4,9 +4,9 @@ include('drumRackFactory')
 include('controlSurfaceFactory')
 
 var DrumTrackFactory = defclass(Object, function() {
-    this.constructor = function() {
+    this.constructor = function(samplesFolder) {
         this.controlSurfaceFactory = new ControlSurfaceFactory()
-        this.drumRackFactory = new DrumRackFactory()
+        this.drumRackFactory = new DrumRackFactory(samplesFolder)
     }
 
     this.create = function() {

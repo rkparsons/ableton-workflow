@@ -1,5 +1,7 @@
 var FileReader = defclass(Object, function() {
-    this.constructor = function() {}
+    this.constructor = function(samplesFolder) {
+        this.samplesFolder = samplesFolder
+    }
 
     this.getCategories = function(drumPadName, drumLayerName) {
         const folder = new Folder(getSamplesFolderPath.call(this, drumPadName, drumLayerName))
@@ -53,6 +55,6 @@ var FileReader = defclass(Object, function() {
         const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(drumLayerName.toString()) >= 0
         const drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName
 
-        return constants.samplesFolder + '/' + drumPadFolder + '/' + drumLayerName
+        return this.samplesFolder + '/' + drumPadFolder + '/' + drumLayerName
     }
 })

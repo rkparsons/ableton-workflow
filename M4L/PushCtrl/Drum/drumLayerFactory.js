@@ -2,8 +2,8 @@ include('drumLayer')
 include('parameterPageFactory')
 
 var DrumLayerFactory = defclass(Object, function() {
-    this.constructor = function() {
-        this.parameterPageFactory = new ParameterPageFactory()
+    this.constructor = function(samplesFolder) {
+        this.parameterPageFactory = new ParameterPageFactory(samplesFolder)
     }
 
     this.create = function(drumPadName, pathToDrumLayers, drumLayerCount) {

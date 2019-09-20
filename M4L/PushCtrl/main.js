@@ -2,13 +2,12 @@ autowatch = 1
 inlets = 1
 outlets = 1
 constants = require('constants') // remove global constants
-constants.projectFolder = this.patcher.filepath.slice(0, this.patcher.filepath.lastIndexOf('/'))
-constants.samplesFolder = constants.projectFolder + '/Samples'
 
 include('drumTrackFactory')
 
 function initLiveApi() {
-    const drumTrack = new DrumTrackFactory().create()
+    const samplesFolder = this.patcher.filepath.slice(0, this.patcher.filepath.lastIndexOf('/')) + '/Samples'
+    const drumTrack = new DrumTrackFactory(samplesFolder).create()
 }
 
 function log() {

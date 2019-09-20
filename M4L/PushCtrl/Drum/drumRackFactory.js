@@ -2,9 +2,9 @@ include('drumRack')
 include('drumPadFactory')
 
 var DrumRackFactory = defclass(Object, function() {
-    this.constructor = function() {
+    this.constructor = function(samplesFolder) {
         this.pathToDrumRack = 'this_device canonical_parent devices 1'
-        this.drumPadFactory = new DrumPadFactory()
+        this.drumPadFactory = new DrumPadFactory(samplesFolder)
     }
 
     this.create = function() {

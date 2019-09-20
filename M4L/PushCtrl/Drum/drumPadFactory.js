@@ -2,8 +2,8 @@ include('drumPad')
 include('drumLayerFactory')
 
 var DrumPadFactory = defclass(Object, function() {
-    this.constructor = function() {
-        this.drumLayerFactory = new DrumLayerFactory()
+    this.constructor = function(samplesFolder) {
+        this.drumLayerFactory = new DrumLayerFactory(samplesFolder)
     }
 
     this.create = function(pathToDrumRack) {
