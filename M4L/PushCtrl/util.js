@@ -5,3 +5,12 @@ exports.defclass = function(base, body) {
 
     return prototype.constructor
 }
+
+exports.denormaliseTimeValue = function(inputValue, min, max) {
+    var result = -0.9633625 + 0.1029236 * Math.exp(12.17793 * inputValue)
+
+    result = Math.max(min, result)
+    result = Math.min(max, result)
+
+    return Math.round(result * 1000) / 1000
+}

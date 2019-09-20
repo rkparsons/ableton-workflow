@@ -42,7 +42,7 @@ exports.createParameters = function(samplesFolder, drumPadName, drumLayerName, p
             } else if (parameterConfig.unitType === constants.unitType.ENUM) {
                 parameters.push(new EnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
             } else {
-                parameters.push(new ValueParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.inputRange, parameterConfig.displayRange))
+                parameters.push(new ValueParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.unitType, parameterConfig.unitStyle, parameterConfig.inputRange, parameterConfig.displayRange))
             }
         }
     }

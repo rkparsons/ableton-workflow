@@ -237,7 +237,9 @@ exports.Sampler = {
         displayName: 'A /',
         path: 'parameters 59',
         inputRange: [0, 1],
+        displayRange: [0, 20000],
         unitType: constants.unitType.FLOAT,
+        unitStyle: constants.unitStyle.TIME,
     },
     // exports.xxx = {
     //     name: 'amp_decay',

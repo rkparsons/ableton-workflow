@@ -47,6 +47,6 @@ exports.Parameter = defclass(Object, function() {
     }
 
     this.getOutputValue = function() {
-        return this.unitType === constants.unitType.FLOAT ? Math.round(this.value * 100) / 100 : Math.round(this.value)
+        return this.unitType === constants.unitType.FLOAT ? Math.round(this.value * 1000) / 1000 : Math.round(this.value)
     }
 })
