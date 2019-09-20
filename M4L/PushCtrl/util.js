@@ -6,12 +6,15 @@ exports.defclass = function(base, body) {
     return prototype.constructor
 }
 
-exports.scaleTime = function(inputValue, inputRange) {
-    var result = -0.9633625 + 0.1029236 * Math.exp(12.17793 * inputValue)
+exports.scaleAndFormatMilliseconds = function(inputValue, displayRange) {
+    var result = inputValue
 
-    result = Math.max(inputRange[0], result)
-    result = Math.min(inputRange[1], result)
-    result = Math.round(result * 100) / 100
+    if (displayRange) {
+        result = -0.9633625 + 0.1029236 * Math.exp(12.17793 * inputValue)
+        result = Math.max(displayRange[0], result)
+        result = Math.min(displayRange[1], result)
+        result = Math.round(result * 100) / 100
+    }
 
     return result < 1000 ? result.round(1) + ' ms' : (result / 1000).round(1) + ' s'
 }

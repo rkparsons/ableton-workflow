@@ -1,4 +1,4 @@
-const { defclass, scaleTime, scaleLinear } = require('util')
+const { defclass, scaleAndFormatMilliseconds, scaleLinear } = require('util')
 const { Parameter } = require('Parameter')
 const constants = require('constants')
 
@@ -15,8 +15,8 @@ exports.ValueParameter = defclass(Parameter, function() {
     this.getDisplayValue = function() {
         var value = this.value
 
-        if (this.unitStyle === constants.unitStyle.TIME && this.displayRange) {
-            return scaleTime(this.value, this.displayRange)
+        if (this.unitStyle === constants.unitStyle.TIME) {
+            return scaleAndFormatMilliseconds(this.value, this.displayRange)
         } else if (this.displayRange) {
             value = scaleLinear(this.value, this.inputRange, this.displayRange)
         }
