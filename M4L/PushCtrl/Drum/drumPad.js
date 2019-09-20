@@ -18,7 +18,4 @@ exports.DrumPad = defclass(Object, function() {
     this.setActiveDrumLayer = function(drumLayerIndex) {
         this.activeDrumLayerIndex = drumLayerIndex
     }
-
-    //todo: do i need this return?
-    return DrumPad
 })

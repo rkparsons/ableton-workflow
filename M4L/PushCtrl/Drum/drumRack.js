@@ -24,6 +24,4 @@ exports.DrumRack = defclass(Object, function() {
     this.setActiveDrumPad = function(drumPadId) {
         this.activeDrumPadId = drumPadId
     }
-
-    return DrumRack
 })
