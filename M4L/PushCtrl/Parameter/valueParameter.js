@@ -1,4 +1,4 @@
-const { defclass, denormaliseTimeValue } = require('util')
+const { defclass, scaleTime, scaleLinear } = require('util')
 const { Parameter } = require('Parameter')
 const constants = require('constants')
 
@@ -15,13 +15,10 @@ exports.ValueParameter = defclass(Parameter, function() {
     this.getDisplayValue = function() {
         var value = this.value
 
-        //todo: refactor into helper class
         if (this.unitStyle === constants.unitStyle.TIME && this.displayRange) {
-            log(value)
-            value = denormaliseTimeValue(this.value, this.displayRange[0], this.displayRange[1])
-            log(value)
+            return scaleTime(this.value, this.displayRange)
         } else if (this.displayRange) {
-            value = ((value - this.inputRange[0]) * (this.displayRange[1] - this.displayRange[0])) / (this.inputRange[1] - this.inputRange[0]) + this.displayRange[0]
+            value = scaleLinear(this.value, this.inputRange, this.displayRange)
         }
 
         if (this.unitType === constants.unitType.INT) {
