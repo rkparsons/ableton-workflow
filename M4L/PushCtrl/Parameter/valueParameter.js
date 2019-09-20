@@ -1,4 +1,4 @@
-const { defclass, scaleAndFormatMilliseconds, scaleLinear } = require('util')
+const { defclass, scaleTime, scaleLinear, formatTime, formatPercent, formatNumber } = require('util')
 const { Parameter } = require('Parameter')
 const constants = require('constants')
 
@@ -13,19 +13,19 @@ exports.ValueParameter = defclass(Parameter, function() {
     }
 
     this.getDisplayValue = function() {
-        var value = this.value
+        if (this.value === null) {
+            return ''
+        }
 
         if (this.unitStyle === constants.unitStyle.TIME) {
-            return scaleAndFormatMilliseconds(this.value, this.displayRange)
-        } else if (this.displayRange) {
-            value = scaleLinear(this.value, this.inputRange, this.displayRange)
+            return formatTime(scaleTime(this.value, this.displayRange), this.unitType)
         }
 
-        if (this.unitType === constants.unitType.INT) {
-            return Math.round(value)
-        } else {
-            return Math.round(value * 1000) / 1000
+        if (this.unitStyle === constants.unitStyle.PERCENT) {
+            return formatPercent(scaleLinear(this.value, this.inputRange, this.displayRange), this.unitType)
         }
+
+        return formatNumber(scaleLinear(this.value, this.inputRange, this.displayRange), this.unitType)
     }
 
     this.getIncrement = function(delta) {
