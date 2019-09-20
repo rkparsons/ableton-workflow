@@ -1,3 +1,5 @@
+const { defclass } = require('util')
+
 exports.DrumLayer = defclass(Object, function() {
     this.constructor = function(name, parameterPages) {
         this.name = name

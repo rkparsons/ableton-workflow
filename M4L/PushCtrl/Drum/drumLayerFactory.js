@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { DrumLayer } = require('drumLayer')
 const { ParameterPageFactory } = require('parameterPageFactory')
 

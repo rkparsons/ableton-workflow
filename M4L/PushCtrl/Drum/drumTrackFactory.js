@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { DrumTrack } = require('drumTrack')
 const { DrumRackFactory } = require('drumRackFactory')
 const { ControlSurfaceFactory } = require('controlSurfaceFactory')

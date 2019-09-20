@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { ParameterPage } = require('parameterPage')
 const { ParameterFactory } = require('parameterFactory')
 const config = require('parameterPageConfig')

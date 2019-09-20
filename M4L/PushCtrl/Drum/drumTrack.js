@@ -1,3 +1,5 @@
+const { defclass } = require('util')
+
 exports.DrumTrack = defclass(Object, function() {
     this.constructor = function(drumRack, controlSurface) {
         this.drumRack = drumRack

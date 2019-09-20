@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { EnumParameter } = require('enumParameter')
 const { FilteredEnumParameter } = require('filteredEnumParameter')
 const { ValueParameter } = require('valueParameter')

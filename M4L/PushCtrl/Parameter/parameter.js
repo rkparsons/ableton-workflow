@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const constants = require('constants')
 
 exports.Parameter = defclass(Object, function() {

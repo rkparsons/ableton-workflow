@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { Parameter } = require('Parameter')
 const constants = require('constants')
 

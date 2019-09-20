@@ -1,3 +1,5 @@
+const { defclass } = require('util')
+
 exports.FileReader = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.samplesFolder = samplesFolder

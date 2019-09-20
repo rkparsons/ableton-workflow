@@ -1,3 +1,5 @@
+const { defclass } = require('util')
+
 exports.ParameterPage = defclass(Object, function() {
     this.constructor = function(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
         this.pageName = pageName

@@ -1,3 +1,5 @@
+const { defclass } = require('util')
+
 exports.DrumPad = defclass(Object, function() {
     this.constructor = function(name, drumLayers) {
         this.name = name

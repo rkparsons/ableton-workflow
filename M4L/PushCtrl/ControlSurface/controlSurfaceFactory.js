@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { ControlSurface } = require('controlSurface')
 
 exports.ControlSurfaceFactory = defclass(Object, function() {

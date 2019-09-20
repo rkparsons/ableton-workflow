@@ -1,3 +1,4 @@
+const { defclass } = require('util')
 const { EnumParameter } = require('EnumParameter')
 
 exports.FilteredEnumParameter = defclass(EnumParameter, function() {
