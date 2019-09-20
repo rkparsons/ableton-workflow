@@ -1,4 +1,4 @@
-var DrumTrack = defclass(Object, function() {
+exports.DrumTrack = defclass(Object, function() {
     this.constructor = function(drumRack, controlSurface) {
         this.drumRack = drumRack
         this.controlSurface = controlSurface

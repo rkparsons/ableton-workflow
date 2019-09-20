@@ -1,11 +1,9 @@
-// todo: get ride of include
-include('drumTrack')
-include('drumRackFactory')
-include('controlSurfaceFactory')
+const { DrumTrack } = require('drumTrack')
+const { DrumRackFactory } = require('drumRackFactory')
+const { ControlSurfaceFactory } = require('controlSurfaceFactory')
+const constants = require('constants')
 
-var DrumTrackFactory = defclass(Object, function() {
-    const constants = require('constants')
-
+exports.DrumTrackFactory = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.controlSurfaceFactory = new ControlSurfaceFactory()
         this.drumRackFactory = new DrumRackFactory(samplesFolder)

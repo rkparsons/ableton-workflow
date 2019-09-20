@@ -1,7 +1,7 @@
-include('drumPad')
-include('drumLayerFactory')
+const { DrumPad } = require('drumPad')
+const { DrumLayerFactory } = require('drumLayerFactory')
 
-var DrumPadFactory = defclass(Object, function() {
+exports.DrumPadFactory = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.drumLayerFactory = new DrumLayerFactory(samplesFolder)
     }

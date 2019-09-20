@@ -1,4 +1,4 @@
-var DrumLayer = defclass(Object, function() {
+exports.DrumLayer = defclass(Object, function() {
     this.constructor = function(name, parameterPages) {
         this.name = name
         this.parameterPages = parameterPages

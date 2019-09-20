@@ -1,4 +1,4 @@
-var DrumPad = defclass(Object, function() {
+exports.DrumPad = defclass(Object, function() {
     this.constructor = function(name, drumLayers) {
         this.name = name
         this.activeDrumLayerIndex = 0
@@ -19,5 +19,6 @@ var DrumPad = defclass(Object, function() {
         this.activeDrumLayerIndex = drumLayerIndex
     }
 
+    //todo: do i need this return?
     return DrumPad
 })

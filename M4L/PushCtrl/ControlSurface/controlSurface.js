@@ -1,7 +1,6 @@
-// break down into smaller components
-var ControlSurface = defclass(Object, function() {
-    const constants = require('constants')
+const constants = require('constants')
 
+exports.ControlSurface = defclass(Object, function() {
     this.constructor = function(onOffControlName) {
         this.isActive = false
         this.onOffControl = null

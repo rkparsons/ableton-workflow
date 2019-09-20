@@ -1,7 +1,6 @@
-// todo: get ride of includes
-include('controlSurface')
+const { ControlSurface } = require('controlSurface')
 
-var ControlSurfaceFactory = defclass(Object, function() {
+exports.ControlSurfaceFactory = defclass(Object, function() {
     this.constructor = function() {}
 
     this.create = function(onOffControlName) {

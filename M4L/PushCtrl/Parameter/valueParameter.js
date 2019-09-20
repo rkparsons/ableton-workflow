@@ -1,8 +1,7 @@
-include('Parameter')
+const { Parameter } = require('Parameter')
+const constants = require('constants')
 
-var ValueParameter = defclass(Parameter, function() {
-    const constants = require('constants')
-
+exports.ValueParameter = defclass(Parameter, function() {
     this.constructor = function(displayName, livePath, property, unitType, inputRange, displayRange) {
         Parameter.call(this, displayName, livePath, property, unitType)
         this.inputRange = inputRange

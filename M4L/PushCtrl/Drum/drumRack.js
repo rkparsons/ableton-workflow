@@ -1,5 +1,4 @@
-//todo: move onvaluechanged into subclass
-var DrumRack = defclass(Object, function() {
+exports.DrumRack = defclass(Object, function() {
     this.constructor = function(pathToDrumRack, drumPads) {
         this.drumPads = drumPads
         this.activeDrumPadId = null

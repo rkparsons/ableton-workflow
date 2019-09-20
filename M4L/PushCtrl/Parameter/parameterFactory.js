@@ -1,12 +1,11 @@
-include('enumParameter')
-include('filteredEnumParameter')
-include('valueParameter')
-include('fileReader')
+const { EnumParameter } = require('enumParameter')
+const { FilteredEnumParameter } = require('filteredEnumParameter')
+const { ValueParameter } = require('valueParameter')
+const { FileReader } = require('fileReader')
+const constants = require('constants')
+const config = require('parameterConfig')
 
-var ParameterFactory = defclass(Object, function() {
-    const constants = require('constants')
-    const config = require('parameterConfig')
-
+exports.ParameterFactory = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.fileReader = new FileReader(samplesFolder)
     }

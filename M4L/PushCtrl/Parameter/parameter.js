@@ -1,6 +1,6 @@
-var Parameter = defclass(Object, function() {
-    const constants = require('constants')
+const constants = require('constants')
 
+exports.Parameter = defclass(Object, function() {
     this.constructor = function(displayName, livePath, property, unitType) {
         this.displayName = displayName
         this.livePath = livePath

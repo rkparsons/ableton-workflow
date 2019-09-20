@@ -1,6 +1,6 @@
-include('EnumParameter')
+const { EnumParameter } = require('EnumParameter')
 
-var FilteredEnumParameter = defclass(EnumParameter, function() {
+exports.FilteredEnumParameter = defclass(EnumParameter, function() {
     this.constructor = function(displayName, livePath, property, optionGroups) {
         const optionGroupKey = Object.keys(optionGroups)[0]
         EnumParameter.call(this, displayName, livePath, property, optionGroups[optionGroupKey])

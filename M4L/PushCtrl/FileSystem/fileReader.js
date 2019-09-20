@@ -1,4 +1,4 @@
-var FileReader = defclass(Object, function() {
+exports.FileReader = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.samplesFolder = samplesFolder
     }

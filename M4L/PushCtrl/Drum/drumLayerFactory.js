@@ -1,7 +1,7 @@
-include('drumLayer')
-include('parameterPageFactory')
+const { DrumLayer } = require('drumLayer')
+const { ParameterPageFactory } = require('parameterPageFactory')
 
-var DrumLayerFactory = defclass(Object, function() {
+exports.DrumLayerFactory = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.parameterPageFactory = new ParameterPageFactory(samplesFolder)
     }

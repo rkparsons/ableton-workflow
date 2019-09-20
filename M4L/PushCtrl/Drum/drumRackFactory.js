@@ -1,7 +1,7 @@
-include('drumRack')
-include('drumPadFactory')
+const { DrumRack } = require('drumRack')
+const { DrumPadFactory } = require('drumPadFactory')
 
-var DrumRackFactory = defclass(Object, function() {
+exports.DrumRackFactory = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.pathToDrumRack = 'this_device canonical_parent devices 1'
         this.drumPadFactory = new DrumPadFactory(samplesFolder)

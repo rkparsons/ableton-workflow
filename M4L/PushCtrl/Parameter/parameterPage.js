@@ -1,4 +1,4 @@
-var ParameterPage = defclass(Object, function() {
+exports.ParameterPage = defclass(Object, function() {
     this.constructor = function(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
         this.pageName = pageName
         this.parameters = parameters

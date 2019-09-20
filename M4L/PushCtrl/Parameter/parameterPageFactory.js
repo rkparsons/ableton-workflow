@@ -1,10 +1,10 @@
-include('parameterPage')
-include('parameterFactory')
+const { ParameterPage } = require('parameterPage')
+const { ParameterFactory } = require('parameterFactory')
+const config = require('parameterPageConfig')
 
-var ParameterPageFactory = defclass(Object, function() {
+exports.ParameterPageFactory = defclass(Object, function() {
     this.constructor = function(samplesFolder) {
         this.parameterFactory = new ParameterFactory(samplesFolder)
-        this.config = require('parameterPageConfig')
     }
 
     this.create = function(drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
@@ -24,8 +24,8 @@ var ParameterPageFactory = defclass(Object, function() {
             }
         }
 
-        for (i in this.config[instrumentType]) {
-            const page = this.config[instrumentType][i]
+        for (i in config[instrumentType]) {
+            const page = config[instrumentType][i]
             const result = this.parameterFactory.create(drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
 
             parameterPages.push(new ParameterPage(page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
