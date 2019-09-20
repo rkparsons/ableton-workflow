@@ -5,7 +5,7 @@ exports.Sampler = [
     },
     {
         name: 'Amp',
-        parameters: ['amp_attack', 'amp_decay', 'amp_sustain', 'amp_release', 'amp_loop', 'amp_sync', null, null],
+        parameters: ['Sampler_AmpAttack', 'amp_decay', 'amp_sustain', 'amp_release', 'amp_loop', 'amp_sync', null, null],
     },
     {
         name: 'Pitch',

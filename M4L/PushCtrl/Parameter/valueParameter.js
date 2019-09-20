@@ -24,4 +24,8 @@ exports.ValueParameter = defclass(Parameter, function() {
             return Math.round(value * 100) / 100
         }
     }
+
+    this.getIncrement = function(delta) {
+        return ((this.max - this.min) * (delta < 50 ? delta : delta - 128)) / 100
+    }
 })

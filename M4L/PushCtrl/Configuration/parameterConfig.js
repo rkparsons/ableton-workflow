@@ -233,14 +233,12 @@ exports.Sampler = {
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
     // }
-    // exports.xxx = {
-    //     name: 'amp_attack',
-    //     displayName: 'A /',
-    //     path: 'devices 1 parameters 59',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
+    AmpAttack: {
+        displayName: 'A /',
+        path: 'parameters 59',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
     // exports.xxx = {
     //     name: 'amp_decay',
     //     displayName: 'D \\',
