@@ -1,12 +1,12 @@
 const { EnumParameter } = require('enumParameter')
 const { FilteredEnumParameter } = require('filteredEnumParameter')
 const { ValueParameter } = require('valueParameter')
-const { FileReader } = require('fileReader')
+const { getCategories, getSampleGroups } = require('fileSystem')
 const constants = require('constants')
 const config = require('parameterConfig')
 
 exports.ParameterFactory = function(samplesFolder) {
-    this.fileReader = new FileReader(samplesFolder)
+    this.samplesFolder = samplesFolder
 
     this.create = function(drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
         var parameters = []
@@ -33,13 +33,13 @@ exports.ParameterFactory = function(samplesFolder) {
                 const apiPath = targetDevicePath + ' ' + parameterConfig.path
 
                 if (targetParameterName === 'Category') {
-                    sampleCategories = this.fileReader.getCategories(drumPadName, drumLayerName)
+                    sampleCategories = getCategories(this.samplesFolder, drumPadName, drumLayerName)
                     parameterConfig.options = sampleCategories
                     categoryParameterIndex = parameterindex
 
                     parameters.push(new EnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
                 } else if (targetParameterName === 'Select') {
-                    parameterConfig.options = this.fileReader.getSampleGroups(drumPadName, drumLayerName, sampleCategories)
+                    parameterConfig.options = getSampleGroups(this.samplesFolder, drumPadName, drumLayerName, sampleCategories)
                     sampleParameterIndex = parameterindex
                     parameters.push(new FilteredEnumParameter(parameterConfig.displayName, apiPath, apiProperty, parameterConfig.options))
                 } else if (parameterConfig.unitType === constants.unitType.ENUM) {
