@@ -33,6 +33,16 @@ exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, s
         return values
     }
 
+    this.getParameterMeters = function() {
+        var meters = []
+
+        for (i in this.parameters) {
+            meters.push(this.parameters[i].getDisplayMeter())
+        }
+
+        return meters
+    }
+
     this.getParameter = function(parameterIndex) {
         return this.parameters[parameterIndex]
     }

@@ -34,6 +34,10 @@ exports.Parameter = defclass(Object, function() {
         return Math.round(this.value)
     }
 
+    this.getDisplayMeter = function() {
+        return ''
+    }
+
     this.sendValue = function(delta) {
         this.value += this.getIncrement(delta)
         this.value = Math.max(this.min, this.value)

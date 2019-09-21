@@ -29,6 +29,16 @@ exports.ValueParameter = defclass(Parameter, function() {
         return formatNumber(scaleLinear(this.value, this.inputRange, this.displayRange), this.unitType)
     }
 
+    this.getDisplayMeter = function() {
+        const segment = Math.round((7 * this.value) / (this.max - this.min))
+        var output = ''
+
+        for (var x = 0; x < 8; x++) {
+            output += x === segment ? '|' : '-'
+        }
+        return output
+    }
+
     this.getIncrement = function(delta) {
         return ((this.max - this.min) * (delta < 50 ? delta : delta - 128)) / 100
     }

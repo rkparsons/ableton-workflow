@@ -44,6 +44,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
 
         this.controlSurface.display(0, activeParameterPage.getParameterNames())
         this.controlSurface.display(1, activeParameterPage.getParameterValues())
+        this.controlSurface.display(2, activeParameterPage.getParameterMeters())
         this.controlSurface.display(3, activeDrumLayer.getParameterPageNames())
     }
 
