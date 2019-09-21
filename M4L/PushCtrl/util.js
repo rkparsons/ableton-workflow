@@ -12,14 +12,13 @@ exports.scaleLinear = function(value, inputRange, outputRange) {
     return ((value - inputRange[0]) * (outputRange[1] - outputRange[0])) / (inputRange[1] - inputRange[0]) + outputRange[0]
 }
 
-exports.scaleTime = function(inputValue, displayRange) {
+exports.scaleExponential = function(value, displayRange, coefficients) {
     if (!displayRange) {
-        return inputValue
+        return value
     }
 
-    var milliseconds = inputValue
+    var milliseconds = coefficients[0] + coefficients[1] * Math.exp(coefficients[2] * value)
 
-    milliseconds = -0.9633625 + 0.1029236 * Math.exp(12.17793 * inputValue)
     milliseconds = Math.max(displayRange[0], milliseconds)
     milliseconds = Math.min(displayRange[1], milliseconds)
     milliseconds = Math.round(milliseconds * 100) / 100

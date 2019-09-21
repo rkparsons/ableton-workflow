@@ -1,13 +1,14 @@
-const { defclass, scaleTime, scaleLinear, formatTime, formatPercent, formatNumber } = require('util')
+const { defclass, scaleExponential, scaleLinear, formatTime, formatPercent, formatNumber } = require('util')
 const { Parameter } = require('Parameter')
 const constants = require('constants')
 
 exports.ValueParameter = defclass(Parameter, function() {
-    this.constructor = function(displayName, livePath, property, unitType, unitStyle, inputRange, displayRange) {
+    this.constructor = function(displayName, livePath, property, unitType, unitStyle, inputRange, displayRange, scaleCoefficients) {
         Parameter.call(this, displayName, livePath, property, unitType)
         this.unitStyle = unitStyle
         this.inputRange = inputRange
         this.displayRange = displayRange
+        this.scaleCoefficients = scaleCoefficients
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
     }
@@ -18,7 +19,7 @@ exports.ValueParameter = defclass(Parameter, function() {
         }
 
         if (this.unitStyle === constants.unitStyle.TIME) {
-            return formatTime(scaleTime(this.value, this.displayRange), this.unitType)
+            return formatTime(scaleExponential(this.value, this.displayRange, this.scaleCoefficients), this.unitType)
         }
 
         if (this.unitStyle === constants.unitStyle.PERCENT) {

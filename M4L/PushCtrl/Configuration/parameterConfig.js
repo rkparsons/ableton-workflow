@@ -238,17 +238,19 @@ exports.Sampler = {
         path: 'parameters 59',
         inputRange: [0, 1],
         displayRange: [0, 20000],
+        scaleCoefficients: [-0.9633625, 0.1029236, 12.17793],
         unitType: constants.unitType.FLOAT,
         unitStyle: constants.unitStyle.TIME,
     },
-    // exports.xxx = {
-    //     name: 'amp_decay',
-    //     displayName: 'D \\',
-    //     path: 'devices 1 parameters 62',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
+    AmpDecay: {
+        displayName: 'D \\',
+        path: 'parameters 62',
+        inputRange: [0, 1],
+        displayRange: [1, 60000],
+        scaleCoefficients: [-0.6697117, 1.006225, 10.99582],
+        unitType: constants.unitType.FLOAT,
+        unitStyle: constants.unitStyle.TIME,
+    },
     // exports.xxx = {
     //     name: 'amp_sustain',
     //     displayName: 'S --',
