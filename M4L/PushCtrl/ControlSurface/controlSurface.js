@@ -12,7 +12,6 @@ exports.ControlSurface = function(onOffControlName) {
     //todo: replace hardcoded control names with constants
     this.displayApi[0] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_0'))
     this.displayApi[1] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_1'))
-    this.displayApi[2] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_2'))
     this.displayApi[3] = new LiveAPI(function() {}, getControlApi.call(this, 'Display_Line_3'))
 
     getControls.call(this, onOffControlName)
@@ -31,10 +30,6 @@ exports.ControlSurface = function(onOffControlName) {
 
     this.onEncoderTurned = function(callback) {
         observeControl.call(this, 'Track_Controls', callback)
-    }
-
-    this.onEncoderTouched = function(callback) {
-        observeControl.call(this, 'Track_Control_Touches', callback)
     }
 
     this.onTapTempoButtonPressed = function(callback) {

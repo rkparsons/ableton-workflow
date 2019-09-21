@@ -1,42 +1,30 @@
-const { defclass, scaleExponential, scaleLinear, formatTime, formatPercent, formatNumber } = require('util')
+const { defclass } = require('util')
 const { Parameter } = require('Parameter')
-const constants = require('constants')
 
 exports.ValueParameter = defclass(Parameter, function() {
-    this.constructor = function(displayName, livePath, property, unitType, unitStyle, inputRange, displayRange, scaleCoefficients) {
+    this.constructor = function(displayName, livePath, property, unitType, inputRange) {
         Parameter.call(this, displayName, livePath, property, unitType)
-        this.unitStyle = unitStyle
         this.inputRange = inputRange
-        this.displayRange = displayRange
-        this.scaleCoefficients = scaleCoefficients
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
     }
 
     this.getDisplayValue = function() {
-        if (this.value === null) {
+        if (!this.value) {
             return ''
         }
 
-        if (this.unitStyle === constants.unitStyle.TIME) {
-            return formatTime(scaleExponential(this.value, this.displayRange, this.scaleCoefficients), this.unitType)
-        }
+        const segment = Math.round((8 * this.value) / (this.max - this.min))
 
-        if (this.unitStyle === constants.unitStyle.PERCENT) {
-            return formatPercent(scaleLinear(this.value, this.inputRange, this.displayRange), this.unitType)
-        }
-
-        return formatNumber(scaleLinear(this.value, this.inputRange, this.displayRange), this.unitType)
-    }
-
-    this.getDisplayMeter = function() {
-        const segment = Math.round((7 * this.value) / (this.max - this.min))
-        var output = ''
-
-        for (var x = 0; x < 8; x++) {
-            output += x === segment ? '|' : '-'
-        }
-        return output
+        if (segment === 0) return '--------'
+        if (segment === 1) return '|-------'
+        if (segment === 2) return '-|------'
+        if (segment === 3) return '--|-----'
+        if (segment === 4) return '---|----'
+        if (segment === 5) return '----|---'
+        if (segment === 6) return '-----|--'
+        if (segment === 7) return '------|-'
+        if (segment === 8) return '-------|'
     }
 
     this.getIncrement = function(delta) {
