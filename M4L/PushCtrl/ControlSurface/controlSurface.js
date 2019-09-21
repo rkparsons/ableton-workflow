@@ -105,12 +105,11 @@ exports.ControlSurface = function(onOffControlName) {
 
     function createDisplayMessage(messageItems) {
         const paddingEnd = '        '
-        var itemsPadded = []
+        var itemsPadded = ''
 
         for (i in messageItems) {
-            var length = 8 - (i % 2)
-
-            itemsPadded.push((messageItems[i] + paddingEnd).slice(0, length))
+            itemsPadded += (messageItems[i] + paddingEnd).slice(0, 8)
+            itemsPadded += i % 2 === 0 ? ' ' : ''
         }
 
         return itemsPadded
