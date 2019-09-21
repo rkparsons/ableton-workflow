@@ -33,6 +33,10 @@ exports.ControlSurface = function(onOffControlName) {
         observeControl.call(this, 'Track_Controls', callback)
     }
 
+    this.onEncoderTouched = function(callback) {
+        observeControl.call(this, 'Track_Control_Touches', callback)
+    }
+
     this.onTapTempoButtonPressed = function(callback) {
         observeControl.call(this, 'Tap_Tempo_Button', callback)
     }
