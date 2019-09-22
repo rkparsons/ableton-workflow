@@ -4,6 +4,10 @@ exports.DrumLayer = function(name, parameterPages, parameterPageNames) {
     this.activeParameterPageIndex = 0
     this.parameterPageNames = parameterPageNames
 
+    this.getName = function() {
+        return this.name
+    }
+
     this.onValueChanged = function(callback) {
         for (i in this.parameterPages) {
             this.parameterPages[i].onValueChanged(callback)

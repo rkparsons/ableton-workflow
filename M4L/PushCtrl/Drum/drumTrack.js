@@ -57,15 +57,19 @@ exports.DrumTrack = function(drumRack, controlSurface) {
 
     function updateDisplay() {
         if (this.isActive) {
-            const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+            const activeDrumPad = this.drumRack.getActiveDrumPad()
+            const activeDrumLayer = activeDrumPad.getActiveDrumLayer()
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
             const parameterPageNames = activeDrumLayer.getParameterPageNames()
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPageIndex()
+            const parameterNames = activeParameterPage.getParameterNames()
 
-            this.controlSurface.display(0, activeParameterPage.getParameterNames())
+            this.controlSurface.display(0, parameterNames)
             this.controlSurface.display(1, activeParameterPage.getParameterValues())
+            this.controlSurface.display(2, ['  [' + activeDrumLayer.getName() + ']'])
             this.controlSurface.display(3, parameterPageNames)
             this.controlSurface.trackSelect(parameterPageNames.length, activeParameterPageIndex)
+            this.controlSurface.trackState(activeDrumPad.getDrumLayerNames().length, activeDrumPad.getActiveDrumLayerIndex())
         }
     }
 

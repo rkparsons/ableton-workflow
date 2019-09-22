@@ -13,9 +13,9 @@ exports.createDrumPads = function(samplesFolder, pathToDrumRack) {
             const drumLayersApi = new LiveAPI(null, pathToDrumLayers)
             const drumPadName = drumPadApi.get('name')
             const drumLayerCount = drumLayersApi.get('chains').length / 2
-            const drumLayers = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
+            const result = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
 
-            drumPads[drumPadApi.id] = new DrumPad(drumPadName, drumLayers)
+            drumPads[drumPadApi.id] = new DrumPad(drumPadName, result.drumLayers, result.drumLayerNames)
         }
     }
 

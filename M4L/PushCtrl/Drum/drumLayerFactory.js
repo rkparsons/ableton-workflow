@@ -3,6 +3,7 @@ const { createParameterPages } = require('parameterPageFactory')
 
 exports.createDrumLayers = function(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount) {
     var drumLayers = []
+    var drumLayerNames = []
 
     for (var i = 0; i < drumLayerCount; i++) {
         const pathToDrumLayer = pathToDrumLayers + ' chains ' + i
@@ -12,7 +13,8 @@ exports.createDrumLayers = function(samplesFolder, drumPadName, pathToDrumLayers
         const result = createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount)
 
         drumLayers[i] = new DrumLayer(drumLayerName, result.parameterPages, result.parameterPageNames)
+        drumLayerNames[i] = drumLayerName
     }
 
-    return drumLayers
+    return { drumLayers: drumLayers, drumLayerNames: drumLayerNames }
 }

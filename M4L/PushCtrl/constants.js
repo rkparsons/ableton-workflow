@@ -32,11 +32,11 @@ exports.selectButtonColour = {
     GREEN_BRIGHT: 19,
 }
 
-// exports.stateButtonColour = {
-//     BLACK: 0,
-//     BLUE_BRIGHT: 45,
-//     BLUE_DIM: 47,
-// }
+exports.stateButtonColour = {
+    BLACK: 0,
+    BLUE_BRIGHT: 45,
+    BLUE_DIM: 47,
+}
 
 exports.pushTapTempoControl = 'Tap_Tempo_Button'
 
