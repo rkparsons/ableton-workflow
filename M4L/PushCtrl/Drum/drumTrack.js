@@ -11,7 +11,6 @@ exports.DrumTrack = function(drumRack, controlSurface) {
 
     function pushToggleActive(args) {
         if (args[1] === 127) {
-            log('pushToggleActive')
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
 
@@ -58,7 +57,6 @@ exports.DrumTrack = function(drumRack, controlSurface) {
 
     function updateDisplay() {
         if (this.isActive) {
-            log('updateDisplay', this.drumRack)
             const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
             const parameterPageNames = activeDrumLayer.getParameterPageNames()
