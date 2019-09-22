@@ -1,18 +1,15 @@
 const constants = require('constants')
+const { ControlSurfaceDisplay } = require('controlSurfaceDisplay')
 
 exports.ControlSurface = function(onOffControlName) {
     this.onOffControlName = onOffControlName
     this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
 
-    this.displayApi = []
     this.trackSelectButtonApi = []
     this.trackStateButtonApi = []
 
     //todo: replace hardcoded control names with constants
-    this.displayApi[0] = new LiveAPI(function() {}, getControl.call(this, 'Display_Line_0'))
-    this.displayApi[1] = new LiveAPI(function() {}, getControl.call(this, 'Display_Line_1'))
-    this.displayApi[2] = new LiveAPI(function() {}, getControl.call(this, 'Display_Line_2'))
-    this.displayApi[3] = new LiveAPI(function() {}, getControl.call(this, 'Display_Line_3'))
+    this.display = new ControlSurfaceDisplay(getControl.bind(this))
 
     this.trackSelectButtonApi[0] = new LiveAPI(function() {}, getControl.call(this, 'Track_Select_Button0'))
     this.trackSelectButtonApi[1] = new LiveAPI(function() {}, getControl.call(this, 'Track_Select_Button1'))
@@ -48,8 +45,8 @@ exports.ControlSurface = function(onOffControlName) {
         }
     }
 
-    this.display = function(lineIndex, values) {
-        this.displayApi[lineIndex].call('display_message', values.length === 1 ? values : createDisplayMessage.call(this, values))
+    this.displayOnLCD = function(lineIndex, values) {
+        this.display.displayOnLCD(lineIndex, values)
     }
 
     this.trackSelect = function(itemsCount, activeItemIndex) {
@@ -76,17 +73,5 @@ exports.ControlSurface = function(onOffControlName) {
 
     function getControl(controlName) {
         return this.controlSurfaceApi.call('get_control_by_name', [controlName])
-    }
-
-    function createDisplayMessage(messageItems) {
-        const paddingEnd = '        '
-        var itemsPadded = ''
-
-        for (i in messageItems) {
-            itemsPadded += (messageItems[i] + paddingEnd).slice(0, 8)
-            itemsPadded += i % 2 === 0 ? ' ' : ''
-        }
-
-        return itemsPadded
     }
 }
