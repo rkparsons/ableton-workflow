@@ -13,7 +13,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
 
     this.appointedDeviceApi = new LiveAPI(setAppointedDeviceId.bind(this), 'live_set')
     this.appointedDeviceApi.property = 'appointed_device'
-    this.appointedDeviceId = null
+    this.appointedDeviceId = parseInt(this.appointedDeviceApi.get('appointed_device')[1])
     this.deviceId = parseInt(new LiveAPI(null, 'this_device').id)
 
     function setAppointedDeviceId(args) {
