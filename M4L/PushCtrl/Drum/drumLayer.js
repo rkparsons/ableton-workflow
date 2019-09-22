@@ -10,6 +10,10 @@ exports.DrumLayer = function(name, parameterPages, parameterPageNames) {
         }
     }
 
+    this.getActiveParameterPageIndex = function() {
+        return this.activeParameterPageIndex
+    }
+
     this.getActiveParameterPage = function() {
         return this.parameterPages[this.activeParameterPageIndex]
     }

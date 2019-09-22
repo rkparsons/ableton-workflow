@@ -5,3 +5,17 @@ exports.defclass = function(base, body) {
 
     return prototype.constructor
 }
+
+exports.deferLow = function(task) {
+    this.allowExecution = false
+
+    new Task(function() {
+        if (this.allowExecution) {
+            task()
+
+            arguments.callee.task.cancel()
+        }
+
+        this.allowExecution = true
+    }, this).execute()
+}

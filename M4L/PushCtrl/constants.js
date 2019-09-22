@@ -26,11 +26,11 @@ exports.unitStyle = {
 //     LAYER_EFFECT: 9,
 // }
 
-// exports.selectButtonColour = {
-//     BLACK: 0,
-//     GREEN_DIM: 13,
-//     GREEN_BRIGHT: 19,
-// }
+exports.selectButtonColour = {
+    BLACK: 0,
+    GREEN_DIM: 13,
+    GREEN_BRIGHT: 19,
+}
 
 // exports.stateButtonColour = {
 //     BLACK: 0,
