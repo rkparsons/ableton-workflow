@@ -45,10 +45,6 @@ exports.ControlSurface = function(onOffControlName) {
         }
     }
 
-    this.displayOnLCD = function(lineIndex, values) {
-        this.display.displayOnLCD(lineIndex, values)
-    }
-
     this.trackSelect = function(itemsCount, activeItemIndex) {
         for (var i = 0; i < 8; i++) {
             var buttonValue = i >= itemsCount ? constants.selectButtonColour.BLACK : i == activeItemIndex ? constants.selectButtonColour.GREEN_BRIGHT : constants.selectButtonColour.GREEN_DIM

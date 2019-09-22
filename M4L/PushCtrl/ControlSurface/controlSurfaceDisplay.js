@@ -6,7 +6,7 @@ exports.ControlSurfaceDisplay = function(getControl) {
     this.displayApi[2] = new LiveAPI(function() {}, getControl('Display_Line_2'))
     this.displayApi[3] = new LiveAPI(function() {}, getControl('Display_Line_3'))
 
-    this.displayOnLCD = function(lineIndex, values) {
+    this.line = function(lineIndex, values) {
         this.displayApi[lineIndex].call('display_message', values.length === 1 ? values : createDisplayMessage.call(this, values))
     }
 
