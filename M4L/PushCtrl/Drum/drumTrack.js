@@ -1,3 +1,5 @@
+const deferLow = require('util')
+
 exports.DrumTrack = function(drumRack, controlSurface) {
     this.isActive = false
     this.drumRack = drumRack
@@ -9,11 +11,30 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
 
+    this.appointedDeviceApi = new LiveAPI(setAppointedDeviceId.bind(this), 'live_set')
+    this.appointedDeviceApi.property = 'appointed_device'
+    this.appointedDeviceId = null
+    this.deviceId = parseInt(new LiveAPI(null, 'this_device').id)
+
+    function setAppointedDeviceId(args) {
+        if (args[0] === 'appointed_device') {
+            this.appointedDeviceId = parseInt(args[2])
+        }
+    }
+
+    function isInFocus() {
+        return this.deviceId === this.appointedDeviceId
+    }
+
     function pushToggleActive(args) {
+        if (!isInFocus.call(this)) {
+            return
+        }
+
         if (args[1] === 127) {
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
-
+        } else {
             updateDisplay.call(this)
         }
     }
