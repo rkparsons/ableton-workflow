@@ -64,18 +64,20 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     }
 
     function handleTrackSelectButtons(args) {
-        if (!this.isActive || args[1] !== 127) {
+        if (!this.isActive) {
             return
         }
 
-        if (this.mode === MODE.LAYER_PARAMS) {
+        if (this.mode === MODE.LAYER_PARAMS && args[1] === 127) {
             this.drumRack
                 .getActiveDrumPad()
                 .getActiveDrumLayer()
                 .setActiveParameterPage(args[2])
             updateDisplay.call(this)
-        } else if (this.mode === MODE.PAD_MIXER) {
+        } else if (this.mode === MODE.PAD_MIXER && args[1] === 127) {
             this.drumRack.getActiveDrumPad().setActiveDrumLayer(args[2])
+            updateDisplay.call(this)
+        } else if (this.mode === MODE.PAD_MIXER && args[1] === 0) {
             this.mode = MODE.LAYER_PARAMS
             updateDisplay.call(this)
         }
