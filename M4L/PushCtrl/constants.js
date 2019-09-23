@@ -1,3 +1,12 @@
+exports.mode = {
+    RACK_MIXER: 0,
+    RACK_FX: 1,
+    PAD_MIXER: 2,
+    PAD_FX: 3,
+    LAYER_PARAMS: 4,
+    LAYER_FX: 5,
+}
+
 exports.unitType = {
     FLOAT: 0,
     INT: 1,
