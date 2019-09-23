@@ -3,6 +3,7 @@ const { createDrumLayers } = require('drumLayerFactory')
 
 exports.createDrumPads = function(samplesFolder, pathToDrumRack) {
     var drumPads = {}
+    var drumPadNames = []
 
     for (var i = 0; i < 16; i++) {
         const pathToDrumPad = pathToDrumRack + ' visible_drum_pads ' + i
@@ -16,8 +17,9 @@ exports.createDrumPads = function(samplesFolder, pathToDrumRack) {
             const result = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
 
             drumPads[drumPadApi.id] = new DrumPad(drumPadName, result.drumLayers, result.drumLayerNames)
+            drumPadNames.push(drumPadName)
         }
     }
 
-    return drumPads
+    return { drumPads: drumPads, drumPadNames: drumPadNames }
 }

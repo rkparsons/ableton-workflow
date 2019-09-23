@@ -8,8 +8,8 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
 
-    this.controlSurface.on('Track_State_Buttons', focusDrumLayer.bind(this))
-    this.controlSurface.on('Track_Select_Buttons', focusParameterPage.bind(this))
+    this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
+    this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
 
     this.controlSurface.on('Vol_Mix_Mode_Button', setMode.bind(this, MODE.RACK_MIXER))
     this.controlSurface.on('Pan_Send_Mode_Button', setMode.bind(this, MODE.RACK_FX))
@@ -63,35 +63,46 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         }
     }
 
-    function focusDrumLayer(args) {
-        if (this.isActive && args[1] === 127) {
-            this.drumRack.getActiveDrumPad().setActiveDrumLayer(args[2])
-            updateDisplay.call(this)
+    function handleTrackSelectButtons(args) {
+        if (!this.isActive || args[1] !== 127) {
+            return
         }
-    }
 
-    function focusParameterPage(args) {
-        if (this.isActive && args[1] === 127) {
+        if (this.mode === MODE.LAYER_PARAMS) {
             this.drumRack
                 .getActiveDrumPad()
                 .getActiveDrumLayer()
                 .setActiveParameterPage(args[2])
             updateDisplay.call(this)
+        } else if (this.mode === MODE.PAD_MIXER) {
+            this.drumRack.getActiveDrumPad().setActiveDrumLayer(args[2])
+            this.mode = MODE.LAYER_PARAMS
+            updateDisplay.call(this)
+        }
+    }
+
+    function handleTrackStateButtons(args) {
+        if (!this.isActive || args[1] !== 127) {
+            return
         }
     }
 
     function sendValue(args) {
-        if (this.isActive && args[3] >= 0) {
-            // check for mode
+        // why this check for < 0?
+        if (!this.isActive || args[3] < 0) {
+            return
+        }
+
+        if (this.mode === MODE.LAYER_PARAMS) {
             this.drumRack
                 .getActiveDrumPad()
                 .getActiveDrumLayer()
                 .getActiveParameterPage()
                 .getParameter(args[2])
                 .sendValue(args[1])
-
-            updateDisplay.call(this)
         }
+
+        updateDisplay.call(this)
     }
 
     function updateDisplay() {
@@ -107,37 +118,47 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         const parameterNames = activeParameterPage.getParameterNames()
 
         if (this.mode === MODE.RACK_MIXER) {
-            this.controlSurface.display.line(0, [' '])
+            this.controlSurface.display.line(0, this.drumRack.getDrumPadNames())
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, [' '])
             this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.RACK_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [FX]'])
             this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.PAD_MIXER) {
-            this.controlSurface.display.line(0, [' '])
+            this.controlSurface.display.line(0, activeDrumPad.getDrumLayerNames())
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']'])
             this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect(activeDrumPad.getDrumLayerNames().length, activeDrumPad.getActiveDrumLayerIndex())
+            this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.PAD_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']', '[FX]'])
             this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.LAYER_PARAMS) {
             this.controlSurface.display.line(0, parameterNames)
             this.controlSurface.display.line(1, activeParameterPage.getParameterValues())
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']', '[' + activeDrumLayer.getName() + ']'])
             this.controlSurface.display.line(3, parameterPageNames)
             this.controlSurface.trackSelect(parameterPageNames.length, activeParameterPageIndex)
-            this.controlSurface.trackState(activeDrumPad.getDrumLayerNames().length, activeDrumPad.getActiveDrumLayerIndex())
+            this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.LAYER_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']', '[' + activeDrumLayer.getName() + ']', '[FX]'])
             this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackState(0, 0)
         }
     }
 
