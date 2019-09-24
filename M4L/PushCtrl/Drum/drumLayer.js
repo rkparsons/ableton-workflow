@@ -1,8 +1,8 @@
 exports.DrumLayer = function(name, parameterPages, parameterPageNames) {
     this.name = name
     this.parameterPages = parameterPages
-    this.activeParameterPageIndex = 0
     this.parameterPageNames = parameterPageNames
+    this.activeParameterPageIndex = 0
 
     this.getName = function() {
         return this.name

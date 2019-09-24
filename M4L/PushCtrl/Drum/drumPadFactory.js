@@ -1,5 +1,6 @@
 const { DrumPad } = require('drumPad')
 const { createDrumLayers } = require('drumLayerFactory')
+const { createMixerPages } = require('parameterPageFactory')
 
 exports.createDrumPads = function(samplesFolder, pathToDrumRack) {
     var drumPads = {}
@@ -14,9 +15,10 @@ exports.createDrumPads = function(samplesFolder, pathToDrumRack) {
             const drumLayersApi = new LiveAPI(null, pathToDrumLayers)
             const drumPadName = drumPadApi.get('name')
             const drumLayerCount = drumLayersApi.get('chains').length / 2
-            const result = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
+            const layersResult = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
 
-            drumPads[drumPadApi.id] = new DrumPad(drumPadName, result.drumLayers, result.drumLayerNames)
+            const pagesResult = createMixerPages(pathToDrumLayers, drumLayerCount)
+            drumPads[drumPadApi.id] = new DrumPad(drumPadName, layersResult.drumLayers, layersResult.drumLayerNames, pagesResult.mixerPages, pagesResult.mixerPageNames)
             drumPadNames.push(drumPadName)
         }
     }

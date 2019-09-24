@@ -1,8 +1,11 @@
-exports.DrumPad = function(name, drumLayers, drumLayerNames) {
+exports.DrumPad = function(name, drumLayers, drumLayerNames, mixerPages, mixerPageNames) {
     this.name = name
     this.activeDrumLayerIndex = 0
     this.drumLayers = drumLayers
     this.drumLayerNames = drumLayerNames
+    this.mixerPages = mixerPages
+    this.mixerPageNames = mixerPageNames
+    this.activeMixerPageIndex = 0
 
     this.getName = function() {
         return this.name
@@ -11,6 +14,10 @@ exports.DrumPad = function(name, drumLayers, drumLayerNames) {
     this.onValueChanged = function(callback) {
         for (i in this.drumLayers) {
             this.drumLayers[i].onValueChanged(callback)
+        }
+
+        for (i in this.mixerPages) {
+            this.mixerPages[i].onValueChanged(callback)
         }
     }
 
@@ -28,5 +35,13 @@ exports.DrumPad = function(name, drumLayers, drumLayerNames) {
 
     this.getDrumLayerNames = function() {
         return this.drumLayerNames
+    }
+
+    this.getActiveMixerPage = function() {
+        return this.mixerPages[this.activeMixerPageIndex]
+    }
+
+    this.setActiveMixerPage = function(index) {
+        this.activeMixerPageIndex = index
     }
 }

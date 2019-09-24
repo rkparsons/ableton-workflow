@@ -1,5 +1,13 @@
 const constants = require('constants')
 
+exports.Mixer = {
+    Volume: {
+        path: 'mixer_device volume',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+}
+
 exports.Layer = {
     // exports.xxx = {
     //     name: constants.muteName,

@@ -33,16 +33,6 @@ exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, s
         return values
     }
 
-    this.getParameterMeters = function() {
-        var meters = []
-
-        for (i in this.parameters) {
-            meters.push(this.parameters[i].getDisplayMeter())
-        }
-
-        return meters
-    }
-
     this.getParameter = function(parameterIndex) {
         return this.parameters[parameterIndex]
     }
@@ -52,6 +42,7 @@ exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, s
         callback()
     }
 
+    // could move to subclass
     function handleSampleCategoryChange(i) {
         if (i === this.categoryParameterIndex) {
             this.parameters[this.sampleParameterIndex].filterOptions(this.parameters[i].getDisplayValue())
