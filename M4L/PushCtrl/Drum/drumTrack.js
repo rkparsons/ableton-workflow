@@ -1,13 +1,16 @@
 const MODE = require('constants').mode
+const COMMAND = require('constants').command
 
 exports.DrumTrack = function(drumRack, controlSurface) {
     this.isActive = false
     this.mode = MODE.LAYER_PARAMS
+    this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
 
+    this.controlSurface.on('Track_Control_Touches', executeCommand.bind(this))
     this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
     this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
 
@@ -17,6 +20,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.controlSurface.on('Clip_Mode_Button', setMode.bind(this, MODE.PAD_FX))
     this.controlSurface.on('Device_Mode_Button', setMode.bind(this, MODE.LAYER_PARAMS))
     this.controlSurface.on('Browse_Mode_Button', setMode.bind(this, MODE.LAYER_FX))
+    this.controlSurface.on('Delete_Button', setCommand.bind(this, COMMAND.DEFAULT))
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
@@ -29,6 +33,26 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     function setMode(mode, args) {
         if (args[1] === 127) {
             this.mode = mode
+            updateDisplay.call(this)
+        }
+    }
+
+    function setCommand(command, args) {
+        this.command = args[1] === 127 ? command : null
+    }
+
+    function executeCommand(args) {
+        if (args[1] === 0) {
+            return
+        }
+
+        if (this.mode === MODE.LAYER_PARAMS && this.command === COMMAND.DEFAULT) {
+            this.drumRack
+                .getActiveDrumPad()
+                .getActiveDrumLayer()
+                .getActiveParameterPage()
+                .getParameter(args[2])
+                .default()
             updateDisplay.call(this)
         }
     }

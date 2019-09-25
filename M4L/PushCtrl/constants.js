@@ -7,6 +7,11 @@ exports.mode = {
     LAYER_FX: 5,
 }
 
+exports.command = {
+    DEFAULT: 0,
+    RANDOM: 1,
+}
+
 exports.unitType = {
     FLOAT: 0,
     INT: 1,
