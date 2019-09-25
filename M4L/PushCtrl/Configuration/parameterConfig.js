@@ -280,13 +280,12 @@ exports.Sampler = {
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
     // }
-    // exports.xxx = {
-    //     name: 'f_type',
-    //     displayName: 'Type',
-    //     path: 'parameters 76',
-    //     inputRange: ['lp -\\', 'hp /-', 'bp /\\', 'nt \\/'],
-    //     unitType: constants.unitType.ENUM,
-    // }
+    FilterType: {
+        displayName: 'Type',
+        path: 'parameters 76',
+        options: ['low -\\', 'high /-', 'band /\\', 'notch \\/'],
+        unitType: constants.unitType.ENUM,
+    },
     // exports.xxx = {
     //     name: 'f_circuit',
     //     displayName: 'Circuit',
@@ -301,23 +300,19 @@ exports.Sampler = {
     //     inputRange: ['12 dB', '24 dB'],
     //     unitType: constants.unitType.ENUM,
     // }
-    // exports.xxx = {
-    //     name: 'f_freq',
-    //     displayName: 'Freq',
-    //     path: 'parameters 80',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'f_res',
-    //     displayName: 'Res',
-    //     path: 'parameters 81',
-    //     inputRange: [0, 125],
-    //     outputRange: ['0.', '1.25'],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
+    FilterFreq: {
+        displayName: 'Freq',
+        path: 'parameters 80',
+        inputRange: [0, 1],
+        defaultValue: 1,
+        unitType: constants.unitType.FLOAT,
+    },
+    FilterRes: {
+        displayName: 'Res',
+        path: 'parameters 81',
+        inputRange: [0, 1.25],
+        unitType: constants.unitType.FLOAT,
+    },
     // exports.xxx = {
     //     name: 'f_drive',
     //     displayName: 'Drive',
@@ -326,29 +321,24 @@ exports.Sampler = {
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.DECIBEL,
     // }
-    // exports.xxx = {
-    //     name: 'f_env',
-    //     displayName: 'Env',
-    //     path: 'parameters 85',
-    //     inputRange: [-72, 72],
-    //     unitType: constants.unitType.INT,
-    // }
-    // exports.xxx = {
-    //     name: 'f_attack',
-    //     displayName: '/',
-    //     path: 'parameters 86',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'f_decay',
-    //     displayName: '\\',
-    //     path: 'parameters 89',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
+    FilterEnv: {
+        displayName: 'Env',
+        path: 'parameters 85',
+        inputRange: [-72, 72],
+    },
+    FilterEnvAttack: {
+        displayName: 'A /',
+        path: 'parameters 86',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+    FilterEnvDecay: {
+        displayName: 'D \\',
+        path: 'parameters 89',
+        inputRange: [0, 1],
+        defaultValue: 1,
+        unitType: constants.unitType.FLOAT,
+    },
     // exports.xxx = {
     //     name: 'f_velo',
     //     displayName: 'Filter',

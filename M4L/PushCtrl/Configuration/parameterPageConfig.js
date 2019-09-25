@@ -13,7 +13,7 @@ exports.Sampler = [
     },
     {
         name: 'Filter',
-        parameters: ['f_type', 'f_freq', 'f_res', 'f_env', 'f_attack', 'f_decay', null, null],
+        parameters: ['Sampler_FilterType', 'Sampler_FilterFreq', 'Sampler_FilterRes', 'Sampler_FilterEnv', 'Sampler_FilterEnvAttack', 'Sampler_FilterEnvDecay', null, null],
     },
     {
         name: 'Tone',
