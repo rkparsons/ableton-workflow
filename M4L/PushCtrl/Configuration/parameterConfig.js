@@ -195,13 +195,13 @@ exports.Sampler = {
         unitStyle: constants.unitStyle.SEMITONES,
     },
     PitchEnvAttack: {
-        displayName: '/',
+        displayName: 'A /',
         path: 'parameters 39',
         inputRange: [0, 1],
         unitType: constants.unitType.FLOAT,
     },
     PitchEnvDecay: {
-        displayName: '\\',
+        displayName: 'D \\',
         path: 'parameters 42',
         inputRange: [0, 1],
         unitType: constants.unitType.FLOAT,
@@ -243,18 +243,21 @@ exports.Sampler = {
         displayName: 'D \\',
         path: 'parameters 62',
         inputRange: [0, 1],
+        defaultValue: 1,
         unitType: constants.unitType.FLOAT,
     },
     AmpSustain: {
         displayName: 'S --',
         path: 'parameters 65',
         inputRange: [0, 1],
+        defaultValue: 1,
         unitType: constants.unitType.FLOAT,
     },
     AmpRelease: {
         displayName: 'R \\',
         path: 'parameters 66',
         inputRange: [0, 1],
+        defaultValue: 1,
         unitType: constants.unitType.FLOAT,
     },
     AmpLoop: {

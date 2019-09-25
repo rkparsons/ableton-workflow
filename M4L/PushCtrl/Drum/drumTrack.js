@@ -20,7 +20,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.controlSurface.on('Clip_Mode_Button', setMode.bind(this, MODE.PAD_FX))
     this.controlSurface.on('Device_Mode_Button', setMode.bind(this, MODE.LAYER_PARAMS))
     this.controlSurface.on('Browse_Mode_Button', setMode.bind(this, MODE.LAYER_FX))
-    this.controlSurface.on('Delete_Button', setCommand.bind(this, COMMAND.DEFAULT))
+    this.controlSurface.on('Master_Select_Button', setCommand.bind(this, COMMAND.DEFAULT))
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
