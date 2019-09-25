@@ -126,14 +126,14 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, [' '])
             this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.RACK_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [FX]'])
             this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.PAD_MIXER) {
             const activeMixerPage = activeDrumPad.getActiveMixerPage()
@@ -141,14 +141,14 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.display.line(1, activeMixerPage.getParameterValues())
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']'])
             this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect(activeDrumPad.getDrumLayerNames().length, activeDrumPad.getActiveDrumLayerIndex())
+            this.controlSurface.trackSelect.map(activeDrumPad.getDrumLayerNames().length, activeDrumPad.getActiveDrumLayerIndex())
             this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.PAD_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']', '[FX]'])
             this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.LAYER_PARAMS) {
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
@@ -160,14 +160,14 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.display.line(1, activeParameterPage.getParameterValues())
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']', '[' + activeDrumLayer.getName() + ']'])
             this.controlSurface.display.line(3, parameterPageNames)
-            this.controlSurface.trackSelect(parameterPageNames.length, activeParameterPageIndex)
+            this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
             this.controlSurface.trackState(0, 0)
         } else if (this.mode === MODE.LAYER_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.line(2, ['  [' + activeDrumPad.getName() + ']', '[' + activeDrumLayer.getName() + ']', '[FX]'])
             this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect(0, 0)
+            this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState(0, 0)
         }
     }
