@@ -12,9 +12,6 @@ exports.ValueParameter = defclass(Parameter, function() {
     }
 
     this.getDisplayValue = function() {
-        if (this.displayName === 'Pitch') {
-            log(this.value)
-        }
         if (!this.value) {
             return ' '
         }
