@@ -104,22 +104,18 @@ exports.Sampler = {
         options: { 0: '>>>', 1: '<<<' },
         unitType: constants.unitType.ENUM,
     },
-    // exports.xxx = {
-    //     name: 'o_wave',
-    //     displayName: '/\\/',
-    //     path: 'parameters 6',
-    //     inputRange: ['sin', 'sin 4bit', 'sin 8bit', 'saw 3', 'saw 4', 'saw 6', 'saw 8', 'saw 16', 'saw 32', 'saw 64', 'saw D', 'squ 3', 'squ 4', 'squ 6', 'squ 8', 'squ 16', 'squ 32', 'squ 64', 'squ D', 'tri', 'noise'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-    // exports.xxx = {
-    //     name: 'o_level',
-    //     displayName: 'Amount',
-    //     path: 'parameters 7',
-    //     inputRange: [0, 100],
-    //     outputRange: ['0.', '1.'],
-    //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
+    OscWave: {
+        displayName: '/\\/',
+        path: 'parameters 6',
+        options: ['sin', 'sin 4bit', 'sin 8bit', 'saw 3', 'saw 4', 'saw 6', 'saw 8', 'saw 16', 'saw 32', 'saw 64', 'saw D', 'squ 3', 'squ 4', 'squ 6', 'squ 8', 'squ 16', 'squ 32', 'squ 64', 'squ D', 'tri', 'noise'],
+        unitType: constants.unitType.ENUM,
+    },
+    OscLevel: {
+        displayName: 'Amount',
+        path: 'parameters 7',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
     // exports.xxx = {
     //     name: 'o_velo',
     //     displayName: 'Osc',
@@ -127,38 +123,32 @@ exports.Sampler = {
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
-    // exports.xxx = {
-    //     name: 'o_freq',
-    //     displayName: 'Freq',
-    //     path: 'parameters 12',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'o_multi',
-    //     path: 'parameters 13',
-    //     inputRange: ['x  0.001', 'x  0.01', 'x  0.1', 'x  1', 'x 10'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-    // exports.xxx = {
-    //     name: 'o_attack',
-    //     displayName: '/',
-    //     path: 'parameters 14',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'o_decay',
-    //     displayName: '\\',
-    //     path: 'parameters 17',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
+    // },
+    OscFreq: {
+        displayName: 'Freq',
+        path: 'parameters 12',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+    OscMulti: {
+        displayName: 'Multi',
+        path: 'parameters 13',
+        options: ['x  0.001', 'x  0.01', 'x  0.1', 'x  1', 'x 10'],
+        unitType: constants.unitType.ENUM,
+    },
+    OscEnvAttack: {
+        displayName: 'A /',
+        path: 'parameters 14',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+    OscEnvDecay: {
+        displayName: 'D \\',
+        path: 'parameters 17',
+        inputRange: [0, 1],
+        defaultValue: 1,
+        unitType: constants.unitType.FLOAT,
+    },
     Spread: {
         displayName: 'Spread',
         path: 'parameters 28',

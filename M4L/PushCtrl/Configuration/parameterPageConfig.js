@@ -21,7 +21,7 @@ exports.Sampler = [
     },
     {
         name: 'Osc',
-        parameters: ['o_level', 'o_wave', 'o_freq', 'o_multi', 'o_attack', 'o_decay', null, null],
+        parameters: ['Sampler_OscLevel', 'Sampler_OscWave', 'Sampler_OscFreq', 'Sampler_OscMulti', 'Sampler_OscEnvAttack', 'Sampler_OscEnvDecay', null, null],
     },
     {
         name: 'Velo',
