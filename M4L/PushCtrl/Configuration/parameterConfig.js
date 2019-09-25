@@ -353,88 +353,85 @@ exports.Sampler = {
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
     // }
-    // exports.xxx = {
-    //     name: 's_type',
-    //     displayName: 'Shaper',
-    //     path: 'parameters 104',
-    //     inputRange: ['soft', 'hard', 'sine', '4bit'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-    // exports.xxx = {
-    //     name: 's_level',
-    //     displayName: '- / +',
-    //     path: 'parameters 105',
-    //     inputRange: [0, 100],
-    //     unitType: constants.unitType.INT,
-    // }
-    // exports.xxx = {
-    //     name: 's_pre',
-    //     displayName: 'Route',
-    //     path: 'parameters 106',
-    //     inputRange: ['<<<', '>>>'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-
-    // // synth kick
-    // exports.xxx = {
-    //     name: 'decay',
-    //     displayName: 'Decay',
-    //     path: 'parameters 1',
-    //     inputRange: [0, 100],
-    //     exponent: 0.8,
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
-    // exports.xxx = {
-    //     name: 'pitch',
-    //     displayName: 'Pitch',
-    //     path: 'parameters 2',
-    //     inputRange: [30, 200],
-    //     exponent: 3.333,
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.HERTZ,
-    // }
-    // exports.xxx = {
-    //     name: 'env',
-    //     displayName: 'Env',
-    //     path: 'parameters 3',
-    //     inputRange: [0, 100],
-    //     exponent: 0.8,
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
-    // exports.xxx = {
-    //     name: 'attack',
-    //     displayName: 'Attack',
-    //     path: 'parameters 4',
-    //     inputRange: [0, 100],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
-    // exports.xxx = {
-    //     name: 'click',
-    //     displayName: 'Click',
-    //     path: 'parameters 5',
-    //     inputRange: ['off', 'on'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-    // exports.xxx = {
-    //     name: 'drive',
-    //     displayName: 'Drive',
-    //     path: 'parameters 6',
-    //     inputRange: [0, 100],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
-    // exports.xxx = {
-    //     name: 'tone',
-    //     displayName: 'Tone',
-    //     path: 'parameters 7',
-    //     inputRange: [0, 100],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
+    ShaperType: {
+        displayName: 'Shaper',
+        path: 'parameters 104',
+        options: ['soft', 'hard', 'sine', '4bit'],
+        unitType: constants.unitType.ENUM,
+    },
+    ShaperLevel: {
+        displayName: '- / +',
+        path: 'parameters 105',
+        inputRange: [0, 100],
+        unitType: constants.unitType.INT,
+    },
+    ShaperPre: {
+        displayName: 'Route',
+        path: 'parameters 106',
+        options: ['<<<', '>>>'],
+        unitType: constants.unitType.ENUM,
+    },
 }
+
+// // synth kick
+// exports.xxx = {
+//     name: 'decay',
+//     displayName: 'Decay',
+//     path: 'parameters 1',
+//     inputRange: [0, 100],
+//     exponent: 0.8,
+//     unitType: constants.unitType.FLOAT,
+//     unitStyle: constants.unitStyle.PERCENT,
+// }
+// exports.xxx = {
+//     name: 'pitch',
+//     displayName: 'Pitch',
+//     path: 'parameters 2',
+//     inputRange: [30, 200],
+//     exponent: 3.333,
+//     unitType: constants.unitType.FLOAT,
+//     unitStyle: constants.unitStyle.HERTZ,
+// }
+// exports.xxx = {
+//     name: 'env',
+//     displayName: 'Env',
+//     path: 'parameters 3',
+//     inputRange: [0, 100],
+//     exponent: 0.8,
+//     unitType: constants.unitType.FLOAT,
+//     unitStyle: constants.unitStyle.PERCENT,
+// }
+// exports.xxx = {
+//     name: 'attack',
+//     displayName: 'Attack',
+//     path: 'parameters 4',
+//     inputRange: [0, 100],
+//     unitType: constants.unitType.FLOAT,
+//     unitStyle: constants.unitStyle.PERCENT,
+// }
+// exports.xxx = {
+//     name: 'click',
+//     displayName: 'Click',
+//     path: 'parameters 5',
+//     inputRange: ['off', 'on'],
+//     unitType: constants.unitType.ENUM,
+// }
+// exports.xxx = {
+//     name: 'drive',
+//     displayName: 'Drive',
+//     path: 'parameters 6',
+//     inputRange: [0, 100],
+//     unitType: constants.unitType.FLOAT,
+//     unitStyle: constants.unitStyle.PERCENT,
+// }
+// exports.xxx = {
+//     name: 'tone',
+//     displayName: 'Tone',
+//     path: 'parameters 7',
+//     inputRange: [0, 100],
+//     unitType: constants.unitType.FLOAT,
+//     unitStyle: constants.unitStyle.PERCENT,
+// }
 
 // // synth snare
 // exports.xxx = {
