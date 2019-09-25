@@ -27,6 +27,12 @@ exports.unitStyle = {
     NATIVE: 10,
 }
 
+exports.ascii = {
+    EMPTY_BAR: 6,
+    HALF_BAR: 3,
+    FULL_BAR: 5,
+}
+
 // exports.mode = {
 //     VOICE_MIXER: 0,
 //     VOICE_EFFECT: 1,
