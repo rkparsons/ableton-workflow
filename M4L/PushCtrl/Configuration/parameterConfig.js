@@ -158,27 +158,24 @@ exports.Sampler = {
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
     // }
-    // exports.xxx = {
-    //     name: 'spread',
-    //     displayName: 'Spread',
-    //     path: 'parameters 28',
-    //     inputRange: [0, 100],
-    //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.PERCENT,
-    // }
+    Spread: {
+        displayName: 'Spread',
+        path: 'parameters 28',
+        inputRange: [0, 100],
+        unitType: constants.unitType.INT,
+    },
     Pitch: {
         displayName: 'Pitch',
         path: 'parameters 34',
         inputRange: [-48, 48],
         unitType: constants.unitType.INT,
     },
-    // exports.xxx = {
-    //     name: 'detune',
-    //     displayName: '- / +',
-    //     path: 'parameters 35',
-    //     inputRange: [-50, 50],
-    //     unitType: constants.unitType.INT,
-    // }
+    Detune: {
+        displayName: '- / +',
+        path: 'parameters 35',
+        inputRange: [-50, 50],
+        unitType: constants.unitType.INT,
+    },
     // exports.xxx = {
     //     name: 'pitch_lfo',
     //     displayName: 'Pitch',
@@ -188,30 +185,26 @@ exports.Sampler = {
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
     // }
-    // exports.xxx = {
-    //     name: 'pitch_env',
-    //     displayName: 'Env',
-    //     path: 'parameters 38',
-    //     inputRange: [-48, 48],
-    //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.SEMITONES,
-    // }
-    // exports.xxx = {
-    //     name: 'pitch_attack',
-    //     displayName: '/',
-    //     path: 'parameters 39',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'pitch_decay',
-    //     displayName: '\\',
-    //     path: 'parameters 42',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
+    PitchEnv: {
+        name: 'pitch_env',
+        displayName: 'Env',
+        path: 'parameters 38',
+        inputRange: [-48, 48],
+        unitType: constants.unitType.INT,
+        unitStyle: constants.unitStyle.SEMITONES,
+    },
+    PitchEnvAttack: {
+        displayName: '/',
+        path: 'parameters 39',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+    PitchEnvDecay: {
+        displayName: '\\',
+        path: 'parameters 42',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
     // exports.xxx = {
     //     name: 'vol_velo',
     //     displayName: 'Vol',
