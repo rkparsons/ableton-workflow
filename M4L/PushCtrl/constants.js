@@ -28,9 +28,10 @@ exports.unitStyle = {
 }
 
 exports.ascii = {
-    EMPTY_BAR: 6,
-    HALF_BAR: 3,
-    FULL_BAR: 5,
+    PLUS_BAR: 3,
+    MINUS_BAR: 4,
+    TWO_BARS: 5,
+    EMPTY_BARS: 6,
 }
 
 // exports.mode = {
