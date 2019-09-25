@@ -17,7 +17,7 @@ exports.Sampler = [
     },
     {
         name: 'Tone',
-        parameters: ['f_circuit', 'f_slope', 'f_drive', 's_pre', 's_type', 's_level', null, null],
+        parameters: ['Sampler_FilterCircuit', 'Sampler_FilterSlope', 'Sampler_FilterDrive', 's_pre', 's_type', 's_level', null, null],
     },
     {
         name: 'Osc',

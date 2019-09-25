@@ -286,20 +286,18 @@ exports.Sampler = {
         options: ['low -\\', 'high /-', 'band /\\', 'notch \\/'],
         unitType: constants.unitType.ENUM,
     },
-    // exports.xxx = {
-    //     name: 'f_circuit',
-    //     displayName: 'Circuit',
-    //     path: 'parameters 77',
-    //     inputRange: ['clean', 'osr', 'ms2', 'smp', 'prd'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-    // exports.xxx = {
-    //     name: 'f_slope',
-    //     displayName: 'Slope',
-    //     path: 'parameters 79',
-    //     inputRange: ['12 dB', '24 dB'],
-    //     unitType: constants.unitType.ENUM,
-    // }
+    FilterCircuit: {
+        displayName: 'Circuit',
+        path: 'parameters 77',
+        options: ['clean', 'osr', 'ms2', 'smp', 'prd'],
+        unitType: constants.unitType.ENUM,
+    },
+    FilterSlope: {
+        displayName: 'Slope',
+        path: 'parameters 79',
+        options: ['12 dB', '24 dB'],
+        unitType: constants.unitType.ENUM,
+    },
     FilterFreq: {
         displayName: 'Freq',
         path: 'parameters 80',
@@ -313,14 +311,12 @@ exports.Sampler = {
         inputRange: [0, 1.25],
         unitType: constants.unitType.FLOAT,
     },
-    // exports.xxx = {
-    //     name: 'f_drive',
-    //     displayName: 'Drive',
-    //     path: 'parameters 83',
-    //     inputRange: [0, 24],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.DECIBEL,
-    // }
+    FilterDrive: {
+        displayName: 'Drive',
+        path: 'parameters 83',
+        inputRange: [0, 24],
+        unitType: constants.unitType.FLOAT,
+    },
     FilterEnv: {
         displayName: 'Env',
         path: 'parameters 85',
