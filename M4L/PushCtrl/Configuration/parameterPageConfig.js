@@ -9,7 +9,7 @@ exports.Sampler = [
     },
     {
         name: 'Pitch',
-        parameters: ['pitch', 'detune', 'spread', 'pitch_env', 'pitch_attack', 'pitch_decay', null, null],
+        parameters: ['Sampler_Pitch', 'Sampler_Detune', 'Sampler_Spread', 'pitch_env', 'pitch_attack', 'pitch_decay', null, null],
     },
     {
         name: 'Filter',

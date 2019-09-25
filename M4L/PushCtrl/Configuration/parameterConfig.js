@@ -106,14 +106,14 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'o_wave',
     //     displayName: '/\\/',
-    //     path: 'devices 1 parameters 6',
+    //     path: 'parameters 6',
     //     inputRange: ['sin', 'sin 4bit', 'sin 8bit', 'saw 3', 'saw 4', 'saw 6', 'saw 8', 'saw 16', 'saw 32', 'saw 64', 'saw D', 'squ 3', 'squ 4', 'squ 6', 'squ 8', 'squ 16', 'squ 32', 'squ 64', 'squ D', 'tri', 'noise'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'o_level',
     //     displayName: 'Amount',
-    //     path: 'devices 1 parameters 7',
+    //     path: 'parameters 7',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -122,7 +122,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'o_velo',
     //     displayName: 'Osc',
-    //     path: 'devices 1 parameters 8',
+    //     path: 'parameters 8',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -131,21 +131,21 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'o_freq',
     //     displayName: 'Freq',
-    //     path: 'devices 1 parameters 12',
+    //     path: 'parameters 12',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
     // }
     // exports.xxx = {
     //     name: 'o_multi',
-    //     path: 'devices 1 parameters 13',
+    //     path: 'parameters 13',
     //     inputRange: ['x  0.001', 'x  0.01', 'x  0.1', 'x  1', 'x 10'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'o_attack',
     //     displayName: '/',
-    //     path: 'devices 1 parameters 14',
+    //     path: 'parameters 14',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -153,7 +153,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'o_decay',
     //     displayName: '\\',
-    //     path: 'devices 1 parameters 17',
+    //     path: 'parameters 17',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -161,30 +161,28 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'spread',
     //     displayName: 'Spread',
-    //     path: 'devices 1 parameters 28',
+    //     path: 'parameters 28',
     //     inputRange: [0, 100],
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
     // }
-    // exports.xxx = {
-    //     name: 'pitch',
-    //     displayName: 'Pitch',
-    //     path: 'devices 1 parameters 34',
-    //     inputRange: [-48, 48],
-    //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.SEMITONES,
-    // }
+    Pitch: {
+        displayName: 'Pitch',
+        path: 'parameters 34',
+        inputRange: [-48, 48],
+        unitType: constants.unitType.INT,
+    },
     // exports.xxx = {
     //     name: 'detune',
     //     displayName: '- / +',
-    //     path: 'devices 1 parameters 35',
+    //     path: 'parameters 35',
     //     inputRange: [-50, 50],
     //     unitType: constants.unitType.INT,
     // }
     // exports.xxx = {
     //     name: 'pitch_lfo',
     //     displayName: 'Pitch',
-    //     path: 'devices 1 parameters 36',
+    //     path: 'parameters 36',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -193,7 +191,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'pitch_env',
     //     displayName: 'Env',
-    //     path: 'devices 1 parameters 38',
+    //     path: 'parameters 38',
     //     inputRange: [-48, 48],
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.SEMITONES,
@@ -201,7 +199,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'pitch_attack',
     //     displayName: '/',
-    //     path: 'devices 1 parameters 39',
+    //     path: 'parameters 39',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -209,7 +207,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'pitch_decay',
     //     displayName: '\\',
-    //     path: 'devices 1 parameters 42',
+    //     path: 'parameters 42',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -217,7 +215,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'vol_velo',
     //     displayName: 'Vol',
-    //     path: 'devices 1 parameters 54',
+    //     path: 'parameters 54',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -226,7 +224,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'vol_lfo',
     //     displayName: 'Vol',
-    //     path: 'devices 1 parameters 55',
+    //     path: 'parameters 55',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -235,7 +233,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'pan_lfo',
     //     displayName: 'Pan',
-    //     path: 'devices 1 parameters 57',
+    //     path: 'parameters 57',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -253,40 +251,34 @@ exports.Sampler = {
         inputRange: [0, 1],
         unitType: constants.unitType.FLOAT,
     },
-    // exports.xxx = {
-    //     name: 'amp_sustain',
-    //     displayName: 'S --',
-    //     path: 'devices 1 parameters 65',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'amp_release',
-    //     displayName: 'R \\',
-    //     path: 'devices 1 parameters 66',
-    //     inputRange: [0, 1],
-    //     unitType: constants.unitType.FLOAT,
-    //     unitStyle: constants.unitStyle.FLOAT,
-    // }
-    // exports.xxx = {
-    //     name: 'amp_loop',
-    //     displayName: 'Loop',
-    //     path: 'devices 1 parameters 68',
-    //     inputRange: ['none', 'loop', 'beat', 'sync', 'trig'],
-    //     unitType: constants.unitType.ENUM,
-    // }
-    // exports.xxx = {
-    //     name: 'amp_sync',
-    //     displayName: 'Sync',
-    //     path: 'devices 1 parameters 70',
-    //     inputRange: ['1/48', '1/32', '1/24', '1/16', '1/12', '1/8', '1/6', '1/4', '1/3', '1/2', '1', '1.5', '2', '3', '4'],
-    //     unitType: constants.unitType.ENUM,
-    // }
+    AmpSustain: {
+        displayName: 'S --',
+        path: 'parameters 65',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+    AmpRelease: {
+        displayName: 'R \\',
+        path: 'parameters 66',
+        inputRange: [0, 1],
+        unitType: constants.unitType.FLOAT,
+    },
+    AmpLoop: {
+        displayName: 'Loop',
+        path: 'parameters 68',
+        options: ['none', 'loop', 'beat', 'sync', 'trig'],
+        unitType: constants.unitType.ENUM,
+    },
+    AmpSync: {
+        displayName: 'Sync',
+        path: 'parameters 70',
+        options: ['1/48', '1/32', '1/24', '1/16', '1/12', '1/8', '1/6', '1/4', '1/3', '1/2', '1', '1.5', '2', '3', '4'],
+        unitType: constants.unitType.ENUM,
+    },
     // exports.xxx = {
     //     name: 'time_velo',
     //     displayName: 'Time',
-    //     path: 'devices 1 parameters 71',
+    //     path: 'parameters 71',
     //     inputRange: [-100, 100],
     //     unitType: constants.unitType.INT,
     //     unitStyle: constants.unitStyle.PERCENT,
@@ -294,28 +286,28 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_type',
     //     displayName: 'Type',
-    //     path: 'devices 1 parameters 76',
+    //     path: 'parameters 76',
     //     inputRange: ['lp -\\', 'hp /-', 'bp /\\', 'nt \\/'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'f_circuit',
     //     displayName: 'Circuit',
-    //     path: 'devices 1 parameters 77',
+    //     path: 'parameters 77',
     //     inputRange: ['clean', 'osr', 'ms2', 'smp', 'prd'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'f_slope',
     //     displayName: 'Slope',
-    //     path: 'devices 1 parameters 79',
+    //     path: 'parameters 79',
     //     inputRange: ['12 dB', '24 dB'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'f_freq',
     //     displayName: 'Freq',
-    //     path: 'devices 1 parameters 80',
+    //     path: 'parameters 80',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -323,7 +315,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_res',
     //     displayName: 'Res',
-    //     path: 'devices 1 parameters 81',
+    //     path: 'parameters 81',
     //     inputRange: [0, 125],
     //     outputRange: ['0.', '1.25'],
     //     unitType: constants.unitType.FLOAT,
@@ -332,7 +324,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_drive',
     //     displayName: 'Drive',
-    //     path: 'devices 1 parameters 83',
+    //     path: 'parameters 83',
     //     inputRange: [0, 24],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.DECIBEL,
@@ -340,14 +332,14 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_env',
     //     displayName: 'Env',
-    //     path: 'devices 1 parameters 85',
+    //     path: 'parameters 85',
     //     inputRange: [-72, 72],
     //     unitType: constants.unitType.INT,
     // }
     // exports.xxx = {
     //     name: 'f_attack',
     //     displayName: '/',
-    //     path: 'devices 1 parameters 86',
+    //     path: 'parameters 86',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -355,7 +347,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_decay',
     //     displayName: '\\',
-    //     path: 'devices 1 parameters 89',
+    //     path: 'parameters 89',
     //     inputRange: [0, 1],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.FLOAT,
@@ -363,7 +355,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_velo',
     //     displayName: 'Filter',
-    //     path: 'devices 1 parameters 101',
+    //     path: 'parameters 101',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
     //     unitType: constants.unitType.INT,
@@ -372,7 +364,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'f_lfo',
     //     displayName: 'Filter',
-    //     path: 'devices 1 parameters 102',
+    //     path: 'parameters 102',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '24.'],
     //     unitType: constants.unitType.INT,
@@ -381,21 +373,21 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 's_type',
     //     displayName: 'Shaper',
-    //     path: 'devices 1 parameters 104',
+    //     path: 'parameters 104',
     //     inputRange: ['soft', 'hard', 'sine', '4bit'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 's_level',
     //     displayName: '- / +',
-    //     path: 'devices 1 parameters 105',
+    //     path: 'parameters 105',
     //     inputRange: [0, 100],
     //     unitType: constants.unitType.INT,
     // }
     // exports.xxx = {
     //     name: 's_pre',
     //     displayName: 'Route',
-    //     path: 'devices 1 parameters 106',
+    //     path: 'parameters 106',
     //     inputRange: ['<<<', '>>>'],
     //     unitType: constants.unitType.ENUM,
     // }
@@ -404,7 +396,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'decay',
     //     displayName: 'Decay',
-    //     path: 'devices 1 parameters 1',
+    //     path: 'parameters 1',
     //     inputRange: [0, 100],
     //     exponent: 0.8,
     //     unitType: constants.unitType.FLOAT,
@@ -413,7 +405,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'pitch',
     //     displayName: 'Pitch',
-    //     path: 'devices 1 parameters 2',
+    //     path: 'parameters 2',
     //     inputRange: [30, 200],
     //     exponent: 3.333,
     //     unitType: constants.unitType.FLOAT,
@@ -422,7 +414,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'env',
     //     displayName: 'Env',
-    //     path: 'devices 1 parameters 3',
+    //     path: 'parameters 3',
     //     inputRange: [0, 100],
     //     exponent: 0.8,
     //     unitType: constants.unitType.FLOAT,
@@ -431,7 +423,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'attack',
     //     displayName: 'Attack',
-    //     path: 'devices 1 parameters 4',
+    //     path: 'parameters 4',
     //     inputRange: [0, 100],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.PERCENT,
@@ -439,14 +431,14 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'click',
     //     displayName: 'Click',
-    //     path: 'devices 1 parameters 5',
+    //     path: 'parameters 5',
     //     inputRange: ['off', 'on'],
     //     unitType: constants.unitType.ENUM,
     // }
     // exports.xxx = {
     //     name: 'drive',
     //     displayName: 'Drive',
-    //     path: 'devices 1 parameters 6',
+    //     path: 'parameters 6',
     //     inputRange: [0, 100],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.PERCENT,
@@ -454,7 +446,7 @@ exports.Sampler = {
     // exports.xxx = {
     //     name: 'tone',
     //     displayName: 'Tone',
-    //     path: 'devices 1 parameters 7',
+    //     path: 'parameters 7',
     //     inputRange: [0, 100],
     //     unitType: constants.unitType.FLOAT,
     //     unitStyle: constants.unitStyle.PERCENT,
@@ -465,7 +457,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'decay',
 //     displayName: 'Decay',
-//     path: 'devices 1 parameters 1',
+//     path: 'parameters 1',
 //     inputRange: [0, 100],
 //     unitType: constants.unitType.FLOAT,
 //     unitStyle: constants.unitStyle.PERCENT,
@@ -473,7 +465,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'tune',
 //     displayName: 'Tune',
-//     path: 'devices 1 parameters 2',
+//     path: 'parameters 2',
 //     inputRange: [0, 100],
 //     unitType: constants.unitType.FLOAT,
 //     unitStyle: constants.unitStyle.PERCENT,
@@ -481,21 +473,21 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'filter',
 //     displayName: 'Filter',
-//     path: 'devices 1 parameters 3',
+//     path: 'parameters 3',
 //     inputRange: ['LP -\\', 'HP /-', 'BP /\\'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'tone',
 //     displayName: 'Tone',
-//     path: 'devices 1 parameters 4',
+//     path: 'parameters 4',
 //     inputRange: [0, 100],
 //     unitType: constants.unitType.INT,
 // }
 // exports.xxx = {
 //     name: 'colour',
 //     displayName: 'Colour',
-//     path: 'devices 1 parameters 5',
+//     path: 'parameters 5',
 //     inputRange: [0, 100],
 //     unitType: constants.unitType.INT,
 // }
@@ -504,7 +496,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'string_decay',
 //     displayName: 'Decay',
-//     path: 'devices 1 parameters 57',
+//     path: 'parameters 57',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -513,7 +505,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'string_ratio',
 //     displayName: 'Ratio',
-//     path: 'devices 1 parameters 59',
+//     path: 'parameters 59',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -522,7 +514,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'string_inharm',
 //     displayName: 'Inharm',
-//     path: 'devices 1 parameters 60',
+//     path: 'parameters 60',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -531,7 +523,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'string_damping',
 //     displayName: 'Damping',
-//     path: 'devices 1 parameters 55',
+//     path: 'parameters 55',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -540,14 +532,14 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'string_octave',
 //     displayName: 'Octave',
-//     path: 'devices 1 parameters 3',
+//     path: 'parameters 3',
 //     inputRange: [-3, 3],
 //     unitType: constants.unitType.INT,
 // }
 // exports.xxx = {
 //     name: 'string_semi',
 //     displayName: 'Semi',
-//     path: 'devices 1 parameters 4',
+//     path: 'parameters 4',
 //     inputRange: [-12, 12],
 //     unitType: constants.unitType.INT,
 //     unitStyle: constants.unitStyle.SEMITONES,
@@ -555,7 +547,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'string_error',
 //     displayName: 'Error',
-//     path: 'devices 1 parameters 12',
+//     path: 'parameters 12',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -564,14 +556,14 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'excitor_type',
 //     displayName: 'Type',
-//     path: 'devices 1 parameters 33',
+//     path: 'parameters 33',
 //     inputRange: ['bow', 'hammer', 'bouncing', 'plectrum'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'excitor_protusion',
 //     displayName: 'Force',
-//     path: 'devices 1 parameters 34',
+//     path: 'parameters 34',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -580,7 +572,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'excitor_stiffness',
 //     displayName: 'Stiffnes',
-//     path: 'devices 1 parameters 37',
+//     path: 'parameters 37',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -589,7 +581,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'excitor_speed',
 //     displayName: 'Speed',
-//     path: 'devices 1 parameters 40',
+//     path: 'parameters 40',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -598,7 +590,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'excitor_position',
 //     displayName: 'Position',
-//     path: 'devices 1 parameters 24',
+//     path: 'parameters 24',
 //     inputRange: [0, 50],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -607,7 +599,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'excitor_damping',
 //     displayName: 'Damping',
-//     path: 'devices 1 parameters 43',
+//     path: 'parameters 43',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -616,14 +608,14 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'damper_on',
 //     displayName: 'I/O',
-//     path: 'devices 1 parameters 46',
+//     path: 'parameters 46',
 //     inputRange: ['off', 'on'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'damper_mass',
 //     displayName: 'Mass',
-//     path: 'devices 1 parameters 47',
+//     path: 'parameters 47',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -632,7 +624,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'damper_stiffness',
 //     displayName: 'Stiffnes',
-//     path: 'devices 1 parameters 49',
+//     path: 'parameters 49',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -641,7 +633,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'damper_position',
 //     displayName: 'Position',
-//     path: 'devices 1 parameters 28',
+//     path: 'parameters 28',
 //     inputRange: [0, 50],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -650,7 +642,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'damper_damping',
 //     displayName: 'Damping',
-//     path: 'devices 1 parameters 53',
+//     path: 'parameters 53',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -659,14 +651,14 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'finger_on',
 //     displayName: 'I/O',
-//     path: 'devices 1 parameters 61',
+//     path: 'parameters 61',
 //     inputRange: ['off', 'on'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'finger_mass',
 //     displayName: 'Mass',
-//     path: 'devices 1 parameters 63',
+//     path: 'parameters 63',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -675,7 +667,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'finger_stiffness',
 //     displayName: 'Stiffnes',
-//     path: 'devices 1 parameters 62',
+//     path: 'parameters 62',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -684,7 +676,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'fret_stiffness',
 //     displayName: 'Fret',
-//     path: 'devices 1 parameters 66',
+//     path: 'parameters 66',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -693,14 +685,14 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'pickup_on',
 //     displayName: 'I/O',
-//     path: 'devices 1 parameters 44',
+//     path: 'parameters 44',
 //     inputRange: ['off', 'on'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'pickup_position',
 //     displayName: 'Position',
-//     path: 'devices 1 parameters 45',
+//     path: 'parameters 45',
 //     inputRange: [0, 50],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -709,28 +701,28 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'body_on',
 //     displayName: 'I/O',
-//     path: 'devices 1 parameters 91',
+//     path: 'parameters 91',
 //     inputRange: ['off', 'on'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'body_type',
 //     displayName: 'Type',
-//     path: 'devices 1 parameters 92',
+//     path: 'parameters 92',
 //     inputRange: ['piano', 'guitar', 'violin', 'generic'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'body_size',
 //     displayName: 'Size',
-//     path: 'devices 1 parameters 93',
+//     path: 'parameters 93',
 //     inputRange: ['xs', 's', 'm', 'l', 'xl'],
 //     unitType: constants.unitType.ENUM,
 // }
 // exports.xxx = {
 //     name: 'body_decay',
 //     displayName: 'Decay',
-//     path: 'devices 1 parameters 94',
+//     path: 'parameters 94',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -739,7 +731,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'body_lowcut',
 //     displayName: 'Lowcut',
-//     path: 'devices 1 parameters 95',
+//     path: 'parameters 95',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -748,7 +740,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'body_highcut',
 //     displayName: 'Highcut',
-//     path: 'devices 1 parameters 96',
+//     path: 'parameters 96',
 //     inputRange: [0, 100],
 //     outputRange: ['0.', '1.'],
 //     unitType: constants.unitType.INT,
@@ -757,7 +749,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'body_balance',
 //     displayName: 'Str/Body',
-//     path: 'devices 1 parameters 98',
+//     path: 'parameters 98',
 //     inputRange: [-100, 100],
 //     outputRange: ['0', '1.'],
 //     unitType: constants.unitType.INT,
@@ -766,7 +758,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'velocity_protusion',
 //     displayName: 'Force',
-//     path: 'devices 1 parameters 36',
+//     path: 'parameters 36',
 //     inputRange: [-100, 100],
 //     outputRange: ['-1.', '1.'],
 //     unitType: constants.unitType.FLOAT,
@@ -775,7 +767,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'velocity_stiffness',
 //     displayName: 'Stiffnes',
-//     path: 'devices 1 parameters 39',
+//     path: 'parameters 39',
 //     inputRange: [-100, 100],
 //     outputRange: ['-1.', '1.'],
 //     unitType: constants.unitType.FLOAT,
@@ -784,7 +776,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'velocity_speed',
 //     displayName: 'Speed',
-//     path: 'devices 1 parameters 42',
+//     path: 'parameters 42',
 //     inputRange: [-100, 100],
 //     outputRange: ['-1.', '1.'],
 //     unitType: constants.unitType.FLOAT,
@@ -793,7 +785,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'velocity_position',
 //     displayName: 'Position',
-//     path: 'devices 1 parameters 27',
+//     path: 'parameters 27',
 //     inputRange: [-100, 100],
 //     outputRange: ['-1.', '1.'],
 //     unitType: constants.unitType.FLOAT,
@@ -802,7 +794,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'velocity_damper',
 //     displayName: 'Damper',
-//     path: 'devices 1 parameters 31',
+//     path: 'parameters 31',
 //     inputRange: [-100, 100],
 //     outputRange: ['-1.', '1.'],
 //     unitType: constants.unitType.FLOAT,
@@ -811,7 +803,7 @@ exports.Sampler = {
 // exports.xxx = {
 //     name: 'velocity_finger',
 //     displayName: 'Finger',
-//     path: 'devices 1 parameters 65',
+//     path: 'parameters 65',
 //     inputRange: [-100, 100],
 //     outputRange: ['-1.', '1.'],
 //     unitType: constants.unitType.FLOAT,
