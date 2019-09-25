@@ -37,6 +37,12 @@ exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, s
         return this.parameters[parameterIndex]
     }
 
+    this.default = function() {
+        for (i in this.parameters) {
+            this.parameters[i].default()
+        }
+    }
+
     function handleParameterChange(i, callback) {
         handleSampleCategoryChange.call(this, i)
         callback()

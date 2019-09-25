@@ -10,7 +10,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
 
-    this.controlSurface.on('Track_Control_Touches', executeCommand.bind(this))
+    this.controlSurface.on('Track_Control_Touches', executeParamLevelCommand.bind(this))
     this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
     this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
 
@@ -38,7 +38,11 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     }
 
     function setCommand(command, args) {
-        this.command = args[1] === 127 ? command : null
+        if (args[1] === 127) {
+            this.command = command
+        } else if (this.command !== null) {
+            executePageLevelCommand.call(this)
+        }
     }
 
     function setAppointedDeviceId(args) {
@@ -97,29 +101,38 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         }
     }
 
-    function getParameterAtIndex(encoderIndex) {
+    function getActiveParameterPage() {
         if (this.mode === MODE.LAYER_PARAMS) {
             return this.drumRack
                 .getActiveDrumPad()
                 .getActiveDrumLayer()
                 .getActiveParameterPage()
-                .getParameter(encoderIndex)
         } else if (this.mode === MODE.PAD_MIXER) {
-            return this.drumRack
-                .getActiveDrumPad()
-                .getActiveMixerPage()
-                .getParameter(encoderIndex)
+            return this.drumRack.getActiveDrumPad().getActiveMixerPage()
         }
     }
 
-    function executeCommand(args) {
+    function executePageLevelCommand() {
+        if (this.command === COMMAND.DEFAULT) {
+            getActiveParameterPage.call(this).default()
+            updateDisplay.call(this)
+            this.command = null
+        }
+        this.command = null
+    }
+
+    function executeParamLevelCommand(args) {
         if (!this.isActive || args[1] === 0) {
             return
         }
 
         if (this.command === COMMAND.DEFAULT) {
-            getParameterAtIndex.call(this, args[2]).default()
+            getActiveParameterPage
+                .call(this)
+                .getParameter(args[2])
+                .default()
             updateDisplay.call(this)
+            this.command = null
         }
     }
 
@@ -129,7 +142,10 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             return
         }
 
-        getParameterAtIndex.call(this, args[2]).sendValue(args[1])
+        getActiveParameterPage
+            .call(this)
+            .getParameter(args[2])
+            .sendValue(args[1])
         updateDisplay.call(this)
     }
 
