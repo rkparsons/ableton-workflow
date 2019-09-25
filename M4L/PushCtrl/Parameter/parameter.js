@@ -2,10 +2,11 @@ const { defclass } = require('util')
 const constants = require('constants')
 
 exports.Parameter = defclass(Object, function() {
-    this.constructor = function(displayName, livePath, property, unitType) {
+    this.constructor = function(displayName, livePath, property, defaultValue, unitType) {
         this.displayName = displayName
         this.livePath = livePath
         this.property = property
+        this.defaultValue = defaultValue || 0
         this.unitType = unitType
         this.speed = 1
         this.api = null
@@ -35,7 +36,7 @@ exports.Parameter = defclass(Object, function() {
     }
 
     this.default = function() {
-        this.value = 0
+        this.value = this.defaultValue
         this.api.set(this.property, this.getOutputValue())
     }
 

@@ -41,22 +41,6 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         this.command = args[1] === 127 ? command : null
     }
 
-    function executeCommand(args) {
-        if (args[1] === 0) {
-            return
-        }
-
-        if (this.mode === MODE.LAYER_PARAMS && this.command === COMMAND.DEFAULT) {
-            this.drumRack
-                .getActiveDrumPad()
-                .getActiveDrumLayer()
-                .getActiveParameterPage()
-                .getParameter(args[2])
-                .default()
-            updateDisplay.call(this)
-        }
-    }
-
     function setAppointedDeviceId(args) {
         if (args[0] === 'appointed_device') {
             this.appointedDeviceId = parseInt(args[2])
@@ -113,27 +97,39 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         }
     }
 
+    function getParameterAtIndex(encoderIndex) {
+        if (this.mode === MODE.LAYER_PARAMS) {
+            return this.drumRack
+                .getActiveDrumPad()
+                .getActiveDrumLayer()
+                .getActiveParameterPage()
+                .getParameter(encoderIndex)
+        } else if (this.mode === MODE.PAD_MIXER) {
+            return this.drumRack
+                .getActiveDrumPad()
+                .getActiveMixerPage()
+                .getParameter(encoderIndex)
+        }
+    }
+
+    function executeCommand(args) {
+        if (!this.isActive || args[1] === 0) {
+            return
+        }
+
+        if (this.command === COMMAND.DEFAULT) {
+            getParameterAtIndex.call(this, args[2]).default()
+            updateDisplay.call(this)
+        }
+    }
+
     function sendValue(args) {
         // why this check for < 0?
         if (!this.isActive || args[3] < 0) {
             return
         }
 
-        if (this.mode === MODE.LAYER_PARAMS) {
-            this.drumRack
-                .getActiveDrumPad()
-                .getActiveDrumLayer()
-                .getActiveParameterPage()
-                .getParameter(args[2])
-                .sendValue(args[1])
-        } else if (this.mode === MODE.PAD_MIXER) {
-            this.drumRack
-                .getActiveDrumPad()
-                .getActiveMixerPage()
-                .getParameter(args[2])
-                .sendValue(args[1])
-        }
-
+        getParameterAtIndex.call(this, args[2]).sendValue(args[1])
         updateDisplay.call(this)
     }
 

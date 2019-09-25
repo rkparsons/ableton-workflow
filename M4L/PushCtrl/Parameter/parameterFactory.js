@@ -34,15 +34,15 @@ exports.createParameters = function(samplesFolder, drumPadName, drumLayerName, p
                 targetParameterConfig.options = sampleCategories
                 categoryParameterIndex = parameterindex
 
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.options))
+                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, drumPadName, drumLayerName, sampleCategories)
                 sampleParameterIndex = parameterindex
-                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.options))
+                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterConfig.unitType === constants.unitType.ENUM) {
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.options))
+                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else {
-                parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.unitType, targetParameterConfig.inputRange))
+                parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
             }
         }
     }
@@ -62,7 +62,7 @@ exports.createMixerParameters = function(parameterName, pathToDrumLayers, drumLa
         const apiPath = pathToDrumLayers + ' chains ' + layerIndex + ' ' + targetParameterConfig.path
         const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
 
-        parameters.push(new ValueParameter('Volume', apiPath, apiProperty, targetParameterConfig.unitType, targetParameterConfig.inputRange))
+        parameters.push(new ValueParameter('Volume', apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
     }
 
     return parameters

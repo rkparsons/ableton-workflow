@@ -4,6 +4,7 @@ exports.Mixer = {
     Volume: {
         path: 'mixer_device volume',
         inputRange: [0, 1],
+        defaultValue: 0.85,
         unitType: constants.unitType.FLOAT,
     },
 }
