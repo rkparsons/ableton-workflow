@@ -37,6 +37,10 @@ exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, s
         return this.parameters[parameterIndex]
     }
 
+    this.getSampleParameter = function() {
+        return this.parameters[this.sampleParameterIndex]
+    }
+
     this.default = function() {
         for (i in this.parameters) {
             this.parameters[i].default()

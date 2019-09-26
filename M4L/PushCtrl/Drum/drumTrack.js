@@ -1,6 +1,7 @@
 const MODE = require('constants').mode
 const COMMAND = require('constants').command
 
+//todo: run isActive check before, and updateDisplay after, every method call
 exports.DrumTrack = function(drumRack, controlSurface) {
     this.isActive = false
     this.mode = MODE.LAYER_PARAMS
@@ -10,6 +11,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
 
+    this.controlSurface.on('Tempo_Control', handleTempoControl.bind(this))
     this.controlSurface.on('Track_Control_Touches', executeParamLevelCommand.bind(this))
     this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
     this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
@@ -73,6 +75,22 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.drumRack.setActiveDrumPad(args[2])
             updateDisplay.call(this)
         }
+    }
+
+    function handleTempoControl(args) {
+        if (!this.isActive) {
+            return
+        }
+
+        const sampleParameter = getActiveParameterPage.call(this).getSampleParameter()
+
+        if (sampleParameter && args[1] === 1) {
+            sampleParameter.increment()
+        } else if (sampleParameter && args[1] === 127) {
+            sampleParameter.decrement()
+        }
+
+        updateDisplay.call(this)
     }
 
     function handleTrackSelectButtons(args) {

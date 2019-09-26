@@ -12,6 +12,16 @@ exports.EnumParameter = defclass(Parameter, function() {
         this.speed = 0.05
     }
 
+    this.increment = function() {
+        this.value += 1
+        this.constrainAndSendValue()
+    }
+
+    this.decrement = function() {
+        this.value -= 1
+        this.constrainAndSendValue()
+    }
+
     this.getDisplayValue = function() {
         return this.options[Math.round(this.value)]
     }

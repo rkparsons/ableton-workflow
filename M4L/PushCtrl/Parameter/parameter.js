@@ -40,12 +40,16 @@ exports.Parameter = defclass(Object, function() {
         this.api.set(this.property, this.getOutputValue())
     }
 
-    this.sendValue = function(delta) {
-        this.value += this.getIncrement(delta)
+    this.constrainAndSendValue = function() {
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
 
         this.api.set(this.property, this.getOutputValue())
+    }
+
+    this.sendValue = function(delta) {
+        this.value += this.getIncrement(delta)
+        this.constrainAndSendValue()
     }
 
     this.getIncrement = function(delta) {
