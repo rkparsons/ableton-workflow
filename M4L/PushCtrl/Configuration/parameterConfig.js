@@ -10,7 +10,7 @@ exports.Mixer = {
     Panning: {
         path: 'mixer_device panning',
         inputRange: [-1, 1],
-        unitType: constants.unitType.INT,
+        unitType: constants.unitType.FLOAT,
     },
 }
 
