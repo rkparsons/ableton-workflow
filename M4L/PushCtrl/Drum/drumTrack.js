@@ -212,10 +212,11 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             const parameterPageNames = activeDrumLayer.getParameterPageNames()
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPageIndex()
             const parameterNames = activeParameterPage.getParameterNames()
+            parameterPageNames[0] = activeDrumLayer.getName()
 
             this.controlSurface.display.line(0, parameterNames)
             this.controlSurface.display.line(1, activeParameterPage.getParameterValues())
-            this.controlSurface.display.title(2, [activeDrumLayer.getName()])
+            this.controlSurface.display.title(2, [activeDrumPad.getName()])
             this.controlSurface.display.line(3, parameterPageNames)
             this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
             this.controlSurface.trackState.map(0, 0)
