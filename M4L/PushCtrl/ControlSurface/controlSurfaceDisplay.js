@@ -15,6 +15,10 @@ exports.ControlSurfaceDisplay = function(getControl) {
         this.displayApi[lineIndex].call('display_message', values.length === 1 ? values : createDisplayMessage.call(this, values))
     }
 
+    this.menu = function(lineIndex, values, selectedIndex) {
+        this.displayApi[lineIndex].call('display_message', values.length === 1 ? values : createDisplayMessage.call(this, values, selectedIndex))
+    }
+
     this.title = function(lineIndex, values) {
         var output = String.fromCharCode(x, x)
 
@@ -27,11 +31,14 @@ exports.ControlSurfaceDisplay = function(getControl) {
         this.displayApi[lineIndex].call('display_message', output.slice(0, 68))
     }
 
-    function createDisplayMessage(messageItems) {
+    function createDisplayMessage(messageItems, selectedIndex) {
         const paddingEnd = '        '
         var itemsPadded = ''
 
         for (i in messageItems) {
+            if (i == selectedIndex) {
+                itemsPadded += String.fromCharCode(ASCII.ARROW_RIGHT)
+            }
             itemsPadded += (messageItems[i] + paddingEnd).slice(0, 8)
             itemsPadded += i % 2 === 0 ? ' ' : ''
         }
