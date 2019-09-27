@@ -1,13 +1,20 @@
-exports.DrumRack = function(pathToDrumRack, drumPads, drumPadNames) {
+exports.DrumRack = function(pathToDrumRack, drumPads, drumPadNames, mixerPages, mixerPageNames) {
+    this.pathToDrumRack = pathToDrumRack
     this.drumPads = drumPads
     this.drumPadNames = drumPadNames
+    this.mixerPages = mixerPages
+    this.mixerPageNames = mixerPageNames
+    this.activeMixerPageIndex = 0
     this.activeDrumPadId = null
-    this.pathToDrumRack = pathToDrumRack
     this.selectedPadApi = null
 
     this.onValueChanged = function(callback) {
         for (i in this.drumPads) {
             this.drumPads[i].onValueChanged(callback)
+        }
+
+        for (i in this.mixerPages) {
+            this.mixerPages[i].onValueChanged(callback)
         }
     }
 
@@ -27,5 +34,13 @@ exports.DrumRack = function(pathToDrumRack, drumPads, drumPadNames) {
 
     this.getDrumPadNames = function() {
         return this.drumPadNames
+    }
+
+    this.getActiveMixerPage = function() {
+        return this.mixerPages[this.activeMixerPageIndex]
+    }
+
+    this.setActiveMixerPage = function(index) {
+        this.activeMixerPageIndex = index
     }
 }

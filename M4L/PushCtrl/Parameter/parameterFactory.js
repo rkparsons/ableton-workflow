@@ -54,15 +54,15 @@ exports.createParameters = function(samplesFolder, drumPadName, drumLayerName, p
     }
 }
 
-exports.createMixerParameters = function(parameterName, pathToDrumLayers, drumLayersCount) {
+exports.createMixerParameters = function(parameterName, pathToDevice, chainCount) {
     const targetParameterConfig = parameterConfig.Mixer[parameterName]
     var parameters = []
 
-    for (var layerIndex = 0; layerIndex < drumLayersCount; layerIndex++) {
-        const apiPath = pathToDrumLayers + ' chains ' + layerIndex + ' ' + targetParameterConfig.path
+    for (var chainIndex = 0; chainIndex < chainCount; chainIndex++) {
+        const apiPath = pathToDevice + ' chains ' + chainIndex + ' ' + targetParameterConfig.path
         const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
 
-        parameters.push(new ValueParameter('Volume', apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
+        parameters.push(new ValueParameter(parameterName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
     }
 
     return parameters

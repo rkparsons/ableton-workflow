@@ -32,12 +32,12 @@ exports.createParameterPages = function(samplesFolder, drumPadName, drumLayerNam
     return { parameterPages: parameterPages, parameterPageNames: parameterPageNames }
 }
 
-exports.createMixerPages = function(pathToDrumLayers, drumLayerCount) {
+exports.createMixerPages = function(pathToDevice, chainCount) {
     const mixerPageNames = Object.keys(parameterConfig.Mixer)
     const mixerPages = []
 
     for (i in mixerPageNames) {
-        const parameters = createMixerParameters(mixerPageNames[i], pathToDrumLayers, drumLayerCount)
+        const parameters = createMixerParameters(mixerPageNames[i], pathToDevice, chainCount)
         mixerPages.push(new ParameterPage(mixerPageNames[i], parameters))
     }
 
