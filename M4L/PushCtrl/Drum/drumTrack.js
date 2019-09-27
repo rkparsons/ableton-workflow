@@ -108,10 +108,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
                 .setActiveParameterPage(args[2])
             updateDisplay.call(this)
         } else if (this.mode === MODE.PAD_MIXER && args[1] === 127) {
-            this.drumRack.getActiveDrumPad().setActiveDrumLayer(args[2])
-            updateDisplay.call(this)
-        } else if (this.mode === MODE.PAD_MIXER && args[1] === 0) {
-            this.mode = MODE.LAYER_PARAMS
+            this.drumRack.getActiveDrumPad().setActiveMixerPage(args[2])
             updateDisplay.call(this)
         }
     }
@@ -119,6 +116,11 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     function handleTrackStateButtons(args) {
         if (!this.isActive || args[1] !== 127) {
             return
+        }
+
+        if (this.mode === MODE.LAYER_PARAMS || (this.mode === MODE.LAYER_FX && args[1] === 127)) {
+            this.drumRack.getActiveDrumPad().setActiveDrumLayer(args[2])
+            updateDisplay.call(this)
         }
     }
 
@@ -179,6 +181,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
 
         const activeDrumPad = this.drumRack.getActiveDrumPad()
         const activeDrumLayer = activeDrumPad.getActiveDrumLayer()
+        const drumLayerNames = activeDrumPad.getDrumLayerNames()
 
         if (this.mode === MODE.RACK_MIXER) {
             const drumRackMixerPage = this.drumRack.getActiveMixerPage()
@@ -199,11 +202,12 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.trackState.map(0, 0)
         } else if (this.mode === MODE.PAD_MIXER) {
             const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
+
             this.controlSurface.display.line(0, activeDrumPad.getDrumLayerNames())
             this.controlSurface.display.line(1, drumPadMixerPage.getParameterValues())
             this.controlSurface.display.title(2, [activeDrumPad.getName()])
-            this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect.map(activeDrumPad.getDrumLayerNames().length, activeDrumPad.getActiveDrumLayerIndex())
+            this.controlSurface.display.menu(3, activeDrumPad.mixerPageNames, activeDrumPad.activeMixerPageIndex)
+            this.controlSurface.trackSelect.map(activeDrumPad.mixerPageNames.length, activeDrumPad.activeMixerPageIndex)
             this.controlSurface.trackState.map(0, 0)
         } else if (this.mode === MODE.PAD_FX) {
             this.controlSurface.display.line(0, [' '])
@@ -223,14 +227,14 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.display.title(2, [activeDrumPad.getName() + ' ' + activeDrumLayer.getName()])
             this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
             this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
-            this.controlSurface.trackState.map(0, 0)
+            this.controlSurface.trackState.map(drumLayerNames.length, activeDrumPad.activeDrumLayerIndex)
         } else if (this.mode === MODE.LAYER_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.title(2, [activeDrumPad.getName() + ' ' + activeDrumLayer.getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
-            this.controlSurface.trackState.map(0, 0)
+            this.controlSurface.trackState.map(drumLayerNames.length, activeDrumPad.activeDrumLayerIndex)
         }
     }
 
