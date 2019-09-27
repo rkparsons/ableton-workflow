@@ -43,4 +43,8 @@ exports.DrumRack = function(pathToDrumRack, drumPads, drumPadNames, mixerPages, 
     this.setActiveMixerPage = function(index) {
         this.activeMixerPageIndex = index
     }
+
+    this.getMixerPageNames = function() {
+        return this.mixerPageNames
+    }
 }

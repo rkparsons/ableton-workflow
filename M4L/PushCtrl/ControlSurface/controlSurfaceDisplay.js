@@ -36,10 +36,8 @@ exports.ControlSurfaceDisplay = function(getControl) {
         var itemsPadded = ''
 
         for (i in messageItems) {
-            if (i == selectedIndex) {
-                itemsPadded += String.fromCharCode(ASCII.ARROW_RIGHT)
-            }
-            itemsPadded += (messageItems[i] + paddingEnd).slice(0, 8)
+            const prefix = i == selectedIndex ? String.fromCharCode(ASCII.ARROW_RIGHT) : ' '
+            itemsPadded += (prefix + messageItems[i] + paddingEnd).slice(0, 8)
             itemsPadded += i % 2 === 0 ? ' ' : ''
         }
 

@@ -7,6 +7,11 @@ exports.Mixer = {
         defaultValue: 0.85,
         unitType: constants.unitType.FLOAT,
     },
+    Panning: {
+        path: 'mixer_device panning',
+        inputRange: [-1, 1],
+        unitType: constants.unitType.INT,
+    },
 }
 
 exports.Layer = {
@@ -24,22 +29,6 @@ exports.Layer = {
         options: ['off', 'on'],
         unitType: constants.unitType.ENUM,
     },
-    // exports.xxx = {
-    //     name: 'panning',
-    //     path: 'mixer_device panning',
-    //     inputRange: [-50, 50],
-    //     outputRange: ['-1.', '1.'],
-    //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.PAN,
-    // }
-    // exports.xxx = {
-    //     name: 'volume',
-    //     path: 'mixer_device volume',
-    //     inputRange: [-24, 0],
-    //     outputRange: [0.302414, 0.85],
-    //     unitType: constants.unitType.INT,
-    //     unitStyle: constants.unitStyle.DECIBEL,
-    // }
 }
 
 exports.CC = {
