@@ -4,6 +4,7 @@ const { TrackSelect } = require('trackSelect')
 const { TrackState } = require('trackState')
 
 exports.ControlSurface = function(onOffControlName) {
+    this.apis = {}
     this.onOffControlName = onOffControlName
     this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
     this.display = new ControlSurfaceDisplay(getControl.bind(this))
@@ -30,6 +31,8 @@ exports.ControlSurface = function(onOffControlName) {
         const control = this.controlSurfaceApi.call('get_control_by_name', controlName)
         const controlApi = new LiveAPI(callback, control)
         controlApi.property = 'value'
+
+        this.apis[controlName] = controlApi
     }
 
     function getControl(controlName) {
