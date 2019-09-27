@@ -2,7 +2,7 @@ const ASCII = require('constants').ascii
 
 exports.ControlSurfaceDisplay = function(getControl) {
     const x = ASCII.ELLIPSIS
-    this.padding = String.fromCharCode(x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x)
+    this.padding = String.fromCharCode(x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x)
 
     this.displayApi = []
 
