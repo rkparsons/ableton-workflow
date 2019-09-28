@@ -1,6 +1,5 @@
 const { defclass } = require('util')
 const { EnumParameter } = require('EnumParameter')
-const { deferLow } = require('util')
 
 exports.FilteredEnumParameter = defclass(EnumParameter, function() {
     this.constructor = function(displayName, livePath, property, defaultValue, optionGroups) {
