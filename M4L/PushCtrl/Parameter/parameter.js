@@ -2,12 +2,13 @@ const { defclass } = require('util')
 const constants = require('constants')
 
 exports.Parameter = defclass(Object, function() {
-    this.constructor = function(displayName, livePath, property, defaultValue, unitType) {
+    this.constructor = function(displayName, livePath, property, defaultValue, unitType, randomRange) {
         this.displayName = displayName
         this.livePath = livePath
         this.property = property
         this.defaultValue = defaultValue || 0
         this.unitType = unitType
+        this.randomRange = randomRange
         this.speed = 1
         this.api = null
         this.value = null
@@ -37,14 +38,23 @@ exports.Parameter = defclass(Object, function() {
 
     this.default = function() {
         this.value = this.defaultValue
-        this.api.set(this.property, this.getOutputValue())
+        this.constrainAndSendValue()
+    }
+
+    this.random = function() {
+        if (this.randomRange) {
+            this.value = this.randomRange[0] + Math.random() * (this.randomRange[1] - this.randomRange[0])
+            this.constrainAndSendValue()
+        }
     }
 
     this.constrainAndSendValue = function() {
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
 
-        this.api.set(this.property, this.getOutputValue())
+        if (this.api) {
+            this.api.set(this.property, this.getOutputValue())
+        }
     }
 
     this.sendValue = function(delta) {

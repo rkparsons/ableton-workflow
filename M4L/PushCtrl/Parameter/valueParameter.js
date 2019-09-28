@@ -3,8 +3,8 @@ const { Parameter } = require('Parameter')
 const ASCII = require('constants').ascii
 
 exports.ValueParameter = defclass(Parameter, function() {
-    this.constructor = function(displayName, livePath, property, defaultValue, unitType, inputRange) {
-        Parameter.call(this, displayName, livePath, property, defaultValue, unitType)
+    this.constructor = function(displayName, livePath, property, defaultValue, unitType, inputRange, randomRange) {
+        Parameter.call(this, displayName, livePath, property, defaultValue, unitType, randomRange)
         this.inputRange = inputRange
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]

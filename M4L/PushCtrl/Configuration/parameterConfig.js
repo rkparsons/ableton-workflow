@@ -27,6 +27,7 @@ exports.Layer = {
         property: 'solo',
         path: '',
         options: ['off', 'on'],
+        randomRange: [0, 0],
         unitType: constants.unitType.ENUM,
     },
 }
@@ -36,16 +37,15 @@ exports.CC = {
         displayName: 'Delay',
         path: 'parameters 1',
         inputRange: [0, 200],
+        randomRange: [0, 0],
         unitType: constants.unitType.INT,
-        unitStyle: constants.unitStyle.TIME,
     },
     Start: {
         displayName: 'Start',
         path: 'parameters 2',
         inputRange: [0, 127],
-        displayRange: [0, 100],
+        randomRange: [0, 0],
         unitType: constants.unitType.INT,
-        unitStyle: constants.unitStyle.PERCENT,
     },
     // exports.xxx = {
     //     name: 'chain_rand',
@@ -92,6 +92,7 @@ exports.Sampler = {
         path: 'parameters 1',
         options: { 0: '>>>', 1: '<<<' },
         unitType: constants.unitType.ENUM,
+        randomRange: [0, 0],
     },
     OscWave: {
         displayName: '/\\/',

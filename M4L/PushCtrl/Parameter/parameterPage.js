@@ -47,6 +47,12 @@ exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, s
         }
     }
 
+    this.random = function() {
+        for (i in this.parameters) {
+            this.parameters[i].random()
+        }
+    }
+
     function handleParameterChange(i, callback) {
         handleSampleCategoryChange.call(this, i)
         callback()

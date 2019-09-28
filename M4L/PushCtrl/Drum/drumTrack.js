@@ -23,6 +23,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     this.controlSurface.on('Device_Mode_Button', setMode.bind(this, MODE.LAYER_PARAMS))
     this.controlSurface.on('Browse_Mode_Button', setMode.bind(this, MODE.LAYER_FX))
     this.controlSurface.on('Master_Select_Button', setCommand.bind(this, COMMAND.DEFAULT))
+    this.controlSurface.on('Track_Stop_Button', setCommand.bind(this, COMMAND.RANDOM))
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
@@ -140,9 +141,10 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     function executePageLevelCommand() {
         if (this.command === COMMAND.DEFAULT) {
             getActiveParameterPage.call(this).default()
-            updateDisplay.call(this)
-            this.command = null
+        } else if (this.command === COMMAND.RANDOM) {
+            getActiveParameterPage.call(this).random()
         }
+        updateDisplay.call(this)
         this.command = null
     }
 
@@ -167,10 +169,15 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             return
         }
 
-        getActiveParameterPage
-            .call(this)
-            .getParameter(args[2])
-            .sendValue(args[1])
+        const value = args[1]
+        const encoderIndex = parseInt(args[2])
+        const parameterPage = getActiveParameterPage.call(this)
+
+        if (parameterPage.categoryParameterIndex === encoderIndex) {
+            parameterPage.getParameter(parameterPage.sampleParameterIndex).constrainAndSendValue()
+        }
+
+        parameterPage.getParameter(encoderIndex).sendValue(value)
         updateDisplay.call(this)
     }
 
