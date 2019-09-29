@@ -174,7 +174,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         const parameterPage = getActiveParameterPage.call(this)
 
         if (parameterPage.categoryParameterIndex === encoderIndex) {
-            parameterPage.getParameter(parameterPage.sampleParameterIndex).constrainAndSendValue()
+            parameterPage.getParameter(parameterPage.sampleParameterIndex).default()
         }
 
         parameterPage.getParameter(encoderIndex).sendValue(value)
