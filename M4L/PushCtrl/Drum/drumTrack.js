@@ -54,16 +54,14 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         }
     }
 
-    function isInFocus() {
-        return this.deviceId === this.appointedDeviceId
-    }
-
     function pushToggleActive(args) {
-        if (!isInFocus.call(this)) {
+        if (this.deviceId !== this.appointedDeviceId) {
             return
         }
 
-        if (args[1] === 127) {
+        const isPressed = args[1] === 127
+
+        if (isPressed) {
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
         } else {
@@ -200,12 +198,13 @@ exports.DrumTrack = function(drumRack, controlSurface) {
         if (this.mode === MODE.RACK_MIXER) {
             const drumRackMixerPage = this.drumRack.getActiveMixerPage()
             const mixerPageNames = this.drumRack.getMixerPageNames()
+            const activeMixerPageIndex = this.drumRack.getActiveMixerPageIndex()
 
             this.controlSurface.display.line(0, this.drumRack.getDrumPadNames())
             this.controlSurface.display.line(1, drumRackMixerPage.getParameterValues())
             this.controlSurface.display.title(2, [])
-            this.controlSurface.display.menu(3, mixerPageNames, this.drumRack.activeMixerPageIndex)
-            this.controlSurface.trackSelect.map(mixerPageNames.length, this.drumRack.activeMixerPageIndex)
+            this.controlSurface.display.menu(3, mixerPageNames, activeMixerPageIndex)
+            this.controlSurface.trackSelect.map(mixerPageNames.length, activeMixerPageIndex)
             this.controlSurface.trackState.map(0, 0)
         } else if (this.mode === MODE.RACK_FX) {
             this.controlSurface.display.line(0, [' '])
