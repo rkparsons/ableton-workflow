@@ -153,14 +153,22 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             return
         }
 
+        const encoderIndex = parseInt(args[2])
+        const parameterPage = getActiveParameterPage.call(this)
+        const activeParameter = parameterPage.getParameter(encoderIndex)
+
         if (this.command === COMMAND.DEFAULT) {
-            getActiveParameterPage
-                .call(this)
-                .getParameter(args[2])
-                .default()
-            updateDisplay.call(this)
-            this.command = null
+            activeParameter.default()
+        } else if (this.command === COMMAND.RANDOM) {
+            activeParameter.random()
+
+            if (parameterPage.categoryParameterIndex === encoderIndex) {
+                parameterPage.getParameter(parameterPage.sampleParameterIndex).default()
+            }
         }
+
+        updateDisplay.call(this)
+        this.command = null
     }
 
     function sendValue(args) {
