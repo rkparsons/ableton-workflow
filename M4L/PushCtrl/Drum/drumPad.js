@@ -1,4 +1,5 @@
 exports.DrumPad = function(name, drumLayers, drumLayerNames, mixerPages, mixerPageNames) {
+    //todo: remove unused params
     var activeDrumLayerIndex = 0
     var activeMixerPageIndex = 0
 
@@ -16,6 +17,10 @@ exports.DrumPad = function(name, drumLayers, drumLayerNames, mixerPages, mixerPa
         }
     }
 
+    this.getDrumLayers = function() {
+        return drumLayers
+    }
+
     this.getActiveDrumLayer = function() {
         return drumLayers[activeDrumLayerIndex]
     }
@@ -24,8 +29,8 @@ exports.DrumPad = function(name, drumLayers, drumLayerNames, mixerPages, mixerPa
         activeDrumLayerIndex = drumLayerIndex
     }
 
-    this.getDrumLayerNames = function() {
-        return drumLayerNames
+    this.getMixerPages = function() {
+        return mixerPages
     }
 
     this.getActiveMixerPage = function() {
@@ -34,9 +39,5 @@ exports.DrumPad = function(name, drumLayers, drumLayerNames, mixerPages, mixerPa
 
     this.setActiveMixerPage = function(index) {
         activeMixerPageIndex = index
-    }
-
-    this.getMixerPageNames = function(index) {
-        return mixerPageNames
     }
 }

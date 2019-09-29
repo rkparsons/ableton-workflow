@@ -23,5 +23,6 @@ exports.createDrumPads = function(samplesFolder, pathToDrumRack) {
         }
     }
 
+    // todo: remove name arrays from factory methods
     return { drumPads: drumPads, drumPadNames: drumPadNames }
 }

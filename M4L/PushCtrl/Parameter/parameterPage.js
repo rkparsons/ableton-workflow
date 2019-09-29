@@ -4,6 +4,9 @@ exports.ParameterPage = function(index, pageName, parameters, categoryParameterI
     this.categoryParameterIndex = categoryParameterIndex
     this.sampleParameterIndex = sampleParameterIndex
 
+    this.getName = function() {
+        return pageName
+    }
     this.getIndex = function() {
         return index
     }
