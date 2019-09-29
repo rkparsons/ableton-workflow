@@ -1,8 +1,12 @@
-exports.ParameterPage = function(pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
+exports.ParameterPage = function(index, pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
     this.pageName = pageName
     this.parameters = parameters
     this.categoryParameterIndex = categoryParameterIndex
     this.sampleParameterIndex = sampleParameterIndex
+
+    this.getIndex = function() {
+        return index
+    }
 
     this.onValueChanged = function(callback) {
         this.callback = callback

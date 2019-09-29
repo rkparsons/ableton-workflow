@@ -1,5 +1,9 @@
-exports.DrumLayer = function(name, parameterPages, parameterPageNames) {
+exports.DrumLayer = function(index, name, parameterPages, parameterPageNames) {
     var activeParameterPageIndex = 0
+
+    this.getIndex = function() {
+        return index
+    }
 
     this.getName = function() {
         return name

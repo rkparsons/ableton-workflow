@@ -215,12 +215,13 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.trackState.map(0, 0)
         } else if (this.mode === MODE.PAD_MIXER) {
             const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
+            const drumPadMixerPageNames = activeDrumPad.getMixerPageNames()
 
-            this.controlSurface.display.line(0, activeDrumPad.getDrumLayerNames())
+            this.controlSurface.display.line(0, drumLayerNames)
             this.controlSurface.display.line(1, drumPadMixerPage.getParameterValues())
             this.controlSurface.display.title(2, [activeDrumPad.getName()])
-            this.controlSurface.display.menu(3, activeDrumPad.mixerPageNames, activeDrumPad.activeMixerPageIndex)
-            this.controlSurface.trackSelect.map(activeDrumPad.mixerPageNames.length, activeDrumPad.activeMixerPageIndex)
+            this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex())
+            this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex())
             this.controlSurface.trackState.map(0, 0)
         } else if (this.mode === MODE.PAD_FX) {
             this.controlSurface.display.line(0, [' '])
@@ -240,14 +241,14 @@ exports.DrumTrack = function(drumRack, controlSurface) {
             this.controlSurface.display.title(2, [activeDrumPad.getName() + ' ' + activeDrumLayer.getName()])
             this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
             this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
-            this.controlSurface.trackState.map(drumLayerNames.length, activeDrumPad.activeDrumLayerIndex)
+            this.controlSurface.trackState.map(drumLayerNames.length, activeDrumLayer.getIndex())
         } else if (this.mode === MODE.LAYER_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.title(2, [activeDrumPad.getName() + ' ' + activeDrumLayer.getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
-            this.controlSurface.trackState.map(drumLayerNames.length, activeDrumPad.activeDrumLayerIndex)
+            this.controlSurface.trackState.map(drumLayerNames.length, activeDrumLayer.getIndex())
         }
     }
 

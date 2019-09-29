@@ -25,7 +25,7 @@ exports.createParameterPages = function(samplesFolder, drumPadName, drumLayerNam
         const page = parameterPageConfig[instrumentType][i]
         const result = createParameters(samplesFolder, drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
 
-        parameterPages.push(new ParameterPage(page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
+        parameterPages.push(new ParameterPage(i, page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
         parameterPageNames.push(page.name)
     }
 
@@ -38,7 +38,7 @@ exports.createMixerPages = function(pathToDevice, chainCount) {
 
     for (i in mixerPageNames) {
         const parameters = createMixerParameters(mixerPageNames[i], pathToDevice, chainCount)
-        mixerPages.push(new ParameterPage(mixerPageNames[i], parameters))
+        mixerPages.push(new ParameterPage(i, mixerPageNames[i], parameters))
     }
 
     return { mixerPages: mixerPages, mixerPageNames: mixerPageNames }
