@@ -1,32 +1,29 @@
 exports.DrumLayer = function(name, parameterPages, parameterPageNames) {
-    this.name = name
-    this.parameterPages = parameterPages
-    this.parameterPageNames = parameterPageNames
-    this.activeParameterPageIndex = 0
+    var activeParameterPageIndex = 0
 
     this.getName = function() {
-        return this.name
+        return name
     }
 
     this.onValueChanged = function(callback) {
-        for (i in this.parameterPages) {
-            this.parameterPages[i].onValueChanged(callback)
+        for (i in parameterPages) {
+            parameterPages[i].onValueChanged(callback)
         }
     }
 
     this.getActiveParameterPageIndex = function() {
-        return this.activeParameterPageIndex
+        return activeParameterPageIndex
     }
 
     this.getActiveParameterPage = function() {
-        return this.parameterPages[this.activeParameterPageIndex]
+        return parameterPages[activeParameterPageIndex]
     }
 
     this.setActiveParameterPage = function(index) {
-        this.activeParameterPageIndex = index
+        activeParameterPageIndex = index
     }
 
     this.getParameterPageNames = function() {
-        return this.parameterPageNames
+        return parameterPageNames
     }
 }
