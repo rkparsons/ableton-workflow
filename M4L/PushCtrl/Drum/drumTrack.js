@@ -172,8 +172,7 @@ exports.DrumTrack = function(drumRack, controlSurface) {
     }
 
     function sendValue(args) {
-        // why this check for < 0?
-        if (!this.isActive || args[3] < 0) {
+        if (!this.isActive || args[1] === 'id') {
             return
         }
 
