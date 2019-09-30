@@ -15,6 +15,7 @@ const webpackOption = {
 }
 let babelLoader = {
     test: /\.js$/,
+    exclude: /node_modules/,
     use: {
         loader: 'babel-loader',
         options: {
