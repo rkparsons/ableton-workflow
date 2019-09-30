@@ -1,6 +1,7 @@
+import 'core-js/stable'
 import createDrumTrack from '../drum/drumTrackFactory'
+const path = require('path')
 
 export default function initLiveApi() {
-    const samplesFolder = this.patcher.filepath.slice(0, this.patcher.filepath.lastIndexOf('/')) + '/samples'
-    const drumTrack = createDrumTrack(samplesFolder)
+    createDrumTrack(path.join(this.patcher.filepath, '..', '..', 'samples'))
 }

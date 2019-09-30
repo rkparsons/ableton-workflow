@@ -47,6 +47,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
         }
     }
 
+    //todo: remove object return
     return {
         parameters: parameters,
         categoryParameterIndex: categoryParameterIndex,

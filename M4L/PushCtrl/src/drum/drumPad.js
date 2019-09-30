@@ -1,7 +1,10 @@
-export function DrumPad(name, drumLayers, drumLayerNames, mixerPages, mixerPageNames) {
-    //todo: remove unused params
+export function DrumPad(id, name, drumLayers, mixerPages) {
     var activeDrumLayerIndex = 0
     var activeMixerPageIndex = 0
+
+    this.getId = function() {
+        return id
+    }
 
     this.getName = function() {
         return name

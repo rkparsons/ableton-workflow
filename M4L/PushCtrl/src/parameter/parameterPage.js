@@ -1,62 +1,42 @@
-export function ParameterPage(index, pageName, parameters, categoryParameterIndex, sampleParameterIndex) {
-    this.pageName = pageName
-    this.parameters = parameters
-    this.categoryParameterIndex = categoryParameterIndex
-    this.sampleParameterIndex = sampleParameterIndex
-
-    this.getName = function() {
-        return pageName
-    }
+export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex) {
     this.getIndex = function() {
         return index
     }
 
+    this.getName = function() {
+        return name
+    }
+
     this.onValueChanged = function(callback) {
         this.callback = callback
-        for (i in this.parameters) {
-            if (this.parameters[i]) {
-                this.parameters[i].onValueChanged(handleParameterChange.bind(this, parseInt(i), callback))
+        for (i in parameters) {
+            if (parameters[i]) {
+                parameters[i].onValueChanged(handleParameterChange.bind(this, parseInt(i), callback))
             }
         }
     }
 
-    this.getParameterNames = function() {
-        var names = []
-
-        for (i in this.parameters) {
-            names.push(this.parameters[i] ? this.parameters[i].getDisplayName() : '')
-        }
-
-        return names
-    }
-
-    this.getParameterValues = function() {
-        var values = []
-
-        for (i in this.parameters) {
-            values.push(this.parameters[i] ? this.parameters[i].getDisplayValue() : '')
-        }
-
-        return values
+    this.getParameters = function() {
+        return parameters
     }
 
     this.getParameter = function(parameterIndex) {
-        return this.parameters[parameterIndex]
+        return parameters[parameterIndex]
     }
 
     this.getSampleParameter = function() {
-        return this.parameters[this.sampleParameterIndex]
+        return parameters[sampleParameterIndex]
     }
 
     this.default = function() {
-        for (i in this.parameters) {
-            this.parameters[i].default()
+        for (i in parameters) {
+            parameters[i].default()
         }
     }
 
     this.random = function() {
-        for (i in this.parameters) {
-            this.parameters[i].random()
+        for (i in parameters) {
+            parameters[i].random()
             handleSampleCategoryChange.call(this, parseInt(i))
         }
     }
@@ -67,10 +47,10 @@ export function ParameterPage(index, pageName, parameters, categoryParameterInde
         callback()
     }
 
-    // could move to subclass
+    // todo: move categoryParameterIndex into parameter class
     function handleSampleCategoryChange(i) {
-        if (i === this.categoryParameterIndex) {
-            this.parameters[this.sampleParameterIndex].filterOptions(this.parameters[i].getDisplayValue())
+        if (i === categoryParameterIndex) {
+            parameters[sampleParameterIndex].filterOptions(parameters[i].getDisplayValue())
         }
     }
 }

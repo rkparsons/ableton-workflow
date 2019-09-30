@@ -3,8 +3,7 @@ import { createDrumLayers } from './drumLayerFactory'
 import { createMixerPages } from '../parameter/parameterPageFactory'
 
 export function createDrumPads(samplesFolder, pathToDrumRack) {
-    var drumPads = {}
-    var drumPadNames = []
+    var drumPads = []
 
     for (var i = 0; i < 16; i++) {
         const pathToDrumPad = pathToDrumRack + ' visible_drum_pads ' + i
@@ -15,14 +14,13 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
             const drumLayersApi = new LiveAPI(null, pathToDrumLayers)
             const drumPadName = drumPadApi.get('name')
             const drumLayerCount = drumLayersApi.get('chains').length / 2
-            const layersResult = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
+            const drumLayers = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
+            const mixerPages = createMixerPages(pathToDrumLayers, drumLayerCount)
+            const drumPadId = parseInt(drumPadApi.id)
 
-            const pagesResult = createMixerPages(pathToDrumLayers, drumLayerCount)
-            drumPads[drumPadApi.id] = new DrumPad(drumPadName, layersResult.drumLayers, layersResult.drumLayerNames, pagesResult.mixerPages, pagesResult.mixerPageNames)
-            drumPadNames.push(drumPadName)
+            drumPads.push(new DrumPad(drumPadId, drumPadName, drumLayers, mixerPages))
         }
     }
 
-    // todo: remove name arrays from factory methods
-    return { drumPads: drumPads, drumPadNames: drumPadNames }
+    return drumPads
 }

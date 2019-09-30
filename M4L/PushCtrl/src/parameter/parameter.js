@@ -1,9 +1,10 @@
 import { defclass } from '../util'
 import { unitType } from '../constants'
 
+//todo: refactor to es6 class
 export const Parameter = defclass(Object, function() {
-    this.constructor = function(displayName, livePath, property, defaultValue, unitType, randomRange) {
-        this.displayName = displayName
+    this.constructor = function(name, livePath, property, defaultValue, unitType, randomRange) {
+        this.name = name
         this.livePath = livePath
         this.property = property
         this.defaultValue = defaultValue || 0
@@ -13,6 +14,10 @@ export const Parameter = defclass(Object, function() {
         this.api = null
         this.value = null
         this.callback = null
+    }
+
+    this.getName = function() {
+        return this.name
     }
 
     this.onValueChanged = function(callback) {
@@ -26,10 +31,6 @@ export const Parameter = defclass(Object, function() {
             this.value = args[1]
             this.callback()
         }
-    }
-
-    this.getDisplayName = function() {
-        return this.displayName
     }
 
     this.getDisplayValue = function() {

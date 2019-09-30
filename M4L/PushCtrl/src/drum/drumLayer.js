@@ -1,4 +1,4 @@
-export function DrumLayer(index, name, parameterPages, parameterPageNames) {
+export function DrumLayer(index, name, parameterPages) {
     var activeParameterPageIndex = 0
 
     this.getIndex = function() {
@@ -15,8 +15,8 @@ export function DrumLayer(index, name, parameterPages, parameterPageNames) {
         }
     }
 
-    this.getActiveParameterPageIndex = function() {
-        return activeParameterPageIndex
+    this.getParameterPages = function() {
+        return parameterPages
     }
 
     this.getActiveParameterPage = function() {
@@ -25,9 +25,5 @@ export function DrumLayer(index, name, parameterPages, parameterPageNames) {
 
     this.setActiveParameterPage = function(index) {
         activeParameterPageIndex = index
-    }
-
-    this.getParameterPageNames = function() {
-        return parameterPageNames
     }
 }

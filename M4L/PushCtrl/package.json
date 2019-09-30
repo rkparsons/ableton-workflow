@@ -4,14 +4,13 @@
     "description": "Control Surface for Ableton Project",
     "main": "webpack.config.js",
     "scripts": {
-        "build": "webpack --mode production"
+        "build": "webpack --mode development"
     },
     "author": "",
     "license": "ISC",
-    "dependencies": {},
     "devDependencies": {
+        "core-js": "^3.2.1",
         "@babel/core": "^7.6.2",
-        "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
         "@babel/preset-env": "^7.6.2",
         "babel-loader": "^8.0.6",
         "webpack": "^4.41.0",

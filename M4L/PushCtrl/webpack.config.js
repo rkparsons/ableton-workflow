@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const webpack_rules = []
 const webpackOption = {
     entry: './src/devices/drumTrack.js',
@@ -13,13 +12,9 @@ const webpackOption = {
     module: {
         rules: webpack_rules,
     },
-    optimization: {
-        minimize: false,
-    },
 }
 let babelLoader = {
     test: /\.js$/,
-    exclude: /(node_modules|bower_components)/,
     use: {
         loader: 'babel-loader',
         options: {
