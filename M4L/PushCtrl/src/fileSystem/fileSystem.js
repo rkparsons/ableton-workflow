@@ -2,8 +2,8 @@ export function getCategories(samplesFolder, drumPadName, drumLayerName) {
     const folder = new Folder(getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName))
     folder.typelist = ['fold']
 
-    var categories = {}
-    var categoryIndex = 0
+    let categories = {}
+    let categoryIndex = 0
 
     folder.next()
     while (!folder.end) {
@@ -17,8 +17,7 @@ export function getCategories(samplesFolder, drumPadName, drumLayerName) {
 }
 
 export function getSampleGroups(samplesFolder, drumPadName, drumLayerName, categories) {
-    // todo handle multisamples
-    var sampleGroups = {}
+    let sampleGroups = {}
 
     for (i in categories) {
         sampleGroups[categories[i]] = getSamples(samplesFolder, drumPadName, drumLayerName, categories[i])
@@ -31,19 +30,18 @@ function getSamples(samplesFolder, drumPadName, drumLayerName, category) {
     const folder = new Folder(getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName) + '/' + category)
     folder.typelist = ['WAVE']
 
-    var samples = []
+    let sampleNames = []
 
     folder.next()
     while (!folder.end) {
-        var indexStart = folder.filename.indexOf('_') + 1
-        var indexEnd = folder.filename.indexOf('.')
-        var sample = folder.filename.slice(indexStart, indexEnd)
-        samples.push(sample)
+        const indexStart = folder.filename.indexOf('_') + 1
+        const indexEnd = folder.filename.indexOf('.')
+
+        sampleNames.push(folder.filename.slice(indexStart, indexEnd).split('#')[0])
         folder.next()
     }
     folder.close()
-
-    return samples
+    return [...new Set(sampleNames)]
 }
 
 function getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName) {
