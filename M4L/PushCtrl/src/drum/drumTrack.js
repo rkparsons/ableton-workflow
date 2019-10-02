@@ -240,14 +240,14 @@ export function DrumTrack(drumRack, controlSurface) {
 
             this.controlSurface.display.line(0, parameterNames)
             this.controlSurface.display.line(1, activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))
-            this.controlSurface.display.title(2, [activeDrumPad.getName() + ' ' + activeDrumLayer.getName()])
+            this.controlSurface.display.title(2, [activeDrumLayer.getName()])
             this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
             this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
             this.controlSurface.trackState.map(drumLayerNames.length, activeDrumLayer.getIndex())
         } else if (this.mode === mode.LAYER_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [activeDrumPad.getName() + ' ' + activeDrumLayer.getName() + ' FX'])
+            this.controlSurface.display.title(2, [activeDrumLayer.getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map(drumLayerNames.length, activeDrumLayer.getIndex())
