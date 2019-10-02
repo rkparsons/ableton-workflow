@@ -1,6 +1,7 @@
 import { unitType } from '../constants'
 
 export const parameterConfig = {
+    // todo: default to 0,1 float
     Mixer: {
         Volume: {
             path: 'mixer_device volume',
@@ -55,22 +56,18 @@ export const parameterConfig = {
         //     inputRange: [0, 127],
         //     unitType: unitType.INT,
         // }
-        // exports.xxx = {
-        //     name: 'drive_velo',
-        //     displayName: 'Drive',
-        //     path: 'devices 0 parameters 4',
-        //     inputRange: [0, 100],
-        //     outputRange: [0, 127],
-        //     unitType: unitType.INT,
-        // }
-        // exports.xxx = {
-        //     name: 'pe_velo',
-        //     displayName: 'PEnv',
-        //     path: 'devices 0 parameters 5',
-        //     inputRange: [0, 100],
-        //     outputRange: [0, 127],
-        //     unitType: unitType.INT,
-        // }
+        DriveVelocity: {
+            displayName: 'Drive',
+            path: 'parameters 4',
+            inputRange: [0, 127],
+            unitType: unitType.INT,
+        },
+        PitchEnvVelocity: {
+            displayName: 'PEnv',
+            path: 'parameters 5',
+            inputRange: [0, 127],
+            unitType: unitType.INT,
+        },
     },
 
     Sampler: {
@@ -105,14 +102,12 @@ export const parameterConfig = {
             inputRange: [0, 1],
             unitType: unitType.FLOAT,
         },
-        // exports.xxx = {
-        //     name: 'o_velo',
-        //     displayName: 'Osc',
-        //     path: 'parameters 8',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '1.'],
-        //     unitType: unitType.INT,
-        // },
+        OscVelocity: {
+            displayName: 'Osc',
+            path: 'parameters 8',
+            inputRange: [0, 1],
+            unitType: unitType.FLOAT,
+        },
         OscFreq: {
             displayName: 'Freq',
             path: 'parameters 12',
@@ -183,14 +178,12 @@ export const parameterConfig = {
             inputRange: [0, 1],
             unitType: unitType.FLOAT,
         },
-        // exports.xxx = {
-        //     name: 'vol_velo',
-        //     displayName: 'Vol',
-        //     path: 'parameters 54',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '1.'],
-        //     unitType: unitType.INT,
-        // }
+        VolumeVelocity: {
+            displayName: 'Vol',
+            path: 'parameters 54',
+            inputRange: [0, 1],
+            unitType: unitType.FLOAT,
+        },
         // exports.xxx = {
         //     name: 'vol_lfo',
         //     displayName: 'Vol',
@@ -246,13 +239,12 @@ export const parameterConfig = {
             options: ['1/48', '1/32', '1/24', '1/16', '1/12', '1/8', '1/6', '1/4', '1/3', '1/2', '1', '1.5', '2', '3', '4'],
             unitType: unitType.ENUM,
         },
-        // exports.xxx = {
-        //     name: 'time_velo',
-        //     displayName: 'Time',
-        //     path: 'parameters 71',
-        //     inputRange: [-100, 100],
-        //     unitType: unitType.INT,
-        // }
+        AmpTimeVelocity: {
+            displayName: 'Time',
+            path: 'parameters 71',
+            inputRange: [-100, 100],
+            unitType: unitType.FLOAT,
+        },
         FilterType: {
             displayName: 'Type',
             path: 'parameters 76',
@@ -308,14 +300,12 @@ export const parameterConfig = {
             defaultValue: 1,
             unitType: unitType.FLOAT,
         },
-        // exports.xxx = {
-        //     name: 'f_velo',
-        //     displayName: 'Filter',
-        //     path: 'parameters 101',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '1.'],
-        //     unitType: unitType.INT,
-        // }
+        FilterVelocity: {
+            displayName: 'Filter',
+            path: 'parameters 101',
+            inputRange: [0, 1],
+            unitType: unitType.FLOAT,
+        },
         // exports.xxx = {
         //     name: 'f_lfo',
         //     displayName: 'Filter',

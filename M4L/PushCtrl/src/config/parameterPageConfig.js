@@ -26,7 +26,7 @@ export const parameterPageConfig = {
         },
         {
             name: 'Velo',
-            parameters: ['vol_velo', 'o_velo', 'f_velo', 'drive_velo', 'pe_velo', 'time_velo', null, null],
+            parameters: ['Sampler_VolumeVelocity', 'Sampler_OscVelocity', 'Sampler_FilterVelocity', 'CC_DriveVelocity', 'CC_PitchEnvVelocity', 'Sampler_AmpTimeVelocity', null, null],
         },
         {
             name: 'Rand',
