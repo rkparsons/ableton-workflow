@@ -49,8 +49,8 @@ export const parameterConfig = {
             randomRange: [0, 0],
             unitType: unitType.INT,
         },
-        ChainRandom: {
-            displayName: 'Sample',
+        StartRandom: {
+            displayName: 'Start',
             path: 'parameters 3',
             inputRange: [0, 127],
             unitType: unitType.INT,
