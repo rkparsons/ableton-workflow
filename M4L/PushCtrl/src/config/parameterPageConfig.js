@@ -30,7 +30,7 @@ export const parameterPageConfig = {
         },
         {
             name: 'Rand',
-            parameters: ['vol_lfo', 'pitch_lfo', null, 'f_lfo', 'pan_lfo', 'chain_rand', null, null],
+            parameters: ['Sampler_VolumeLfo', 'Sampler_PitchLfo', null, 'Sampler_FilterLfo', 'Sampler_PanLfo', 'CC_ChainRandom', null, null],
         },
     ],
 

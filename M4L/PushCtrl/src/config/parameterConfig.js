@@ -49,13 +49,12 @@ export const parameterConfig = {
             randomRange: [0, 0],
             unitType: unitType.INT,
         },
-        // exports.xxx = {
-        //     name: 'chain_rand',
-        //     displayName: 'Sample',
-        //     path: 'devices 0 parameters 3',
-        //     inputRange: [0, 127],
-        //     unitType: unitType.INT,
-        // }
+        ChainRandom: {
+            displayName: 'Sample',
+            path: 'parameters 3',
+            inputRange: [0, 127],
+            unitType: unitType.INT,
+        },
         DriveVelocity: {
             displayName: 'Drive',
             path: 'parameters 4',
@@ -151,14 +150,12 @@ export const parameterConfig = {
             inputRange: [-50, 50],
             unitType: unitType.INT,
         },
-        // exports.xxx = {
-        //     name: 'pitch_lfo',
-        //     displayName: 'Pitch',
-        //     path: 'parameters 36',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '1.'],
-        //     unitType: unitType.INT,
-        // }
+        PitchLfo: {
+            displayName: 'Pitch',
+            path: 'parameters 36',
+            inputRange: [0, 1],
+            unitType: unitType.FLOAT,
+        },
         PitchEnv: {
             name: 'pitch_env',
             displayName: 'Env',
@@ -184,22 +181,18 @@ export const parameterConfig = {
             inputRange: [0, 1],
             unitType: unitType.FLOAT,
         },
-        // exports.xxx = {
-        //     name: 'vol_lfo',
-        //     displayName: 'Vol',
-        //     path: 'parameters 55',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '1.'],
-        //     unitType: unitType.INT,
-        // }
-        // exports.xxx = {
-        //     name: 'pan_lfo',
-        //     displayName: 'Pan',
-        //     path: 'parameters 57',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '1.'],
-        //     unitType: unitType.INT,
-        // }
+        VolumeLfo: {
+            displayName: 'Vol',
+            path: 'parameters 55',
+            inputRange: [0, 1],
+            unitType: unitType.FLOAT,
+        },
+        PanLfo: {
+            displayName: 'Pan',
+            path: 'parameters 57',
+            inputRange: [0, 1],
+            unitType: unitType.FLOAT,
+        },
         AmpAttack: {
             displayName: 'A /',
             path: 'parameters 59',
@@ -306,14 +299,12 @@ export const parameterConfig = {
             inputRange: [0, 1],
             unitType: unitType.FLOAT,
         },
-        // exports.xxx = {
-        //     name: 'f_lfo',
-        //     displayName: 'Filter',
-        //     path: 'parameters 102',
-        //     inputRange: [0, 100],
-        //     outputRange: ['0.', '24.'],
-        //     unitType: unitType.INT,
-        // }
+        FilterLfo: {
+            displayName: 'Filter',
+            path: 'parameters 102',
+            inputRange: [0, 24],
+            unitType: unitType.FLOAT,
+        },
         ShaperType: {
             displayName: 'Shaper',
             path: 'parameters 104',
