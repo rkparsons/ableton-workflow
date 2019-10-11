@@ -3,8 +3,9 @@ export const mode = {
     RACK_FX: 1,
     PAD_MIXER: 2,
     PAD_FX: 3,
-    LAYER_PARAMS: 4,
-    LAYER_FX: 5,
+    LAYER_SELECT: 4,
+    LAYER_PARAMS: 5,
+    LAYER_FX: 6,
 }
 
 export const command = {
