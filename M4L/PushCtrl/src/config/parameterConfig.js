@@ -16,7 +16,7 @@ export const parameterConfig = {
         },
         Mute: {
             property: 'mute',
-            options: ['on', '-'],
+            options: [0, 1],
             unitType: unitType.ENUM,
         },
     },

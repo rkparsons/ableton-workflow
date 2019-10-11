@@ -242,18 +242,20 @@ export function DrumTrack(drumRack, controlSurface) {
         } else if (this.mode === mode.PAD_MIXER) {
             const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
             const drumPadMixerPageNames = activeDrumPad.getMixerPages().map(page => page.getName())
-            const muteValues = activeDrumPad
+            const layerOnStates = activeDrumPad
                 .getMixerPages()
                 .find(page => page.getName() === 'Mute')
                 .getParameters()
                 .map(parameter => (parameter.getValue() === 0 ? 1 : 0))
 
+            const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (layerOnStates[index] ? parameter.getDisplayValue() : ''))
+
             this.controlSurface.display.line(0, drumLayerNames)
-            this.controlSurface.display.line(1, drumPadMixerPage.getParameters().map(parameter => parameter.getDisplayValue()))
+            this.controlSurface.display.line(1, displayValues)
             this.controlSurface.display.title(2, [activeDrumPad.getName()])
             this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex())
             this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex())
-            this.controlSurface.trackState.map(muteValues)
+            this.controlSurface.trackState.map(layerOnStates)
         } else if (this.mode === mode.PAD_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
