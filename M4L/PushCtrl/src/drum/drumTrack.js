@@ -7,14 +7,16 @@ export function DrumTrack(drumRack, controlSurface) {
     this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
+
+    this.liveSetViewApi = new LiveAPI(null, 'live_set view')
+    this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
+
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
-
     this.controlSurface.on('Tempo_Control', handleTempoControl.bind(this))
     this.controlSurface.on('Track_Control_Touches', executeParamLevelCommand.bind(this))
     this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
     this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
-
     this.controlSurface.on('Vol_Mix_Mode_Button', setMode.bind(this, mode.RACK_MIXER))
     this.controlSurface.on('Pan_Send_Mode_Button', setMode.bind(this, mode.RACK_FX))
     this.controlSurface.on('Single_Track_Mode_Button', setMode.bind(this, mode.PAD_MIXER))
@@ -26,11 +28,6 @@ export function DrumTrack(drumRack, controlSurface) {
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
-
-    this.appointedDeviceApi = new LiveAPI(setAppointedDeviceId.bind(this), 'live_set')
-    this.appointedDeviceApi.property = 'appointed_device'
-    this.appointedDeviceId = parseInt(this.appointedDeviceApi.get('appointed_device')[1])
-    this.deviceId = parseInt(new LiveAPI(null, 'this_device').id)
 
     function setMode(mode, args) {
         if (args[1] === 127) {
@@ -47,20 +44,11 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    function setAppointedDeviceId(args) {
-        if (args[0] === 'appointed_device') {
-            this.appointedDeviceId = parseInt(args[2])
-        }
-    }
-
     function pushToggleActive(args) {
-        if (this.deviceId !== this.appointedDeviceId) {
-            return
-        }
-
         const isPressed = args[1] === 127
 
         if (isPressed) {
+            this.liveSetViewApi.set('selected_track', 'id', this.trackId)
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
         } else {

@@ -1,0 +1,4 @@
+[14][15] (increment / decrement CC for Preset Changes)
+[16][17] (increment / decrement CC for Wavetable OSC A)
+[18][19] (increment / decrement CC for Wavetable OSC B)
+[20][21] (increment / decrement CC for Wavetable OSC N)
