@@ -276,8 +276,15 @@ export function DrumTrack(drumRack, controlSurface) {
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
 
-            this.controlSurface.display.line(0, parameterNames)
-            this.controlSurface.display.line(1, activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))
+            // todo: move mutes down to drumLayer, replace finding mute page with a class method
+            const isLayerMuted = activeDrumPad
+                .getMixerPages()
+                .find(page => page.getName() === 'Mute')
+                .getParameter(activeDrumLayer.getIndex())
+                .getValue()
+
+            this.controlSurface.display.line(0, isLayerMuted ? [' '] : parameterNames)
+            this.controlSurface.display.line(1, isLayerMuted ? [' '] : activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))
             this.controlSurface.display.title(2, [activeDrumLayer.getName()])
             this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
             this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
