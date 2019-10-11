@@ -37,6 +37,15 @@ export const Parameter = defclass(Object, function() {
         return Math.round(this.value)
     }
 
+    this.getValue = function() {
+        return this.value
+    }
+
+    this.setValue = function(value) {
+        this.value = value
+        this.constrainAndSendValue()
+    }
+
     this.default = function() {
         this.value = this.defaultValue
         this.constrainAndSendValue()

@@ -63,8 +63,8 @@ export const selectButtonColour = {
 
 export const stateButtonColour = {
     BLACK: 0,
-    BLUE_BRIGHT: 45,
-    BLUE_DIM: 47,
+    YELLOW_BRIGHT: 13,
+    YELLOW_DIM: 15,
 }
 
 export const pushTapTempoControl = 'Tap_Tempo_Button'

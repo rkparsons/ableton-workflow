@@ -64,10 +64,6 @@ export function createMixerParameters(parameterName, pathToDevice, chainCount) {
         const apiPath = pathToDevice + ' chains ' + chainIndex + ' ' + (targetParameterConfig.path || '')
         const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
 
-        if (parameterName === 'Mute' && chainIndex === 0) {
-            log(apiPath, apiProperty)
-        }
-
         if (targetParameterConfig.unitType === unitType.ENUM) {
             parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
         } else {

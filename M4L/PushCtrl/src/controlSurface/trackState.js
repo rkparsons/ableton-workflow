@@ -12,9 +12,9 @@ export function TrackState(getControl) {
         new LiveAPI(function() {}, getControl.call(this, 'Track_State_Button7')),
     ]
 
-    this.map = function(itemsCount, activeItemIndex) {
+    this.map = function(itemStates) {
         for (var i = 0; i < 8; i++) {
-            var buttonValue = i >= itemsCount ? stateButtonColour.BLACK : i == activeItemIndex ? stateButtonColour.BLUE_BRIGHT : stateButtonColour.BLUE_DIM
+            var buttonValue = i >= itemStates.length ? stateButtonColour.BLACK : itemStates[i] ? stateButtonColour.YELLOW_BRIGHT : stateButtonColour.YELLOW_DIM
 
             this.buttonApi[i].call('send_value', buttonValue)
         }
