@@ -25,11 +25,17 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
     }
 
     this.getActiveDrumLayer = function() {
-        return drumLayers[activeDrumLayerIndex]
+        return drumLayers[Math.round(activeDrumLayerIndex)]
     }
 
     this.setActiveDrumLayer = function(drumLayerIndex) {
         activeDrumLayerIndex = drumLayerIndex
+    }
+
+    this.incrementActiveDrumLayer = function(drumLayerIncrement) {
+        activeDrumLayerIndex += drumLayerIncrement
+        activeDrumLayerIndex = Math.max(0, activeDrumLayerIndex)
+        activeDrumLayerIndex = Math.min(drumLayers.length - 1, activeDrumLayerIndex)
     }
 
     this.getMixerPages = function() {

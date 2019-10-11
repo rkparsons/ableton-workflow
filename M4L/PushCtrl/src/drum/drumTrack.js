@@ -1,4 +1,5 @@
 import { mode, command } from '../constants'
+import { log } from '../util'
 
 //todo: run isActive check before, and updateDisplay after, every method call
 export function DrumTrack(drumRack, controlSurface) {
@@ -16,6 +17,7 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.on('Metronome_Button', setMode.bind(this, mode.LAYER_SELECT))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
     this.controlSurface.on('Tempo_Control', handleTempoControl.bind(this))
+    this.controlSurface.on('Swing_Control', setLayer.bind(this))
     this.controlSurface.on('Track_Control_Touches', executeParamLevelCommand.bind(this))
     this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
     this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
@@ -48,6 +50,18 @@ export function DrumTrack(drumRack, controlSurface) {
         } else if (this.command !== null) {
             executePageLevelCommand.call(this)
         }
+    }
+
+    function setLayer(args) {
+        if (!this.isActive) {
+            return
+        }
+
+        const delta = args[1]
+        const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
+
+        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
+        updateDisplay.call(this)
     }
 
     function pushToggleActive(args) {
