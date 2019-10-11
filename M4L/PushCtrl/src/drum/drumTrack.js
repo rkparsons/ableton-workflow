@@ -1,5 +1,4 @@
 import { mode, command } from '../constants'
-import { log } from '../util'
 
 //todo: run isActive check before, and updateDisplay after, every method call
 export function DrumTrack(drumRack, controlSurface) {

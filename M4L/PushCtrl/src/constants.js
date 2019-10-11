@@ -56,8 +56,9 @@ export const ascii = {
 
 export const selectButtonColour = {
     BLACK: 0,
-    GREEN_DIM: 13,
-    GREEN_BRIGHT: 19,
+    RED: 1,
+    YELLOW: 7,
+    GREEN: 13,
 }
 
 export const stateButtonColour = {

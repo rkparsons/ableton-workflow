@@ -12,9 +12,11 @@ export function TrackSelect(getControl) {
         new LiveAPI(function() {}, getControl.call(this, 'Track_Select_Button7')),
     ]
 
-    this.map = function(itemsCount, activeItemIndex) {
+    this.map = function(itemsCount, activeItemIndex, specifiedColour) {
+        const colour = specifiedColour || selectButtonColour.YELLOW
+
         for (var i = 0; i < 8; i++) {
-            var buttonValue = i >= itemsCount ? selectButtonColour.BLACK : i == activeItemIndex ? selectButtonColour.GREEN_BRIGHT : selectButtonColour.GREEN_DIM
+            var buttonValue = i >= itemsCount ? selectButtonColour.BLACK : i == activeItemIndex ? colour + 3 : colour
 
             this.buttonApi[i].call('send_value', buttonValue)
         }
