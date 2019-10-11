@@ -14,6 +14,11 @@ export const parameterConfig = {
             inputRange: [-1, 1],
             unitType: unitType.FLOAT,
         },
+        Mute: {
+            property: 'mute',
+            options: ['on', '-'],
+            unitType: unitType.ENUM,
+        },
     },
 
     Layer: {
