@@ -53,10 +53,6 @@ export function DrumTrack(drumRack, controlSurface) {
     }
 
     function setLayer(args) {
-        if (!this.isActive) {
-            return
-        }
-
         const delta = args[1]
         const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 
@@ -101,7 +97,7 @@ export function DrumTrack(drumRack, controlSurface) {
         const isPressed = args[1] === 127
         const buttonIndex = parseInt(args[2])
 
-        if (!this.isActive || !isPressed) {
+        if (!isPressed) {
             return
         }
 
@@ -124,7 +120,7 @@ export function DrumTrack(drumRack, controlSurface) {
         const isPressed = args[1] === 127
         const buttonIndex = parseInt(args[2])
 
-        if (!this.isActive || !isPressed) {
+        if (!isPressed) {
             return
         }
 
@@ -164,7 +160,7 @@ export function DrumTrack(drumRack, controlSurface) {
     }
 
     function executeParamLevelCommand(args) {
-        if (!this.isActive || args[1] === 0) {
+        if (args[1] === 0) {
             return
         }
 
@@ -187,7 +183,7 @@ export function DrumTrack(drumRack, controlSurface) {
     }
 
     function sendValue(args) {
-        if (!this.isActive || args[1] === 'id') {
+        if (args[1] === 'id') {
             return
         }
 
