@@ -16,7 +16,7 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
     this.controlSurface.on('Metronome_Button', setMode.bind(this, mode.LAYER_SELECT))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
-    this.controlSurface.on('Tempo_Control', ifActive.bind(this, handleTempoControl.bind(this)))
+    this.controlSurface.on('Tempo_Control', ifActive.call(this, handleTempoControl))
     this.controlSurface.on('Swing_Control', setLayer.bind(this))
     this.controlSurface.on('Track_Control_Touches', executeParamLevelCommand.bind(this))
     this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
@@ -33,10 +33,8 @@ export function DrumTrack(drumRack, controlSurface) {
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
 
-    function ifActive(callback, args) {
-        if (this.isActive) {
-            callback(args)
-        }
+    function ifActive(callback) {
+        return args => this.isActive && callback.call(this, args)
     }
 
     function setMode(targetMode, args) {
