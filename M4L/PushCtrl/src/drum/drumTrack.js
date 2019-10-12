@@ -67,15 +67,21 @@ export function DrumTrack(drumRack, controlSurface) {
             this.liveSetViewApi.set('selected_track', 'id', this.trackId)
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
-        } else {
+        } else if (this.isActive) {
             updateDisplay.call(this)
         }
     }
 
+    // destructure array args
     function focusDrumPad(args) {
-        if (args[0] === 'selected_drum_pad') {
-            const drumPadId = args[2]
-            this.drumRack.setActiveDrumPad(drumPadId)
+        if (args[0] !== 'selected_drum_pad') {
+            return
+        }
+
+        const drumPadId = args[2]
+        this.drumRack.setActiveDrumPad(drumPadId)
+
+        if (this.isActive) {
             updateDisplay.call(this)
         }
     }
@@ -200,15 +206,18 @@ export function DrumTrack(drumRack, controlSurface) {
     }
 
     function updateDisplay() {
-        if (!this.isActive) {
-            return
-        }
-
         const activeDrumPad = this.drumRack.getActiveDrumPad()
-        const activeDrumLayer = activeDrumPad.getActiveDrumLayer()
-        const drumLayerNames = activeDrumPad.getDrumLayers().map(layer => layer.getName())
+        const activeDrumLayer = activeDrumPad ? activeDrumPad.getActiveDrumLayer() : null
+        const drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(layer => layer.getName()) : null
 
-        if (this.mode === mode.RACK_MIXER) {
+        if (!activeDrumPad) {
+            this.controlSurface.display.line(0, [' '])
+            this.controlSurface.display.line(1, [' '])
+            this.controlSurface.display.title(2, ['Blank'])
+            this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect.map(0, 0)
+            this.controlSurface.trackState.map([])
+        } else if (this.mode === mode.RACK_MIXER) {
             const drumRackMixerPage = this.drumRack.getActiveMixerPage()
             const mixerPageNames = this.drumRack.getMixerPages().map(page => page.getName())
             const activeMixerPageIndex = this.drumRack.getActiveMixerPage().getIndex()
