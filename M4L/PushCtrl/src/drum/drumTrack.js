@@ -14,7 +14,6 @@ export function DrumTrack(drumRack, controlSurface) {
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
-    this.controlSurface.on('Metronome_Button', setMode.bind(this, mode.LAYER_SELECT))
     this.controlSurface.on('Track_Controls', sendValue.bind(this))
     this.controlSurface.on('Tempo_Control', ifActive.call(this, handleTempoControl))
     this.controlSurface.on('Swing_Control', setLayer.bind(this))
@@ -41,9 +40,6 @@ export function DrumTrack(drumRack, controlSurface) {
         if (args[1] === 127) {
             this.previousMode = this.mode
             this.mode = targetMode
-            updateDisplay.call(this)
-        } else if (targetMode === mode.LAYER_SELECT) {
-            this.mode = this.previousMode
             updateDisplay.call(this)
         }
     }
@@ -120,9 +116,6 @@ export function DrumTrack(drumRack, controlSurface) {
             updateDisplay.call(this)
         } else if (this.mode === mode.PAD_MIXER) {
             this.drumRack.getActiveDrumPad().setActiveMixerPage(buttonIndex)
-            updateDisplay.call(this)
-        } else if (this.mode === mode.LAYER_SELECT) {
-            this.drumRack.getActiveDrumPad().setActiveDrumLayer(buttonIndex)
             updateDisplay.call(this)
         }
     }
@@ -256,13 +249,6 @@ export function DrumTrack(drumRack, controlSurface) {
             this.controlSurface.display.title(2, [activeDrumPad.getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
-            this.controlSurface.trackState.map([])
-        } else if (this.mode === mode.LAYER_SELECT) {
-            this.controlSurface.display.line(0, [' '])
-            this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [activeDrumPad.getName()])
-            this.controlSurface.display.menu(3, drumLayerNames, activeDrumLayer.getIndex())
-            this.controlSurface.trackSelect.map(drumLayerNames.length, activeDrumLayer.getIndex())
             this.controlSurface.trackState.map([])
         } else if (this.mode === mode.LAYER_PARAMS) {
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
