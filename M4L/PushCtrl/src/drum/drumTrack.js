@@ -30,7 +30,7 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.on('Track_Stop_Button', ifActive.call(this, setCommand, command.RANDOM))
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
-    this.drumRack.onValueChanged(receiveValue.bind(this))
+    this.drumRack.onValueChanged(ifActive.call(this, updateDisplay))
 
     function ifActive(callback, args) {
         return callbackArgs => this.isActive && callback.call(this, callbackArgs, args)
@@ -270,12 +270,6 @@ export function DrumTrack(drumRack, controlSurface) {
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])
-        }
-    }
-
-    function receiveValue(args) {
-        if (this.isActive) {
-            updateDisplay.call(this)
         }
     }
 }
