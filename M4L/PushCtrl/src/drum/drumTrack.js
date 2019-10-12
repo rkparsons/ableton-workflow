@@ -138,9 +138,8 @@ export function DrumTrack(drumRack, controlSurface) {
         if (this.mode === mode.PAD_MIXER) {
             const muteParameter = this.drumRack
                 .getActiveDrumPad()
-                .getMixerPages()
-                .find(page => page.getName() === 'Mute')
-                .getParameter(buttonIndex)
+                .getDrumLayers()
+                [buttonIndex].getMuteParameter()
 
             const newMuteValue = muteParameter.getValue() === 0 ? 1 : 0
             muteParameter.setValue(newMuteValue)
@@ -242,12 +241,7 @@ export function DrumTrack(drumRack, controlSurface) {
         } else if (this.mode === mode.PAD_MIXER) {
             const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
             const drumPadMixerPageNames = activeDrumPad.getMixerPages().map(page => page.getName())
-            const layerOnStates = activeDrumPad
-                .getMixerPages()
-                .find(page => page.getName() === 'Mute')
-                .getParameters()
-                .map(parameter => (parameter.getValue() === 0 ? 1 : 0))
-
+            const layerOnStates = activeDrumPad.getDrumLayers().map(layer => (layer.getMuteParameter().getValue() === 0 ? 1 : 0))
             const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (layerOnStates[index] ? parameter.getDisplayValue() : ''))
 
             this.controlSurface.display.line(0, drumLayerNames)
@@ -275,13 +269,7 @@ export function DrumTrack(drumRack, controlSurface) {
             const parameterPageNames = activeDrumLayer.getParameterPages().map(page => page.getName())
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
-
-            // todo: move mutes down to drumLayer, replace finding mute page with a class method
-            const isLayerMuted = activeDrumPad
-                .getMixerPages()
-                .find(page => page.getName() === 'Mute')
-                .getParameter(activeDrumLayer.getIndex())
-                .getValue()
+            const isLayerMuted = activeDrumLayer.getMuteParameter().getValue()
 
             this.controlSurface.display.line(0, isLayerMuted ? [' '] : parameterNames)
             this.controlSurface.display.line(1, isLayerMuted ? [' '] : activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))

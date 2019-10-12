@@ -1,5 +1,6 @@
 import { DrumLayer } from './drumLayer'
 import { createParameterPages } from '../parameter/parameterPageFactory'
+import { createParameter } from '../parameter/parameterFactory'
 
 export function createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount) {
     var drumLayers = []
@@ -10,8 +11,9 @@ export function createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, d
         const drumLayerName = drumLayerApi.get('name')
         const devicesCount = drumLayerApi.get('devices').length / 2
         const parameterPages = createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount)
+        const muteParameter = createParameter('Layer', 'Mute', pathToDrumLayer)
 
-        drumLayers[i] = new DrumLayer(i, drumLayerName, parameterPages)
+        drumLayers[i] = new DrumLayer(i, drumLayerName, parameterPages, muteParameter)
     }
 
     return drumLayers

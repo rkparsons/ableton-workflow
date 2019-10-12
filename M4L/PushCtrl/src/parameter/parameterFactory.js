@@ -4,7 +4,6 @@ import { ValueParameter } from './valueParameter'
 import { getCategories, getSampleGroups } from '../fileSystem/fileSystem'
 import { unitType } from '../constants'
 import { parameterConfig } from '../config/parameterConfig'
-import { log } from '../util'
 
 export function createParameters(samplesFolder, drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
     var parameters = []
@@ -72,4 +71,16 @@ export function createMixerParameters(parameterName, pathToDevice, chainCount) {
     }
 
     return parameters
+}
+
+export function createParameter(deviceName, parameterName, pathToDevice) {
+    const targetParameterConfig = parameterConfig[deviceName][parameterName]
+    const apiPath = pathToDevice + (targetParameterConfig.path || '')
+    const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
+
+    if (targetParameterConfig.unitType === unitType.ENUM) {
+        return new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange)
+    } else {
+        return new ValueParameter(parameterName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange)
+    }
 }

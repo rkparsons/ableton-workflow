@@ -2,6 +2,7 @@ import { unitType } from '../constants'
 
 export const parameterConfig = {
     // todo: default to 0,1 float
+
     Mixer: {
         Volume: {
             path: 'mixer_device volume',
@@ -14,21 +15,14 @@ export const parameterConfig = {
             inputRange: [-1, 1],
             unitType: unitType.FLOAT,
         },
+    },
+
+    Layer: {
         Mute: {
             property: 'mute',
             options: [0, 1],
             unitType: unitType.ENUM,
         },
-    },
-
-    Layer: {
-        // exports.xxx = {
-        //     name: constants.muteName,
-        //     apiProperty: 'mute',
-        //     path: '',
-        //     inputRange: ['off', 'on'],
-        //     unitType: unitType.ENUM,
-        // }
         Solo: {
             displayName: 'Solo',
             property: 'solo',

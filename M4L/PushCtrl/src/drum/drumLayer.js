@@ -1,4 +1,4 @@
-export function DrumLayer(index, name, parameterPages) {
+export function DrumLayer(index, name, parameterPages, muteParameter) {
     var activeParameterPageIndex = 0
 
     this.getIndex = function() {
@@ -13,6 +13,8 @@ export function DrumLayer(index, name, parameterPages) {
         for (i in parameterPages) {
             parameterPages[i].onValueChanged(callback)
         }
+
+        muteParameter.onValueChanged(callback)
     }
 
     this.getParameterPages = function() {
@@ -25,5 +27,9 @@ export function DrumLayer(index, name, parameterPages) {
 
     this.setActiveParameterPage = function(index) {
         activeParameterPageIndex = index
+    }
+
+    this.getMuteParameter = function() {
+        return muteParameter
     }
 }
