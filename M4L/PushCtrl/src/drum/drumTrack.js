@@ -14,29 +14,29 @@ export function DrumTrack(drumRack, controlSurface) {
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
-    this.controlSurface.on('Track_Controls', sendValue.bind(this))
+    this.controlSurface.on('Track_Controls', ifActive.call(this, sendValue))
     this.controlSurface.on('Tempo_Control', ifActive.call(this, handleTempoControl))
-    this.controlSurface.on('Swing_Control', setLayer.bind(this))
-    this.controlSurface.on('Track_Control_Touches', executeParamLevelCommand.bind(this))
-    this.controlSurface.on('Track_State_Buttons', handleTrackStateButtons.bind(this))
-    this.controlSurface.on('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
-    this.controlSurface.on('Vol_Mix_Mode_Button', setMode.bind(this, mode.RACK_MIXER))
-    this.controlSurface.on('Pan_Send_Mode_Button', setMode.bind(this, mode.RACK_FX))
-    this.controlSurface.on('Single_Track_Mode_Button', setMode.bind(this, mode.PAD_MIXER))
-    this.controlSurface.on('Clip_Mode_Button', setMode.bind(this, mode.PAD_FX))
-    this.controlSurface.on('Device_Mode_Button', setMode.bind(this, mode.LAYER_PARAMS))
-    this.controlSurface.on('Browse_Mode_Button', setMode.bind(this, mode.LAYER_FX))
-    this.controlSurface.on('Master_Select_Button', setCommand.bind(this, command.DEFAULT))
-    this.controlSurface.on('Track_Stop_Button', setCommand.bind(this, command.RANDOM))
+    this.controlSurface.on('Swing_Control', ifActive.call(this, setLayer))
+    this.controlSurface.on('Track_Control_Touches', ifActive.call(this, executeParamLevelCommand))
+    this.controlSurface.on('Track_State_Buttons', ifActive.call(this, handleTrackStateButtons))
+    this.controlSurface.on('Track_Select_Buttons', ifActive.call(this, handleTrackSelectButtons))
+    this.controlSurface.on('Vol_Mix_Mode_Button', ifActive.call(this, setMode, mode.RACK_MIXER))
+    this.controlSurface.on('Pan_Send_Mode_Button', ifActive.call(this, setMode, mode.RACK_FX))
+    this.controlSurface.on('Single_Track_Mode_Button', ifActive.call(this, setMode, mode.PAD_MIXER))
+    this.controlSurface.on('Clip_Mode_Button', ifActive.call(this, setMode, mode.PAD_FX))
+    this.controlSurface.on('Device_Mode_Button', ifActive.call(this, setMode, mode.LAYER_PARAMS))
+    this.controlSurface.on('Browse_Mode_Button', ifActive.call(this, setMode, mode.LAYER_FX))
+    this.controlSurface.on('Master_Select_Button', ifActive.call(this, setCommand, command.DEFAULT))
+    this.controlSurface.on('Track_Stop_Button', ifActive.call(this, setCommand, command.RANDOM))
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
     this.drumRack.onValueChanged(receiveValue.bind(this))
 
-    function ifActive(callback) {
-        return args => this.isActive && callback.call(this, args)
+    function ifActive(callback, args) {
+        return callbackArgs => this.isActive && callback.call(this, callbackArgs, args)
     }
 
-    function setMode(targetMode, args) {
+    function setMode(args, targetMode) {
         if (args[1] === 127) {
             this.previousMode = this.mode
             this.mode = targetMode
@@ -44,7 +44,7 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    function setCommand(command, args) {
+    function setCommand(args, command) {
         if (args[1] === 127) {
             this.command = command
         } else if (this.command !== null) {
