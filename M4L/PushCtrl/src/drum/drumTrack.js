@@ -36,33 +36,30 @@ export function DrumTrack(drumRack, controlSurface) {
         return callbackArgs => this.isActive && callback.call(this, callbackArgs, args)
     }
 
-    function setMode(args, targetMode) {
-        if (args[1] === 127) {
+    function setMode([, isPressed], targetMode) {
+        if (isPressed) {
             this.previousMode = this.mode
             this.mode = targetMode
             updateDisplay.call(this)
         }
     }
 
-    function setCommand(args, command) {
-        if (args[1] === 127) {
+    function setCommand([, isPressed], command) {
+        if (isPressed) {
             this.command = command
         } else if (this.command !== null) {
             executePageLevelCommand.call(this)
         }
     }
 
-    function setLayer(args) {
-        const delta = args[1]
+    function setLayer([, delta]) {
         const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
         updateDisplay.call(this)
     }
 
-    function pushToggleActive(args) {
-        const isPressed = args[1] === 127
-
+    function pushToggleActive([, isPressed]) {
         if (isPressed) {
             this.liveSetViewApi.set('selected_track', 'id', this.trackId)
             this.isActive = !this.isActive
@@ -72,13 +69,11 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    // destructure array args
-    function focusDrumPad(args) {
-        if (args[0] !== 'selected_drum_pad') {
+    function focusDrumPad([property, , drumPadId]) {
+        if (property !== 'selected_drum_pad') {
             return
         }
 
-        const drumPadId = args[2]
         this.drumRack.setActiveDrumPad(drumPadId)
 
         if (this.isActive) {
@@ -86,23 +81,24 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    function handleTempoControl(args) {
+    function handleTempoControl([, encoderValue]) {
         //todo: move this search down to param level
         const sampleParameter = getActiveParameterPage.call(this).getSampleParameter()
 
-        if (sampleParameter && args[1] === 1) {
+        if (!sampleParameter) {
+            return
+        }
+
+        if (encoderValue === 1) {
             sampleParameter.increment()
-        } else if (sampleParameter && args[1] === 127) {
+        } else if (encoderValue === 127) {
             sampleParameter.decrement()
         }
 
         updateDisplay.call(this)
     }
 
-    function handleTrackSelectButtons(args) {
-        const isPressed = args[1] === 127
-        const buttonIndex = parseInt(args[2])
-
+    function handleTrackSelectButtons([, isPressed, buttonIndex]) {
         if (!isPressed) {
             return
         }
@@ -122,10 +118,7 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    function handleTrackStateButtons(args) {
-        const isPressed = args[1] === 127
-        const buttonIndex = parseInt(args[2])
-
+    function handleTrackStateButtons([, isPressed, buttonIndex]) {
         if (!isPressed) {
             return
         }
@@ -165,12 +158,11 @@ export function DrumTrack(drumRack, controlSurface) {
         this.command = null
     }
 
-    function executeParamLevelCommand(args) {
-        if (args[1] === 0) {
+    function executeParamLevelCommand([, isPressed, encoderIndex]) {
+        if (!isPressed) {
             return
         }
 
-        const encoderIndex = parseInt(args[2])
         const parameterPage = getActiveParameterPage.call(this)
         const activeParameter = parameterPage.getParameter(encoderIndex)
 
@@ -188,13 +180,7 @@ export function DrumTrack(drumRack, controlSurface) {
         this.command = null
     }
 
-    function sendValue(args) {
-        if (args[1] === 'id') {
-            return
-        }
-
-        const value = args[1]
-        const encoderIndex = parseInt(args[2])
+    function sendValue([, value, encoderIndex]) {
         const parameterPage = getActiveParameterPage.call(this)
 
         if (parameterPage.categoryParameterIndex === encoderIndex) {
