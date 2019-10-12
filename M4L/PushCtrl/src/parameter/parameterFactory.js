@@ -34,6 +34,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
                 targetParameterConfig.options = sampleCategories
                 categoryParameterIndex = parameterindex
 
+                //todo: pass config object and destructure in constructor
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, drumPadName, drumLayerName, sampleCategories)
