@@ -32,4 +32,8 @@ export function DrumLayer(index, name, parameterPages, muteParameter) {
     this.getMuteParameter = function() {
         return muteParameter
     }
+
+    this.isMuted = function() {
+        return this.getMuteParameter().getValue() === 1
+    }
 }

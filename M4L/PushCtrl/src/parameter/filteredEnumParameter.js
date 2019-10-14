@@ -9,6 +9,7 @@ export const FilteredEnumParameter = defclass(EnumParameter, function() {
     }
 
     this.filterOptions = function(optionGroupKey) {
+        this.value = 0
         this.options = this.optionGroups[optionGroupKey]
         this.optionKeys = Object.keys(this.options)
         this.min = this.optionKeys[0]

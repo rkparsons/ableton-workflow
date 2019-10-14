@@ -1,3 +1,5 @@
+import { log } from '../util'
+
 export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex) {
     this.getIndex = function() {
         return index
@@ -22,6 +24,10 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
     this.getParameter = function(parameterIndex) {
         return parameters[parameterIndex]
+    }
+
+    this.getCategoryParameterIndex = function() {
+        return categoryParameterIndex
     }
 
     this.getSampleParameter = function() {
