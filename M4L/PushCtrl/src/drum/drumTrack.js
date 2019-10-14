@@ -53,10 +53,12 @@ export function DrumTrack(drumRack, controlSurface) {
     }
 
     function setLayer([, delta]) {
-        const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
+        if ([mode.LAYER_PARAMS, mode.LAYER_FX, mode.LAYER_MUTE].includes(this.mode)) {
+            const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 
-        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
-        updateDisplay.call(this)
+            this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
+            updateDisplay.call(this)
+        }
     }
 
     function pushToggleActive([, isPressed]) {
@@ -131,8 +133,16 @@ export function DrumTrack(drumRack, controlSurface) {
 
             const newMuteValue = muteParameter.getValue() === 0 ? 1 : 0
             muteParameter.setValue(newMuteValue)
-            updateDisplay.call(this)
+        } else if ((this.mode === mode.LAYER_MUTE || this.mode === mode.LAYER_PARAMS) && buttonIndex === 0) {
+            const muteParameter = this.drumRack
+                .getActiveDrumPad()
+                .getActiveDrumLayer()
+                .getMuteParameter()
+            const newMuteValue = muteParameter.getValue() === 0 ? 1 : 0
+            muteParameter.setValue(newMuteValue)
         }
+
+        updateDisplay.call(this)
     }
 
     function getActiveParameterPage() {
@@ -195,6 +205,15 @@ export function DrumTrack(drumRack, controlSurface) {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
         const activeDrumLayer = activeDrumPad ? activeDrumPad.getActiveDrumLayer() : null
         const drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(layer => layer.getName()) : null
+        const isLayerMuted = activeDrumLayer.getMuteParameter().getValue()
+        const isLayerMode = this.mode === mode.LAYER_PARAMS || this.mode === mode.LAYER_FX
+        const isMuteMode = this.mode === mode.LAYER_MUTE
+
+        if (isLayerMode && isLayerMuted) {
+            this.mode = mode.LAYER_MUTE
+        } else if (isMuteMode && !isLayerMuted) {
+            this.mode = mode.LAYER_PARAMS
+        }
 
         if (!activeDrumPad) {
             this.controlSurface.display.line(0, [' '])
@@ -241,19 +260,25 @@ export function DrumTrack(drumRack, controlSurface) {
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])
+        } else if (this.mode === mode.LAYER_MUTE) {
+            this.controlSurface.display.line(0, [' '])
+            this.controlSurface.display.line(1, [' '])
+            this.controlSurface.display.title(2, [activeDrumLayer.getName()])
+            this.controlSurface.display.menu(3, ['Off'])
+            this.controlSurface.trackSelect.map(0, 0)
+            this.controlSurface.trackState.map([0])
         } else if (this.mode === mode.LAYER_PARAMS) {
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
             const parameterPageNames = activeDrumLayer.getParameterPages().map(page => page.getName())
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
-            const isLayerMuted = activeDrumLayer.getMuteParameter().getValue()
 
-            this.controlSurface.display.line(0, isLayerMuted ? [' '] : parameterNames)
-            this.controlSurface.display.line(1, isLayerMuted ? [' '] : activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))
+            this.controlSurface.display.line(0, parameterNames)
+            this.controlSurface.display.line(1, activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))
             this.controlSurface.display.title(2, [activeDrumLayer.getName()])
             this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
             this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
-            this.controlSurface.trackState.map([])
+            this.controlSurface.trackState.map([1])
         } else if (this.mode === mode.LAYER_FX) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
