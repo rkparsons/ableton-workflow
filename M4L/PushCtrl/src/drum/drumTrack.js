@@ -203,20 +203,16 @@ export function DrumTrack(drumRack, controlSurface) {
 
     function sendValue([, value, encoderIndex]) {
         if (this.mode === mode.LAYER_PARAMS) {
-            this.drumRack
+            const page = this.drumRack
                 .getActiveDrumPad()
                 .getActiveDrumLayer()
                 .getActiveParameterPage()
-                .getParameter(encoderIndex)
-                .sendValue(value)
 
-            // temp
-            this.drumRack
-                .getActiveDrumPad()
-                .getActiveDrumLayer()
-                .getActiveParameterPage()
-                .getSampleParameter()
-                .constrainAndSendValue()
+            page.getParameter(encoderIndex).sendValue(value)
+
+            if (page.getCategoryParameterIndex() === encoderIndex) {
+                page.getSampleParameter().constrainAndSendValue()
+            }
         } else if (this.mode === mode.PAD_MIXER) {
             this.drumRack
                 .getActiveDrumPad()
