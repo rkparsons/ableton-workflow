@@ -5,6 +5,16 @@ export class DrumTrackMode {
         this.controlSurface = controlSurface
     }
 
+    //todo: override in inactivemode to stop push updating
+    focusDrumPad([property, , drumPadId]) {
+        if (property !== 'selected_drum_pad') {
+            return
+        }
+
+        this.drumRack.setActiveDrumPad(drumPadId)
+        this.updateDisplay()
+    }
+
     setLayer([, delta]) {
         const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 

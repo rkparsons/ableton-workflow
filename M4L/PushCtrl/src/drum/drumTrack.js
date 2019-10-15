@@ -61,20 +61,8 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    this.focusDrumPad = function([property, , drumPadId]) {
-        if (property !== 'selected_drum_pad') {
-            return
-        }
-
-        this.drumRack.setActiveDrumPad(drumPadId)
-
-        if (this.isActive) {
-            this.activeMode.updateDisplay()
-        }
-    }
-
     this.drumRack.onValueChanged(args => this.activeMode.updateDisplay(args))
-    this.drumRack.onDrumPadSelected(args => this.focusDrumPad(args))
+    this.drumRack.onDrumPadSelected(args => this.activeMode.focusDrumPad(args))
 
     this.controlSurface.on('Tap_Tempo_Button', args => this.pushToggleActive(args))
     this.controlSurface.onActive('Vol_Mix_Mode_Button', args => this.setMode(mode.RACK_MIXER, args))
