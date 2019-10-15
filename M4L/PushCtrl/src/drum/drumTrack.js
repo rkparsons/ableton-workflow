@@ -16,7 +16,7 @@ export function DrumTrack(drumRack, controlSurface) {
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
-    // todo: automate creation of all modes then get correct mode with canHandle flag
+    // todo: automate creation of all modes
     this.modes = [
         new RackMixerMode(this.drumRack, this.controlSurface),
         new RackFxMode(this.drumRack, this.controlSurface),
