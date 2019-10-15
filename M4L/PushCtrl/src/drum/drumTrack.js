@@ -5,7 +5,6 @@ import { PadFxMode } from '../modes/padFxMode'
 import { PadMixerMode } from '../modes/padMixerMode'
 import { RackFxMode } from '../modes/rackFxMode'
 import { RackMixerMode } from '../modes/rackMixerMode'
-import { log } from '../util'
 
 export function DrumTrack(drumRack, controlSurface) {
     this.isActive = false
