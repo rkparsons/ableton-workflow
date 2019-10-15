@@ -3,6 +3,23 @@ export class DrumTrackMode {
     constructor(drumRack, controlSurface) {
         this.drumRack = drumRack
         this.controlSurface = controlSurface
+        this.command = null
+    }
+
+    setCommand(command, [, isPressed]) {
+        if (isPressed) {
+            this.command = command
+        } else if (this.command !== null) {
+            this.executePageLevelCommand(this.command)
+            this.command = null
+        }
+    }
+
+    handleTrackControlTouches([, isPressed, encoderIndex]) {
+        if (isPressed && this.command !== null) {
+            this.executeParamLevelCommand(this.command, encoderIndex)
+            this.command = null
+        }
     }
 
     //todo: override in inactivemode to stop push updating

@@ -9,7 +9,6 @@ import { log } from '../util'
 
 export function DrumTrack(drumRack, controlSurface) {
     this.isActive = false
-    this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
 
@@ -35,22 +34,6 @@ export function DrumTrack(drumRack, controlSurface) {
 
     this.setMode(mode.LAYER_PARAMS, [, true])
 
-    this.setCommand = function(command, [, isPressed]) {
-        if (isPressed) {
-            this.command = command
-        } else if (this.command !== null) {
-            this.activeMode.executePageLevelCommand(this.command)
-            this.command = null
-        }
-    }
-
-    this.executeParamLevelCommand = function([, isPressed, encoderIndex]) {
-        if (isPressed && this.command !== null) {
-            this.activeMode.executeParamLevelCommand(this.command, encoderIndex)
-            this.command = null
-        }
-    }
-
     this.pushToggleActive = function([, isPressed]) {
         if (isPressed) {
             this.liveSetViewApi.set('selected_track', 'id', this.trackId)
@@ -72,9 +55,9 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.onActive('Device_Mode_Button', args => this.setMode(mode.LAYER_PARAMS, args))
     this.controlSurface.onActive('Browse_Mode_Button', args => this.setMode(mode.LAYER_FX, args))
 
-    this.controlSurface.onActive('Master_Select_Button', args => this.setCommand(command.DEFAULT, args))
-    this.controlSurface.onActive('Track_Stop_Button', args => this.setCommand(command.RANDOM, args))
-    this.controlSurface.onActive('Track_Control_Touches', args => this.executeParamLevelCommand(args))
+    this.controlSurface.onActive('Master_Select_Button', args => this.activeMode.setCommand(command.DEFAULT, args))
+    this.controlSurface.onActive('Track_Stop_Button', args => this.activeMode.setCommand(command.RANDOM, args))
+    this.controlSurface.onActive('Track_Control_Touches', args => this.activeMode.handleTrackControlTouches(args))
 
     this.controlSurface.onActive('Swing_Control', args => this.activeMode.setLayer(args))
     this.controlSurface.onActive('Track_Controls', args => this.activeMode.sendValue(args))
