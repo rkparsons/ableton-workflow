@@ -16503,7 +16503,7 @@ function DrumTrack(drumRack, controlSurface) {
         encoderIndex = _ref6[2];
 
     if (isPressed && this.command !== null) {
-      this.getMode().executeParamLevelCommand(this.command, isPressed, encoderIndex);
+      this.getMode().executeParamLevelCommand(this.command, encoderIndex);
       this.command = null;
     }
   };
@@ -16817,7 +16817,7 @@ function DrumTrackMode(drumRack, controlSurface) {
     this.updateDisplay();
   };
 
-  this.executeParamLevelCommand = function (targetCommand, isPressed, encoderIndex) {
+  this.executeParamLevelCommand = function (targetCommand, encoderIndex) {
     if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
       var page = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage();
       var param = page.getParameter(encoderIndex);

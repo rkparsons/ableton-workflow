@@ -97,7 +97,7 @@ export function DrumTrackMode(drumRack, controlSurface) {
         this.updateDisplay()
     }
 
-    this.executeParamLevelCommand = function(targetCommand, isPressed, encoderIndex) {
+    this.executeParamLevelCommand = function(targetCommand, encoderIndex) {
         if (this.mode === mode.LAYER_PARAMS) {
             const page = this.drumRack
                 .getActiveDrumPad()

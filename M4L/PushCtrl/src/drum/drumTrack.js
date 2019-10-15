@@ -52,7 +52,7 @@ export function DrumTrack(drumRack, controlSurface) {
 
     this.executeParamLevelCommand = function([, isPressed, encoderIndex]) {
         if (isPressed && this.command !== null) {
-            this.getMode().executeParamLevelCommand(this.command, isPressed, encoderIndex)
+            this.getMode().executeParamLevelCommand(this.command, encoderIndex)
             this.command = null
         }
     }
