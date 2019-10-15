@@ -242,6 +242,7 @@ export function DrumTrackMode(drumRack, controlSurface, trackId, liveSetViewApi)
                 this.controlSurface.trackState.map([1])
             }
         } else if (this.mode === mode.LAYER_FX) {
+            const activeDrumLayer = activeDrumPad.getActiveDrumLayer()
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
             this.controlSurface.display.title(2, [activeDrumLayer.getName() + ' FX'])

@@ -23,11 +23,15 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
+    this.getMode = function() {
+        return this.drumTrackMode
+    }
+
     this.setLayer = function([, delta]) {
         const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
-        this.drumTrackMode.updateDisplay()
+        this.getMode().updateDisplay()
     }
 
     this.pushToggleActive = function([, isPressed]) {
@@ -36,7 +40,7 @@ export function DrumTrack(drumRack, controlSurface) {
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
         } else if (this.isActive) {
-            this.drumTrackMode.updateDisplay()
+            this.getMode().updateDisplay()
         }
     }
 
@@ -48,11 +52,11 @@ export function DrumTrack(drumRack, controlSurface) {
         this.drumRack.setActiveDrumPad(drumPadId)
 
         if (this.isActive) {
-            this.drumTrackMode.updateDisplay()
+            this.getMode().updateDisplay()
         }
     }
 
-    this.drumRack.onValueChanged(args => this.drumTrackMode.updateDisplay(args))
+    this.drumRack.onValueChanged(args => this.getMode().updateDisplay(args))
     this.drumRack.onDrumPadSelected(args => this.focusDrumPad(args))
 
     this.controlSurface.on('Tap_Tempo_Button', args => this.pushToggleActive(args))
@@ -64,11 +68,11 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.onActive('Device_Mode_Button', args => this.setMode(mode.LAYER_PARAMS, args))
     this.controlSurface.onActive('Browse_Mode_Button', args => this.setMode(mode.LAYER_FX, args))
 
-    this.controlSurface.onActive('Master_Select_Button', args => this.drumTrackMode.setCommand(command.DEFAULT, args))
-    this.controlSurface.onActive('Track_Stop_Button', args => this.drumTrackMode.setCommand(command.RANDOM, args))
-    this.controlSurface.onActive('Track_Controls', args => this.drumTrackMode.sendValue(args))
-    this.controlSurface.onActive('Tempo_Control', args => this.drumTrackMode.handleTempoControl(args))
-    this.controlSurface.onActive('Track_Control_Touches', args => this.drumTrackMode.executeParamLevelCommand(args))
-    this.controlSurface.onActive('Track_State_Buttons', args => this.drumTrackMode.handleTrackStateButtons(args))
-    this.controlSurface.onActive('Track_Select_Buttons', args => this.drumTrackMode.handleTrackSelectButtons(args))
+    this.controlSurface.onActive('Master_Select_Button', args => this.getMode().setCommand(command.DEFAULT, args))
+    this.controlSurface.onActive('Track_Stop_Button', args => this.getMode().setCommand(command.RANDOM, args))
+    this.controlSurface.onActive('Track_Controls', args => this.getMode().sendValue(args))
+    this.controlSurface.onActive('Tempo_Control', args => this.getMode().handleTempoControl(args))
+    this.controlSurface.onActive('Track_Control_Touches', args => this.getMode().executeParamLevelCommand(args))
+    this.controlSurface.onActive('Track_State_Buttons', args => this.getMode().handleTrackStateButtons(args))
+    this.controlSurface.onActive('Track_Select_Buttons', args => this.getMode().handleTrackSelectButtons(args))
 }
