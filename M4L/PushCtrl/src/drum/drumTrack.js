@@ -1,10 +1,12 @@
 import { mode, command } from '../constants'
 import { DrumTrackMode } from '../modes/drumTrackMode'
+import { log } from '../util'
 
 //todo: run isActive check before, and updateDisplay after, every method call
 export function DrumTrack(drumRack, controlSurface) {
     this.isActive = false
     this.modeKey = mode.LAYER_PARAMS
+    this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
 
@@ -36,6 +38,22 @@ export function DrumTrack(drumRack, controlSurface) {
             this.modes[mode.LAYER_FX].setMode(targetModeKey)
 
             this.getMode().updateDisplay()
+        }
+    }
+
+    this.setCommand = function(command, [, isPressed]) {
+        if (isPressed) {
+            this.command = command
+        } else if (this.command !== null) {
+            this.getMode().executePageLevelCommand(this.command)
+            this.command = null
+        }
+    }
+
+    this.executeParamLevelCommand = function([, isPressed, encoderIndex]) {
+        if (isPressed && this.command !== null) {
+            this.getMode().executeParamLevelCommand(this.command, isPressed, encoderIndex)
+            this.command = null
         }
     }
 
@@ -80,11 +98,11 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.onActive('Device_Mode_Button', args => this.setMode(mode.LAYER_PARAMS, args))
     this.controlSurface.onActive('Browse_Mode_Button', args => this.setMode(mode.LAYER_FX, args))
 
-    this.controlSurface.onActive('Master_Select_Button', args => this.getMode().setCommand(command.DEFAULT, args))
-    this.controlSurface.onActive('Track_Stop_Button', args => this.getMode().setCommand(command.RANDOM, args))
+    this.controlSurface.onActive('Master_Select_Button', args => this.setCommand(command.DEFAULT, args))
+    this.controlSurface.onActive('Track_Stop_Button', args => this.setCommand(command.RANDOM, args))
+    this.controlSurface.onActive('Track_Control_Touches', args => this.executeParamLevelCommand(args))
     this.controlSurface.onActive('Track_Controls', args => this.getMode().sendValue(args))
     this.controlSurface.onActive('Tempo_Control', args => this.getMode().handleTempoControl(args))
-    this.controlSurface.onActive('Track_Control_Touches', args => this.getMode().executeParamLevelCommand(args))
     this.controlSurface.onActive('Track_State_Buttons', args => this.getMode().handleTrackStateButtons(args))
     this.controlSurface.onActive('Track_Select_Buttons', args => this.getMode().handleTrackSelectButtons(args))
 }

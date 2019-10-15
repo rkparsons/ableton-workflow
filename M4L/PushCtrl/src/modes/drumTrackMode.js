@@ -2,21 +2,11 @@ import { mode, command } from '../constants'
 
 export function DrumTrackMode(drumRack, controlSurface) {
     this.mode = mode.LAYER_PARAMS
-    this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
 
     this.setMode = function(targetMode) {
         this.mode = targetMode
-    }
-
-    this.setCommand = function(command, [, isPressed]) {
-        if (isPressed) {
-            this.command = command
-        } else if (this.command !== null) {
-            this.executePageLevelCommand(this.command)
-            this.command = null
-        }
     }
 
     this.handleTempoControl = function([, encoderValue]) {
@@ -88,38 +78,33 @@ export function DrumTrackMode(drumRack, controlSurface) {
         this.updateDisplay()
     }
 
-    this.executePageLevelCommand = function() {
+    this.executePageLevelCommand = function(targetCommand) {
         if (this.mode === mode.LAYER_PARAMS) {
             const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
 
             if (!activeDrumLayer.isMuted()) {
                 const page = activeDrumLayer.getActiveParameterPage()
-                this.command === command.DEFAULT ? page.default() : page.random()
+                targetCommand === command.DEFAULT ? page.default() : page.random()
             }
         } else if (this.mode === mode.PAD_MIXER) {
             const page = this.drumRack.getActiveDrumPad().getActiveMixerPage()
-            this.command === command.DEFAULT ? page.default() : page.random()
+            targetCommand === command.DEFAULT ? page.default() : page.random()
         } else if (this.mode === mode.RACK_MIXER) {
             const page = this.drumRack.getActiveMixerPage()
-            this.command === command.DEFAULT ? page.default() : page.random()
+            targetCommand === command.DEFAULT ? page.default() : page.random()
         }
 
-        this.command = null
         this.updateDisplay()
     }
 
-    this.executeParamLevelCommand = function([, isPressed, encoderIndex]) {
-        if (!isPressed || !this.command) {
-            return
-        }
-
+    this.executeParamLevelCommand = function(targetCommand, isPressed, encoderIndex) {
         if (this.mode === mode.LAYER_PARAMS) {
             const page = this.drumRack
                 .getActiveDrumPad()
                 .getActiveDrumLayer()
                 .getActiveParameterPage()
             const param = page.getParameter(encoderIndex)
-            this.command === command.DEFAULT ? param.default() : param.random()
+            targetCommand === command.DEFAULT ? param.default() : param.random()
 
             if (page.categoryParameterIndex === encoderIndex) {
                 page.getParameter(page.sampleParameterIndex).default()
@@ -129,13 +114,12 @@ export function DrumTrackMode(drumRack, controlSurface) {
                 .getActiveDrumPad()
                 .getActiveMixerPage()
                 .getParameter(encoderIndex)
-            this.command === command.DEFAULT ? param.default() : param.random()
+            targetCommand === command.DEFAULT ? param.default() : param.random()
         } else if (this.mode === mode.RACK_MIXER) {
             const param = this.drumRack.getActiveMixerPage().getParameter(encoderIndex)
-            this.command === command.DEFAULT ? param.default() : param.random()
+            targetCommand === command.DEFAULT ? param.default() : param.random()
         }
 
-        this.command = null
         this.updateDisplay()
     }
 
