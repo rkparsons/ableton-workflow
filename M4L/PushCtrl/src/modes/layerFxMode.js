@@ -1,8 +1,13 @@
 import { DrumTrackMode } from './drumTrackMode'
+import { mode } from '../constants'
 
 export class LayerFxMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
+    }
+
+    canHandle(modeType) {
+        return modeType === mode.LAYER_FX
     }
 
     updateDisplay() {

@@ -1,9 +1,13 @@
 import { DrumTrackMode } from './drumTrackMode'
-import { command } from '../constants'
+import { command, mode } from '../constants'
 
 export class PadMixerMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
+    }
+
+    canHandle(modeType) {
+        return modeType === mode.PAD_MIXER
     }
 
     handleTrackSelectButtons([, isPressed, buttonIndex]) {

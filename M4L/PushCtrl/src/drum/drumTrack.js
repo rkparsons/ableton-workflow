@@ -9,7 +9,6 @@ import { log } from '../util'
 
 export function DrumTrack(drumRack, controlSurface) {
     this.isActive = false
-    this.modeKey = mode.LAYER_PARAMS
     this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
@@ -17,40 +16,37 @@ export function DrumTrack(drumRack, controlSurface) {
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
-    this.modes = {}
-
     // todo: automate creation of all modes then get correct mode with canHandle flag
-    this.modes[mode.RACK_MIXER] = new RackMixerMode(this.drumRack, this.controlSurface)
-    this.modes[mode.RACK_FX] = new RackFxMode(this.drumRack, this.controlSurface)
-    this.modes[mode.PAD_MIXER] = new PadMixerMode(this.drumRack, this.controlSurface)
-    this.modes[mode.PAD_FX] = new PadFxMode(this.drumRack, this.controlSurface)
-    this.modes[mode.LAYER_PARAMS] = new LayerParamsMode(this.drumRack, this.controlSurface)
-    this.modes[mode.LAYER_FX] = new LayerFxMode(this.drumRack, this.controlSurface)
+    this.modes = [
+        new RackMixerMode(this.drumRack, this.controlSurface),
+        new RackFxMode(this.drumRack, this.controlSurface),
+        new PadMixerMode(this.drumRack, this.controlSurface),
+        new PadFxMode(this.drumRack, this.controlSurface),
+        new LayerParamsMode(this.drumRack, this.controlSurface),
+        new LayerFxMode(this.drumRack, this.controlSurface),
+    ]
 
-    this.getMode = function() {
-        return this.modes[this.modeKey]
-    }
-
-    this.setMode = function(targetModeKey, [, isPressed]) {
+    this.setMode = function(modeType, [, isPressed]) {
         if (isPressed) {
-            this.modeKey = targetModeKey
-
-            this.getMode().updateDisplay()
+            this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
+            this.activeMode.updateDisplay()
         }
     }
+
+    this.setMode(mode.LAYER_PARAMS, [, true])
 
     this.setCommand = function(command, [, isPressed]) {
         if (isPressed) {
             this.command = command
         } else if (this.command !== null) {
-            this.getMode().executePageLevelCommand(this.command)
+            this.activeMode.executePageLevelCommand(this.command)
             this.command = null
         }
     }
 
     this.executeParamLevelCommand = function([, isPressed, encoderIndex]) {
         if (isPressed && this.command !== null) {
-            this.getMode().executeParamLevelCommand(this.command, encoderIndex)
+            this.activeMode.executeParamLevelCommand(this.command, encoderIndex)
             this.command = null
         }
     }
@@ -59,7 +55,7 @@ export function DrumTrack(drumRack, controlSurface) {
         const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
-        this.getMode().updateDisplay()
+        this.activeMode.updateDisplay()
     }
 
     this.pushToggleActive = function([, isPressed]) {
@@ -68,7 +64,7 @@ export function DrumTrack(drumRack, controlSurface) {
             this.isActive = !this.isActive
             this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate()
         } else if (this.isActive) {
-            this.getMode().updateDisplay()
+            this.activeMode.updateDisplay()
         }
     }
 
@@ -80,11 +76,11 @@ export function DrumTrack(drumRack, controlSurface) {
         this.drumRack.setActiveDrumPad(drumPadId)
 
         if (this.isActive) {
-            this.getMode().updateDisplay()
+            this.activeMode.updateDisplay()
         }
     }
 
-    this.drumRack.onValueChanged(args => this.getMode().updateDisplay(args))
+    this.drumRack.onValueChanged(args => this.activeMode.updateDisplay(args))
     this.drumRack.onDrumPadSelected(args => this.focusDrumPad(args))
 
     this.controlSurface.on('Tap_Tempo_Button', args => this.pushToggleActive(args))
@@ -99,8 +95,8 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.onActive('Master_Select_Button', args => this.setCommand(command.DEFAULT, args))
     this.controlSurface.onActive('Track_Stop_Button', args => this.setCommand(command.RANDOM, args))
     this.controlSurface.onActive('Track_Control_Touches', args => this.executeParamLevelCommand(args))
-    this.controlSurface.onActive('Track_Controls', args => this.getMode().sendValue(args))
-    this.controlSurface.onActive('Tempo_Control', args => this.getMode().handleTempoControl(args))
-    this.controlSurface.onActive('Track_State_Buttons', args => this.getMode().handleTrackStateButtons(args))
-    this.controlSurface.onActive('Track_Select_Buttons', args => this.getMode().handleTrackSelectButtons(args))
+    this.controlSurface.onActive('Track_Controls', args => this.activeMode.sendValue(args))
+    this.controlSurface.onActive('Tempo_Control', args => this.activeMode.handleTempoControl(args))
+    this.controlSurface.onActive('Track_State_Buttons', args => this.activeMode.handleTrackStateButtons(args))
+    this.controlSurface.onActive('Track_Select_Buttons', args => this.activeMode.handleTrackSelectButtons(args))
 }

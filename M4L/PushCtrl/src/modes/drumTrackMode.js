@@ -5,18 +5,6 @@ export class DrumTrackMode {
         this.controlSurface = controlSurface
     }
 
-    handleTempoControl() {}
-
-    handleTrackSelectButtons() {}
-
-    handleTrackStateButtons() {}
-
-    executePageLevelCommand() {}
-
-    executeParamLevelCommand() {}
-
-    sendValue() {}
-
     updateDisplay() {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 

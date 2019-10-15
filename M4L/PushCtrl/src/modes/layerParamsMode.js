@@ -1,10 +1,14 @@
 import { DrumTrackMode } from './drumTrackMode'
-import { command } from '../constants'
+import { command, mode } from '../constants'
 
 //todo: add can handle enum to strategies
 export class LayerParamsMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
+    }
+
+    canHandle(modeType) {
+        return modeType === mode.LAYER_PARAMS
     }
 
     handleTempoControl([, encoderValue]) {
