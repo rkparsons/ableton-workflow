@@ -1,8 +1,12 @@
 import { mode, command } from '../constants'
-import { DrumTrackMode } from '../modes/drumTrackMode'
+import { LayerFxMode } from '../modes/layerFxMode'
+import { LayerParamsMode } from '../modes/layerParamsMode'
+import { PadFxMode } from '../modes/padFxMode'
+import { PadMixerMode } from '../modes/padMixerMode'
+import { RackFxMode } from '../modes/rackFxMode'
+import { RackMixerMode } from '../modes/rackMixerMode'
 import { log } from '../util'
 
-//todo: run isActive check before, and updateDisplay after, every method call
 export function DrumTrack(drumRack, controlSurface) {
     this.isActive = false
     this.modeKey = mode.LAYER_PARAMS
@@ -14,12 +18,14 @@ export function DrumTrack(drumRack, controlSurface) {
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
     this.modes = {}
-    this.modes[mode.RACK_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface)
-    this.modes[mode.RACK_FX] = new DrumTrackMode(this.drumRack, this.controlSurface)
-    this.modes[mode.PAD_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface)
-    this.modes[mode.PAD_FX] = new DrumTrackMode(this.drumRack, this.controlSurface)
-    this.modes[mode.LAYER_PARAMS] = new DrumTrackMode(this.drumRack, this.controlSurface)
-    this.modes[mode.LAYER_FX] = new DrumTrackMode(this.drumRack, this.controlSurface)
+
+    // todo: automate creation of all modes then get correct mode with canHandle flag
+    this.modes[mode.RACK_MIXER] = new RackMixerMode(this.drumRack, this.controlSurface)
+    this.modes[mode.RACK_FX] = new RackFxMode(this.drumRack, this.controlSurface)
+    this.modes[mode.PAD_MIXER] = new PadMixerMode(this.drumRack, this.controlSurface)
+    this.modes[mode.PAD_FX] = new PadFxMode(this.drumRack, this.controlSurface)
+    this.modes[mode.LAYER_PARAMS] = new LayerParamsMode(this.drumRack, this.controlSurface)
+    this.modes[mode.LAYER_FX] = new LayerFxMode(this.drumRack, this.controlSurface)
 
     this.getMode = function() {
         return this.modes[this.modeKey]
@@ -28,14 +34,6 @@ export function DrumTrack(drumRack, controlSurface) {
     this.setMode = function(targetModeKey, [, isPressed]) {
         if (isPressed) {
             this.modeKey = targetModeKey
-
-            //temp remove this
-            this.modes[mode.RACK_MIXER].setMode(targetModeKey)
-            this.modes[mode.RACK_FX].setMode(targetModeKey)
-            this.modes[mode.PAD_MIXER].setMode(targetModeKey)
-            this.modes[mode.PAD_FX].setMode(targetModeKey)
-            this.modes[mode.LAYER_PARAMS].setMode(targetModeKey)
-            this.modes[mode.LAYER_FX].setMode(targetModeKey)
 
             this.getMode().updateDisplay()
         }

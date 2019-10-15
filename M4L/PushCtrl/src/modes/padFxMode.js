@@ -1,0 +1,21 @@
+import { DrumTrackMode } from './drumTrackMode'
+
+export class PadFxMode extends DrumTrackMode {
+    constructor(drumRack, controlSurface) {
+        super(drumRack, controlSurface)
+    }
+
+    updateDisplay() {
+        super.updateDisplay()
+        const activeDrumPad = this.drumRack.getActiveDrumPad()
+
+        if (activeDrumPad) {
+            this.controlSurface.display.line(0, [' '])
+            this.controlSurface.display.line(1, [' '])
+            this.controlSurface.display.title(2, [activeDrumPad.getName() + ' FX'])
+            this.controlSurface.display.line(3, [' '])
+            this.controlSurface.trackSelect.map(0, 0)
+            this.controlSurface.trackState.map([])
+        }
+    }
+}
