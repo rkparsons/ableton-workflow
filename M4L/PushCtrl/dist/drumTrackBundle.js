@@ -16454,12 +16454,12 @@ function DrumTrack(drumRack, controlSurface) {
   this.liveSetViewApi = new LiveAPI(null, 'live_set view');
   this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id);
   this.modes = {};
-  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
-  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_FX] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
-  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
-  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_FX] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
-  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
-  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_FX] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
+  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface);
+  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_FX] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface);
+  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface);
+  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_FX] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface);
+  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface);
+  this.modes[_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_FX] = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface);
 
   this.getMode = function () {
     return this.modes[this.modeKey];
@@ -16690,13 +16690,11 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-function DrumTrackMode(drumRack, controlSurface, trackId, liveSetViewApi) {
+function DrumTrackMode(drumRack, controlSurface) {
   this.mode = _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS;
   this.command = null;
   this.drumRack = drumRack;
   this.controlSurface = controlSurface;
-  this.liveSetViewApi = liveSetViewApi;
-  this.trackId = trackId;
 
   this.setMode = function (targetMode) {
     this.mode = targetMode;

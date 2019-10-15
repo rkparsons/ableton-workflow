@@ -12,12 +12,12 @@ export function DrumTrack(drumRack, controlSurface) {
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
     this.modes = {}
-    this.modes[mode.RACK_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
-    this.modes[mode.RACK_FX] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
-    this.modes[mode.PAD_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
-    this.modes[mode.PAD_FX] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
-    this.modes[mode.LAYER_PARAMS] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
-    this.modes[mode.LAYER_FX] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
+    this.modes[mode.RACK_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface)
+    this.modes[mode.RACK_FX] = new DrumTrackMode(this.drumRack, this.controlSurface)
+    this.modes[mode.PAD_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface)
+    this.modes[mode.PAD_FX] = new DrumTrackMode(this.drumRack, this.controlSurface)
+    this.modes[mode.LAYER_PARAMS] = new DrumTrackMode(this.drumRack, this.controlSurface)
+    this.modes[mode.LAYER_FX] = new DrumTrackMode(this.drumRack, this.controlSurface)
 
     this.getMode = function() {
         return this.modes[this.modeKey]

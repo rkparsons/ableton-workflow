@@ -1,12 +1,10 @@
 import { mode, command } from '../constants'
 
-export function DrumTrackMode(drumRack, controlSurface, trackId, liveSetViewApi) {
+export function DrumTrackMode(drumRack, controlSurface) {
     this.mode = mode.LAYER_PARAMS
     this.command = null
     this.drumRack = drumRack
     this.controlSurface = controlSurface
-    this.liveSetViewApi = liveSetViewApi
-    this.trackId = trackId
 
     this.setMode = function(targetMode) {
         this.mode = targetMode
