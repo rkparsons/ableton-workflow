@@ -5,6 +5,13 @@ export class DrumTrackMode {
         this.controlSurface = controlSurface
     }
 
+    setLayer([, delta]) {
+        const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
+
+        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
+        this.updateDisplay()
+    }
+
     updateDisplay() {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 

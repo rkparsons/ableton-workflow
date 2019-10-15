@@ -51,13 +51,6 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    this.setLayer = function([, delta]) {
-        const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
-
-        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
-        this.activeMode.updateDisplay()
-    }
-
     this.pushToggleActive = function([, isPressed]) {
         if (isPressed) {
             this.liveSetViewApi.set('selected_track', 'id', this.trackId)
@@ -84,7 +77,6 @@ export function DrumTrack(drumRack, controlSurface) {
     this.drumRack.onDrumPadSelected(args => this.focusDrumPad(args))
 
     this.controlSurface.on('Tap_Tempo_Button', args => this.pushToggleActive(args))
-    this.controlSurface.onActive('Swing_Control', args => this.setLayer(args))
     this.controlSurface.onActive('Vol_Mix_Mode_Button', args => this.setMode(mode.RACK_MIXER, args))
     this.controlSurface.onActive('Pan_Send_Mode_Button', args => this.setMode(mode.RACK_FX, args))
     this.controlSurface.onActive('Single_Track_Mode_Button', args => this.setMode(mode.PAD_MIXER, args))
@@ -95,6 +87,8 @@ export function DrumTrack(drumRack, controlSurface) {
     this.controlSurface.onActive('Master_Select_Button', args => this.setCommand(command.DEFAULT, args))
     this.controlSurface.onActive('Track_Stop_Button', args => this.setCommand(command.RANDOM, args))
     this.controlSurface.onActive('Track_Control_Touches', args => this.executeParamLevelCommand(args))
+
+    this.controlSurface.onActive('Swing_Control', args => this.activeMode.setLayer(args))
     this.controlSurface.onActive('Track_Controls', args => this.activeMode.sendValue(args))
     this.controlSurface.onActive('Tempo_Control', args => this.activeMode.handleTempoControl(args))
     this.controlSurface.onActive('Track_State_Buttons', args => this.activeMode.handleTrackStateButtons(args))
