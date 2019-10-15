@@ -16432,7 +16432,7 @@ function createDrumRack(samplesFolder) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DrumTrack", function() { return DrumTrack; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./src/util.js");
+/* harmony import */ var _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modes/drumTrackMode */ "./src/modes/drumTrackMode.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -16450,11 +16450,11 @@ function DrumTrack(drumRack, controlSurface) {
   this.isActive = false;
   this.previousMode = _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS;
   this.mode = _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS;
-  this.command = null;
   this.drumRack = drumRack;
   this.controlSurface = controlSurface;
   this.liveSetViewApi = new LiveAPI(null, 'live_set view');
   this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id);
+  this.drumTrackMode = new _modes_drumTrackMode__WEBPACK_IMPORTED_MODULE_1__["DrumTrackMode"](this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi);
 
   this.setMode = function (targetMode, _ref) {
     var _ref2 = _slicedToArray(_ref, 2),
@@ -16463,47 +16463,37 @@ function DrumTrack(drumRack, controlSurface) {
     if (isPressed) {
       this.previousMode = this.mode;
       this.mode = targetMode;
-      this.updateDisplay();
+      this.drumTrackMode.setMode(targetMode);
+      this.drumTrackMode.updateDisplay();
     }
   };
 
-  this.setCommand = function (command, _ref3) {
+  this.setLayer = function (_ref3) {
     var _ref4 = _slicedToArray(_ref3, 2),
-        isPressed = _ref4[1];
-
-    if (isPressed) {
-      this.command = command;
-    } else if (this.command !== null) {
-      this.executePageLevelCommand();
-    }
-  };
-
-  this.setLayer = function (_ref5) {
-    var _ref6 = _slicedToArray(_ref5, 2),
-        delta = _ref6[1];
+        delta = _ref4[1];
 
     var drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128);
     this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement);
-    this.updateDisplay();
+    this.drumTrackMode.updateDisplay();
   };
 
-  this.pushToggleActive = function (_ref7) {
-    var _ref8 = _slicedToArray(_ref7, 2),
-        isPressed = _ref8[1];
+  this.pushToggleActive = function (_ref5) {
+    var _ref6 = _slicedToArray(_ref5, 2),
+        isPressed = _ref6[1];
 
     if (isPressed) {
       this.liveSetViewApi.set('selected_track', 'id', this.trackId);
       this.isActive = !this.isActive;
       this.isActive ? this.controlSurface.activate() : this.controlSurface.deactivate();
     } else if (this.isActive) {
-      this.updateDisplay();
+      this.drumTrackMode.updateDisplay();
     }
   };
 
-  this.focusDrumPad = function (_ref9) {
-    var _ref10 = _slicedToArray(_ref9, 3),
-        property = _ref10[0],
-        drumPadId = _ref10[2];
+  this.focusDrumPad = function (_ref7) {
+    var _ref8 = _slicedToArray(_ref7, 3),
+        property = _ref8[0],
+        drumPadId = _ref8[2];
 
     if (property !== 'selected_drum_pad') {
       return;
@@ -16512,280 +16502,21 @@ function DrumTrack(drumRack, controlSurface) {
     this.drumRack.setActiveDrumPad(drumPadId);
 
     if (this.isActive) {
-      this.updateDisplay();
+      this.drumTrackMode.updateDisplay();
     }
   };
 
-  this.handleTempoControl = function (_ref11) {
-    var _ref12 = _slicedToArray(_ref11, 2),
-        encoderValue = _ref12[1];
-
-    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
-      var sampleParameter = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage().getSampleParameter();
-
-      if (!sampleParameter) {
-        return;
-      }
-
-      if (encoderValue === 1) {
-        sampleParameter.increment();
-      } else if (encoderValue === 127) {
-        sampleParameter.decrement();
-      }
-
-      this.updateDisplay();
-    }
-  };
-
-  this.handleTrackSelectButtons = function (_ref13) {
-    var _ref14 = _slicedToArray(_ref13, 3),
-        isPressed = _ref14[1],
-        buttonIndex = _ref14[2];
-
-    if (!isPressed) {
-      return;
-    }
-
-    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
-      this.drumRack.setActiveMixerPage(buttonIndex);
-      this.updateDisplay();
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
-      var activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer();
-      var isMuted = activeDrumLayer.getMuteParameter().getValue() === 1;
-
-      if (!isMuted) {
-        activeDrumLayer.setActiveParameterPage(buttonIndex);
-        this.updateDisplay();
-      }
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
-      this.drumRack.getActiveDrumPad().setActiveMixerPage(buttonIndex);
-      this.updateDisplay();
-    }
-  };
-
-  this.handleTrackStateButtons = function (_ref15) {
-    var _ref16 = _slicedToArray(_ref15, 3),
-        isPressed = _ref16[1],
-        buttonIndex = _ref16[2];
-
-    if (!isPressed) {
-      return;
-    }
-
-    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
-      var muteParameter = this.drumRack.getActiveDrumPad().getDrumLayers()[buttonIndex].getMuteParameter();
-      var newMuteValue = muteParameter.getValue() === 0 ? 1 : 0;
-      muteParameter.setValue(newMuteValue);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS && buttonIndex === 0) {
-      var _muteParameter = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getMuteParameter();
-
-      var _newMuteValue = _muteParameter.getValue() === 0 ? 1 : 0;
-
-      _muteParameter.setValue(_newMuteValue);
-    }
-
-    this.updateDisplay();
-  };
-
-  this.executePageLevelCommand = function () {
-    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
-      var activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer();
-
-      if (!activeDrumLayer.isMuted()) {
-        var page = activeDrumLayer.getActiveParameterPage();
-        this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? page["default"]() : page.random();
-      }
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
-      var _page = this.drumRack.getActiveDrumPad().getActiveMixerPage();
-
-      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _page["default"]() : _page.random();
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
-      var _page2 = this.drumRack.getActiveMixerPage();
-
-      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _page2["default"]() : _page2.random();
-    }
-
-    this.command = null;
-    this.updateDisplay();
-  };
-
-  this.executeParamLevelCommand = function (_ref17) {
-    var _ref18 = _slicedToArray(_ref17, 3),
-        isPressed = _ref18[1],
-        encoderIndex = _ref18[2];
-
-    if (!isPressed || !this.command) {
-      return;
-    }
-
-    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
-      var page = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage();
-      var param = page.getParameter(encoderIndex);
-      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? param["default"]() : param.random();
-
-      if (page.categoryParameterIndex === encoderIndex) {
-        page.getParameter(page.sampleParameterIndex)["default"]();
-      }
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
-      var _param = this.drumRack.getActiveDrumPad().getActiveMixerPage().getParameter(encoderIndex);
-
-      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _param["default"]() : _param.random();
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
-      var _param2 = this.drumRack.getActiveMixerPage().getParameter(encoderIndex);
-
-      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _param2["default"]() : _param2.random();
-    }
-
-    this.command = null;
-    this.updateDisplay();
-  };
-
-  this.sendValue = function (_ref19) {
-    var _ref20 = _slicedToArray(_ref19, 3),
-        value = _ref20[1],
-        encoderIndex = _ref20[2];
-
-    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
-      var page = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage();
-      page.getParameter(encoderIndex).sendValue(value);
-
-      if (page.getCategoryParameterIndex() === encoderIndex) {
-        page.getSampleParameter().constrainAndSendValue();
-      }
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
-      this.drumRack.getActiveDrumPad().getActiveMixerPage().getParameter(encoderIndex).sendValue(value);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
-      this.drumRack.getActiveMixerPage().getParameter(encoderIndex).sendValue(value);
-    }
-
-    this.updateDisplay();
-  };
-
-  this.updateDisplay = function () {
-    // todo: replace with a unactive mode
-    if (!this.isActive) {
-      return;
-    }
-
-    var activeDrumPad = this.drumRack.getActiveDrumPad();
-    var activeDrumLayer = activeDrumPad ? activeDrumPad.getActiveDrumLayer() : null;
-    var drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(function (layer) {
-      return layer.getName();
-    }) : null;
-    var isLayerMuted = activeDrumLayer.getMuteParameter().getValue();
-
-    if (!activeDrumPad) {
-      this.controlSurface.display.line(0, [' ']);
-      this.controlSurface.display.line(1, [' ']);
-      this.controlSurface.display.title(2, ['Blank']);
-      this.controlSurface.display.line(3, [' ']);
-      this.controlSurface.trackSelect.map(0, 0);
-      this.controlSurface.trackState.map([]);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
-      var drumRackMixerPage = this.drumRack.getActiveMixerPage();
-      var mixerPageNames = this.drumRack.getMixerPages().map(function (page) {
-        return page.getName();
-      });
-      var activeMixerPageIndex = this.drumRack.getActiveMixerPage().getIndex();
-      this.controlSurface.display.line(0, this.drumRack.getDrumPads().map(function (pad) {
-        return pad.getName();
-      })); //todo: replace separate calls for parameters with method which checks mode
-
-      this.controlSurface.display.line(1, drumRackMixerPage.getParameters().map(function (parameter) {
-        return parameter.getDisplayValue();
-      }));
-      this.controlSurface.display.title(2, []);
-      this.controlSurface.display.menu(3, mixerPageNames, activeMixerPageIndex);
-      this.controlSurface.trackSelect.map(mixerPageNames.length, activeMixerPageIndex);
-      this.controlSurface.trackState.map([]);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_FX) {
-      this.controlSurface.display.line(0, [' ']);
-      this.controlSurface.display.line(1, [' ']);
-      this.controlSurface.display.title(2, ['FX']);
-      this.controlSurface.display.line(3, [' ']);
-      this.controlSurface.trackSelect.map(0, 0);
-      this.controlSurface.trackState.map([]);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
-      var drumPadMixerPage = activeDrumPad.getActiveMixerPage();
-      var drumPadMixerPageNames = activeDrumPad.getMixerPages().map(function (page) {
-        return page.getName();
-      });
-      var layerOnStates = activeDrumPad.getDrumLayers().map(function (layer) {
-        return layer.getMuteParameter().getValue() === 0 ? 1 : 0;
-      });
-      var displayValues = drumPadMixerPage.getParameters().map(function (parameter, index) {
-        return layerOnStates[index] ? parameter.getDisplayValue() : '';
-      });
-      this.controlSurface.display.line(0, drumLayerNames);
-      this.controlSurface.display.line(1, displayValues);
-      this.controlSurface.display.title(2, [activeDrumPad.getName()]);
-      this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex());
-      this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex());
-      this.controlSurface.trackState.map(layerOnStates);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_FX) {
-      this.controlSurface.display.line(0, [' ']);
-      this.controlSurface.display.line(1, [' ']);
-      this.controlSurface.display.title(2, [activeDrumPad.getName() + ' FX']);
-      this.controlSurface.display.line(3, [' ']);
-      this.controlSurface.trackSelect.map(0, 0);
-      this.controlSurface.trackState.map([]);
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
-      var activeParameterPage = activeDrumLayer.getActiveParameterPage();
-      var parameterPageNames = activeDrumLayer.getParameterPages().map(function (page) {
-        return page.getName();
-      });
-      var activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex();
-      var parameterNames = activeParameterPage.getParameters().map(function (parameter) {
-        return parameter.getName();
-      });
-
-      if (isLayerMuted) {
-        this.controlSurface.display.line(0, [' ']);
-        this.controlSurface.display.line(1, [' ']);
-        this.controlSurface.display.title(2, [activeDrumLayer.getName()]);
-        this.controlSurface.display.menu(3, ['Off']);
-        this.controlSurface.trackSelect.map(0, 0);
-        this.controlSurface.trackState.map([0]);
-      } else {
-        this.controlSurface.display.line(0, parameterNames);
-        this.controlSurface.display.line(1, activeParameterPage.getParameters().map(function (parameter) {
-          return parameter.getDisplayValue();
-        }));
-        this.controlSurface.display.title(2, [activeDrumLayer.getName()]);
-        this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex);
-        this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex);
-        this.controlSurface.trackState.map([1]);
-      }
-    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_FX) {
-      this.controlSurface.display.line(0, [' ']);
-      this.controlSurface.display.line(1, [' ']);
-      this.controlSurface.display.title(2, [activeDrumLayer.getName() + ' FX']);
-      this.controlSurface.display.line(3, [' ']);
-      this.controlSurface.trackSelect.map(0, 0);
-      this.controlSurface.trackState.map([]);
-    }
-  };
-
+  this.drumRack.onValueChanged(function (args) {
+    return _this.drumTrackMode.updateDisplay(args);
+  });
+  this.drumRack.onDrumPadSelected(function (args) {
+    return _this.focusDrumPad(args);
+  });
   this.controlSurface.on('Tap_Tempo_Button', function (args) {
     return _this.pushToggleActive(args);
   });
-  this.controlSurface.onActive('Track_Controls', function (args) {
-    return _this.sendValue(args);
-  });
-  this.controlSurface.onActive('Tempo_Control', function (args) {
-    return _this.handleTempoControl(args);
-  });
   this.controlSurface.onActive('Swing_Control', function (args) {
     return _this.setLayer(args);
-  });
-  this.controlSurface.onActive('Track_Control_Touches', function (args) {
-    return _this.executeParamLevelCommand(args);
-  });
-  this.controlSurface.onActive('Track_State_Buttons', function (args) {
-    return _this.handleTrackStateButtons(args);
-  });
-  this.controlSurface.onActive('Track_Select_Buttons', function (args) {
-    return _this.handleTrackSelectButtons(args);
   });
   this.controlSurface.onActive('Vol_Mix_Mode_Button', function (args) {
     return _this.setMode(_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER, args);
@@ -16806,16 +16537,25 @@ function DrumTrack(drumRack, controlSurface) {
     return _this.setMode(_constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_FX, args);
   });
   this.controlSurface.onActive('Master_Select_Button', function (args) {
-    return _this.setCommand(_constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT, args);
+    return _this.drumTrackMode.setCommand(_constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT, args);
   });
   this.controlSurface.onActive('Track_Stop_Button', function (args) {
-    return _this.setCommand(_constants__WEBPACK_IMPORTED_MODULE_0__["command"].RANDOM, args);
+    return _this.drumTrackMode.setCommand(_constants__WEBPACK_IMPORTED_MODULE_0__["command"].RANDOM, args);
   });
-  this.drumRack.onDrumPadSelected(function (args) {
-    return _this.focusDrumPad(args);
+  this.controlSurface.onActive('Track_Controls', function (args) {
+    return _this.drumTrackMode.sendValue(args);
   });
-  this.drumRack.onValueChanged(function (args) {
-    return _this.updateDisplay(args);
+  this.controlSurface.onActive('Tempo_Control', function (args) {
+    return _this.drumTrackMode.handleTempoControl(args);
+  });
+  this.controlSurface.onActive('Track_Control_Touches', function (args) {
+    return _this.drumTrackMode.executeParamLevelCommand(args);
+  });
+  this.controlSurface.onActive('Track_State_Buttons', function (args) {
+    return _this.drumTrackMode.handleTrackStateButtons(args);
+  });
+  this.controlSurface.onActive('Track_Select_Buttons', function (args) {
+    return _this.drumTrackMode.handleTrackSelectButtons(args);
   });
 }
 
@@ -16912,6 +16652,306 @@ function getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName) {
   var isSharedSampleFolder = ['Layer', 'Trans'].indexOf(drumLayerName.toString()) >= 0;
   var drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName;
   return samplesFolder + '/' + drumPadFolder + '/' + drumLayerName;
+}
+
+/***/ }),
+
+/***/ "./src/modes/drumTrackMode.js":
+/*!************************************!*\
+  !*** ./src/modes/drumTrackMode.js ***!
+  \************************************/
+/*! exports provided: DrumTrackMode */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DrumTrackMode", function() { return DrumTrackMode; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/constants.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+function DrumTrackMode(drumRack, controlSurface, trackId, liveSetViewApi) {
+  this.mode = _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS;
+  this.command = null;
+  this.drumRack = drumRack;
+  this.controlSurface = controlSurface;
+  this.liveSetViewApi = liveSetViewApi;
+  this.trackId = trackId;
+
+  this.setMode = function (targetMode) {
+    this.mode = targetMode;
+  };
+
+  this.setCommand = function (command, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        isPressed = _ref2[1];
+
+    if (isPressed) {
+      this.command = command;
+    } else if (this.command !== null) {
+      this.executePageLevelCommand(this.command);
+      this.command = null;
+    }
+  };
+
+  this.handleTempoControl = function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        encoderValue = _ref4[1];
+
+    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
+      var sampleParameter = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage().getSampleParameter();
+
+      if (!sampleParameter) {
+        return;
+      }
+
+      if (encoderValue === 1) {
+        sampleParameter.increment();
+      } else if (encoderValue === 127) {
+        sampleParameter.decrement();
+      }
+
+      this.updateDisplay();
+    }
+  };
+
+  this.handleTrackSelectButtons = function (_ref5) {
+    var _ref6 = _slicedToArray(_ref5, 3),
+        isPressed = _ref6[1],
+        buttonIndex = _ref6[2];
+
+    if (!isPressed) {
+      return;
+    }
+
+    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
+      this.drumRack.setActiveMixerPage(buttonIndex);
+      this.updateDisplay();
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
+      var _activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer();
+
+      var isMuted = _activeDrumLayer.getMuteParameter().getValue() === 1;
+
+      if (!isMuted) {
+        _activeDrumLayer.setActiveParameterPage(buttonIndex);
+
+        this.updateDisplay();
+      }
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
+      this.drumRack.getActiveDrumPad().setActiveMixerPage(buttonIndex);
+      this.updateDisplay();
+    }
+  };
+
+  this.handleTrackStateButtons = function (_ref7) {
+    var _ref8 = _slicedToArray(_ref7, 3),
+        isPressed = _ref8[1],
+        buttonIndex = _ref8[2];
+
+    if (!isPressed) {
+      return;
+    }
+
+    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
+      var muteParameter = this.drumRack.getActiveDrumPad().getDrumLayers()[buttonIndex].getMuteParameter();
+      var newMuteValue = muteParameter.getValue() === 0 ? 1 : 0;
+      muteParameter.setValue(newMuteValue);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS && buttonIndex === 0) {
+      var _muteParameter = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getMuteParameter();
+
+      var _newMuteValue = _muteParameter.getValue() === 0 ? 1 : 0;
+
+      _muteParameter.setValue(_newMuteValue);
+    }
+
+    this.updateDisplay();
+  };
+
+  this.executePageLevelCommand = function () {
+    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
+      var _activeDrumLayer2 = this.drumRack.getActiveDrumPad().getActiveDrumLayer();
+
+      if (!_activeDrumLayer2.isMuted()) {
+        var page = _activeDrumLayer2.getActiveParameterPage();
+
+        this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? page["default"]() : page.random();
+      }
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
+      var _page = this.drumRack.getActiveDrumPad().getActiveMixerPage();
+
+      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _page["default"]() : _page.random();
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
+      var _page2 = this.drumRack.getActiveMixerPage();
+
+      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _page2["default"]() : _page2.random();
+    }
+
+    this.command = null;
+    this.updateDisplay();
+  };
+
+  this.executeParamLevelCommand = function (_ref9) {
+    var _ref10 = _slicedToArray(_ref9, 3),
+        isPressed = _ref10[1],
+        encoderIndex = _ref10[2];
+
+    if (!isPressed || !this.command) {
+      return;
+    }
+
+    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
+      var page = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage();
+      var param = page.getParameter(encoderIndex);
+      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? param["default"]() : param.random();
+
+      if (page.categoryParameterIndex === encoderIndex) {
+        page.getParameter(page.sampleParameterIndex)["default"]();
+      }
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
+      var _param = this.drumRack.getActiveDrumPad().getActiveMixerPage().getParameter(encoderIndex);
+
+      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _param["default"]() : _param.random();
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
+      var _param2 = this.drumRack.getActiveMixerPage().getParameter(encoderIndex);
+
+      this.command === _constants__WEBPACK_IMPORTED_MODULE_0__["command"].DEFAULT ? _param2["default"]() : _param2.random();
+    }
+
+    this.command = null;
+    this.updateDisplay();
+  };
+
+  this.sendValue = function (_ref11) {
+    var _ref12 = _slicedToArray(_ref11, 3),
+        value = _ref12[1],
+        encoderIndex = _ref12[2];
+
+    if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
+      var page = this.drumRack.getActiveDrumPad().getActiveDrumLayer().getActiveParameterPage();
+      page.getParameter(encoderIndex).sendValue(value);
+
+      if (page.getCategoryParameterIndex() === encoderIndex) {
+        page.getSampleParameter().constrainAndSendValue();
+      }
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
+      this.drumRack.getActiveDrumPad().getActiveMixerPage().getParameter(encoderIndex).sendValue(value);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
+      this.drumRack.getActiveMixerPage().getParameter(encoderIndex).sendValue(value);
+    }
+
+    this.updateDisplay();
+  };
+
+  this.updateDisplay = function () {
+    var activeDrumPad = this.drumRack.getActiveDrumPad();
+
+    if (!activeDrumPad) {
+      this.controlSurface.display.line(0, [' ']);
+      this.controlSurface.display.line(1, [' ']);
+      this.controlSurface.display.title(2, ['Blank']);
+      this.controlSurface.display.line(3, [' ']);
+      this.controlSurface.trackSelect.map(0, 0);
+      this.controlSurface.trackState.map([]);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_MIXER) {
+      var drumRackMixerPage = this.drumRack.getActiveMixerPage();
+      var mixerPageNames = this.drumRack.getMixerPages().map(function (page) {
+        return page.getName();
+      });
+      var activeMixerPageIndex = this.drumRack.getActiveMixerPage().getIndex();
+      this.controlSurface.display.line(0, this.drumRack.getDrumPads().map(function (pad) {
+        return pad.getName();
+      })); //todo: replace separate calls for parameters with method which checks mode
+
+      this.controlSurface.display.line(1, drumRackMixerPage.getParameters().map(function (parameter) {
+        return parameter.getDisplayValue();
+      }));
+      this.controlSurface.display.title(2, []);
+      this.controlSurface.display.menu(3, mixerPageNames, activeMixerPageIndex);
+      this.controlSurface.trackSelect.map(mixerPageNames.length, activeMixerPageIndex);
+      this.controlSurface.trackState.map([]);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].RACK_FX) {
+      this.controlSurface.display.line(0, [' ']);
+      this.controlSurface.display.line(1, [' ']);
+      this.controlSurface.display.title(2, ['FX']);
+      this.controlSurface.display.line(3, [' ']);
+      this.controlSurface.trackSelect.map(0, 0);
+      this.controlSurface.trackState.map([]);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_MIXER) {
+      var drumPadMixerPage = activeDrumPad.getActiveMixerPage();
+      var drumPadMixerPageNames = activeDrumPad.getMixerPages().map(function (page) {
+        return page.getName();
+      });
+      var layerOnStates = activeDrumPad.getDrumLayers().map(function (layer) {
+        return layer.getMuteParameter().getValue() === 0 ? 1 : 0;
+      });
+      var displayValues = drumPadMixerPage.getParameters().map(function (parameter, index) {
+        return layerOnStates[index] ? parameter.getDisplayValue() : '';
+      });
+      var drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(function (layer) {
+        return layer.getName();
+      }) : null;
+      this.controlSurface.display.line(0, drumLayerNames);
+      this.controlSurface.display.line(1, displayValues);
+      this.controlSurface.display.title(2, [activeDrumPad.getName()]);
+      this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex());
+      this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex());
+      this.controlSurface.trackState.map(layerOnStates);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].PAD_FX) {
+      this.controlSurface.display.line(0, [' ']);
+      this.controlSurface.display.line(1, [' ']);
+      this.controlSurface.display.title(2, [activeDrumPad.getName() + ' FX']);
+      this.controlSurface.display.line(3, [' ']);
+      this.controlSurface.trackSelect.map(0, 0);
+      this.controlSurface.trackState.map([]);
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_PARAMS) {
+      var _activeDrumLayer3 = activeDrumPad.getActiveDrumLayer();
+
+      var activeParameterPage = _activeDrumLayer3.getActiveParameterPage();
+
+      var parameterPageNames = _activeDrumLayer3.getParameterPages().map(function (page) {
+        return page.getName();
+      });
+
+      var activeParameterPageIndex = _activeDrumLayer3.getActiveParameterPage().getIndex();
+
+      var parameterNames = activeParameterPage.getParameters().map(function (parameter) {
+        return parameter.getName();
+      });
+
+      var isLayerMuted = _activeDrumLayer3.getMuteParameter().getValue();
+
+      if (isLayerMuted) {
+        this.controlSurface.display.line(0, [' ']);
+        this.controlSurface.display.line(1, [' ']);
+        this.controlSurface.display.title(2, [_activeDrumLayer3.getName()]);
+        this.controlSurface.display.menu(3, ['Off']);
+        this.controlSurface.trackSelect.map(0, 0);
+        this.controlSurface.trackState.map([0]);
+      } else {
+        this.controlSurface.display.line(0, parameterNames);
+        this.controlSurface.display.line(1, activeParameterPage.getParameters().map(function (parameter) {
+          return parameter.getDisplayValue();
+        }));
+        this.controlSurface.display.title(2, [_activeDrumLayer3.getName()]);
+        this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex);
+        this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex);
+        this.controlSurface.trackState.map([1]);
+      }
+    } else if (this.mode === _constants__WEBPACK_IMPORTED_MODULE_0__["mode"].LAYER_FX) {
+      this.controlSurface.display.line(0, [' ']);
+      this.controlSurface.display.line(1, [' ']);
+      this.controlSurface.display.title(2, [activeDrumLayer.getName() + ' FX']);
+      this.controlSurface.display.line(3, [' ']);
+      this.controlSurface.trackSelect.map(0, 0);
+      this.controlSurface.trackState.map([]);
+    }
+  };
 }
 
 /***/ }),
