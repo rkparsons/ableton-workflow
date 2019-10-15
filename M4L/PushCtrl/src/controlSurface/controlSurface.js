@@ -2,7 +2,6 @@ import { pushControls } from '../constants'
 import { ControlSurfaceDisplay } from './controlSurfaceDisplay'
 import { TrackSelect } from './trackSelect'
 import { TrackState } from './trackState'
-import { log } from '../util'
 
 export function ControlSurface(onOffControlName) {
     this.isActive = false
