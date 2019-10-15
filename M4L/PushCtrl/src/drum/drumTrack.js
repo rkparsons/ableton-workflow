@@ -4,27 +4,39 @@ import { DrumTrackMode } from '../modes/drumTrackMode'
 //todo: run isActive check before, and updateDisplay after, every method call
 export function DrumTrack(drumRack, controlSurface) {
     this.isActive = false
-    this.previousMode = mode.LAYER_PARAMS
-    this.mode = mode.LAYER_PARAMS
+    this.modeKey = mode.LAYER_PARAMS
     this.drumRack = drumRack
     this.controlSurface = controlSurface
 
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
-    this.drumTrackMode = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
-
-    this.setMode = function(targetMode, [, isPressed]) {
-        if (isPressed) {
-            this.previousMode = this.mode
-            this.mode = targetMode
-            this.drumTrackMode.setMode(targetMode)
-            this.drumTrackMode.updateDisplay()
-        }
-    }
+    this.modes = {}
+    this.modes[mode.RACK_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
+    this.modes[mode.RACK_FX] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
+    this.modes[mode.PAD_MIXER] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
+    this.modes[mode.PAD_FX] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
+    this.modes[mode.LAYER_PARAMS] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
+    this.modes[mode.LAYER_FX] = new DrumTrackMode(this.drumRack, this.controlSurface, this.trackId, this.liveSetViewApi)
 
     this.getMode = function() {
-        return this.drumTrackMode
+        return this.modes[this.modeKey]
+    }
+
+    this.setMode = function(targetModeKey, [, isPressed]) {
+        if (isPressed) {
+            this.modeKey = targetModeKey
+
+            //temp remove this
+            this.modes[mode.RACK_MIXER].setMode(targetModeKey)
+            this.modes[mode.RACK_FX].setMode(targetModeKey)
+            this.modes[mode.PAD_MIXER].setMode(targetModeKey)
+            this.modes[mode.PAD_FX].setMode(targetModeKey)
+            this.modes[mode.LAYER_PARAMS].setMode(targetModeKey)
+            this.modes[mode.LAYER_FX].setMode(targetModeKey)
+
+            this.getMode().updateDisplay()
+        }
     }
 
     this.setLayer = function([, delta]) {
