@@ -2,8 +2,10 @@ import { pushControls } from '../constants'
 import { ControlSurfaceDisplay } from './controlSurfaceDisplay'
 import { TrackSelect } from './trackSelect'
 import { TrackState } from './trackState'
+import { log } from '../util'
 
 export function ControlSurface(onOffControlName) {
+    this.isActive = false
     this.apis = {}
     this.onOffControlName = onOffControlName
     this.controlSurfaceApi = new LiveAPI('control_surfaces 0')
@@ -16,15 +18,23 @@ export function ControlSurface(onOffControlName) {
             const control = this.controlSurfaceApi.call('get_control_by_name', [pushControls[i]])
             this.controlSurfaceApi.call('grab_control', control)
         }
+
+        this.isActive = true
     }
 
     this.deactivate = function() {
+        this.isActive = false
+
         for (var i in pushControls) {
             if (pushControls[i] !== this.onOffControlName) {
                 const control = this.controlSurfaceApi.call('get_control_by_name', [pushControls[i]])
                 this.controlSurfaceApi.call('release_control', control)
             }
         }
+    }
+
+    this.onActive = function(controlName, callback) {
+        this.on(controlName, args => this.isActive && callback(args))
     }
 
     this.on = function(controlName, callback) {

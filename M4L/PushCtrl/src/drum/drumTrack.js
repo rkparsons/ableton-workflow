@@ -14,29 +14,25 @@ export function DrumTrack(drumRack, controlSurface) {
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
     this.controlSurface.on('Tap_Tempo_Button', pushToggleActive.bind(this))
-    this.controlSurface.on('Track_Controls', ifActive.call(this, sendValue))
-    this.controlSurface.on('Tempo_Control', ifActive.call(this, handleTempoControl))
-    this.controlSurface.on('Swing_Control', ifActive.call(this, setLayer))
-    this.controlSurface.on('Track_Control_Touches', ifActive.call(this, executeParamLevelCommand))
-    this.controlSurface.on('Track_State_Buttons', ifActive.call(this, handleTrackStateButtons))
-    this.controlSurface.on('Track_Select_Buttons', ifActive.call(this, handleTrackSelectButtons))
-    this.controlSurface.on('Vol_Mix_Mode_Button', ifActive.call(this, setMode, mode.RACK_MIXER))
-    this.controlSurface.on('Pan_Send_Mode_Button', ifActive.call(this, setMode, mode.RACK_FX))
-    this.controlSurface.on('Single_Track_Mode_Button', ifActive.call(this, setMode, mode.PAD_MIXER))
-    this.controlSurface.on('Clip_Mode_Button', ifActive.call(this, setMode, mode.PAD_FX))
-    this.controlSurface.on('Device_Mode_Button', ifActive.call(this, setMode, mode.LAYER_PARAMS))
-    this.controlSurface.on('Browse_Mode_Button', ifActive.call(this, setMode, mode.LAYER_FX))
-    this.controlSurface.on('Master_Select_Button', ifActive.call(this, setCommand, command.DEFAULT))
-    this.controlSurface.on('Track_Stop_Button', ifActive.call(this, setCommand, command.RANDOM))
+    this.controlSurface.onActive('Track_Controls', sendValue.bind(this))
+    this.controlSurface.onActive('Tempo_Control', handleTempoControl.bind(this))
+    this.controlSurface.onActive('Swing_Control', setLayer.bind(this))
+    this.controlSurface.onActive('Track_Control_Touches', executeParamLevelCommand.bind(this))
+    this.controlSurface.onActive('Track_State_Buttons', handleTrackStateButtons.bind(this))
+    this.controlSurface.onActive('Track_Select_Buttons', handleTrackSelectButtons.bind(this))
+    this.controlSurface.onActive('Vol_Mix_Mode_Button', setMode.bind(this, mode.RACK_MIXER))
+    this.controlSurface.onActive('Pan_Send_Mode_Button', setMode.bind(this, mode.RACK_FX))
+    this.controlSurface.onActive('Single_Track_Mode_Button', setMode.bind(this, mode.PAD_MIXER))
+    this.controlSurface.onActive('Clip_Mode_Button', setMode.bind(this, mode.PAD_FX))
+    this.controlSurface.onActive('Device_Mode_Button', setMode.bind(this, mode.LAYER_PARAMS))
+    this.controlSurface.onActive('Browse_Mode_Button', setMode.bind(this, mode.LAYER_FX))
+    this.controlSurface.onActive('Master_Select_Button', setCommand.bind(this, command.DEFAULT))
+    this.controlSurface.onActive('Track_Stop_Button', setCommand.bind(this, command.RANDOM))
 
     this.drumRack.onDrumPadSelected(focusDrumPad.bind(this))
-    this.drumRack.onValueChanged(ifActive.call(this, updateDisplay))
+    this.drumRack.onValueChanged(updateDisplay.bind(this))
 
-    function ifActive(callback, args) {
-        return callbackArgs => this.isActive && callback.call(this, callbackArgs, args)
-    }
-
-    function setMode([, isPressed], targetMode) {
+    function setMode(targetMode, [, isPressed]) {
         if (isPressed) {
             this.previousMode = this.mode
             this.mode = targetMode
@@ -44,7 +40,7 @@ export function DrumTrack(drumRack, controlSurface) {
         }
     }
 
-    function setCommand([, isPressed], command) {
+    function setCommand(command, [, isPressed]) {
         if (isPressed) {
             this.command = command
         } else if (this.command !== null) {
@@ -230,6 +226,10 @@ export function DrumTrack(drumRack, controlSurface) {
     }
 
     function updateDisplay() {
+        // todo: replace with a unactive mode
+        if (!this.isActive) {
+            return
+        }
         const activeDrumPad = this.drumRack.getActiveDrumPad()
         const activeDrumLayer = activeDrumPad ? activeDrumPad.getActiveDrumLayer() : null
         const drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(layer => layer.getName()) : null
