@@ -11,7 +11,6 @@ export class PadFxMode extends DrumTrackMode {
     }
 
     updateDisplay() {
-        super.updateDisplay()
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {
@@ -21,6 +20,8 @@ export class PadFxMode extends DrumTrackMode {
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])
+        } else {
+            this.displayBlankPad()
         }
     }
 }

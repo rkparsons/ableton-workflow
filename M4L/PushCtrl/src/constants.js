@@ -5,6 +5,7 @@ export const mode = {
     PAD_FX: 3,
     LAYER_PARAMS: 4,
     LAYER_FX: 5,
+    INACTIVE: 6,
 }
 
 export const command = {

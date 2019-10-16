@@ -11,7 +11,7 @@ export class LayerParamsMode extends DrumTrackMode {
         return modeType === mode.LAYER_PARAMS
     }
 
-    handleTempoControl([, encoderValue]) {
+    handleTempoControl(encoderValue) {
         const sampleParameter = this.drumRack
             .getActiveDrumPad()
             .getActiveDrumLayer()
@@ -31,7 +31,7 @@ export class LayerParamsMode extends DrumTrackMode {
         this.updateDisplay()
     }
 
-    handleTrackSelectButtons([, isPressed, buttonIndex]) {
+    handleTrackSelectButtons(isPressed, buttonIndex) {
         if (!isPressed) {
             return
         }
@@ -46,7 +46,7 @@ export class LayerParamsMode extends DrumTrackMode {
         }
     }
 
-    handleTrackStateButtons([, isPressed, buttonIndex]) {
+    handleTrackStateButtons(isPressed, buttonIndex) {
         if (!isPressed || buttonIndex !== 0) {
             return
         }
@@ -87,7 +87,7 @@ export class LayerParamsMode extends DrumTrackMode {
         this.updateDisplay()
     }
 
-    sendValue([, value, encoderIndex]) {
+    sendValue(value, encoderIndex) {
         const page = this.drumRack
             .getActiveDrumPad()
             .getActiveDrumLayer()
@@ -103,7 +103,6 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     updateDisplay() {
-        super.updateDisplay()
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {
@@ -129,6 +128,8 @@ export class LayerParamsMode extends DrumTrackMode {
                 this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
                 this.controlSurface.trackState.map([1])
             }
+        } else {
+            this.displayBlankPad()
         }
     }
 }

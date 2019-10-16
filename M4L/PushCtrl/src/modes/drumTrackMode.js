@@ -6,7 +6,7 @@ export class DrumTrackMode {
         this.command = null
     }
 
-    setCommand(command, [, isPressed]) {
+    setCommand(command, isPressed) {
         if (isPressed) {
             this.command = command
         } else if (this.command !== null) {
@@ -15,7 +15,7 @@ export class DrumTrackMode {
         }
     }
 
-    handleTrackControlTouches([, isPressed, encoderIndex]) {
+    handleTrackControlTouches(isPressed, encoderIndex) {
         if (isPressed && this.command !== null) {
             this.executeParamLevelCommand(this.command, encoderIndex)
             this.command = null
@@ -23,7 +23,7 @@ export class DrumTrackMode {
     }
 
     //todo: override in inactivemode to stop push updating
-    focusDrumPad([property, , drumPadId]) {
+    focusDrumPad(property, drumPadId) {
         if (property !== 'selected_drum_pad') {
             return
         }
@@ -32,23 +32,19 @@ export class DrumTrackMode {
         this.updateDisplay()
     }
 
-    setLayer([, delta]) {
+    setLayer(delta) {
         const drumLayerIncrement = 0.1 * (delta < 50 ? delta : delta - 128)
 
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
         this.updateDisplay()
     }
 
-    updateDisplay() {
-        const activeDrumPad = this.drumRack.getActiveDrumPad()
-
-        if (!activeDrumPad) {
-            this.controlSurface.display.line(0, [' '])
-            this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, ['Blank'])
-            this.controlSurface.display.line(3, [' '])
-            this.controlSurface.trackSelect.map(0, 0)
-            this.controlSurface.trackState.map([])
-        }
+    displayBlankPad() {
+        this.controlSurface.display.line(0, [' '])
+        this.controlSurface.display.line(1, [' '])
+        this.controlSurface.display.title(2, ['Blank'])
+        this.controlSurface.display.line(3, [' '])
+        this.controlSurface.trackSelect.map(0, 0)
+        this.controlSurface.trackState.map([])
     }
 }

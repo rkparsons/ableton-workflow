@@ -10,7 +10,7 @@ export class RackMixerMode extends DrumTrackMode {
         return modeType === mode.RACK_MIXER
     }
 
-    handleTrackSelectButtons([, isPressed, buttonIndex]) {
+    handleTrackSelectButtons(isPressed, buttonIndex) {
         //todo: refactor out isPressed check
         if (!isPressed) {
             return
@@ -34,7 +34,7 @@ export class RackMixerMode extends DrumTrackMode {
         this.updateDisplay()
     }
 
-    sendValue([, value, encoderIndex]) {
+    sendValue(value, encoderIndex) {
         this.drumRack
             .getActiveMixerPage()
             .getParameter(encoderIndex)

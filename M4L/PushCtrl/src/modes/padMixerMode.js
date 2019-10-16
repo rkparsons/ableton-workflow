@@ -10,7 +10,7 @@ export class PadMixerMode extends DrumTrackMode {
         return modeType === mode.PAD_MIXER
     }
 
-    handleTrackSelectButtons([, isPressed, buttonIndex]) {
+    handleTrackSelectButtons(isPressed, buttonIndex) {
         if (!isPressed) {
             return
         }
@@ -19,7 +19,7 @@ export class PadMixerMode extends DrumTrackMode {
         this.updateDisplay()
     }
 
-    handleTrackStateButtons([, isPressed, buttonIndex]) {
+    handleTrackStateButtons(isPressed, buttonIndex) {
         if (!isPressed) {
             return
         }
@@ -52,7 +52,7 @@ export class PadMixerMode extends DrumTrackMode {
         this.updateDisplay()
     }
 
-    sendValue([, value, encoderIndex]) {
+    sendValue(value, encoderIndex) {
         this.drumRack
             .getActiveDrumPad()
             .getActiveMixerPage()
@@ -63,7 +63,6 @@ export class PadMixerMode extends DrumTrackMode {
     }
 
     updateDisplay() {
-        super.updateDisplay()
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {
@@ -79,6 +78,8 @@ export class PadMixerMode extends DrumTrackMode {
             this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex())
             this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex())
             this.controlSurface.trackState.map(layerOnStates)
+        } else {
+            this.displayBlankPad()
         }
     }
 }
