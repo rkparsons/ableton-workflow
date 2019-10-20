@@ -143,6 +143,13 @@ export const parameterConfig = {
             inputRange: [-48, 48],
             unitType: unitType.INT,
         },
+        Repitch: {
+            displayName: 'Repitch',
+            path: 'parameters 34',
+            pathDecimal: 'parameters 35',
+            inputRange: [-7.5, 7.5],
+            unitType: unitType.FLOAT,
+        },
         Detune: {
             displayName: '- / +',
             path: 'parameters 35',

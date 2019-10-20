@@ -2,7 +2,7 @@ export const parameterPageConfig = {
     Sampler: [
         {
             name: 'Sample',
-            parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Delay', 'CC_Start', 'Sampler_Reverse', 'Layer_Solo', null, null],
+            parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Delay', 'CC_Start', 'Sampler_Reverse', 'Layer_Solo', 'Sampler_Repitch', null],
         },
         {
             name: 'Amp',

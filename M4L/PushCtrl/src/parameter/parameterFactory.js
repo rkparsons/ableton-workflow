@@ -1,6 +1,7 @@
 import { EnumParameter } from './enumParameter'
 import { FilteredEnumParameter } from './filteredEnumParameter'
 import { ValueParameter } from './valueParameter'
+import { RepitchParameter } from './repitchParameter'
 import { getCategories, getSampleGroups } from '../fileSystem/fileSystem'
 import { unitType } from '../constants'
 import { parameterConfig } from '../config/parameterConfig'
@@ -29,12 +30,12 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
             const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
+            //todo: pass config object and destructure in constructor
             if (targetParameterName === 'Category') {
                 sampleCategories = getCategories(samplesFolder, drumPadName, drumLayerName)
                 targetParameterConfig.options = sampleCategories
                 categoryParameterIndex = parameterindex
 
-                //todo: pass config object and destructure in constructor
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, drumPadName, drumLayerName, sampleCategories)
@@ -42,6 +43,9 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
                 parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
+            } else if (targetParameterName === 'Repitch') {
+                const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
+                parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
                 parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             }
