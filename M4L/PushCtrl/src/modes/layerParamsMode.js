@@ -97,6 +97,7 @@ export class LayerParamsMode extends DrumTrackMode {
 
         if (page.getCategoryParameterIndex() === encoderIndex) {
             page.getSampleParameter().constrainAndSendValue()
+            page.getRepitchParameter().constrainAndSendValue()
         }
 
         this.updateDisplay()

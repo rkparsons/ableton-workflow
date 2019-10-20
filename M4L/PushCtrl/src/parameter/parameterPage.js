@@ -1,6 +1,4 @@
-import { log } from '../util'
-
-export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex) {
+export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchParameterIndex) {
     this.getIndex = function() {
         return index
     }
@@ -34,6 +32,10 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
         return parameters[sampleParameterIndex]
     }
 
+    this.getRepitchParameter = function() {
+        return parameters[repitchParameterIndex]
+    }
+
     this.default = function() {
         for (i in parameters) {
             parameters[i].default()
@@ -55,8 +57,16 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
     // todo: move categoryParameterIndex into parameter class
     function handleSampleCategoryChange(i) {
-        if (i === categoryParameterIndex) {
-            parameters[sampleParameterIndex].filterOptions(parameters[i].getDisplayValue())
+        if (i !== categoryParameterIndex) {
+            return
+        }
+
+        parameters[sampleParameterIndex].filterOptions(parameters[i].getDisplayValue())
+
+        const bpm = parameters[categoryParameterIndex].getDisplayValue().split('#')[1]
+
+        if (bpm) {
+            parameters[repitchParameterIndex].setSampleBpm(bpm)
         }
     }
 }

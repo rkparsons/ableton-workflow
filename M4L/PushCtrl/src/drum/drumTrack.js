@@ -53,6 +53,7 @@ export function DrumTrack(drumRack, controlSurface) {
     this.drumRack.onValueChanged(() => this.activeMode.updateDisplay())
     this.drumRack.onDrumPadSelected(([property, , drumPadId]) => this.activeMode.focusDrumPad(property, drumPadId))
 
+    //todo: remove onActive, move these into control surface and hook with events
     this.controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => this.pushToggleActive(isPressed))
     this.controlSurface.onActive('Vol_Mix_Mode_Button', ([, isPressed]) => this.setMode(mode.RACK_MIXER, isPressed))
     this.controlSurface.onActive('Pan_Send_Mode_Button', ([, isPressed]) => this.setMode(mode.RACK_FX, isPressed))

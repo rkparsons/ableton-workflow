@@ -24,7 +24,7 @@ export function createParameterPages(samplesFolder, drumPadName, drumLayerName, 
     parameterPageConfig[instrumentType].forEach(function(page, index) {
         const result = createParameters(samplesFolder, drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
 
-        parameterPages.push(new ParameterPage(index, page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex))
+        parameterPages.push(new ParameterPage(index, page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex, result.repitchParameterIndex))
     })
 
     return parameterPages

@@ -7,10 +7,11 @@ import { unitType } from '../constants'
 import { parameterConfig } from '../config/parameterConfig'
 
 export function createParameters(samplesFolder, drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
-    var parameters = []
-    var categoryParameterIndex = null
-    var sampleParameterIndex = null
-    var sampleCategories = null
+    let parameters = []
+    let categoryParameterIndex = null
+    let sampleParameterIndex = null
+    let repitchParameterIndex = null
+    let sampleCategories = null
 
     for (var parameterindex = 0; parameterindex < parameterNames.length; parameterindex++) {
         if (parameterNames[parameterindex]) {
@@ -45,6 +46,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
             } else if (targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
+                repitchParameterIndex = parameterindex
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
                 parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
@@ -57,6 +59,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
         parameters: parameters,
         categoryParameterIndex: categoryParameterIndex,
         sampleParameterIndex: sampleParameterIndex,
+        repitchParameterIndex: repitchParameterIndex,
     }
 }
 

@@ -38,6 +38,11 @@ export const RepitchParameter = defclass(ValueParameter, function() {
         return delta < 50 ? 0.1 : -0.1
     }
 
+    this.setSampleBpm = function(sampleBpm) {
+        this.sampleBpm = sampleBpm
+        this.value = 0
+    }
+
     this.constrainAndSendValue = function() {
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
