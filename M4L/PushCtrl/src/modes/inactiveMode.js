@@ -10,8 +10,6 @@ export class InactiveMode extends DrumTrackMode {
         return modeType === mode.INACTIVE
     }
 
-    focusDrumPad() {}
-
     setLayer() {}
 
     updateDisplay() {
