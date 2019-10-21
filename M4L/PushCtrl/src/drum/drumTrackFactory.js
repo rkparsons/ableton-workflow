@@ -9,7 +9,7 @@ export default function(samplesFolder) {
     const drumRack = createDrumRack(samplesFolder)
     const controlSurface = createControlSurface(pushTapTempoControl)
     const modes = createModes(drumRack, controlSurface)
-    const drumTrack = new DrumTrack(drumRack, controlSurface, modes)
+    const drumTrack = new DrumTrack(modes)
 
     drumRack.onValueChanged(() => drumTrack.getMode().updateDisplay())
     drumRack.onDrumPadSelected(([property, , drumPadId]) => drumTrack.getMode().focusDrumPad(property, drumPadId))

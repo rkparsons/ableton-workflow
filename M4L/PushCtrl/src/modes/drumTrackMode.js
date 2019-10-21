@@ -6,6 +6,14 @@ export class DrumTrackMode {
         this.command = null
     }
 
+    activate() {
+        this.controlSurface.activate()
+    }
+
+    deactivate() {
+        this.controlSurface.deactivate()
+    }
+
     setCommand(command, isPressed) {
         if (isPressed) {
             this.command = command
@@ -37,6 +45,8 @@ export class DrumTrackMode {
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
         this.updateDisplay()
     }
+
+    updateDisplay() {}
 
     displayBlankPad() {
         this.controlSurface.display.line(0, [' '])

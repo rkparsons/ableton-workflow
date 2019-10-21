@@ -1,10 +1,11 @@
 import { mode } from '../constants'
+import { log } from '../util'
 
-export function DrumTrack(drumRack, controlSurface, modes) {
-    this.drumRack = drumRack
-    this.controlSurface = controlSurface
+export function DrumTrack(modes) {
     this.modes = modes
     this.activeMode = modes[0]
+    // this.tempoApi = new LiveAPI(args => log(args), 'live_set master_track mixer_device song_tempo')
+    // this.tempoApi.property = 'value'
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
@@ -15,6 +16,7 @@ export function DrumTrack(drumRack, controlSurface, modes) {
     this.setMode = function(modeType, isPressed = true) {
         if (isPressed) {
             this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
+        } else {
             this.activeMode.updateDisplay()
         }
     }
@@ -25,13 +27,13 @@ export function DrumTrack(drumRack, controlSurface, modes) {
 
             if (this.activeMode.canHandle(mode.INACTIVE)) {
                 this.setMode(mode.LAYER_PARAMS)
-                this.controlSurface.activate()
+                this.activeMode.activate()
             } else {
                 this.setMode(mode.INACTIVE)
-                this.controlSurface.deactivate()
+                this.activeMode.deactivate()
             }
+        } else {
+            this.activeMode.updateDisplay()
         }
-
-        this.activeMode.updateDisplay()
     }
 }
