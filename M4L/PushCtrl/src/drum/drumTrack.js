@@ -1,29 +1,11 @@
 import { mode, command } from '../constants'
-import { LayerFxMode } from '../modes/layerFxMode'
-import { LayerParamsMode } from '../modes/layerParamsMode'
-import { PadFxMode } from '../modes/padFxMode'
-import { PadMixerMode } from '../modes/padMixerMode'
-import { RackFxMode } from '../modes/rackFxMode'
-import { RackMixerMode } from '../modes/rackMixerMode'
-import { InactiveMode } from '../modes/inactiveMode'
 
-export function DrumTrack(drumRack, controlSurface) {
+export function DrumTrack(drumRack, controlSurface, modes) {
     this.drumRack = drumRack
     this.controlSurface = controlSurface
-
+    this.modes = modes
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
-
-    // todo: automate creation of all modes
-    this.modes = [
-        new RackMixerMode(this.drumRack, this.controlSurface),
-        new RackFxMode(this.drumRack, this.controlSurface),
-        new PadMixerMode(this.drumRack, this.controlSurface),
-        new PadFxMode(this.drumRack, this.controlSurface),
-        new LayerParamsMode(this.drumRack, this.controlSurface),
-        new LayerFxMode(this.drumRack, this.controlSurface),
-        new InactiveMode(this.drumRack, this.controlSurface),
-    ]
 
     this.setMode = function(modeType, isPressed = true) {
         if (isPressed) {
