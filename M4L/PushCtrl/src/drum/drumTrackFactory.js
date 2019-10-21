@@ -13,13 +13,15 @@ export default function(samplesFolder) {
 
     drumRack.onValueChanged(() => drumTrack.getMode().updateDisplay())
     drumRack.onDrumPadSelected(([property, , drumPadId]) => drumTrack.getMode().focusDrumPad(property, drumPadId))
-    controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => drumTrack.toggleActive(isPressed))
-    controlSurface.onActive('Vol_Mix_Mode_Button', ([, isPressed]) => drumTrack.setMode(mode.RACK_MIXER, isPressed))
-    controlSurface.onActive('Pan_Send_Mode_Button', ([, isPressed]) => drumTrack.setMode(mode.RACK_FX, isPressed))
-    controlSurface.onActive('Single_Track_Mode_Button', ([, isPressed]) => drumTrack.setMode(mode.PAD_MIXER, isPressed))
-    controlSurface.onActive('Clip_Mode_Button', ([, isPressed]) => drumTrack.setMode(mode.PAD_FX, isPressed))
-    controlSurface.onActive('Device_Mode_Button', ([, isPressed]) => drumTrack.setMode(mode.LAYER_PARAMS, isPressed))
-    controlSurface.onActive('Browse_Mode_Button', ([, isPressed]) => drumTrack.setMode(mode.LAYER_FX, isPressed))
+    controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => (isPressed ? drumTrack.toggleActive() : drumTrack.getMode().updateDisplay()))
+
+    controlSurface.onActive('Vol_Mix_Mode_Button', ([, isPressed]) => isPressed && drumTrack.setMode(mode.RACK_MIXER))
+    controlSurface.onActive('Pan_Send_Mode_Button', ([, isPressed]) => isPressed && drumTrack.setMode(mode.RACK_FX))
+    controlSurface.onActive('Single_Track_Mode_Button', ([, isPressed]) => isPressed && drumTrack.setMode(mode.PAD_MIXER))
+    controlSurface.onActive('Clip_Mode_Button', ([, isPressed]) => isPressed && drumTrack.setMode(mode.PAD_FX))
+    controlSurface.onActive('Device_Mode_Button', ([, isPressed]) => isPressed && drumTrack.setMode(mode.LAYER_PARAMS))
+    controlSurface.onActive('Browse_Mode_Button', ([, isPressed]) => isPressed && drumTrack.setMode(mode.LAYER_FX))
+
     controlSurface.onActive('Master_Select_Button', ([, isPressed]) => drumTrack.getMode().setCommand(command.DEFAULT, isPressed))
     controlSurface.onActive('Track_Stop_Button', ([, isPressed]) => drumTrack.getMode().setCommand(command.RANDOM, isPressed))
     controlSurface.onActive('Track_Control_Touches', ([, isPressed, encoderIndex]) => drumTrack.getMode().handleTrackControlTouches(isPressed, encoderIndex))

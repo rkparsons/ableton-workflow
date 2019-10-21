@@ -13,27 +13,20 @@ export function DrumTrack(modes) {
         return this.activeMode
     }
 
-    this.setMode = function(modeType, isPressed = true) {
-        if (isPressed) {
-            this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
-        } else {
-            this.activeMode.updateDisplay()
-        }
+    this.setMode = function(modeType) {
+        this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
+        this.activeMode.updateDisplay()
     }
 
-    this.toggleActive = function(isPressed) {
-        if (isPressed) {
-            this.liveSetViewApi.set('selected_track', 'id', this.trackId)
+    this.toggleActive = function() {
+        this.liveSetViewApi.set('selected_track', 'id', this.trackId)
 
-            if (this.activeMode.canHandle(mode.INACTIVE)) {
-                this.setMode(mode.LAYER_PARAMS)
-                this.activeMode.activate()
-            } else {
-                this.setMode(mode.INACTIVE)
-                this.activeMode.deactivate()
-            }
+        if (this.activeMode.canHandle(mode.INACTIVE)) {
+            this.setMode(mode.LAYER_PARAMS)
+            this.activeMode.activate()
         } else {
-            this.activeMode.updateDisplay()
+            this.setMode(mode.INACTIVE)
+            this.activeMode.deactivate()
         }
     }
 }
