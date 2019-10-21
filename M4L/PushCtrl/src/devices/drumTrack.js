@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import createDrumTrack from '../drum/drumTrackFactory'
 const path = require('path')
 
