@@ -11,8 +11,6 @@ export default function(samplesFolder) {
     const modes = createModes(drumRack, controlSurface)
     const drumTrack = new DrumTrack(drumRack, controlSurface, modes)
 
-    //todo: move modes into control surface
-
     drumRack.onValueChanged(() => drumTrack.getMode().updateDisplay())
     drumRack.onDrumPadSelected(([property, , drumPadId]) => drumTrack.getMode().focusDrumPad(property, drumPadId))
     controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => drumTrack.toggleActive(isPressed))
