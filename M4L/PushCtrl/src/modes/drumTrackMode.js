@@ -22,7 +22,6 @@ export class DrumTrackMode {
         }
     }
 
-    //todo: override in inactivemode to stop push updating
     focusDrumPad(property, drumPadId) {
         if (property !== 'selected_drum_pad') {
             return
