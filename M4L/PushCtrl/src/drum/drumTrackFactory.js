@@ -1,3 +1,4 @@
+import { mode } from '../constants'
 import { DrumTrack } from './drumTrack'
 import { createDrumRack } from './drumRackFactory'
 import { createControlSurface } from '../controlSurface/controlSurfaceFactory'
@@ -25,5 +26,7 @@ export default function(samplesFolder) {
         new LayerFxMode(drumRack, controlSurface),
     ]
 
-    return new DrumTrack(drumRack, controlSurface, modes)
+    const drumTrack = new DrumTrack(drumRack, controlSurface, modes)
+
+    return drumTrack
 }

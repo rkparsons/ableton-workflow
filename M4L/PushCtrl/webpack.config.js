@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack_rules = []
 const webpackOption = {
-    entry: './src/devices/drumTrack.js',
+    entry: './src/devices/drums.js',
     watch: true,
     output: {
         path: path.resolve(__dirname, 'dist'),

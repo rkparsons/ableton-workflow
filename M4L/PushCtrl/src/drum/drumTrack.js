@@ -4,6 +4,7 @@ export function DrumTrack(drumRack, controlSurface, modes) {
     this.drumRack = drumRack
     this.controlSurface = controlSurface
     this.modes = modes
+    this.activeMode = modes[0]
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 
@@ -13,8 +14,6 @@ export function DrumTrack(drumRack, controlSurface, modes) {
             this.activeMode.updateDisplay()
         }
     }
-
-    this.setMode(mode.INACTIVE)
 
     this.pushToggleActive = function(isPressed) {
         if (isPressed) {
