@@ -1,11 +1,8 @@
 import { mode } from '../constants'
-import { log } from '../util'
 
 export function DrumTrack(modes) {
     this.modes = modes
     this.activeMode = modes[0]
-    // this.tempoApi = new LiveAPI(args => log(args), 'live_set master_track mixer_device song_tempo')
-    // this.tempoApi.property = 'value'
     this.liveSetViewApi = new LiveAPI(null, 'live_set view')
     this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
 

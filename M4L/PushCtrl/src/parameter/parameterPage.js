@@ -1,3 +1,5 @@
+import { log } from '../util'
+
 export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchParameterIndex) {
     this.getIndex = function() {
         return index
@@ -63,10 +65,10 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
         parameters[sampleParameterIndex].filterOptions(parameters[i].getDisplayValue())
 
-        const bpm = parameters[categoryParameterIndex].getDisplayValue().split('#')[1]
+        const bpm = Number(parameters[categoryParameterIndex].getDisplayValue().split('#')[1])
 
         if (bpm) {
-            parameters[repitchParameterIndex].setSampleBpm(bpm)
+            parameters[repitchParameterIndex].warpToSampleBpm(bpm)
         }
     }
 }

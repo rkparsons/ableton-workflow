@@ -37,3 +37,7 @@ export function log() {
     }
     post('\n')
 }
+
+export function getTransposeFromChangeInBpm(originalBpm, newBpm) {
+    return -12 * Math.log2(originalBpm / newBpm)
+}

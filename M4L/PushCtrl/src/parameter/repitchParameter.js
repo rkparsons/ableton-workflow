@@ -1,10 +1,15 @@
 import { defclass } from '../util'
 import { ValueParameter } from './valueParameter'
+import { log, getTransposeFromChangeInBpm } from '../util'
 
 export const RepitchParameter = defclass(ValueParameter, function() {
     this.constructor = function(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange) {
         ValueParameter.call(this, displayName, livePath, property, defaultValue, unitType, inputRange, randomRange)
         this.livePathDecimal = livePathDecimal
+        this.projectBpmApi = new LiveAPI(this.warpToProjectBpm, 'live_set master_track mixer_device song_tempo')
+        this.projectBpmApi.property = 'value'
+        this.projectBpm = this.projectBpmApi.get('value')
+        this.sampleBpm = null
     }
 
     this.onValueChanged = function(callback) {
@@ -38,9 +43,20 @@ export const RepitchParameter = defclass(ValueParameter, function() {
         return delta < 50 ? 0.1 : -0.1
     }
 
-    this.setSampleBpm = function(sampleBpm) {
+    this.warpToProjectBpm = function([property, bpm]) {
+        if (property === 'value') {
+            this.projectBpm = Number(bpm)
+        }
+    }
+
+    this.warpToSampleBpm = function(sampleBpm) {
         this.sampleBpm = sampleBpm
-        this.value = 0
+
+        if (this.sampleBpm) {
+            const pitchChange = getTransposeFromChangeInBpm(this.sampleBpm / this.projectBpm)
+
+            log('pitchChange', pitchChange)
+        }
     }
 
     this.constrainAndSendValue = function() {

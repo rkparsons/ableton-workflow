@@ -1,4 +1,5 @@
 export const parameterPageConfig = {
+    //todo: only use repitch param in breaks layer
     Sampler: [
         {
             name: 'Sample',
