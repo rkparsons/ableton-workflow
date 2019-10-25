@@ -5,8 +5,8 @@ const webpackOption = {
     watch: true,
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'drumTrackBundle.js',
-        library: 'initLiveApi',
+        filename: 'drumsBundle.js',
+        library: 'init',
         libraryExport: 'default',
     },
     module: {
