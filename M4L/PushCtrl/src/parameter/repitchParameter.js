@@ -1,13 +1,12 @@
-import { defclass } from '../util'
 import { ValueParameter } from './valueParameter'
 
-export const RepitchParameter = defclass(ValueParameter, function() {
-    this.constructor = function(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange) {
-        ValueParameter.call(this, displayName, livePath, property, defaultValue, unitType, inputRange, randomRange)
+export class RepitchParameter extends ValueParameter {
+    constructor(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange) {
+        super(displayName, livePath, property, defaultValue, unitType, inputRange, randomRange)
         this.livePathDecimal = livePathDecimal
     }
 
-    this.onValueChanged = function(callback) {
+    onValueChanged(callback) {
         this.callback = callback
         this.api = new LiveAPI(null, this.livePath)
         this.api.property = this.property
@@ -16,31 +15,31 @@ export const RepitchParameter = defclass(ValueParameter, function() {
         this.apiDecimal.property = this.property
     }
 
-    this.observeValue = function([property, newValue]) {
+    observeValue([property, newValue]) {
         if (property === this.property) {
             this.value = newValue + (this.value % 1)
             this.callback()
         }
     }
 
-    this.warp = function() {}
+    warp() {}
 
-    this.observeValueDecimal = function([property, newValue]) {
+    observeValueDecimal([property, newValue]) {
         if (property === this.property) {
             this.value = Math.round(this.value) + newValue / 100
             this.callback()
         }
     }
 
-    this.getDisplayValue = function() {
+    getDisplayValue() {
         return Math.round(this.value * 100) / 100
     }
 
-    this.getIncrement = function(delta) {
+    getIncrement(delta) {
         return delta < 50 ? 0.1 : -0.1
     }
 
-    this.constrainAndSendValue = function() {
+    constrainAndSendValue() {
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
 
@@ -54,4 +53,4 @@ export const RepitchParameter = defclass(ValueParameter, function() {
             this.apiDecimal.set(this.property, fine)
         }
     }
-})
+}

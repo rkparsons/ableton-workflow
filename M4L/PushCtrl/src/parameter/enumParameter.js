@@ -1,11 +1,9 @@
-import { defclass } from '../util'
 import { Parameter } from './Parameter'
 import { unitType } from '../constants'
 
-// replace with ES6 classes
-export const EnumParameter = defclass(Parameter, function() {
-    this.constructor = function(displayName, livePath, property, defaultValue, options, randomRange) {
-        Parameter.call(this, displayName, livePath, property, defaultValue, unitType.ENUM)
+export class EnumParameter extends Parameter {
+    constructor(displayName, livePath, property, defaultValue, options, randomRange) {
+        super(displayName, livePath, property, defaultValue, unitType.ENUM)
         this.options = options
         this.optionKeys = Object.keys(options)
         this.min = this.optionKeys[0]
@@ -14,17 +12,17 @@ export const EnumParameter = defclass(Parameter, function() {
         this.speed = 0.05
     }
 
-    this.increment = function() {
+    increment() {
         this.value += 1
         this.constrainAndSendValue()
     }
 
-    this.decrement = function() {
+    decrement() {
         this.value -= 1
         this.constrainAndSendValue()
     }
 
-    this.getDisplayValue = function() {
+    getDisplayValue() {
         return this.options[Math.round(this.value)]
     }
-})
+}

@@ -1,14 +1,12 @@
-import { defclass } from '../util'
 import { EnumParameter } from './enumParameter'
 
-export const FilteredEnumParameter = defclass(EnumParameter, function() {
-    this.constructor = function(displayName, livePath, property, defaultValue, optionGroups) {
-        const optionGroupKey = Object.keys(optionGroups)[0]
-        EnumParameter.call(this, displayName, livePath, property, defaultValue, optionGroups[optionGroupKey])
+export class FilteredEnumParameter extends EnumParameter {
+    constructor(displayName, livePath, property, defaultValue, optionGroups) {
+        super(displayName, livePath, property, defaultValue, optionGroups[Object.keys(optionGroups)[0]])
         this.optionGroups = optionGroups
     }
 
-    this.filterOptions = function(optionGroupKey) {
+    filterOptions(optionGroupKey) {
         this.value = 0
         this.options = this.optionGroups[optionGroupKey]
         this.optionKeys = Object.keys(this.options)
@@ -16,4 +14,4 @@ export const FilteredEnumParameter = defclass(EnumParameter, function() {
         this.max = this.optionKeys[this.optionKeys.length - 1]
         this.randomRange = [this.min, this.max]
     }
-})
+}

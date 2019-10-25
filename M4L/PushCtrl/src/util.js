@@ -1,25 +1,3 @@
-export function defclass(base, body) {
-    const prototype = Object.create(base.prototype)
-    body.call(prototype, base.prototype)
-    prototype.constructor.prototype = prototype
-
-    return prototype.constructor
-}
-
-export function deferLow(task) {
-    this.allowExecution = false
-
-    new Task(function() {
-        if (this.allowExecution) {
-            task()
-
-            arguments.callee.task.cancel()
-        }
-
-        this.allowExecution = true
-    }, this).execute()
-}
-
 export function log() {
     for (var i = 0, len = arguments.length; i < len; i++) {
         var message = arguments[i]
@@ -36,8 +14,4 @@ export function log() {
         }
     }
     post('\n')
-}
-
-export function getTransposeFromChangeInBpm(originalBpm, newBpm) {
-    return -12 * Math.log2(originalBpm / newBpm)
 }

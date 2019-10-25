@@ -6,7 +6,6 @@ import { RepitchWarpParameter } from './repitchWarpParameter'
 import { getCategories, getSampleGroups } from '../fileSystem/fileSystem'
 import { unitType } from '../constants'
 import { parameterConfig } from '../config/parameterConfig'
-import { log } from '../util'
 
 export function createParameters(samplesFolder, drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
     let parameters = []
