@@ -7,10 +7,12 @@ export class DrumTrackMode {
     }
 
     activate() {
+        this.drumRack.observe()
         this.controlSurface.activate()
     }
 
     deactivate() {
+        this.drumRack.ignore()
         this.controlSurface.deactivate()
     }
 

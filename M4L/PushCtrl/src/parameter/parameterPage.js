@@ -1,5 +1,3 @@
-import { log } from '../util'
-
 export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchParameterIndex) {
     this.getIndex = function() {
         return index
@@ -16,6 +14,14 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
                 parameters[i].onValueChanged(handleParameterChange.bind(this, parseInt(i), callback))
             }
         }
+    }
+
+    this.observe = function() {
+        this.getParameters().forEach(parameter => parameter.observe())
+    }
+
+    this.ignore = function() {
+        this.getParameters().forEach(parameter => parameter.ignore())
     }
 
     this.getParameters = function() {

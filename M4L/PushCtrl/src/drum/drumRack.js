@@ -13,6 +13,16 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
         }
     }
 
+    this.observe = function() {
+        this.getActiveDrumPad().observe()
+        this.getActiveMixerPage().observe()
+    }
+
+    this.ignore = function() {
+        this.getActiveDrumPad().ignore()
+        this.getActiveMixerPage().ignore()
+    }
+
     this.onDrumPadSelected = function(callback) {
         selectedPadApi = new LiveAPI(callback, pathToDrumRack + ' view')
         selectedPadApi.property = 'selected_drum_pad'
@@ -27,7 +37,11 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.setActiveDrumPad = function(value) {
+        activeDrumPadId && this.getActiveDrumPad().ignore()
+
         activeDrumPadId = value
+
+        this.getActiveDrumPad().observe()
     }
 
     this.getMixerPages = function() {
@@ -39,6 +53,10 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.setActiveMixerPage = function(index) {
+        this.getActiveMixerPage().ignore()
+
         activeMixerPageIndex = index
+
+        this.getActiveMixerPage().observe()
     }
 }

@@ -20,6 +20,16 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
         }
     }
 
+    this.observe = function() {
+        this.getActiveDrumLayer().observe()
+        this.getActiveMixerPage().observe()
+    }
+
+    this.ignore = function() {
+        this.getActiveDrumLayer().ignore()
+        this.getActiveMixerPage().ignore()
+    }
+
     this.getDrumLayers = function() {
         return drumLayers
     }
@@ -29,7 +39,11 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
     }
 
     this.setActiveDrumLayer = function(drumLayerIndex) {
+        this.getActiveDrumLayer().ignore()
+
         activeDrumLayerIndex = drumLayerIndex
+
+        this.getActiveDrumLayer().observe()
     }
 
     this.incrementActiveDrumLayer = function(drumLayerIncrement) {
@@ -47,6 +61,10 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
     }
 
     this.setActiveMixerPage = function(index) {
+        activeMixerPageIndex && this.getActiveMixerPage().ignore()
+
         activeMixerPageIndex = index
+
+        this.getActiveMixerPage().observe()
     }
 }

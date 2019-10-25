@@ -20,10 +20,17 @@ export const Parameter = defclass(Object, function() {
         return this.name
     }
 
+    this.observe = function() {
+        this.api.property = this.property
+    }
+
+    this.ignore = function() {
+        this.api.property = null
+    }
+
     this.onValueChanged = function(callback) {
         this.callback = callback
         this.api = new LiveAPI(this.observeValue.bind(this), this.livePath)
-        this.api.property = this.property
     }
 
     this.observeValue = function(args) {
