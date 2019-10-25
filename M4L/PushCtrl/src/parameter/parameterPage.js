@@ -74,7 +74,7 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
         const bpm = Number(parameters[categoryParameterIndex].getDisplayValue().split('#')[1])
 
         if (bpm) {
-            parameters[repitchParameterIndex].warpToSampleBpm(bpm)
+            parameters[repitchParameterIndex].warp(bpm)
         }
     }
 }

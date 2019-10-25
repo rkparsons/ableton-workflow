@@ -8,7 +8,7 @@ export function createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, d
     for (var i = 0; i < drumLayerCount; i++) {
         const pathToDrumLayer = pathToDrumLayers + ' chains ' + i
         const drumLayerApi = new LiveAPI(null, pathToDrumLayer)
-        const drumLayerName = drumLayerApi.get('name')
+        const drumLayerName = drumLayerApi.get('name').toString()
         const devicesCount = drumLayerApi.get('devices').length / 2
         const parameterPages = createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount)
         const muteParameter = createParameter('Layer', 'Mute', pathToDrumLayer)

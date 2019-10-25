@@ -1,6 +1,5 @@
 import { defclass } from '../util'
 import { ValueParameter } from './valueParameter'
-import { log, getTransposeFromChangeInBpm } from '../util'
 
 export const RepitchParameter = defclass(ValueParameter, function() {
     this.constructor = function(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange) {
@@ -23,6 +22,8 @@ export const RepitchParameter = defclass(ValueParameter, function() {
             this.callback()
         }
     }
+
+    this.warp = function() {}
 
     this.observeValueDecimal = function([property, newValue]) {
         if (property === this.property) {

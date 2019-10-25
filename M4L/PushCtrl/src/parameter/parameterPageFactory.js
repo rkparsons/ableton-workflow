@@ -12,7 +12,7 @@ export function createParameterPages(samplesFolder, drumPadName, drumLayerName, 
     for (var deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
         const deviceApi = new LiveAPI(null, pathToDrumLayer + ' devices ' + deviceIndex)
         const deviceType = parseInt(deviceApi.get('type'))
-        const deviceName = deviceApi.get('name')
+        const deviceName = deviceApi.get('name').toString()
 
         deviceTypeToIndex[deviceName] = deviceIndex
 

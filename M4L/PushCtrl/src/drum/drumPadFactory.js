@@ -12,7 +12,7 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
         if (drumPadApi.get('chains')[1]) {
             const pathToDrumLayers = pathToDrumPad + ' chains 0 devices 0'
             const drumLayersApi = new LiveAPI(null, pathToDrumLayers)
-            const drumPadName = drumPadApi.get('name')
+            const drumPadName = drumPadApi.get('name').toString()
             const drumLayerCount = drumLayersApi.get('chains').length / 2
             const drumLayers = createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, drumLayerCount)
             const mixerPages = createMixerPages(pathToDrumLayers, drumLayerCount)

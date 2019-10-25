@@ -2,9 +2,11 @@ import { EnumParameter } from './enumParameter'
 import { FilteredEnumParameter } from './filteredEnumParameter'
 import { ValueParameter } from './valueParameter'
 import { RepitchParameter } from './repitchParameter'
+import { RepitchWarpParameter } from './repitchWarpParameter'
 import { getCategories, getSampleGroups } from '../fileSystem/fileSystem'
 import { unitType } from '../constants'
 import { parameterConfig } from '../config/parameterConfig'
+import { log } from '../util'
 
 export function createParameters(samplesFolder, drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
     let parameters = []
@@ -51,6 +53,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
                 parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else if (targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
+                repitchParameterIndex = parameterindex
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
                 parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))

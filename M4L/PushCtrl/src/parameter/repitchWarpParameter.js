@@ -22,15 +22,14 @@ export const RepitchWarpParameter = defclass(RepitchParameter, function() {
     this.warpToProjectBpm = function([property, bpm]) {
         if (property === 'value') {
             this.projectBpm = Number(bpm)
-            log('warpToProjectBpm', this.projectBpm)
+
+            log(this.sampleBpm, this.projectBpm, getTransposeFromChangeInBpm(this.sampleBpm, this.projectBpm))
         }
     }
 
-    this.warpToSampleBpm = function(sampleBpm) {
+    this.warp = function(sampleBpm) {
         this.sampleBpm = sampleBpm
 
-        if (this.sampleBpm) {
-            const pitchChange = getTransposeFromChangeInBpm(this.sampleBpm, this.projectBpm)
-        }
+        log(this.sampleBpm, this.projectBpm, getTransposeFromChangeInBpm(this.sampleBpm, this.projectBpm))
     }
 })
