@@ -1,4 +1,4 @@
-export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchParameterIndex) {
+export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchWarpParameterIndex) {
     this.getIndex = function() {
         return index
     }
@@ -40,8 +40,8 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
         return parameters[sampleParameterIndex]
     }
 
-    this.getRepitchParameter = function() {
-        return parameters[repitchParameterIndex]
+    this.getRepitchWarpParameter = function() {
+        return parameters[repitchWarpParameterIndex]
     }
 
     this.default = function() {
@@ -71,10 +71,10 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
         parameters[sampleParameterIndex].filterOptions(parameters[i].getDisplayValue())
 
-        const bpm = Number(parameters[categoryParameterIndex].getDisplayValue().split('#')[1])
+        const sampleBpm = Number(parameters[categoryParameterIndex].getDisplayValue().split('#')[1])
 
-        if (bpm) {
-            parameters[repitchParameterIndex].warp(bpm)
+        if (sampleBpm) {
+            this.getRepitchWarpParameter().warpToSampleBpm(sampleBpm)
         }
     }
 }

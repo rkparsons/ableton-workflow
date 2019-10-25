@@ -48,6 +48,8 @@ export class DrumTrackMode {
         this.updateDisplay()
     }
 
+    warpToProjectBpm() {}
+
     updateDisplay() {}
 
     displayBlankPad() {

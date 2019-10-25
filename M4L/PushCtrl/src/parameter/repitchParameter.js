@@ -22,8 +22,6 @@ export class RepitchParameter extends ValueParameter {
         }
     }
 
-    warp() {}
-
     observeValueDecimal([property, newValue]) {
         if (property === this.property) {
             this.value = Math.round(this.value) + newValue / 100
