@@ -8,7 +8,6 @@ export const RepitchParameter = defclass(ValueParameter, function() {
         this.livePathDecimal = livePathDecimal
         this.projectBpmApi = new LiveAPI(this.warpToProjectBpm, 'live_set master_track mixer_device song_tempo')
         this.projectBpmApi.property = 'value'
-        this.projectBpm = this.projectBpmApi.get('value')
         this.sampleBpm = null
     }
 
@@ -53,7 +52,9 @@ export const RepitchParameter = defclass(ValueParameter, function() {
         this.sampleBpm = sampleBpm
 
         if (this.sampleBpm) {
-            const pitchChange = getTransposeFromChangeInBpm(this.sampleBpm / this.projectBpm)
+            log('projectBpm', this.projectBpm)
+            log('getBpm', this.projectBpmApi.get('value'))
+            const pitchChange = getTransposeFromChangeInBpm(this.sampleBpm, this.projectBpm)
 
             log('pitchChange', pitchChange)
         }
