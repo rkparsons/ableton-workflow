@@ -32,6 +32,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
             //todo: pass config object and destructure in constructor
+            // refactor out conditional logic
             if (targetParameterName === 'Category') {
                 sampleCategories = getCategories(samplesFolder, drumPadName, drumLayerName)
                 targetParameterConfig.options = sampleCategories
@@ -44,9 +45,12 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
                 parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
-            } else if (targetParameterName === 'Repitch') {
+            } else if (drumPadName === 'Break' && targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 repitchParameterIndex = parameterindex
+                parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
+            } else if (targetParameterName === 'Repitch') {
+                const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
                 parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))

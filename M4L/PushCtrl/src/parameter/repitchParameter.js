@@ -6,9 +6,6 @@ export const RepitchParameter = defclass(ValueParameter, function() {
     this.constructor = function(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange) {
         ValueParameter.call(this, displayName, livePath, property, defaultValue, unitType, inputRange, randomRange)
         this.livePathDecimal = livePathDecimal
-        this.projectBpmApi = new LiveAPI(this.warpToProjectBpm, 'live_set master_track mixer_device song_tempo')
-        this.projectBpmApi.property = 'value'
-        this.sampleBpm = null
     }
 
     this.onValueChanged = function(callback) {
@@ -40,24 +37,6 @@ export const RepitchParameter = defclass(ValueParameter, function() {
 
     this.getIncrement = function(delta) {
         return delta < 50 ? 0.1 : -0.1
-    }
-
-    this.warpToProjectBpm = function([property, bpm]) {
-        if (property === 'value') {
-            this.projectBpm = Number(bpm)
-        }
-    }
-
-    this.warpToSampleBpm = function(sampleBpm) {
-        this.sampleBpm = sampleBpm
-
-        if (this.sampleBpm) {
-            log('projectBpm', this.projectBpm)
-            log('getBpm', this.projectBpmApi.get('value'))
-            const pitchChange = getTransposeFromChangeInBpm(this.sampleBpm, this.projectBpm)
-
-            log('pitchChange', pitchChange)
-        }
     }
 
     this.constrainAndSendValue = function() {
