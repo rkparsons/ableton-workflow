@@ -98,18 +98,11 @@ export class LayerParamsMode extends DrumTrackMode {
         if (page.getCategoryParameterIndex() === encoderIndex) {
             page.getSampleParameter().constrainAndSendValue()
             page.getRepitchWarpParameter().constrainAndSendValue()
+        } else if (page.getBpmParameterIndex() === encoderIndex) {
+            page.getRepitchWarpParameter().constrainAndSendValue()
         }
 
         this.updateDisplay()
-    }
-
-    warpToProjectBpm(projectBpm) {
-        this.drumRack
-            .getActiveDrumPad()
-            .getActiveDrumLayer()
-            .getActiveParameterPage()
-            .getRepitchWarpParameter()
-            .warpToProjectBpm(projectBpm)
     }
 
     updateDisplay() {

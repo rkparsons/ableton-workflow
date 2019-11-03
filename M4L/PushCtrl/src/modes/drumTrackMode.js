@@ -1,4 +1,6 @@
 //todo: call updateDisplay after everything
+import { log } from '../util'
+
 export class DrumTrackMode {
     constructor(drumRack, controlSurface) {
         this.drumRack = drumRack
@@ -47,8 +49,6 @@ export class DrumTrackMode {
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer(drumLayerIncrement)
         this.updateDisplay()
     }
-
-    warpToProjectBpm() {}
 
     updateDisplay() {}
 

@@ -3,6 +3,7 @@ const webpack_rules = []
 const webpackOption = {
     entry: './src/devices/drums.js',
     watch: true,
+    devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'drumsBundle.js',

@@ -4,7 +4,7 @@
     "description": "Control Surface for Ableton Project",
     "main": "webpack.config.js",
     "scripts": {
-        "build": "webpack --mode production"
+        "build": "webpack --mode development"
     },
     "author": "",
     "license": "ISC",

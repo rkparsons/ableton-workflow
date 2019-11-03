@@ -2,6 +2,17 @@ import { unitType } from '../constants'
 
 export const parameterConfig = {
     // todo: default to 0,1 float
+    Project: {
+        Tempo: {
+            displayName: 'BPM',
+            path: 'master_track mixer_device song_tempo',
+            inputRange: [80, 180],
+            speed: 0.1,
+            defaultValue: 130,
+            unitType: unitType.INT,
+            showValue: true,
+        },
+    },
 
     Mixer: {
         Volume: {

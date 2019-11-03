@@ -1,5 +1,4 @@
 import { mode } from '../constants'
-import { log } from '../util'
 
 export class DrumTrack {
     constructor(modes) {
@@ -7,8 +6,6 @@ export class DrumTrack {
         this.activeMode = modes[0]
         this.liveSetViewApi = new LiveAPI(null, 'live_set view')
         this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
-        this.liveSetTempoApi = new LiveAPI(this.handleTempoChange, 'live_set master_track mixer_device song_tempo')
-        this.liveSetTempoApi.property = 'value'
     }
 
     getMode() {
@@ -18,14 +15,6 @@ export class DrumTrack {
     setMode(modeType) {
         this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
         this.activeMode.updateDisplay()
-    }
-
-    handleTempoChange(args) {
-        log('handleTempoChange', args)
-        // if (property === 'value') {f
-        //     this.activeMode.warpToProjectBpm(Number(bpm))
-        //     this.activeMode.updateDisplay()
-        // }
     }
 
     toggleActive() {

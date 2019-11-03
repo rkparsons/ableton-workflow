@@ -12,6 +12,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
     let categoryParameterIndex = null
     let sampleParameterIndex = null
     let repitchWarpParameterIndex = null
+    let bpmParameterIndex = null
     let sampleCategories = null
 
     for (var parameterindex = 0; parameterindex < parameterNames.length; parameterindex++) {
@@ -20,7 +21,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
             const targetDeviceType = parameterNameParts[0]
             const targetParameterName = parameterNameParts[1]
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-            const targetDevicePath = targetDeviceIndex !== undefined ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
+            const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
             const targetDeviceConfig = parameterConfig[targetDeviceType]
             const targetParameterConfig = targetDeviceConfig ? targetDeviceConfig[targetParameterName] : null
 
@@ -54,7 +55,10 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
-                parameters.push(new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
+                bpmParameterIndex = targetParameterName === 'Tempo' ? parameterindex : bpmParameterIndex
+                parameters.push(
+                    new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange, targetParameterConfig.showValue, targetParameterConfig.speed)
+                )
             }
         }
     }
@@ -65,6 +69,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
         categoryParameterIndex: categoryParameterIndex,
         sampleParameterIndex: sampleParameterIndex,
         repitchParameterIndex: repitchWarpParameterIndex,
+        bpmParameterIndex: bpmParameterIndex,
     }
 }
 

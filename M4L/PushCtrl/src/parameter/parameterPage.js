@@ -1,4 +1,4 @@
-export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchWarpParameterIndex) {
+export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchWarpParameterIndex, bpmParameterIndex) {
     this.getIndex = function() {
         return index
     }
@@ -34,6 +34,10 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
     this.getCategoryParameterIndex = function() {
         return categoryParameterIndex
+    }
+
+    this.getBpmParameterIndex = function() {
+        return bpmParameterIndex
     }
 
     this.getSampleParameter = function() {

@@ -2,12 +2,14 @@ import { Parameter } from './Parameter'
 import { ascii } from '../constants'
 
 export class ValueParameter extends Parameter {
-    constructor(displayName, livePath, property, defaultValue, unitType, inputRange, randomRange) {
+    constructor(displayName, livePath, property, defaultValue, unitType, inputRange, randomRange, showValue, speed) {
         super(displayName, livePath, property, defaultValue, unitType, randomRange)
         this.inputRange = inputRange
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
         this.isBipolar = this.max / this.min < 0
+        this.showValue = showValue
+        this.speed = speed || 1
     }
 
     getDisplayValue() {
@@ -15,6 +17,10 @@ export class ValueParameter extends Parameter {
             return ' '
         }
 
+        return this.showValue ? super.getOutputValue() : this.getDisplayValueGraphic()
+    }
+
+    getDisplayValueGraphic() {
         const barCount = this.isBipolar ? 4 : 8
         const padding = String.fromCharCode(ascii.EMPTY_BARS, ascii.EMPTY_BARS, ascii.EMPTY_BARS, ascii.EMPTY_BARS, ascii.EMPTY_BARS, ascii.EMPTY_BARS, ascii.EMPTY_BARS, ascii.EMPTY_BARS)
         const outputPositive = this.isBipolar && this.value < 0 ? '' : this.getMeterOutput(true, barCount, this.value / this.max)
@@ -28,7 +34,7 @@ export class ValueParameter extends Parameter {
     }
 
     getIncrement(delta) {
-        return ((this.max - this.min) * (delta < 50 ? delta : delta - 128)) / 100
+        return (this.speed * ((this.max - this.min) * (delta < 50 ? delta : delta - 128))) / 100
     }
 
     getMeterOutput(isPositive, barCount, fraction) {
