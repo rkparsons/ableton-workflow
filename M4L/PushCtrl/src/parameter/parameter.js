@@ -1,5 +1,4 @@
 import { unitType } from '../constants'
-import { log } from '../util'
 
 export class Parameter {
     constructor(name, livePath, property, defaultValue, unitType, randomRange) {
@@ -55,7 +54,6 @@ export class Parameter {
     default() {
         //todo: move this check to configuration
         if (this.name !== 'BPM') {
-            log(this.name)
             this.value = this.defaultValue
             this.constrainAndSendValue()
         }
