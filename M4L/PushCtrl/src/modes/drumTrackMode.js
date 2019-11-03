@@ -1,6 +1,4 @@
 //todo: call updateDisplay after everything
-import { log } from '../util'
-
 export class DrumTrackMode {
     constructor(drumRack, controlSurface) {
         this.drumRack = drumRack

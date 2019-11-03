@@ -1,5 +1,4 @@
 import { RepitchParameter } from './repitchParameter'
-import { log } from '../util'
 
 export class RepitchWarpParameter extends RepitchParameter {
     constructor(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange) {
@@ -21,6 +20,11 @@ export class RepitchWarpParameter extends RepitchParameter {
         }
     }
 
+    default() {
+        this.warp()
+        this.constrainAndSendValue()
+    }
+
     getTransposeFromChangeInBpm(originalBpm, newBpm) {
         return -12 * Math.log2(originalBpm / newBpm)
     }
@@ -32,7 +36,6 @@ export class RepitchWarpParameter extends RepitchParameter {
     }
 
     warp() {
-        log('warping', this.projectBpm, this.sampleBpm)
         if (this.projectBpm && this.sampleBpm) {
             this.value = -12 * Math.log2(this.sampleBpm / this.projectBpm)
         }

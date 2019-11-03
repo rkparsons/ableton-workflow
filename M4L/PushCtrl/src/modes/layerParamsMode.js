@@ -95,9 +95,13 @@ export class LayerParamsMode extends DrumTrackMode {
 
         page.getParameter(encoderIndex).sendValue(value)
 
+        //todo: move logic into page
         if (page.getCategoryParameterIndex() === encoderIndex) {
             page.getSampleParameter().constrainAndSendValue()
-            page.getRepitchWarpParameter().constrainAndSendValue()
+
+            if (page.getRepitchWarpParameter()) {
+                page.getRepitchWarpParameter().constrainAndSendValue()
+            }
         } else if (page.getBpmParameterIndex() === encoderIndex) {
             page.getRepitchWarpParameter().constrainAndSendValue()
         }

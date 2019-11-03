@@ -8,7 +8,6 @@ export const parameterConfig = {
             path: 'master_track mixer_device song_tempo',
             inputRange: [80, 180],
             speed: 0.1,
-            defaultValue: 130,
             unitType: unitType.INT,
             showValue: true,
         },

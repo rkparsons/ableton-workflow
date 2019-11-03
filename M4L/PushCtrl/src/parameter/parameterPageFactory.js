@@ -17,7 +17,7 @@ export function createParameterPages(samplesFolder, drumPadName, drumLayerName, 
         deviceTypeToIndex[deviceName] = deviceIndex
 
         if (deviceType === 1) {
-            instrumentType = deviceName
+            instrumentType = drumPadName === 'Break' ? 'BreakSampler' : deviceName
         }
     }
 

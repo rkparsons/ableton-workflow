@@ -1,9 +1,43 @@
 export const parameterPageConfig = {
-    //todo: only use repitch param in breaks layer
     Sampler: [
         {
             name: 'Sample',
-            parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Delay', 'CC_Start', 'Sampler_Reverse', 'Layer_Solo', 'Sampler_Repitch', 'Project_Tempo'],
+            parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Delay', 'CC_Start', 'Sampler_Reverse', 'Layer_Solo', 'Sampler_Repitch', null],
+        },
+        {
+            name: 'Amp',
+            parameters: ['Sampler_AmpAttack', 'Sampler_AmpDecay', 'Sampler_AmpSustain', 'Sampler_AmpRelease', 'Sampler_AmpLoop', 'Sampler_AmpSync', null, null],
+        },
+        {
+            name: 'Pitch',
+            parameters: ['Sampler_Pitch', 'Sampler_Detune', 'Sampler_Spread', 'Sampler_PitchEnv', 'Sampler_PitchEnvAttack', 'Sampler_PitchEnvDecay', null, null],
+        },
+        {
+            name: 'Filter',
+            parameters: ['Sampler_FilterType', 'Sampler_FilterFreq', 'Sampler_FilterRes', 'Sampler_FilterEnv', 'Sampler_FilterEnvAttack', 'Sampler_FilterEnvDecay', null, null],
+        },
+        {
+            name: 'Tone',
+            parameters: ['Sampler_FilterCircuit', 'Sampler_FilterSlope', 'Sampler_FilterDrive', 'Sampler_ShaperPre', 'Sampler_ShaperType', 'Sampler_ShaperLevel', null, null],
+        },
+        {
+            name: 'Osc',
+            parameters: ['Sampler_OscLevel', 'Sampler_OscWave', 'Sampler_OscFreq', 'Sampler_OscMulti', 'Sampler_OscEnvAttack', 'Sampler_OscEnvDecay', null, null],
+        },
+        {
+            name: 'Velo',
+            parameters: ['Sampler_VolumeVelocity', 'Sampler_OscVelocity', 'Sampler_FilterVelocity', 'CC_DriveVelocity', 'CC_PitchEnvVelocity', 'Sampler_AmpTimeVelocity', null, null],
+        },
+        {
+            name: 'Rand',
+            parameters: ['Sampler_VolumeLfo', 'Sampler_PitchLfo', null, 'Sampler_FilterLfo', 'Sampler_PanLfo', 'CC_StartRandom', null, null],
+        },
+    ],
+
+    BreakSampler: [
+        {
+            name: 'Sample',
+            parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Start', 'Sampler_Reverse', 'Layer_Solo', 'Sampler_Repitch', 'Project_Tempo', null],
         },
         {
             name: 'Amp',

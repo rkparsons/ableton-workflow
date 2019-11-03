@@ -14,13 +14,21 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.observe = function() {
-        this.getActiveDrumPad().observe()
-        this.getActiveMixerPage().observe()
+        const activeDrumPad = this.getActiveDrumPad()
+
+        if (activeDrumPad) {
+            activeDrumPad.observe()
+            this.getActiveMixerPage().observe()
+        }
     }
 
     this.ignore = function() {
-        this.getActiveDrumPad().ignore()
-        this.getActiveMixerPage().ignore()
+        const activeDrumPad = this.getActiveDrumPad()
+
+        if (activeDrumPad) {
+            activeDrumPad.ignore()
+            this.getActiveMixerPage().ignore()
+        }
     }
 
     this.onDrumPadSelected = function(callback) {
@@ -33,15 +41,15 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.getActiveDrumPad = function() {
-        return drumPads.find(drumPad => drumPad.getId() === activeDrumPadId)
+        return drumPads.find(drumPad => drumPad.getId() === activeDrumPadId) || this.blankDrumPad
     }
 
     this.setActiveDrumPad = function(value) {
-        activeDrumPadId && this.getActiveDrumPad().ignore()
+        this.ignore()
 
         activeDrumPadId = value
 
-        this.getActiveDrumPad().observe()
+        this.observe()
     }
 
     this.getMixerPages = function() {
