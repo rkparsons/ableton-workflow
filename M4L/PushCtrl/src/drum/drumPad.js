@@ -47,9 +47,21 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
     }
 
     this.incrementActiveDrumLayer = function(drumLayerIncrement) {
+        const previousIndex = Math.round(activeDrumLayerIndex)
+
         activeDrumLayerIndex += drumLayerIncrement
         activeDrumLayerIndex = Math.max(0, activeDrumLayerIndex)
         activeDrumLayerIndex = Math.min(drumLayers.length - 1, activeDrumLayerIndex)
+
+        const newIndex = Math.round(activeDrumLayerIndex)
+        const isActiveLayerChanged = newIndex !== previousIndex
+
+        if (isActiveLayerChanged) {
+            drumLayers[previousIndex].ignore()
+            drumLayers[newIndex].observe()
+        }
+
+        return isActiveLayerChanged
     }
 
     this.getMixerPages = function() {

@@ -29,6 +29,7 @@ export const parameterConfig = {
 
     Layer: {
         Mute: {
+            displayName: 'Mute',
             property: 'mute',
             options: [0, 1],
             unitType: unitType.ENUM,

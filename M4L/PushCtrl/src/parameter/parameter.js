@@ -20,6 +20,7 @@ export class Parameter {
 
     observe() {
         this.api.property = this.property
+        this.value = this.api.get(this.property)
     }
 
     ignore() {

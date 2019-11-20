@@ -1,5 +1,7 @@
-import { DrumTrackMode } from './drumTrackMode'
 import { command, mode } from '../constants'
+
+import { DrumTrackMode } from './drumTrackMode'
+import { log } from '../util'
 
 //todo: add can handle enum to strategies
 export class LayerParamsMode extends DrumTrackMode {
@@ -38,7 +40,7 @@ export class LayerParamsMode extends DrumTrackMode {
 
         //todo: refactor big method chains into class method
         const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
-        const isMuted = activeDrumLayer.getMuteParameter().getValue() === 1
+        const isMuted = activeDrumLayer.isMuted()
 
         if (!isMuted) {
             activeDrumLayer.setActiveParameterPage(buttonIndex)
@@ -55,6 +57,7 @@ export class LayerParamsMode extends DrumTrackMode {
             .getActiveDrumPad()
             .getActiveDrumLayer()
             .getMuteParameter()
+
         const newMuteValue = muteParameter.getValue() === 0 ? 1 : 0
         muteParameter.setValue(newMuteValue)
 
@@ -118,9 +121,10 @@ export class LayerParamsMode extends DrumTrackMode {
             const parameterPageNames = activeDrumLayer.getParameterPages().map(page => page.getName())
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
-            const isLayerMuted = activeDrumLayer.getMuteParameter().getValue()
+            const isLayerMuted = activeDrumLayer.isMuted()
 
             if (isLayerMuted) {
+                log('updateDisplay', 'muted')
                 this.controlSurface.display.line(0, [' '])
                 this.controlSurface.display.line(1, [' '])
                 this.controlSurface.display.title(2, [activeDrumLayer.getName()])
@@ -128,8 +132,12 @@ export class LayerParamsMode extends DrumTrackMode {
                 this.controlSurface.trackSelect.map(0, 0)
                 this.controlSurface.trackState.map([0])
             } else {
+                log('updateDisplay', 'active')
                 this.controlSurface.display.line(0, parameterNames)
-                this.controlSurface.display.line(1, activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue()))
+                this.controlSurface.display.line(
+                    1,
+                    activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue())
+                )
                 this.controlSurface.display.title(2, [activeDrumLayer.getName()])
                 this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
                 this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
