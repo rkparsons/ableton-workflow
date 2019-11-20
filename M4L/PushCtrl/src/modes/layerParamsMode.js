@@ -123,8 +123,9 @@ export class LayerParamsMode extends DrumTrackMode {
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
             const isLayerMuted = activeDrumLayer.isMuted()
 
+            // why is this executed so many times when layer changed?
             if (isLayerMuted) {
-                log('updateDisplay', 'muted')
+                log(activeDrumLayer.getName(), 'muted')
                 this.controlSurface.display.line(0, [' '])
                 this.controlSurface.display.line(1, [' '])
                 this.controlSurface.display.title(2, [activeDrumLayer.getName()])
@@ -132,7 +133,7 @@ export class LayerParamsMode extends DrumTrackMode {
                 this.controlSurface.trackSelect.map(0, 0)
                 this.controlSurface.trackState.map([0])
             } else {
-                log('updateDisplay', 'active')
+                log(activeDrumLayer.getName(), 'active')
                 this.controlSurface.display.line(0, parameterNames)
                 this.controlSurface.display.line(
                     1,
