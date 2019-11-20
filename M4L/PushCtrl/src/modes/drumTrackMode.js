@@ -43,12 +43,10 @@ export class DrumTrackMode {
 
     incrementDrumLayer() {
         this.drumRack.getActiveDrumPad().incrementActiveDrumLayer()
-        this.updateDisplay()
     }
 
     decrementDrumLayer() {
         this.drumRack.getActiveDrumPad().decrementActiveDrumLayer()
-        this.updateDisplay()
     }
 
     updateDisplay() {}

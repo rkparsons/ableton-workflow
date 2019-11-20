@@ -32,10 +32,10 @@ export class Parameter {
         this.api = new LiveAPI(this.observeValue.bind(this), this.livePath)
     }
 
-    observeValue(args) {
-        if (args[0] === this.property) {
-            this.value = args[1]
-            this.callback()
+    observeValue([property, value]) {
+        if (property === this.property) {
+            this.value = value
+            this.callback(this.name, this.value)
         }
     }
 

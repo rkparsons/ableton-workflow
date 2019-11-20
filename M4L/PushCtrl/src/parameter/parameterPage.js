@@ -63,8 +63,6 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
     function handleParameterChange(i, callback) {
         handleSampleCategoryChange.call(this, i)
-
-        callback()
     }
 
     // todo: move categoryParameterIndex into parameter class

@@ -15,19 +15,19 @@ export class RepitchParameter extends ValueParameter {
         this.apiDecimal.property = this.property
     }
 
-    observeValue([property, newValue]) {
-        if (property === this.property) {
-            this.value = newValue + (this.value % 1)
-            this.callback()
-        }
-    }
+    // observeValue([property, newValue]) {
+    //     if (property === this.property) {
+    //         this.value = newValue + (this.value % 1)
+    //         this.callback()
+    //     }
+    // }
 
-    observeValueDecimal([property, newValue]) {
-        if (property === this.property) {
-            this.value = Math.round(this.value) + newValue / 100
-            this.callback()
-        }
-    }
+    // observeValueDecimal([property, newValue]) {
+    //     if (property === this.property) {
+    //         this.value = Math.round(this.value) + newValue / 100
+    //         this.callback()
+    //     }
+    // }
 
     getDisplayValue() {
         return Math.round(this.value * 100) / 100
