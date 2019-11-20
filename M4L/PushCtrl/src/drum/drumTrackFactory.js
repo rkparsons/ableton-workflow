@@ -1,8 +1,10 @@
-import { mode, command } from '../constants'
+import { command, mode } from '../constants'
+
 import { DrumTrack } from './drumTrack'
-import { createDrumRack } from './drumRackFactory'
 import { createControlSurface } from '../controlSurface/controlSurfaceFactory'
+import { createDrumRack } from './drumRackFactory'
 import { createModes } from '../modes/modeFactory'
+import { log } from '../util'
 import { pushTapTempoControl } from '../constants'
 
 export default function(samplesFolder) {
@@ -24,11 +26,14 @@ export default function(samplesFolder) {
     controlSurface.onActive('Master_Select_Button', ([, isPressed]) => drumTrack.getMode().setCommand(command.DEFAULT, isPressed))
     controlSurface.onActive('Track_Stop_Button', ([, isPressed]) => drumTrack.getMode().setCommand(command.RANDOM, isPressed))
     controlSurface.onActive('Track_Control_Touches', ([, isPressed, encoderIndex]) => drumTrack.getMode().handleTrackControlTouches(isPressed, encoderIndex))
-    controlSurface.onActive('Swing_Control', ([, delta]) => drumTrack.getMode().setLayer(delta))
+
     controlSurface.onActive('Track_Controls', ([, value, encoderIndex]) => drumTrack.getMode().sendValue(value, encoderIndex))
     controlSurface.onActive('Tempo_Control', ([, encoderValue]) => drumTrack.getMode().handleTempoControl(encoderValue))
     controlSurface.onActive('Track_Select_Buttons', ([, isPressed, buttonIndex]) => drumTrack.getMode().handleTrackSelectButtons(isPressed, buttonIndex))
     controlSurface.onActive('Track_State_Buttons', ([, isPressed, buttonIndex]) => drumTrack.getMode().handleTrackStateButtons(isPressed, buttonIndex))
+
+    controlSurface.onActive('Up_Arrow', ([, isPressed]) => isPressed && drumTrack.getMode().decrementDrumLayer())
+    controlSurface.onActive('Down_Arrow', ([, isPressed]) => isPressed && drumTrack.getMode().incrementDrumLayer())
 
     return drumTrack
 }
