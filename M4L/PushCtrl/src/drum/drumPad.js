@@ -1,3 +1,5 @@
+import { log } from '../util'
+
 export function DrumPad(id, name, drumLayers, mixerPages) {
     var activeDrumLayerIndex = 0
     var activeMixerPageIndex = 0
@@ -47,15 +49,15 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
     }
 
     this.incrementActiveDrumLayer = function() {
-        const newIndex = Math.min(drumLayers.length - 1, ++activeDrumLayerIndex)
-
-        this.setActiveDrumLayer(newIndex)
+        if (activeDrumLayerIndex < drumLayers.length - 1) {
+            this.setActiveDrumLayer(activeDrumLayerIndex + 1)
+        }
     }
 
     this.decrementActiveDrumLayer = function() {
-        const newIndex = Math.max(0, --activeDrumLayerIndex)
-
-        this.setActiveDrumLayer(newIndex)
+        if (activeDrumLayerIndex > 0) {
+            this.setActiveDrumLayer(activeDrumLayerIndex - 1)
+        }
     }
 
     this.getMixerPages = function() {

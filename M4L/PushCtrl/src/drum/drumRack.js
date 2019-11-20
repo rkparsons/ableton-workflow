@@ -41,7 +41,7 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.getActiveDrumPad = function() {
-        return drumPads.find(drumPad => drumPad.getId() === activeDrumPadId) || this.blankDrumPad
+        return drumPads.find(drumPad => drumPad.getId() === activeDrumPadId)
     }
 
     this.setActiveDrumPad = function(value) {
