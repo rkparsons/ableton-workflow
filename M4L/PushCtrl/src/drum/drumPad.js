@@ -1,5 +1,3 @@
-import { log } from '../util'
-
 export function DrumPad(id, name, drumLayers, mixerPages) {
     var activeDrumLayerIndex = 0
     var activeMixerPageIndex = 0

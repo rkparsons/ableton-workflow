@@ -58,10 +58,7 @@ export class LayerParamsMode extends DrumTrackMode {
             .getActiveDrumLayer()
             .getMuteParameter()
 
-        const newMuteValue = muteParameter.getValue() === 0 ? 1 : 0
-        muteParameter.setValue(newMuteValue)
-
-        this.updateDisplay()
+        muteParameter.setValue(!Boolean(muteParameter.getValue()))
     }
 
     executePageLevelCommand(targetCommand) {
@@ -125,7 +122,6 @@ export class LayerParamsMode extends DrumTrackMode {
 
             // why is this executed so many times when layer changed?
             if (isLayerMuted) {
-                log(activeDrumLayer.getName(), typeof isLayerMuted, isLayerMuted, 'muted')
                 this.controlSurface.display.line(0, [' '])
                 this.controlSurface.display.line(1, [' '])
                 this.controlSurface.display.title(2, [activeDrumLayer.getName()])
@@ -133,7 +129,6 @@ export class LayerParamsMode extends DrumTrackMode {
                 this.controlSurface.trackSelect.map(0, 0)
                 this.controlSurface.trackState.map([0])
             } else {
-                log(activeDrumLayer.getName(), typeof isLayerMuted, isLayerMuted, 'active')
                 this.controlSurface.display.line(0, parameterNames)
                 this.controlSurface.display.line(
                     1,

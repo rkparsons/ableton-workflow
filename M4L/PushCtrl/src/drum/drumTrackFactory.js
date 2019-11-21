@@ -4,7 +4,6 @@ import { DrumTrack } from './drumTrack'
 import { createControlSurface } from '../controlSurface/controlSurfaceFactory'
 import { createDrumRack } from './drumRackFactory'
 import { createModes } from '../modes/modeFactory'
-import { log } from '../util'
 import { pushTapTempoControl } from '../constants'
 
 export default function(samplesFolder) {
@@ -14,7 +13,6 @@ export default function(samplesFolder) {
     const drumTrack = new DrumTrack(modes)
 
     drumRack.onValueChanged((name, value) => {
-        log('onValueChanged', name, value)
         drumTrack.getMode().updateDisplay()
     })
     drumRack.onDrumPadSelected(([property, , drumPadId]) => drumTrack.getMode().focusDrumPad(property, drumPadId))
