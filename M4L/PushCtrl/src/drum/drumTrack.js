@@ -6,6 +6,11 @@ export class DrumTrack {
         this.activeMode = modes[0]
         this.liveSetViewApi = new LiveAPI(null, 'live_set view')
         this.trackId = parseInt(new LiveAPI(null, 'this_device canonical_parent').id)
+        this.isInitialised = false
+    }
+
+    initialise() {
+        this.isInitialised = true
     }
 
     getMode() {
@@ -13,11 +18,19 @@ export class DrumTrack {
     }
 
     setMode(modeType) {
+        if (!this.isInitialised) {
+            return
+        }
+
         this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
         this.activeMode.updateDisplay()
     }
 
     toggleActive() {
+        if (!this.isInitialised) {
+            return
+        }
+
         this.liveSetViewApi.set('selected_track', 'id', this.trackId)
 
         if (this.activeMode.canHandle(mode.INACTIVE)) {

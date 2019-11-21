@@ -34,7 +34,7 @@ export class Parameter {
     observeValue([property, value]) {
         if (property === this.property) {
             this.value = value
-            this.callback(this.name, this.value)
+            this.callback()
         }
     }
 

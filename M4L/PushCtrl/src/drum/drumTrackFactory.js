@@ -12,7 +12,7 @@ export default function(samplesFolder) {
     const modes = createModes(drumRack, controlSurface)
     const drumTrack = new DrumTrack(modes)
 
-    drumRack.onValueChanged((name, value) => {
+    drumRack.onValueChanged(() => {
         drumTrack.getMode().updateDisplay()
     })
     drumRack.onDrumPadSelected(([property, , drumPadId]) => drumTrack.getMode().focusDrumPad(property, drumPadId))

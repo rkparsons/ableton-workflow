@@ -5,5 +5,6 @@ const path = require('path')
 
 export default function init() {
     log('init')
-    createDrumTrack(path.join(this.patcher.filepath, '..', '..', 'samples'))
+    const drumTrack = createDrumTrack(path.join(this.patcher.filepath, '..', '..', 'samples'))
+    drumTrack.initialise()
 }
