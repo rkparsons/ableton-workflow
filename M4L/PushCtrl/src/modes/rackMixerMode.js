@@ -1,5 +1,6 @@
-import { DrumTrackMode } from './drumTrackMode'
 import { command, mode } from '../constants'
+
+import { DrumTrackMode } from './drumTrackMode'
 
 export class RackMixerMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
@@ -48,8 +49,20 @@ export class RackMixerMode extends DrumTrackMode {
         const mixerPageNames = this.drumRack.getMixerPages().map(page => page.getName())
         const activeMixerPageIndex = this.drumRack.getActiveMixerPage().getIndex()
 
-        this.controlSurface.display.line(0, this.drumRack.getDrumPads().map(pad => pad.getName()))
-        this.controlSurface.display.line(1, drumRackMixerPage.getParameters().map(parameter => parameter.getDisplayValue()))
+        this.controlSurface.display.line(
+            0,
+            this.drumRack
+                .getDrumPads()
+                .map(pad => pad.getName())
+                .slice(0, 8)
+        )
+        this.controlSurface.display.line(
+            1,
+            drumRackMixerPage
+                .getParameters()
+                .map(parameter => parameter.getDisplayValue())
+                .slice(0, 8)
+        )
         this.controlSurface.display.title(2, [])
         this.controlSurface.display.menu(3, mixerPageNames, activeMixerPageIndex)
         this.controlSurface.trackSelect.map(mixerPageNames.length, activeMixerPageIndex)
