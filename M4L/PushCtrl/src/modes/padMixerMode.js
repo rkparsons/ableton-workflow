@@ -1,5 +1,6 @@
-import { DrumTrackMode } from './drumTrackMode'
 import { command, mode } from '../constants'
+
+import { DrumTrackMode } from './drumTrackMode'
 
 export class PadMixerMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
@@ -29,10 +30,7 @@ export class PadMixerMode extends DrumTrackMode {
             .getDrumLayers()
             [buttonIndex].getMuteParameter()
 
-        const newMuteValue = muteParameter.getValue() === 0 ? 1 : 0
-        muteParameter.setValue(newMuteValue)
-
-        this.updateDisplay()
+        muteParameter.setValue(!Boolean(muteParameter.getValue()))
     }
 
     executePageLevelCommand(targetCommand) {
@@ -68,7 +66,8 @@ export class PadMixerMode extends DrumTrackMode {
         if (activeDrumPad) {
             const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
             const drumPadMixerPageNames = activeDrumPad.getMixerPages().map(page => page.getName())
-            const layerOnStates = activeDrumPad.getDrumLayers().map(layer => (layer.getMuteParameter().getValue() === 0 ? 1 : 0))
+            // todo: replace Boolean with isMuted layer function
+            const layerOnStates = activeDrumPad.getDrumLayers().map(layer => !Boolean(layer.getMuteParameter().getValue()))
             const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (layerOnStates[index] ? parameter.getDisplayValue() : ''))
             const drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(layer => layer.getName()) : null
 
