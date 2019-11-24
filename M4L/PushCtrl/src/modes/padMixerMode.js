@@ -14,14 +14,22 @@ export class PadMixerMode extends DrumTrackMode {
     observe() {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
-        activeDrumPad.getActiveMixerPage().observe()
+        activeDrumPad
+            .getActiveMixerPage()
+            .getParameters()
+            .forEach(parameter => parameter.observe())
+
         activeDrumPad.getDrumLayers().forEach(drumLayer => drumLayer.getMuteParameter().observe())
     }
 
     ignore() {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
-        activeDrumPad.getActiveMixerPage().ignore()
+        activeDrumPad
+            .getActiveMixerPage()
+            .getParameters()
+            .forEach(parameter => parameter.ignore())
+
         activeDrumPad.getDrumLayers().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
     }
 

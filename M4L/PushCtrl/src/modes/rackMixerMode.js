@@ -12,11 +12,17 @@ export class RackMixerMode extends DrumTrackMode {
     }
 
     observe() {
-        this.drumRack.getActiveMixerPage().observe()
+        this.drumRack
+            .getActiveMixerPage()
+            .getParameters()
+            .forEach(parameter => parameter.observe())
     }
 
     ignore() {
-        this.drumRack.getActiveMixerPage().ignore()
+        this.drumRack
+            .getActiveMixerPage()
+            .getParameters()
+            .forEach(parameter => parameter.ignore())
     }
 
     handleTrackSelectButtons(isPressed, buttonIndex) {

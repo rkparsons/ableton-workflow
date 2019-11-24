@@ -16,14 +16,20 @@ export class LayerParamsMode extends DrumTrackMode {
         const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
 
         activeDrumLayer.getMuteParameter().observe()
-        activeDrumLayer.getActiveParameterPage().observe()
+        activeDrumLayer
+            .getActiveParameterPage()
+            .getParameters()
+            .forEach(parameter => parameter.observe())
     }
 
     ignore() {
         const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
 
         activeDrumLayer.getMuteParameter().ignore()
-        activeDrumLayer.getActiveParameterPage().ignore()
+        activeDrumLayer
+            .getActiveParameterPage()
+            .getParameters()
+            .forEach(parameter => parameter.ignore())
     }
 
     incrementDrumLayer() {

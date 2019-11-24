@@ -15,14 +15,6 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
         }
     }
 
-    this.observe = function() {
-        this.getParameters().forEach(parameter => parameter.observe())
-    }
-
-    this.ignore = function() {
-        this.getParameters().forEach(parameter => parameter.ignore())
-    }
-
     this.getParameters = function() {
         return parameters
     }
