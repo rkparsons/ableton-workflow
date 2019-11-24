@@ -12,17 +12,17 @@ export class PadMixerMode extends DrumTrackMode {
     }
 
     observe() {
-        this.drumRack
-            .getActiveDrumPad()
-            .getActiveMixerPage()
-            .observe()
+        const activeDrumPad = this.drumRack.getActiveDrumPad()
+
+        activeDrumPad.getActiveMixerPage().observe()
+        activeDrumPad.getDrumLayers().forEach(drumLayer => drumLayer.getMuteParameter().observe())
     }
 
     ignore() {
-        this.drumRack
-            .getActiveDrumPad()
-            .getActiveMixerPage()
-            .ignore()
+        const activeDrumPad = this.drumRack.getActiveDrumPad()
+
+        activeDrumPad.getActiveMixerPage().ignore()
+        activeDrumPad.getDrumLayers().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
     }
 
     handleTrackSelectButtons(isPressed, buttonIndex) {
@@ -46,6 +46,8 @@ export class PadMixerMode extends DrumTrackMode {
             [buttonIndex].getMuteParameter()
 
         muteParameter.setValue(!Boolean(muteParameter.getValue()))
+
+        this.updateDisplay()
     }
 
     executePageLevelCommand(targetCommand) {
