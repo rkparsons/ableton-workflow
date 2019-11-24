@@ -14,13 +14,9 @@ export class DrumTrackMode {
         this.controlSurface.deactivate()
     }
 
-    observe() {
-        this.drumRack.observe()
-    }
+    observe() {}
 
-    ignore() {
-        this.drumRack.ignore()
-    }
+    ignore() {}
 
     setCommand(command, isPressed) {
         if (isPressed) {
@@ -43,17 +39,14 @@ export class DrumTrackMode {
             return
         }
 
+        this.ignore()
         this.drumRack.setActiveDrumPad(drumPadId)
-        this.updateDisplay()
+        this.observe()
     }
 
-    incrementDrumLayer() {
-        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer()
-    }
+    incrementDrumLayer() {}
 
-    decrementDrumLayer() {
-        this.drumRack.getActiveDrumPad().decrementActiveDrumLayer()
-    }
+    decrementDrumLayer() {}
 
     updateDisplay() {}
 

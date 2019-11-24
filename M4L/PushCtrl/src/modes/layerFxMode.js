@@ -10,6 +10,32 @@ export class LayerFxMode extends DrumTrackMode {
         return modeType === mode.LAYER_FX
     }
 
+    observe() {
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+
+        activeDrumLayer.getMuteParameter().observe()
+        activeDrumLayer.getActiveParameterPage().observe()
+    }
+
+    ignore() {
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+
+        activeDrumLayer.getMuteParameter().ignore()
+        activeDrumLayer.getActiveParameterPage().ignore()
+    }
+
+    incrementDrumLayer() {
+        this.ignore()
+        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer()
+        this.observe()
+    }
+
+    decrementDrumLayer() {
+        this.ignore()
+        this.drumRack.getActiveDrumPad().decrementActiveDrumLayer()
+        this.observe()
+    }
+
     updateDisplay() {
         //todo: replace blank layer with separate mode
         const activeDrumPad = this.drumRack.getActiveDrumPad()

@@ -1,5 +1,3 @@
-import { log } from '../util'
-
 export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     var activeMixerPageIndex = 0
     var activeDrumPadId = null
@@ -12,26 +10,6 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
 
         for (i in mixerPages) {
             mixerPages[i].onValueChanged(callback)
-        }
-    }
-
-    this.observe = function() {
-        log('observing rack')
-        const activeDrumPad = this.getActiveDrumPad()
-
-        if (activeDrumPad) {
-            activeDrumPad.observe()
-            this.getActiveMixerPage().observe()
-        }
-    }
-
-    this.ignore = function() {
-        log('ignoring rack')
-        const activeDrumPad = this.getActiveDrumPad()
-
-        if (activeDrumPad) {
-            activeDrumPad.ignore()
-            this.getActiveMixerPage().ignore()
         }
     }
 
@@ -49,11 +27,7 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.setActiveDrumPad = function(value) {
-        this.ignore()
-
         activeDrumPadId = value
-
-        this.observe()
     }
 
     this.getMixerPages = function() {
@@ -65,10 +39,6 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.setActiveMixerPage = function(index) {
-        this.getActiveMixerPage().ignore()
-
         activeMixerPageIndex = index
-
-        this.getActiveMixerPage().observe()
     }
 }

@@ -12,10 +12,6 @@ export class InactiveMode extends DrumTrackMode {
 
     setLayer() {}
 
-    observe() {}
-
-    ignore() {}
-
     updateDisplay() {
         this.controlSurface.deactivate()
     }

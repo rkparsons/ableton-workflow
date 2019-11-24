@@ -1,7 +1,6 @@
 import { command, mode } from '../constants'
 
 import { DrumTrackMode } from './drumTrackMode'
-import { log } from '../util'
 
 //todo: add can handle enum to strategies
 export class LayerParamsMode extends DrumTrackMode {
@@ -11,6 +10,32 @@ export class LayerParamsMode extends DrumTrackMode {
 
     canHandle(modeType) {
         return modeType === mode.LAYER_PARAMS
+    }
+
+    observe() {
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+
+        activeDrumLayer.getMuteParameter().observe()
+        activeDrumLayer.getActiveParameterPage().observe()
+    }
+
+    ignore() {
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+
+        activeDrumLayer.getMuteParameter().ignore()
+        activeDrumLayer.getActiveParameterPage().ignore()
+    }
+
+    incrementDrumLayer() {
+        this.ignore()
+        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer()
+        this.observe()
+    }
+
+    decrementDrumLayer() {
+        this.ignore()
+        this.drumRack.getActiveDrumPad().decrementActiveDrumLayer()
+        this.observe()
     }
 
     handleTempoControl(encoderValue) {
@@ -43,8 +68,9 @@ export class LayerParamsMode extends DrumTrackMode {
         const isMuted = activeDrumLayer.isMuted()
 
         if (!isMuted) {
+            this.ignore()
             activeDrumLayer.setActiveParameterPage(buttonIndex)
-            this.updateDisplay()
+            this.observe()
         }
     }
 

@@ -8,7 +8,6 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
     }
 
     this.onValueChanged = function(callback) {
-        this.callback = callback
         for (i in parameters) {
             if (parameters[i]) {
                 parameters[i].onValueChanged(handleParameterChange.bind(this, parseInt(i), callback))
@@ -63,6 +62,7 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
     function handleParameterChange(i, callback) {
         handleSampleCategoryChange.call(this, i)
+        callback()
     }
 
     // todo: move categoryParameterIndex into parameter class

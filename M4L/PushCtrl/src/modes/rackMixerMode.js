@@ -11,14 +11,23 @@ export class RackMixerMode extends DrumTrackMode {
         return modeType === mode.RACK_MIXER
     }
 
+    observe() {
+        this.drumRack.getActiveMixerPage().observe()
+    }
+
+    ignore() {
+        this.drumRack.getActiveMixerPage().ignore()
+    }
+
     handleTrackSelectButtons(isPressed, buttonIndex) {
         //todo: refactor out isPressed check
         if (!isPressed) {
             return
         }
 
+        this.ignore()
         this.drumRack.setActiveMixerPage(buttonIndex)
-        this.updateDisplay()
+        this.observe()
     }
 
     executePageLevelCommand(targetCommand) {

@@ -11,13 +11,28 @@ export class PadMixerMode extends DrumTrackMode {
         return modeType === mode.PAD_MIXER
     }
 
+    observe() {
+        this.drumRack
+            .getActiveDrumPad()
+            .getActiveMixerPage()
+            .observe()
+    }
+
+    ignore() {
+        this.drumRack
+            .getActiveDrumPad()
+            .getActiveMixerPage()
+            .ignore()
+    }
+
     handleTrackSelectButtons(isPressed, buttonIndex) {
         if (!isPressed) {
             return
         }
 
+        this.ignore()
         this.drumRack.getActiveDrumPad().setActiveMixerPage(buttonIndex)
-        this.updateDisplay()
+        this.observe()
     }
 
     handleTrackStateButtons(isPressed, buttonIndex) {

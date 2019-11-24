@@ -17,16 +17,6 @@ export function DrumLayer(index, name, parameterPages, muteParameter) {
         muteParameter.onValueChanged(callback)
     }
 
-    this.observe = function() {
-        muteParameter.observe()
-        this.getActiveParameterPage().observe()
-    }
-
-    this.ignore = function() {
-        muteParameter.ignore()
-        this.getActiveParameterPage().ignore()
-    }
-
     this.getParameterPages = function() {
         return parameterPages
     }
@@ -36,11 +26,7 @@ export function DrumLayer(index, name, parameterPages, muteParameter) {
     }
 
     this.setActiveParameterPage = function(index) {
-        activeParameterPageIndex && this.getActiveParameterPage().ignore()
-
         activeParameterPageIndex = index
-
-        this.getActiveParameterPage().observe()
     }
 
     this.getMuteParameter = function() {
