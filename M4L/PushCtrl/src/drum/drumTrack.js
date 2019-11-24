@@ -21,8 +21,9 @@ export class DrumTrack {
         if (!this.isInitialised) {
             return
         }
-
+        this.activeMode.ignore()
         this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
+        this.activeMode.observe()
         this.activeMode.updateDisplay()
     }
 
@@ -34,11 +35,11 @@ export class DrumTrack {
         this.liveSetViewApi.set('selected_track', 'id', this.trackId)
 
         if (this.activeMode.canHandle(mode.INACTIVE)) {
+            this.activeMode.activateControlSurface()
             this.setMode(mode.LAYER_PARAMS)
-            this.activeMode.activate()
         } else {
+            this.activeMode.deactivateControlSurface()
             this.setMode(mode.INACTIVE)
-            this.activeMode.deactivate()
         }
     }
 }

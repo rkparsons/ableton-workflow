@@ -6,14 +6,20 @@ export class DrumTrackMode {
         this.command = null
     }
 
-    activate() {
-        this.drumRack.observe()
+    activateControlSurface() {
         this.controlSurface.activate()
     }
 
-    deactivate() {
-        this.drumRack.ignore()
+    deactivateControlSurface() {
         this.controlSurface.deactivate()
+    }
+
+    observe() {
+        this.drumRack.observe()
+    }
+
+    ignore() {
+        this.drumRack.ignore()
     }
 
     setCommand(command, isPressed) {

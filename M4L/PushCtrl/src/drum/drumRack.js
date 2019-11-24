@@ -1,3 +1,5 @@
+import { log } from '../util'
+
 export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     var activeMixerPageIndex = 0
     var activeDrumPadId = null
@@ -14,6 +16,7 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.observe = function() {
+        log('observing rack')
         const activeDrumPad = this.getActiveDrumPad()
 
         if (activeDrumPad) {
@@ -23,6 +26,7 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
     }
 
     this.ignore = function() {
+        log('ignoring rack')
         const activeDrumPad = this.getActiveDrumPad()
 
         if (activeDrumPad) {
