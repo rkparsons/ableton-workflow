@@ -8,7 +8,7 @@ export class DrumTrack extends Track {
     }
 
     onVolMixModeButton() {
-        this.setMode(mode.RACK_MIXER)
+        this.setMode(mode.DRUM_RACK_MIXER)
     }
     onPanSendModeButton() {
         this.setMode(mode.RACK_FX)

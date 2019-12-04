@@ -2,13 +2,13 @@ import { DrumTrackMode } from './drumTrackMode'
 import command from '../constants/command'
 import mode from '../constants/mode'
 
-export class RackMixerMode extends DrumTrackMode {
+export class DrumRackMixerMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
     }
 
     canHandle(modeType) {
-        return modeType === mode.RACK_MIXER
+        return modeType === mode.DRUM_RACK_MIXER
     }
 
     observe() {
