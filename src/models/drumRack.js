@@ -1,45 +1,45 @@
-export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
-    var activeMixerPageIndex = 0
-    var activeDrumPadId = null
-    var selectedPadApi = null
-
-    this.onValueChanged = function(callback) {
-        for (i in drumPads) {
-            drumPads[i].getInstrumentRack().onValueChanged(callback)
-        }
-
-        for (i in mixerPages) {
-            mixerPages[i].onValueChanged(callback)
-        }
+export class DrumRack {
+    constructor(pathToDrumRack, drumPads, mixerPages) {
+        this.pathToDrumRack = pathToDrumRack
+        this.drumPads = drumPads
+        this.mixerPages = mixerPages
+        this.activeMixerPageIndex = 0
+        this.activeDrumPadId = null
+        this.selectedPadApi = null
     }
 
-    this.onDrumPadSelected = function(callback) {
-        selectedPadApi = new LiveAPI(callback, pathToDrumRack + ' view')
-        selectedPadApi.property = 'selected_drum_pad'
+    onValueChanged(callback) {
+        this.drumPads.forEach(pad => pad.getInstrumentRack().onValueChanged(callback))
+        this.mixerPages.forEach(page => page.onValueChanged(callback))
     }
 
-    this.getDrumPads = function() {
-        return drumPads
+    onDrumPadSelected(callback) {
+        this.selectedPadApi = new LiveAPI(callback, this.pathToDrumRack + ' view')
+        this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    this.getActiveInstrumentRack = function() {
-        const drumPad = drumPads.find(drumPad => drumPad.getId() === activeDrumPadId)
+    getDrumPads() {
+        return this.drumPads
+    }
+
+    getActiveInstrumentRack() {
+        const drumPad = this.drumPads.find(pad => pad.getId() === this.activeDrumPadId)
         return drumPad ? drumPad.getInstrumentRack() : null
     }
 
-    this.setActiveDrumPad = function(value) {
-        activeDrumPadId = value
+    setActiveDrumPad(value) {
+        this.activeDrumPadId = value
     }
 
-    this.getMixerPages = function() {
-        return mixerPages
+    getMixerPages() {
+        return this.mixerPages
     }
 
-    this.getActiveMixerPage = function() {
-        return mixerPages[activeMixerPageIndex]
+    getActiveMixerPage() {
+        return this.mixerPages[this.activeMixerPageIndex]
     }
 
-    this.setActiveMixerPage = function(index) {
-        activeMixerPageIndex = index
+    setActiveMixerPage(index) {
+        this.activeMixerPageIndex = index
     }
 }
