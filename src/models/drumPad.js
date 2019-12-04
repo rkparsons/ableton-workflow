@@ -3,6 +3,10 @@ export function DrumPad(id, instrumentRack) {
         return id
     }
 
+    this.getName = function() {
+        return instrumentRack.getName()
+    }
+
     this.getInstrumentRack = function() {
         return instrumentRack
     }

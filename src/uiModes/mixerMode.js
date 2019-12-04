@@ -81,6 +81,12 @@ export class MixerMode extends UiMode {
             .getMixerPages()
             .map(page => page.getName())
 
+        const chainNames = this.getRack()
+            .getChains()
+            .map(chain => chain.getName())
+            .slice(0, 8)
+
+        this.controlSurface.display.line(0, chainNames)
         this.controlSurface.display.title(2, [this.getTitle()])
         this.controlSurface.display.menu(3, mixerPageNames, mixerPage.getIndex())
         this.controlSurface.trackSelect.map(mixerPageNames.length, mixerPage.getIndex())

@@ -19,7 +19,7 @@ export class DrumRack extends Rack {
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
-    getDrumPads() {
+    getChains() {
         return this.drumPads
     }
 

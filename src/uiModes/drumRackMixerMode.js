@@ -16,19 +16,12 @@ export class DrumRackMixerMode extends MixerMode {
 
     updateDisplay() {
         super.updateDisplay()
-        //todo: refactor drumPad so getChains can be called generically instead of getDrumPads
         const displayValues = this.getRack()
             .getActiveMixerPage()
             .getParameters()
             .map(parameter => parameter.getDisplayValue())
             .slice(0, 8)
 
-        const padNames = this.getRack()
-            .getDrumPads()
-            .map(pad => pad.getInstrumentRack().getName())
-            .slice(0, 8)
-
-        this.controlSurface.display.line(0, padNames)
         this.controlSurface.display.line(1, displayValues)
         this.controlSurface.trackState.map([])
     }
