@@ -59,10 +59,10 @@ export class DrumTrack extends Track {
     }
 
     onUpArrow() {
-        this.getMode().decrementDrumLayer()
+        this.getMode().decrementChain()
     }
 
     onDownArrow() {
-        this.getMode().incrementDrumLayer()
+        this.getMode().incrementChain()
     }
 }

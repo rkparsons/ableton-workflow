@@ -10,7 +10,7 @@ export class ChainFxMode extends UiMode {
         return modeType === mode.CHAIN_FX
     }
 
-    incrementDrumLayer() {
+    incrementChain() {
         this.ignore()
         this.drumRack
             .getActiveDrumPad()
@@ -19,7 +19,7 @@ export class ChainFxMode extends UiMode {
         this.observe()
     }
 
-    decrementDrumLayer() {
+    decrementChain() {
         this.ignore()
         this.drumRack
             .getActiveDrumPad()

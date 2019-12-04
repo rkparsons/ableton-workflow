@@ -10,8 +10,6 @@ export class InactiveMode extends UiMode {
         return modeType === mode.INACTIVE
     }
 
-    setLayer() {}
-
     updateDisplay() {
         this.controlSurface.deactivate()
     }

@@ -44,9 +44,9 @@ export class UiMode {
         this.observe()
     }
 
-    incrementDrumLayer() {}
+    incrementChain() {}
 
-    decrementDrumLayer() {}
+    decrementChain() {}
 
     updateDisplay() {}
 

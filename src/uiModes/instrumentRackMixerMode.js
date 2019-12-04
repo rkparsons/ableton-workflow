@@ -19,7 +19,7 @@ export class InstrumentRackMixerMode extends UiMode {
             .getParameters()
             .forEach(parameter => parameter.observe())
 
-        activeInstrumentRack.getChains().forEach(drumLayer => drumLayer.getMuteParameter().observe())
+        activeInstrumentRack.getChains().forEach(chain => chain.getMuteParameter().observe())
     }
 
     ignore() {
@@ -30,7 +30,7 @@ export class InstrumentRackMixerMode extends UiMode {
             .getParameters()
             .forEach(parameter => parameter.ignore())
 
-        activeActiveInstrumentRack.getChains().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
+        activeActiveInstrumentRack.getChains().forEach(chain => chain.getMuteParameter().ignore())
     }
 
     handleTrackSelectButtons(isPressed, buttonIndex) {
@@ -100,17 +100,17 @@ export class InstrumentRackMixerMode extends UiMode {
         if (activeInstrumentRack) {
             const drumPadMixerPage = activeInstrumentRack.getActiveMixerPage()
             const drumPadMixerPageNames = activeInstrumentRack.getMixerPages().map(page => page.getName())
-            // todo: replace Boolean with isMuted layer function
-            const layerOnStates = activeInstrumentRack.getChains().map(layer => !Boolean(layer.getMuteParameter().getValue()))
-            const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (layerOnStates[index] ? parameter.getDisplayValue() : ''))
-            const drumLayerNames = activeInstrumentRack ? activeInstrumentRack.getChains().map(layer => layer.getName()) : null
+            // todo: replace Boolean with isMuted chain function
+            const chainOnStates = activeInstrumentRack.getChains().map(chain => !Boolean(chain.getMuteParameter().getValue()))
+            const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (chainOnStates[index] ? parameter.getDisplayValue() : ''))
+            const chainNames = activeInstrumentRack ? activeInstrumentRack.getChains().map(chain => chain.getName()) : null
 
-            this.controlSurface.display.line(0, drumLayerNames)
+            this.controlSurface.display.line(0, chainNames)
             this.controlSurface.display.line(1, displayValues)
             this.controlSurface.display.title(2, [activeInstrumentRack.getName()])
             this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex())
             this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex())
-            this.controlSurface.trackState.map(layerOnStates)
+            this.controlSurface.trackState.map(chainOnStates)
         } else {
             this.displayBlankPad()
         }

@@ -38,7 +38,7 @@ export class ChainParamsMode extends UiMode {
             .forEach(parameter => parameter.ignore())
     }
 
-    incrementDrumLayer() {
+    incrementChain() {
         this.ignore()
         this.drumRack
             .getActiveDrumPad()
@@ -47,7 +47,7 @@ export class ChainParamsMode extends UiMode {
         this.observe()
     }
 
-    decrementDrumLayer() {
+    decrementChain() {
         this.ignore()
         this.drumRack
             .getActiveDrumPad()
