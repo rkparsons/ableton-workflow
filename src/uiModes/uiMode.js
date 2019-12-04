@@ -6,6 +6,10 @@ export class UiMode {
         this.command = null
     }
 
+    getRack() {
+        return this.rack
+    }
+
     activateControlSurface() {
         this.controlSurface.activate()
     }

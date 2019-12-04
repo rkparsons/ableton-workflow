@@ -1,8 +1,7 @@
-import { UiMode } from './uiMode'
-import command from '../constants/command'
+import { MixerMode } from './mixerMode'
 import mode from '../constants/mode'
 
-export class DrumRackMixerMode extends UiMode {
+export class DrumRackMixerMode extends MixerMode {
     constructor(rack, controlSurface) {
         super(rack, controlSurface)
     }
@@ -11,76 +10,26 @@ export class DrumRackMixerMode extends UiMode {
         return modeType === mode.DRUM_RACK_MIXER
     }
 
-    observe() {
-        this.rack
-            .getActiveMixerPage()
-            .getParameters()
-            .forEach(parameter => parameter.observe())
-    }
-
-    ignore() {
-        this.rack
-            .getActiveMixerPage()
-            .getParameters()
-            .forEach(parameter => parameter.ignore())
-    }
-
-    handleTrackSelectButtons(isPressed, buttonIndex) {
-        //todo: refactor out isPressed check
-        if (!isPressed) {
-            return
-        }
-
-        this.ignore()
-        this.rack.setActiveMixerPage(buttonIndex)
-        this.observe()
-    }
-
-    executePageLevelCommand(targetCommand) {
-        const page = this.rack.getActiveMixerPage()
-        targetCommand === command.DEFAULT ? page.default() : page.random()
-
-        this.updateDisplay()
-    }
-
-    executeParamLevelCommand(targetCommand, encoderIndex) {
-        const param = this.rack.getActiveMixerPage().getParameter(encoderIndex)
-        targetCommand === command.DEFAULT ? param.default() : param.random()
-
-        this.updateDisplay()
-    }
-
-    sendValue(value, encoderIndex) {
-        this.rack
-            .getActiveMixerPage()
-            .getParameter(encoderIndex)
-            .sendValue(value)
-
-        this.updateDisplay()
+    getTitle() {
+        return ''
     }
 
     updateDisplay() {
-        const drumRackMixerPage = this.rack.getActiveMixerPage()
-        const mixerPageNames = this.rack.getMixerPages().map(page => page.getName())
-        const activeMixerPageIndex = this.rack.getActiveMixerPage().getIndex()
+        super.updateDisplay()
+        //todo: refactor drumPad so getChains can be called generically instead of getDrumPads
+        const displayValues = this.getRack()
+            .getActiveMixerPage()
+            .getParameters()
+            .map(parameter => parameter.getDisplayValue())
+            .slice(0, 8)
 
-        this.controlSurface.display.line(
-            0,
-            this.rack
-                .getDrumPads()
-                .map(pad => pad.getInstrumentRack().getName())
-                .slice(0, 8)
-        )
-        this.controlSurface.display.line(
-            1,
-            drumRackMixerPage
-                .getParameters()
-                .map(parameter => parameter.getDisplayValue())
-                .slice(0, 8)
-        )
-        this.controlSurface.display.title(2, [])
-        this.controlSurface.display.menu(3, mixerPageNames, activeMixerPageIndex)
-        this.controlSurface.trackSelect.map(mixerPageNames.length, activeMixerPageIndex)
+        const padNames = this.getRack()
+            .getDrumPads()
+            .map(pad => pad.getInstrumentRack().getName())
+            .slice(0, 8)
+
+        this.controlSurface.display.line(0, padNames)
+        this.controlSurface.display.line(1, displayValues)
         this.controlSurface.trackState.map([])
     }
 }
