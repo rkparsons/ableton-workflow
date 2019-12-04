@@ -15,7 +15,7 @@ export class DrumTrack extends Track {
     }
 
     onSingleTrackModeButton() {
-        this.setMode(mode.PAD_MIXER)
+        this.setMode(mode.INSTRUMENT_RACK_MIXER)
     }
 
     onClipModeButton() {
