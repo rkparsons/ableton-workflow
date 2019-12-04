@@ -1,4 +1,4 @@
-export function DrumLayer(index, name, parameterPages, muteParameter) {
+export function InstrumentChain(index, name, parameterPages, muteParameter) {
     var activeParameterPageIndex = 0
 
     this.getIndex = function() {

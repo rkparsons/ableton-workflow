@@ -1,4 +1,4 @@
-import { DrumLayer } from '../models/drumLayer'
+import { InstrumentChain } from '../models/instrumentChain'
 import { createParameter } from './parameterFactory'
 import { createParameterPages } from './parameterPageFactory'
 
@@ -13,7 +13,7 @@ export function createDrumLayers(samplesFolder, drumPadName, pathToDrumLayers, d
         const parameterPages = createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount)
         const muteParameter = createParameter('Layer', 'Mute', pathToDrumLayer)
 
-        drumLayers[i] = new DrumLayer(i, drumLayerName, parameterPages, muteParameter)
+        drumLayers[i] = new InstrumentChain(i, drumLayerName, parameterPages, muteParameter)
     }
 
     return drumLayers
