@@ -27,7 +27,7 @@ export class DrumTrack extends Track {
     }
 
     onBrowseModeButton() {
-        this.setMode(mode.LAYER_FX)
+        this.setMode(mode.CHAIN_FX)
     }
 
     onMasterSelectButton(isPressed) {

@@ -1,13 +1,13 @@
 import { DrumTrackMode } from './drumTrackMode'
 import mode from '../constants/mode'
 
-export class LayerFxMode extends DrumTrackMode {
+export class ChainFxMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
     }
 
     canHandle(modeType) {
-        return modeType === mode.LAYER_FX
+        return modeType === mode.CHAIN_FX
     }
 
     incrementDrumLayer() {
@@ -29,7 +29,6 @@ export class LayerFxMode extends DrumTrackMode {
     }
 
     updateDisplay() {
-        //todo: replace blank layer with separate mode
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {

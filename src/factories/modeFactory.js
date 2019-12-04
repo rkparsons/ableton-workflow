@@ -1,6 +1,6 @@
+import { ChainFxMode } from '../uiModes/chainFxMode'
 import { ChainParamsMode } from '../uiModes/chainParamsMode'
 import { InactiveMode } from '../uiModes/inactiveMode'
-import { LayerFxMode } from '../uiModes/layerFxMode'
 import { PadFxMode } from '../uiModes/padFxMode'
 import { PadMixerMode } from '../uiModes/padMixerMode'
 import { RackFxMode } from '../uiModes/rackFxMode'
@@ -11,7 +11,7 @@ export function createModes(drumRack, controlSurface) {
     return [
         new InactiveMode(drumRack, controlSurface),
         new ChainParamsMode(drumRack, controlSurface),
-        new LayerFxMode(drumRack, controlSurface),
+        new ChainFxMode(drumRack, controlSurface),
         new PadMixerMode(drumRack, controlSurface),
         new PadFxMode(drumRack, controlSurface),
         new RackMixerMode(drumRack, controlSurface),
