@@ -1,8 +1,8 @@
-import { DrumTrackMode } from './drumTrackMode'
+import { UiMode } from './uiMode'
 import command from '../constants/command'
 import mode from '../constants/mode'
 
-export class InstrumentRackMixerMode extends DrumTrackMode {
+export class InstrumentRackMixerMode extends UiMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
     }

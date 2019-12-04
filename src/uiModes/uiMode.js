@@ -1,5 +1,5 @@
 //todo: call updateDisplay after everything
-export class DrumTrackMode {
+export class UiMode {
     constructor(drumRack, controlSurface) {
         this.drumRack = drumRack
         this.controlSurface = controlSurface

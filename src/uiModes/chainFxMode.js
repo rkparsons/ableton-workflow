@@ -1,7 +1,7 @@
-import { DrumTrackMode } from './drumTrackMode'
+import { UiMode } from './uiMode'
 import mode from '../constants/mode'
 
-export class ChainFxMode extends DrumTrackMode {
+export class ChainFxMode extends UiMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
     }

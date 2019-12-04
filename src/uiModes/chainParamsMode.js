@@ -1,9 +1,9 @@
-import { DrumTrackMode } from './drumTrackMode'
+import { UiMode } from './uiMode'
 import command from '../constants/command'
 import mode from '../constants/mode'
 
 //todo: add can handle enum to strategies
-export class ChainParamsMode extends DrumTrackMode {
+export class ChainParamsMode extends UiMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
     }
