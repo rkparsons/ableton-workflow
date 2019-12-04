@@ -12,34 +12,23 @@ export class ChainFxMode extends UiMode {
 
     incrementChain() {
         this.ignore()
-        this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .incrementActiveChain()
+        this.drumRack.getActiveInstrumentRack().incrementActiveChain()
         this.observe()
     }
 
     decrementChain() {
         this.ignore()
-        this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .decrementActiveChain()
+        this.drumRack.getActiveInstrumentRack().decrementActiveChain()
         this.observe()
     }
 
     updateDisplay() {
-        const activeDrumPad = this.drumRack.getActiveDrumPad()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
-        if (activeDrumPad) {
+        if (activeInstrumentRack) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [
-                activeDrumPad
-                    .getInstrumentRack()
-                    .getActiveChain()
-                    .getName() + ' FX',
-            ])
+            this.controlSurface.display.title(2, [activeInstrumentRack.getActiveChain().getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])

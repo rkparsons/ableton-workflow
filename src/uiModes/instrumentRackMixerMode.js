@@ -12,7 +12,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     observe() {
-        const activeInstrumentRack = this.drumRack.getActiveDrumPad().getInstrumentRack()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
         activeInstrumentRack
             .getActiveMixerPage()
@@ -23,14 +23,14 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     ignore() {
-        const activeActiveInstrumentRack = this.drumRack.getActiveDrumPad().getInstrumentRack()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
-        activeActiveInstrumentRack
+        activeInstrumentRack
             .getActiveMixerPage()
             .getParameters()
             .forEach(parameter => parameter.ignore())
 
-        activeActiveInstrumentRack.getChains().forEach(chain => chain.getMuteParameter().ignore())
+        activeInstrumentRack.getChains().forEach(chain => chain.getMuteParameter().ignore())
     }
 
     handleTrackSelectButtons(isPressed, buttonIndex) {
@@ -39,10 +39,7 @@ export class InstrumentRackMixerMode extends UiMode {
         }
 
         this.ignore()
-        this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .setActiveMixerPage(buttonIndex)
+        this.drumRack.getActiveInstrumentRack().setActiveMixerPage(buttonIndex)
         this.observe()
     }
 
@@ -52,8 +49,7 @@ export class InstrumentRackMixerMode extends UiMode {
         }
 
         const muteParameter = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getChains()
             [buttonIndex].getMuteParameter()
 
@@ -63,10 +59,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const page = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .getActiveMixerPage()
+        const page = this.drumRack.getActiveInstrumentRack().getActiveMixerPage()
         targetCommand === command.DEFAULT ? page.default() : page.random()
 
         this.updateDisplay()
@@ -74,8 +67,7 @@ export class InstrumentRackMixerMode extends UiMode {
 
     executeParamLevelCommand(targetCommand, encoderIndex) {
         const param = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getActiveMixerPage()
             .getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param.default() : param.random()
@@ -85,8 +77,7 @@ export class InstrumentRackMixerMode extends UiMode {
 
     sendValue(value, encoderIndex) {
         this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getActiveMixerPage()
             .getParameter(encoderIndex)
             .sendValue(value)
@@ -95,7 +86,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     updateDisplay() {
-        const activeInstrumentRack = this.drumRack.getActiveDrumPad().getInstrumentRack()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
             const drumPadMixerPage = activeInstrumentRack.getActiveMixerPage()

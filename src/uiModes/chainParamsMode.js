@@ -13,53 +13,48 @@ export class ChainParamsMode extends UiMode {
     }
 
     observe() {
-        const activeChain = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .getActiveChain()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
-        activeChain.getMuteParameter().observe()
-        activeChain
-            .getActiveParameterPage()
-            .getParameters()
-            .forEach(parameter => parameter.observe())
+        if (activeInstrumentRack) {
+            const activeChain = activeInstrumentRack.getActiveChain()
+
+            activeChain.getMuteParameter().observe()
+            activeChain
+                .getActiveParameterPage()
+                .getParameters()
+                .forEach(parameter => parameter.observe())
+        }
     }
 
     ignore() {
-        const activeChain = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .getActiveChain()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
-        activeChain.getMuteParameter().ignore()
-        activeChain
-            .getActiveParameterPage()
-            .getParameters()
-            .forEach(parameter => parameter.ignore())
+        if (activeInstrumentRack) {
+            const activeChain = activeInstrumentRack.getActiveChain()
+
+            activeChain.getMuteParameter().ignore()
+            activeChain
+                .getActiveParameterPage()
+                .getParameters()
+                .forEach(parameter => parameter.ignore())
+        }
     }
 
     incrementChain() {
         this.ignore()
-        this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .incrementActiveChain()
+        this.drumRack.getActiveInstrumentRack().incrementActiveChain()
         this.observe()
     }
 
     decrementChain() {
         this.ignore()
-        this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .decrementActiveChain()
+        this.drumRack.getActiveInstrumentRack().decrementActiveChain()
         this.observe()
     }
 
     handleTempoControl(encoderValue) {
         const sampleParameter = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
             .getSampleParameter()
@@ -83,10 +78,7 @@ export class ChainParamsMode extends UiMode {
         }
 
         //todo: refactor big method chains into class method
-        const activeChain = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .getActiveChain()
+        const activeChain = this.drumRack.getActiveInstrumentRack().getActiveChain()
         const isMuted = activeChain.isMuted()
 
         if (!isMuted) {
@@ -102,8 +94,7 @@ export class ChainParamsMode extends UiMode {
         }
 
         const muteParameter = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getActiveChain()
             .getMuteParameter()
 
@@ -111,10 +102,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const activeChain = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
-            .getActiveChain()
+        const activeChain = this.drumRack.getActiveInstrumentRack().getActiveChain()
 
         if (!activeChain.isMuted()) {
             const page = activeChain.getActiveParameterPage()
@@ -126,8 +114,7 @@ export class ChainParamsMode extends UiMode {
 
     executeParamLevelCommand(targetCommand, encoderIndex) {
         const page = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
         const param = page.getParameter(encoderIndex)
@@ -142,8 +129,7 @@ export class ChainParamsMode extends UiMode {
 
     sendValue(value, encoderIndex) {
         const page = this.drumRack
-            .getActiveDrumPad()
-            .getInstrumentRack()
+            .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
 
@@ -164,10 +150,10 @@ export class ChainParamsMode extends UiMode {
     }
 
     updateDisplay() {
-        const activeDrumPad = this.drumRack.getActiveDrumPad()
+        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
 
-        if (activeDrumPad) {
-            const activeChain = activeDrumPad.getInstrumentRack().getActiveChain()
+        if (activeInstrumentRack) {
+            const activeChain = activeInstrumentRack.getActiveChain()
             const activeParameterPage = activeChain.getActiveParameterPage()
             const parameterPageNames = activeChain.getParameterPages().map(page => page.getName())
             const activeParameterPageIndex = activeChain.getActiveParameterPage().getIndex()
