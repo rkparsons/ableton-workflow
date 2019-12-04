@@ -13,7 +13,7 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     observe() {
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
 
         activeDrumLayer.getMuteParameter().observe()
         activeDrumLayer
@@ -23,7 +23,7 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     ignore() {
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
 
         activeDrumLayer.getMuteParameter().ignore()
         activeDrumLayer
@@ -47,7 +47,7 @@ export class LayerParamsMode extends DrumTrackMode {
     handleTempoControl(encoderValue) {
         const sampleParameter = this.drumRack
             .getActiveDrumPad()
-            .getActiveDrumLayer()
+            .getActiveChain()
             .getActiveParameterPage()
             .getSampleParameter()
 
@@ -70,7 +70,7 @@ export class LayerParamsMode extends DrumTrackMode {
         }
 
         //todo: refactor big method chains into class method
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
         const isMuted = activeDrumLayer.isMuted()
 
         if (!isMuted) {
@@ -87,14 +87,14 @@ export class LayerParamsMode extends DrumTrackMode {
 
         const muteParameter = this.drumRack
             .getActiveDrumPad()
-            .getActiveDrumLayer()
+            .getActiveChain()
             .getMuteParameter()
 
         muteParameter.setValue(!Boolean(muteParameter.getValue()))
     }
 
     executePageLevelCommand(targetCommand) {
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveDrumLayer()
+        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
 
         if (!activeDrumLayer.isMuted()) {
             const page = activeDrumLayer.getActiveParameterPage()
@@ -107,7 +107,7 @@ export class LayerParamsMode extends DrumTrackMode {
     executeParamLevelCommand(targetCommand, encoderIndex) {
         const page = this.drumRack
             .getActiveDrumPad()
-            .getActiveDrumLayer()
+            .getActiveChain()
             .getActiveParameterPage()
         const param = page.getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param.default() : param.random()
@@ -122,7 +122,7 @@ export class LayerParamsMode extends DrumTrackMode {
     sendValue(value, encoderIndex) {
         const page = this.drumRack
             .getActiveDrumPad()
-            .getActiveDrumLayer()
+            .getActiveChain()
             .getActiveParameterPage()
 
         page.getParameter(encoderIndex).sendValue(value)
@@ -145,7 +145,7 @@ export class LayerParamsMode extends DrumTrackMode {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {
-            const activeDrumLayer = activeDrumPad.getActiveDrumLayer()
+            const activeDrumLayer = activeDrumPad.getActiveChain()
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
             const parameterPageNames = activeDrumLayer.getParameterPages().map(page => page.getName())
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()

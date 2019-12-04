@@ -1,4 +1,4 @@
-import { DrumPad } from '../models/drumPad'
+import { InstrumentRack } from '../models/instrumentRack'
 import { createDrumLayers } from './drumLayerFactory'
 import { createMixerPages } from './parameterPageFactory'
 
@@ -18,7 +18,7 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
             const mixerPages = createMixerPages(pathToDrumLayers, drumLayerCount)
             const drumPadId = parseInt(drumPadApi.id)
 
-            drumPads.push(new DrumPad(drumPadId, drumPadName, drumLayers, mixerPages))
+            drumPads.push(new InstrumentRack(drumPadId, drumPadName, drumLayers, mixerPages))
         }
     }
 

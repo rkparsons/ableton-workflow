@@ -19,7 +19,7 @@ export class PadMixerMode extends DrumTrackMode {
             .getParameters()
             .forEach(parameter => parameter.observe())
 
-        activeDrumPad.getDrumLayers().forEach(drumLayer => drumLayer.getMuteParameter().observe())
+        activeDrumPad.getChains().forEach(drumLayer => drumLayer.getMuteParameter().observe())
     }
 
     ignore() {
@@ -30,7 +30,7 @@ export class PadMixerMode extends DrumTrackMode {
             .getParameters()
             .forEach(parameter => parameter.ignore())
 
-        activeDrumPad.getDrumLayers().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
+        activeDrumPad.getChains().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
     }
 
     handleTrackSelectButtons(isPressed, buttonIndex) {
@@ -50,7 +50,7 @@ export class PadMixerMode extends DrumTrackMode {
 
         const muteParameter = this.drumRack
             .getActiveDrumPad()
-            .getDrumLayers()
+            .getChains()
             [buttonIndex].getMuteParameter()
 
         muteParameter.setValue(!Boolean(muteParameter.getValue()))
@@ -92,9 +92,9 @@ export class PadMixerMode extends DrumTrackMode {
             const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
             const drumPadMixerPageNames = activeDrumPad.getMixerPages().map(page => page.getName())
             // todo: replace Boolean with isMuted layer function
-            const layerOnStates = activeDrumPad.getDrumLayers().map(layer => !Boolean(layer.getMuteParameter().getValue()))
+            const layerOnStates = activeDrumPad.getChains().map(layer => !Boolean(layer.getMuteParameter().getValue()))
             const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (layerOnStates[index] ? parameter.getDisplayValue() : ''))
-            const drumLayerNames = activeDrumPad ? activeDrumPad.getDrumLayers().map(layer => layer.getName()) : null
+            const drumLayerNames = activeDrumPad ? activeDrumPad.getChains().map(layer => layer.getName()) : null
 
             this.controlSurface.display.line(0, drumLayerNames)
             this.controlSurface.display.line(1, displayValues)

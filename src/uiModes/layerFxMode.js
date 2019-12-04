@@ -29,7 +29,7 @@ export class LayerFxMode extends DrumTrackMode {
         if (activeDrumPad) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [activeDrumPad.getActiveDrumLayer().getName() + ' FX'])
+            this.controlSurface.display.title(2, [activeDrumPad.getActiveChain().getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])

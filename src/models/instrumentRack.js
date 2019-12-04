@@ -1,5 +1,5 @@
-export function DrumPad(id, name, drumLayers, mixerPages) {
-    var activeDrumLayerIndex = 0
+export function InstrumentRack(id, name, chains, mixerPages) {
+    var activeChainIndex = 0
     var activeMixerPageIndex = 0
 
     this.getId = function() {
@@ -11,8 +11,8 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
     }
 
     this.onValueChanged = function(callback) {
-        for (i in drumLayers) {
-            drumLayers[i].onValueChanged(callback)
+        for (i in chains) {
+            chains[i].onValueChanged(callback)
         }
 
         for (i in mixerPages) {
@@ -20,23 +20,23 @@ export function DrumPad(id, name, drumLayers, mixerPages) {
         }
     }
 
-    this.getDrumLayers = function() {
-        return drumLayers
+    this.getChains = function() {
+        return chains
     }
 
-    this.getActiveDrumLayer = function() {
-        return drumLayers[Math.round(activeDrumLayerIndex)]
+    this.getActiveChain = function() {
+        return chains[Math.round(activeChainIndex)]
     }
 
-    this.incrementActiveDrumLayer = function() {
-        if (activeDrumLayerIndex < drumLayers.length - 1) {
-            activeDrumLayerIndex++
+    this.incrementActiveChain = function() {
+        if (activeChainIndex < chains.length - 1) {
+            activeChainIndex++
         }
     }
 
-    this.decrementActiveDrumLayer = function() {
-        if (activeDrumLayerIndex > 0) {
-            activeDrumLayerIndex--
+    this.decrementActiveChain = function() {
+        if (activeChainIndex > 0) {
+            activeChainIndex--
         }
     }
 
