@@ -23,7 +23,7 @@ export class DrumTrack extends Track {
     }
 
     onDeviceModeButton() {
-        this.setMode(mode.LAYER_PARAMS)
+        this.setMode(mode.CHAIN_PARAMS)
     }
 
     onBrowseModeButton() {

@@ -3,36 +3,36 @@ import command from '../constants/command'
 import mode from '../constants/mode'
 
 //todo: add can handle enum to strategies
-export class LayerParamsMode extends DrumTrackMode {
+export class ChainParamsMode extends DrumTrackMode {
     constructor(drumRack, controlSurface) {
         super(drumRack, controlSurface)
     }
 
     canHandle(modeType) {
-        return modeType === mode.LAYER_PARAMS
+        return modeType === mode.CHAIN_PARAMS
     }
 
     observe() {
-        const activeDrumLayer = this.drumRack
+        const activeChain = this.drumRack
             .getActiveDrumPad()
             .getInstrumentRack()
             .getActiveChain()
 
-        activeDrumLayer.getMuteParameter().observe()
-        activeDrumLayer
+        activeChain.getMuteParameter().observe()
+        activeChain
             .getActiveParameterPage()
             .getParameters()
             .forEach(parameter => parameter.observe())
     }
 
     ignore() {
-        const activeDrumLayer = this.drumRack
+        const activeChain = this.drumRack
             .getActiveDrumPad()
             .getInstrumentRack()
             .getActiveChain()
 
-        activeDrumLayer.getMuteParameter().ignore()
-        activeDrumLayer
+        activeChain.getMuteParameter().ignore()
+        activeChain
             .getActiveParameterPage()
             .getParameters()
             .forEach(parameter => parameter.ignore())
@@ -83,15 +83,15 @@ export class LayerParamsMode extends DrumTrackMode {
         }
 
         //todo: refactor big method chains into class method
-        const activeDrumLayer = this.drumRack
+        const activeChain = this.drumRack
             .getActiveDrumPad()
             .getInstrumentRack()
             .getActiveChain()
-        const isMuted = activeDrumLayer.isMuted()
+        const isMuted = activeChain.isMuted()
 
         if (!isMuted) {
             this.ignore()
-            activeDrumLayer.setActiveParameterPage(buttonIndex)
+            activeChain.setActiveParameterPage(buttonIndex)
             this.observe()
         }
     }
@@ -111,13 +111,13 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const activeDrumLayer = this.drumRack
+        const activeChain = this.drumRack
             .getActiveDrumPad()
             .getInstrumentRack()
             .getActiveChain()
 
-        if (!activeDrumLayer.isMuted()) {
-            const page = activeDrumLayer.getActiveParameterPage()
+        if (!activeChain.isMuted()) {
+            const page = activeChain.getActiveParameterPage()
             targetCommand === command.DEFAULT ? page.default() : page.random()
         }
 
@@ -167,18 +167,18 @@ export class LayerParamsMode extends DrumTrackMode {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {
-            const activeDrumLayer = activeDrumPad.getInstrumentRack().getActiveChain()
-            const activeParameterPage = activeDrumLayer.getActiveParameterPage()
-            const parameterPageNames = activeDrumLayer.getParameterPages().map(page => page.getName())
-            const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()
+            const activeChain = activeDrumPad.getInstrumentRack().getActiveChain()
+            const activeParameterPage = activeChain.getActiveParameterPage()
+            const parameterPageNames = activeChain.getParameterPages().map(page => page.getName())
+            const activeParameterPageIndex = activeChain.getActiveParameterPage().getIndex()
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
-            const isLayerMuted = activeDrumLayer.isMuted()
+            const isChainMuted = activeChain.isMuted()
 
-            // why is this executed so many times when layer changed?
-            if (isLayerMuted) {
+            // why is this executed so many times when chain changed?
+            if (isChainMuted) {
                 this.controlSurface.display.line(0, [' '])
                 this.controlSurface.display.line(1, [' '])
-                this.controlSurface.display.title(2, [activeDrumLayer.getName()])
+                this.controlSurface.display.title(2, [activeChain.getName()])
                 this.controlSurface.display.menu(3, ['Off'])
                 this.controlSurface.trackSelect.map(0, 0)
                 this.controlSurface.trackState.map([0])
@@ -188,7 +188,7 @@ export class LayerParamsMode extends DrumTrackMode {
                     1,
                     activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue())
                 )
-                this.controlSurface.display.title(2, [activeDrumLayer.getName()])
+                this.controlSurface.display.title(2, [activeChain.getName()])
                 this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
                 this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
                 this.controlSurface.trackState.map([1])

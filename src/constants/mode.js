@@ -1,6 +1,6 @@
 export default {
     INACTIVE: 0,
-    LAYER_PARAMS: 1,
+    CHAIN_PARAMS: 1,
     LAYER_FX: 2,
     PAD_MIXER: 3,
     PAD_FX: 4,
