@@ -1,20 +1,21 @@
-export class DrumRack {
-    constructor(pathToDrumRack, drumPads, mixerPages) {
-        this.pathToDrumRack = pathToDrumRack
+import { Rack } from './rack'
+
+export class DrumRack extends Rack {
+    constructor(pathToRack, drumPads, mixerPages) {
+        super(mixerPages)
+        this.pathToRack = pathToRack
         this.drumPads = drumPads
-        this.mixerPages = mixerPages
-        this.activeMixerPageIndex = 0
         this.activeDrumPadId = null
         this.selectedPadApi = null
     }
 
     onValueChanged(callback) {
+        super.onValueChanged(callback)
         this.drumPads.forEach(pad => pad.getInstrumentRack().onValueChanged(callback))
-        this.mixerPages.forEach(page => page.onValueChanged(callback))
     }
 
     onDrumPadSelected(callback) {
-        this.selectedPadApi = new LiveAPI(callback, this.pathToDrumRack + ' view')
+        this.selectedPadApi = new LiveAPI(callback, this.pathToRack + ' view')
         this.selectedPadApi.property = 'selected_drum_pad'
     }
 
@@ -29,17 +30,5 @@ export class DrumRack {
 
     setActiveDrumPad(value) {
         this.activeDrumPadId = value
-    }
-
-    getMixerPages() {
-        return this.mixerPages
-    }
-
-    getActiveMixerPage() {
-        return this.mixerPages[this.activeMixerPageIndex]
-    }
-
-    setActiveMixerPage(index) {
-        this.activeMixerPageIndex = index
     }
 }
