@@ -5,5 +5,5 @@ export default {
     INSTRUMENT_RACK_MIXER: 3,
     INSTRUMENT_RACK_FX: 4,
     DRUM_RACK_MIXER: 5,
-    RACK_FX: 6,
+    DRUM_RACK_FX: 6,
 }

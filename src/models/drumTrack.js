@@ -11,7 +11,7 @@ export class DrumTrack extends Track {
         this.setMode(mode.DRUM_RACK_MIXER)
     }
     onPanSendModeButton() {
-        this.setMode(mode.RACK_FX)
+        this.setMode(mode.DRUM_RACK_FX)
     }
 
     onSingleTrackModeButton() {
