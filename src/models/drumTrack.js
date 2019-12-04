@@ -19,7 +19,7 @@ export class DrumTrack extends Track {
     }
 
     onClipModeButton() {
-        this.setMode(mode.PAD_FX)
+        this.setMode(mode.INSTRUMENT_RACK_FX)
     }
 
     onDeviceModeButton() {
