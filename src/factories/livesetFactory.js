@@ -9,13 +9,9 @@ export function createLiveset(pathToPatcher) {
 
     // todo: find track index by name
     const drumTrack = createDrumTrack(controlSurface, pathToSamples, 0)
+    // const bassTrack = createBassTrack(controlSurface, pathToSamples, 1)
 
     const liveset = new Liveset(drumTrack)
-
-    // const bassTrackIndex = 1
-    // const pathToBassSamples = path.join(pathToSamples, 'Bass')
-    // const bassTrack = createBassTrack(controlSurface, pathToBassSamples, bassTrackIndex)
-    // bassTrack.initialise()
 
     controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => liveset.toggleActive(isPressed))
 
