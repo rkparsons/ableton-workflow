@@ -27,7 +27,7 @@ export const parameterConfig = {
         },
     },
 
-    Layer: {
+    Chain: {
         Mute: {
             displayName: 'Mute',
             property: 'mute',

@@ -1,5 +1,5 @@
-export function getCategories(samplesFolder, drumPadName, drumLayerName) {
-    const folder = new Folder(getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName))
+export function getCategories(samplesFolder, instrumentRackName, chainName) {
+    const folder = new Folder(getSamplesFolderPath(samplesFolder, instrumentRackName, chainName))
     folder.typelist = ['fold']
 
     let categories = {}
@@ -16,18 +16,18 @@ export function getCategories(samplesFolder, drumPadName, drumLayerName) {
     return categories
 }
 
-export function getSampleGroups(samplesFolder, drumPadName, drumLayerName, categories) {
+export function getSampleGroups(samplesFolder, instrumentRackName, chainName, categories) {
     let sampleGroups = {}
 
     for (i in categories) {
-        sampleGroups[categories[i]] = getSamples(samplesFolder, drumPadName, drumLayerName, categories[i])
+        sampleGroups[categories[i]] = getSamples(samplesFolder, instrumentRackName, chainName, categories[i])
     }
 
     return sampleGroups
 }
 
-function getSamples(samplesFolder, drumPadName, drumLayerName, category) {
-    const folder = new Folder(getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName) + '/' + category)
+function getSamples(samplesFolder, instrumentRackName, chainName, category) {
+    const folder = new Folder(getSamplesFolderPath(samplesFolder, instrumentRackName, chainName) + '/' + category)
     folder.typelist = ['WAVE']
 
     let sampleNames = []
@@ -44,9 +44,9 @@ function getSamples(samplesFolder, drumPadName, drumLayerName, category) {
     return [...new Set(sampleNames)]
 }
 
-function getSamplesFolderPath(samplesFolder, drumPadName, drumLayerName) {
-    const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(drumLayerName.toString()) >= 0
-    const drumPadFolder = isSharedSampleFolder ? 'Shared' : drumPadName
+function getSamplesFolderPath(samplesFolder, instrumentRackName, chainName) {
+    const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(chainName.toString()) >= 0
+    const drumPadFolder = isSharedSampleFolder ? 'Shared' : instrumentRackName
 
-    return samplesFolder + '/' + drumPadFolder + '/' + drumLayerName
+    return samplesFolder + '/' + drumPadFolder + '/' + chainName
 }

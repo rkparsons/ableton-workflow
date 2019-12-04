@@ -4,26 +4,26 @@ import { ParameterPage } from '../models/parameterPage'
 import { parameterConfig } from '../config/parameterConfig'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
-export function createParameterPages(samplesFolder, drumPadName, drumLayerName, pathToDrumLayer, devicesCount) {
+export function createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, devicesCount) {
     //todo: replace vars with let
     var parameterPages = []
     var deviceTypeToIndex = {}
     var instrumentType = null
 
     for (var deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
-        const deviceApi = new LiveAPI(null, pathToDrumLayer + ' devices ' + deviceIndex)
+        const deviceApi = new LiveAPI(null, pathToChain + ' devices ' + deviceIndex)
         const deviceType = parseInt(deviceApi.get('type'))
         const deviceName = deviceApi.get('name').toString()
 
         deviceTypeToIndex[deviceName] = deviceIndex
 
         if (deviceType === 1) {
-            instrumentType = drumPadName === 'Break' ? 'BreakSampler' : deviceName
+            instrumentType = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
         }
     }
 
     parameterPageConfig[instrumentType].forEach(function(page, index) {
-        const result = createParameters(samplesFolder, drumPadName, drumLayerName, page.parameters, deviceTypeToIndex, pathToDrumLayer)
+        const result = createParameters(samplesFolder, instrumentRackName, chainName, page.parameters, deviceTypeToIndex, pathToChain)
 
         parameterPages.push(new ParameterPage(index, page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex, result.repitchParameterIndex, result.bpmParameterIndex))
     })

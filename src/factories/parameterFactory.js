@@ -8,7 +8,7 @@ import { ValueParameter } from '../models/valueParameter'
 import { parameterConfig } from '../config/parameterConfig'
 import unitType from '../constants/unitType'
 
-export function createParameters(samplesFolder, drumPadName, drumLayerName, parameterNames, deviceTypeToIndex, pathToDrumLayer) {
+export function createParameters(samplesFolder, instrumentRackName, chainName, parameterNames, deviceTypeToIndex, pathToChain) {
     let parameters = []
     let categoryParameterIndex = null
     let sampleParameterIndex = null
@@ -22,7 +22,7 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
             const targetDeviceType = parameterNameParts[0]
             const targetParameterName = parameterNameParts[1]
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-            const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToDrumLayer + ' devices ' + targetDeviceIndex : pathToDrumLayer
+            const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
             const targetDeviceConfig = parameterConfig[targetDeviceType]
             const targetParameterConfig = targetDeviceConfig ? targetDeviceConfig[targetParameterName] : null
 
@@ -37,18 +37,18 @@ export function createParameters(samplesFolder, drumPadName, drumLayerName, para
             //todo: pass config object and destructure in constructor
             // refactor out conditional logic
             if (targetParameterName === 'Category') {
-                sampleCategories = getCategories(samplesFolder, drumPadName, drumLayerName)
+                sampleCategories = getCategories(samplesFolder, instrumentRackName, chainName)
                 targetParameterConfig.options = sampleCategories
                 categoryParameterIndex = parameterindex
 
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterName === 'Select') {
-                targetParameterConfig.options = getSampleGroups(samplesFolder, drumPadName, drumLayerName, sampleCategories)
+                targetParameterConfig.options = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
                 sampleParameterIndex = parameterindex
                 parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
-            } else if (drumPadName === 'Break' && targetParameterName === 'Repitch') {
+            } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 repitchWarpParameterIndex = parameterindex
                 parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
