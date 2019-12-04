@@ -1,10 +1,6 @@
-export function InstrumentRack(id, name, chains, mixerPages) {
+export function InstrumentRack(name, chains, mixerPages) {
     var activeChainIndex = 0
     var activeMixerPageIndex = 0
-
-    this.getId = function() {
-        return id
-    }
 
     this.getName = function() {
         return name

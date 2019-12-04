@@ -12,13 +12,19 @@ export class LayerFxMode extends DrumTrackMode {
 
     incrementDrumLayer() {
         this.ignore()
-        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer()
+        this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .incrementActiveChain()
         this.observe()
     }
 
     decrementDrumLayer() {
         this.ignore()
-        this.drumRack.getActiveDrumPad().decrementActiveDrumLayer()
+        this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .decrementActiveChain()
         this.observe()
     }
 
@@ -29,7 +35,12 @@ export class LayerFxMode extends DrumTrackMode {
         if (activeDrumPad) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [activeDrumPad.getActiveChain().getName() + ' FX'])
+            this.controlSurface.display.title(2, [
+                activeDrumPad
+                    .getInstrumentRack()
+                    .getActiveChain()
+                    .getName() + ' FX',
+            ])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])

@@ -16,7 +16,7 @@ export class PadFxMode extends DrumTrackMode {
         if (activeDrumPad) {
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [activeDrumPad.getName() + ' FX'])
+            this.controlSurface.display.title(2, [activeDrumPad.getInstrumentRack().getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])

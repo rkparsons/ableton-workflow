@@ -5,7 +5,7 @@ export function DrumRack(pathToDrumRack, drumPads, mixerPages) {
 
     this.onValueChanged = function(callback) {
         for (i in drumPads) {
-            drumPads[i].onValueChanged(callback)
+            drumPads[i].getInstrumentRack().onValueChanged(callback)
         }
 
         for (i in mixerPages) {

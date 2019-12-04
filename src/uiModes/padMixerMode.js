@@ -12,25 +12,25 @@ export class PadMixerMode extends DrumTrackMode {
     }
 
     observe() {
-        const activeDrumPad = this.drumRack.getActiveDrumPad()
+        const activeInstrumentRack = this.drumRack.getActiveDrumPad().getInstrumentRack()
 
-        activeDrumPad
+        activeInstrumentRack
             .getActiveMixerPage()
             .getParameters()
             .forEach(parameter => parameter.observe())
 
-        activeDrumPad.getChains().forEach(drumLayer => drumLayer.getMuteParameter().observe())
+        activeInstrumentRack.getChains().forEach(drumLayer => drumLayer.getMuteParameter().observe())
     }
 
     ignore() {
-        const activeDrumPad = this.drumRack.getActiveDrumPad()
+        const activeActiveInstrumentRack = this.drumRack.getActiveDrumPad().getInstrumentRack()
 
-        activeDrumPad
+        activeActiveInstrumentRack
             .getActiveMixerPage()
             .getParameters()
             .forEach(parameter => parameter.ignore())
 
-        activeDrumPad.getChains().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
+        activeActiveInstrumentRack.getChains().forEach(drumLayer => drumLayer.getMuteParameter().ignore())
     }
 
     handleTrackSelectButtons(isPressed, buttonIndex) {
@@ -39,7 +39,10 @@ export class PadMixerMode extends DrumTrackMode {
         }
 
         this.ignore()
-        this.drumRack.getActiveDrumPad().setActiveMixerPage(buttonIndex)
+        this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .setActiveMixerPage(buttonIndex)
         this.observe()
     }
 
@@ -50,6 +53,7 @@ export class PadMixerMode extends DrumTrackMode {
 
         const muteParameter = this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getChains()
             [buttonIndex].getMuteParameter()
 
@@ -59,7 +63,10 @@ export class PadMixerMode extends DrumTrackMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const page = this.drumRack.getActiveDrumPad().getActiveMixerPage()
+        const page = this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .getActiveMixerPage()
         targetCommand === command.DEFAULT ? page.default() : page.random()
 
         this.updateDisplay()
@@ -68,6 +75,7 @@ export class PadMixerMode extends DrumTrackMode {
     executeParamLevelCommand(targetCommand, encoderIndex) {
         const param = this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getActiveMixerPage()
             .getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param.default() : param.random()
@@ -78,6 +86,7 @@ export class PadMixerMode extends DrumTrackMode {
     sendValue(value, encoderIndex) {
         this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getActiveMixerPage()
             .getParameter(encoderIndex)
             .sendValue(value)
@@ -86,19 +95,19 @@ export class PadMixerMode extends DrumTrackMode {
     }
 
     updateDisplay() {
-        const activeDrumPad = this.drumRack.getActiveDrumPad()
+        const activeInstrumentRack = this.drumRack.getActiveDrumPad().getInstrumentRack()
 
-        if (activeDrumPad) {
-            const drumPadMixerPage = activeDrumPad.getActiveMixerPage()
-            const drumPadMixerPageNames = activeDrumPad.getMixerPages().map(page => page.getName())
+        if (activeInstrumentRack) {
+            const drumPadMixerPage = activeInstrumentRack.getActiveMixerPage()
+            const drumPadMixerPageNames = activeInstrumentRack.getMixerPages().map(page => page.getName())
             // todo: replace Boolean with isMuted layer function
-            const layerOnStates = activeDrumPad.getChains().map(layer => !Boolean(layer.getMuteParameter().getValue()))
+            const layerOnStates = activeInstrumentRack.getChains().map(layer => !Boolean(layer.getMuteParameter().getValue()))
             const displayValues = drumPadMixerPage.getParameters().map((parameter, index) => (layerOnStates[index] ? parameter.getDisplayValue() : ''))
-            const drumLayerNames = activeDrumPad ? activeDrumPad.getChains().map(layer => layer.getName()) : null
+            const drumLayerNames = activeInstrumentRack ? activeInstrumentRack.getChains().map(layer => layer.getName()) : null
 
             this.controlSurface.display.line(0, drumLayerNames)
             this.controlSurface.display.line(1, displayValues)
-            this.controlSurface.display.title(2, [activeDrumPad.getName()])
+            this.controlSurface.display.title(2, [activeInstrumentRack.getName()])
             this.controlSurface.display.menu(3, drumPadMixerPageNames, drumPadMixerPage.getIndex())
             this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex())
             this.controlSurface.trackState.map(layerOnStates)

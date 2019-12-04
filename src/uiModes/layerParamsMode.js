@@ -13,7 +13,10 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     observe() {
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
+        const activeDrumLayer = this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .getActiveChain()
 
         activeDrumLayer.getMuteParameter().observe()
         activeDrumLayer
@@ -23,7 +26,10 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     ignore() {
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
+        const activeDrumLayer = this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .getActiveChain()
 
         activeDrumLayer.getMuteParameter().ignore()
         activeDrumLayer
@@ -34,19 +40,26 @@ export class LayerParamsMode extends DrumTrackMode {
 
     incrementDrumLayer() {
         this.ignore()
-        this.drumRack.getActiveDrumPad().incrementActiveDrumLayer()
+        this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .incrementActiveChain()
         this.observe()
     }
 
     decrementDrumLayer() {
         this.ignore()
-        this.drumRack.getActiveDrumPad().decrementActiveDrumLayer()
+        this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .decrementActiveChain()
         this.observe()
     }
 
     handleTempoControl(encoderValue) {
         const sampleParameter = this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
             .getSampleParameter()
@@ -70,7 +83,10 @@ export class LayerParamsMode extends DrumTrackMode {
         }
 
         //todo: refactor big method chains into class method
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
+        const activeDrumLayer = this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .getActiveChain()
         const isMuted = activeDrumLayer.isMuted()
 
         if (!isMuted) {
@@ -87,6 +103,7 @@ export class LayerParamsMode extends DrumTrackMode {
 
         const muteParameter = this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getActiveChain()
             .getMuteParameter()
 
@@ -94,7 +111,10 @@ export class LayerParamsMode extends DrumTrackMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const activeDrumLayer = this.drumRack.getActiveDrumPad().getActiveChain()
+        const activeDrumLayer = this.drumRack
+            .getActiveDrumPad()
+            .getInstrumentRack()
+            .getActiveChain()
 
         if (!activeDrumLayer.isMuted()) {
             const page = activeDrumLayer.getActiveParameterPage()
@@ -107,6 +127,7 @@ export class LayerParamsMode extends DrumTrackMode {
     executeParamLevelCommand(targetCommand, encoderIndex) {
         const page = this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
         const param = page.getParameter(encoderIndex)
@@ -122,6 +143,7 @@ export class LayerParamsMode extends DrumTrackMode {
     sendValue(value, encoderIndex) {
         const page = this.drumRack
             .getActiveDrumPad()
+            .getInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
 
@@ -145,7 +167,7 @@ export class LayerParamsMode extends DrumTrackMode {
         const activeDrumPad = this.drumRack.getActiveDrumPad()
 
         if (activeDrumPad) {
-            const activeDrumLayer = activeDrumPad.getActiveChain()
+            const activeDrumLayer = activeDrumPad.getInstrumentRack().getActiveChain()
             const activeParameterPage = activeDrumLayer.getActiveParameterPage()
             const parameterPageNames = activeDrumLayer.getParameterPages().map(page => page.getName())
             const activeParameterPageIndex = activeDrumLayer.getActiveParameterPage().getIndex()

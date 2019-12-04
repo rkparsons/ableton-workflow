@@ -68,7 +68,7 @@ export class RackMixerMode extends DrumTrackMode {
             0,
             this.drumRack
                 .getDrumPads()
-                .map(pad => pad.getName())
+                .map(pad => pad.getInstrumentRack().getName())
                 .slice(0, 8)
         )
         this.controlSurface.display.line(
