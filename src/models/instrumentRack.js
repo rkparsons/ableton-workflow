@@ -1,50 +1,50 @@
-export function InstrumentRack(name, chains, mixerPages) {
-    var activeChainIndex = 0
-    var activeMixerPageIndex = 0
-
-    this.getName = function() {
-        return name
+export class InstrumentRack {
+    constructor(name, chains, mixerPages) {
+        this.name = name
+        this.chains = chains
+        this.mixerPages = mixerPages
+        this.activeChainIndex = 0
+        this.activeMixerPageIndex = 0
     }
 
-    this.onValueChanged = function(callback) {
-        for (i in chains) {
-            chains[i].onValueChanged(callback)
-        }
-
-        for (i in mixerPages) {
-            mixerPages[i].onValueChanged(callback)
-        }
+    getName() {
+        return this.name
     }
 
-    this.getChains = function() {
-        return chains
+    onValueChanged(callback) {
+        this.chains.forEach(chain => chain.onValueChanged(callback))
+        this.mixerPages.forEach(page => page.onValueChanged(callback))
     }
 
-    this.getActiveChain = function() {
-        return chains[Math.round(activeChainIndex)]
+    getChains() {
+        return this.chains
     }
 
-    this.incrementActiveChain = function() {
-        if (activeChainIndex < chains.length - 1) {
-            activeChainIndex++
-        }
+    getActiveChain() {
+        return this.chains[Math.round(this.activeChainIndex)]
     }
 
-    this.decrementActiveChain = function() {
-        if (activeChainIndex > 0) {
-            activeChainIndex--
+    incrementActiveChain() {
+        if (this.activeChainIndex < this.chains.length - 1) {
+            this.activeChainIndex++
         }
     }
 
-    this.getMixerPages = function() {
-        return mixerPages
+    decrementActiveChain() {
+        if (this.activeChainIndex > 0) {
+            this.activeChainIndex--
+        }
     }
 
-    this.getActiveMixerPage = function() {
-        return mixerPages[activeMixerPageIndex]
+    getMixerPages() {
+        return this.mixerPages
     }
 
-    this.setActiveMixerPage = function(index) {
-        activeMixerPageIndex = index
+    getActiveMixerPage() {
+        return this.mixerPages[this.activeMixerPageIndex]
+    }
+
+    setActiveMixerPage(index) {
+        this.activeMixerPageIndex = index
     }
 }
