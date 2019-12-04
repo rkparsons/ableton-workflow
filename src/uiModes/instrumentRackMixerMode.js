@@ -3,8 +3,8 @@ import command from '../constants/command'
 import mode from '../constants/mode'
 
 export class InstrumentRackMixerMode extends UiMode {
-    constructor(drumRack, controlSurface) {
-        super(drumRack, controlSurface)
+    constructor(rack, controlSurface) {
+        super(rack, controlSurface)
     }
 
     canHandle(modeType) {
@@ -12,7 +12,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     observe() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         activeInstrumentRack
             .getActiveMixerPage()
@@ -23,7 +23,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     ignore() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         activeInstrumentRack
             .getActiveMixerPage()
@@ -39,7 +39,7 @@ export class InstrumentRackMixerMode extends UiMode {
         }
 
         this.ignore()
-        this.drumRack.getActiveInstrumentRack().setActiveMixerPage(buttonIndex)
+        this.rack.getActiveInstrumentRack().setActiveMixerPage(buttonIndex)
         this.observe()
     }
 
@@ -48,7 +48,7 @@ export class InstrumentRackMixerMode extends UiMode {
             return
         }
 
-        const muteParameter = this.drumRack
+        const muteParameter = this.rack
             .getActiveInstrumentRack()
             .getChains()
             [buttonIndex].getMuteParameter()
@@ -59,14 +59,14 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const page = this.drumRack.getActiveInstrumentRack().getActiveMixerPage()
+        const page = this.rack.getActiveInstrumentRack().getActiveMixerPage()
         targetCommand === command.DEFAULT ? page.default() : page.random()
 
         this.updateDisplay()
     }
 
     executeParamLevelCommand(targetCommand, encoderIndex) {
-        const param = this.drumRack
+        const param = this.rack
             .getActiveInstrumentRack()
             .getActiveMixerPage()
             .getParameter(encoderIndex)
@@ -76,7 +76,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     sendValue(value, encoderIndex) {
-        this.drumRack
+        this.rack
             .getActiveInstrumentRack()
             .getActiveMixerPage()
             .getParameter(encoderIndex)
@@ -86,7 +86,7 @@ export class InstrumentRackMixerMode extends UiMode {
     }
 
     updateDisplay() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
             const drumPadMixerPage = activeInstrumentRack.getActiveMixerPage()
@@ -103,7 +103,7 @@ export class InstrumentRackMixerMode extends UiMode {
             this.controlSurface.trackSelect.map(drumPadMixerPageNames.length, drumPadMixerPage.getIndex())
             this.controlSurface.trackState.map(chainOnStates)
         } else {
-            this.displayBlankPad()
+            this.displayBlank()
         }
     }
 }

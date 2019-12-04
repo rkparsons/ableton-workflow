@@ -1,7 +1,7 @@
 //todo: call updateDisplay after everything
 export class UiMode {
-    constructor(drumRack, controlSurface) {
-        this.drumRack = drumRack
+    constructor(rack, controlSurface) {
+        this.rack = rack
         this.controlSurface = controlSurface
         this.command = null
     }
@@ -40,7 +40,7 @@ export class UiMode {
         }
 
         this.ignore()
-        this.drumRack.setActiveDrumPad(drumPadId)
+        this.rack.setActiveDrumPad(drumPadId)
         this.observe()
     }
 
@@ -50,7 +50,7 @@ export class UiMode {
 
     updateDisplay() {}
 
-    displayBlankPad() {
+    displayBlank() {
         this.controlSurface.display.line(0, [' '])
         this.controlSurface.display.line(1, [' '])
         this.controlSurface.display.title(2, ['Blank'])

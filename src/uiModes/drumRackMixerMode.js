@@ -3,8 +3,8 @@ import command from '../constants/command'
 import mode from '../constants/mode'
 
 export class DrumRackMixerMode extends UiMode {
-    constructor(drumRack, controlSurface) {
-        super(drumRack, controlSurface)
+    constructor(rack, controlSurface) {
+        super(rack, controlSurface)
     }
 
     canHandle(modeType) {
@@ -12,14 +12,14 @@ export class DrumRackMixerMode extends UiMode {
     }
 
     observe() {
-        this.drumRack
+        this.rack
             .getActiveMixerPage()
             .getParameters()
             .forEach(parameter => parameter.observe())
     }
 
     ignore() {
-        this.drumRack
+        this.rack
             .getActiveMixerPage()
             .getParameters()
             .forEach(parameter => parameter.ignore())
@@ -32,26 +32,26 @@ export class DrumRackMixerMode extends UiMode {
         }
 
         this.ignore()
-        this.drumRack.setActiveMixerPage(buttonIndex)
+        this.rack.setActiveMixerPage(buttonIndex)
         this.observe()
     }
 
     executePageLevelCommand(targetCommand) {
-        const page = this.drumRack.getActiveMixerPage()
+        const page = this.rack.getActiveMixerPage()
         targetCommand === command.DEFAULT ? page.default() : page.random()
 
         this.updateDisplay()
     }
 
     executeParamLevelCommand(targetCommand, encoderIndex) {
-        const param = this.drumRack.getActiveMixerPage().getParameter(encoderIndex)
+        const param = this.rack.getActiveMixerPage().getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param.default() : param.random()
 
         this.updateDisplay()
     }
 
     sendValue(value, encoderIndex) {
-        this.drumRack
+        this.rack
             .getActiveMixerPage()
             .getParameter(encoderIndex)
             .sendValue(value)
@@ -60,13 +60,13 @@ export class DrumRackMixerMode extends UiMode {
     }
 
     updateDisplay() {
-        const drumRackMixerPage = this.drumRack.getActiveMixerPage()
-        const mixerPageNames = this.drumRack.getMixerPages().map(page => page.getName())
-        const activeMixerPageIndex = this.drumRack.getActiveMixerPage().getIndex()
+        const drumRackMixerPage = this.rack.getActiveMixerPage()
+        const mixerPageNames = this.rack.getMixerPages().map(page => page.getName())
+        const activeMixerPageIndex = this.rack.getActiveMixerPage().getIndex()
 
         this.controlSurface.display.line(
             0,
-            this.drumRack
+            this.rack
                 .getDrumPads()
                 .map(pad => pad.getInstrumentRack().getName())
                 .slice(0, 8)

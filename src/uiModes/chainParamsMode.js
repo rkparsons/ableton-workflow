@@ -4,8 +4,8 @@ import mode from '../constants/mode'
 
 //todo: add can handle enum to strategies
 export class ChainParamsMode extends UiMode {
-    constructor(drumRack, controlSurface) {
-        super(drumRack, controlSurface)
+    constructor(rack, controlSurface) {
+        super(rack, controlSurface)
     }
 
     canHandle(modeType) {
@@ -13,7 +13,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     observe() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
             const activeChain = activeInstrumentRack.getActiveChain()
@@ -27,7 +27,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     ignore() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
             const activeChain = activeInstrumentRack.getActiveChain()
@@ -42,18 +42,18 @@ export class ChainParamsMode extends UiMode {
 
     incrementChain() {
         this.ignore()
-        this.drumRack.getActiveInstrumentRack().incrementActiveChain()
+        this.rack.getActiveInstrumentRack().incrementActiveChain()
         this.observe()
     }
 
     decrementChain() {
         this.ignore()
-        this.drumRack.getActiveInstrumentRack().decrementActiveChain()
+        this.rack.getActiveInstrumentRack().decrementActiveChain()
         this.observe()
     }
 
     handleTempoControl(encoderValue) {
-        const sampleParameter = this.drumRack
+        const sampleParameter = this.rack
             .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
@@ -78,7 +78,7 @@ export class ChainParamsMode extends UiMode {
         }
 
         //todo: refactor big method chains into class method
-        const activeChain = this.drumRack.getActiveInstrumentRack().getActiveChain()
+        const activeChain = this.rack.getActiveInstrumentRack().getActiveChain()
         const isMuted = activeChain.isMuted()
 
         if (!isMuted) {
@@ -93,7 +93,7 @@ export class ChainParamsMode extends UiMode {
             return
         }
 
-        const muteParameter = this.drumRack
+        const muteParameter = this.rack
             .getActiveInstrumentRack()
             .getActiveChain()
             .getMuteParameter()
@@ -102,7 +102,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     executePageLevelCommand(targetCommand) {
-        const activeChain = this.drumRack.getActiveInstrumentRack().getActiveChain()
+        const activeChain = this.rack.getActiveInstrumentRack().getActiveChain()
 
         if (!activeChain.isMuted()) {
             const page = activeChain.getActiveParameterPage()
@@ -113,7 +113,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     executeParamLevelCommand(targetCommand, encoderIndex) {
-        const page = this.drumRack
+        const page = this.rack
             .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
@@ -128,7 +128,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     sendValue(value, encoderIndex) {
-        const page = this.drumRack
+        const page = this.rack
             .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
@@ -150,7 +150,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     updateDisplay() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
             const activeChain = activeInstrumentRack.getActiveChain()
@@ -180,7 +180,7 @@ export class ChainParamsMode extends UiMode {
                 this.controlSurface.trackState.map([1])
             }
         } else {
-            this.displayBlankPad()
+            this.displayBlank()
         }
     }
 }

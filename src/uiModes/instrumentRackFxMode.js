@@ -2,8 +2,8 @@ import { UiMode } from './uiMode'
 import mode from '../constants/mode'
 
 export class InstrumentRackFxMode extends UiMode {
-    constructor(drumRack, controlSurface) {
-        super(drumRack, controlSurface)
+    constructor(rack, controlSurface) {
+        super(rack, controlSurface)
     }
 
     canHandle(modeType) {
@@ -11,7 +11,7 @@ export class InstrumentRackFxMode extends UiMode {
     }
 
     updateDisplay() {
-        const activeInstrumentRack = this.drumRack.getActiveInstrumentRack()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
             this.controlSurface.display.line(0, [' '])
@@ -21,7 +21,7 @@ export class InstrumentRackFxMode extends UiMode {
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])
         } else {
-            this.displayBlankPad()
+            this.displayBlank()
         }
     }
 }
