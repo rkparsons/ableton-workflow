@@ -2,8 +2,8 @@
 
 ## Filesystem
 
-1. pad specific samples must be located in /Samples/PadName/LayerName/Category
-2. shared samples must be located in /Samples/Shared/LayerName/Category
+1. pad specific samples must be located in /Samples/TrackName/RackName?/ChainName/Category
+2. shared samples must be located in /Samples/Shared/
 3. samples must be in wav format
 4. samples must be named like Category_Sample.wav
 5. Category and Sample names must be max 8 characters
