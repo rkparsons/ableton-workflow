@@ -28,8 +28,13 @@ export class Track {
         this.activeMode.updateDisplay()
     }
 
-    focus() {
+    activate() {
+        this.setMode(1)
         this.liveSetViewApi.set('selected_track', 'id', this.trackId)
+    }
+
+    deactivate() {
+        this.setMode(mode.INACTIVE)
     }
 
     toggleActive() {
@@ -38,12 +43,12 @@ export class Track {
         }
 
         if (this.activeMode.canHandle(mode.INACTIVE)) {
+            // todo: move control surface activation into liveset
             this.activeMode.activateControlSurface()
-            this.setMode(1)
-            this.focus()
+            this.activate()
         } else {
             this.activeMode.deactivateControlSurface()
-            this.setMode(mode.INACTIVE)
+            this.deactivate()
         }
     }
 

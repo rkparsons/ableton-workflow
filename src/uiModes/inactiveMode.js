@@ -10,7 +10,5 @@ export class InactiveMode extends UiMode {
         return modeType === mode.INACTIVE
     }
 
-    updateDisplay() {
-        this.controlSurface.deactivate()
-    }
+    updateDisplay() {}
 }

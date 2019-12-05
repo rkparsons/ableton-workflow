@@ -10,17 +10,17 @@ export class Liveset {
 
     incrementTrack() {
         if (this.activeTrackIndex < this.tracks.length - 1) {
-            this.getTrack().toggleActive()
+            this.getTrack().deactivate()
             this.activeTrackIndex++
-            this.getTrack().toggleActive()
+            this.getTrack().activate()
         }
     }
 
     decrementTrack() {
         if (this.activeTrackIndex > 0) {
-            this.getTrack().toggleActive()
+            this.getTrack().deactivate()
             this.activeTrackIndex--
-            this.getTrack().toggleActive()
+            this.getTrack().activate()
         }
     }
 
