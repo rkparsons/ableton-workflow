@@ -1,10 +1,27 @@
 export class Liveset {
-    constructor(drumTrack) {
-        this.drumTrack = drumTrack
+    constructor(tracks) {
+        this.tracks = tracks
+        this.activeTrackIndex = 0
     }
 
     getTrack() {
-        return this.drumTrack
+        return this.tracks[this.activeTrackIndex]
+    }
+
+    incrementTrack() {
+        if (this.activeTrackIndex < this.tracks.length - 1) {
+            this.getTrack().toggleActive()
+            this.activeTrackIndex++
+            this.getTrack().toggleActive()
+        }
+    }
+
+    decrementTrack() {
+        if (this.activeTrackIndex > 0) {
+            this.getTrack().toggleActive()
+            this.activeTrackIndex--
+            this.getTrack().toggleActive()
+        }
     }
 
     toggleActive(isPressed) {

@@ -149,6 +149,7 @@ export class ChainParamsMode extends UiMode {
         this.updateDisplay()
     }
 
+    // todo: check why this gets called so many times
     updateDisplay() {
         const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 

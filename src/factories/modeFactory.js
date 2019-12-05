@@ -6,15 +6,19 @@ import { InactiveMode } from '../uiModes/inactiveMode'
 import { InstrumentRackFxMode } from '../uiModes/instrumentRackFxMode'
 import { InstrumentRackMixerMode } from '../uiModes/instrumentRackMixerMode'
 
-export function createModes(drumRack, controlSurface) {
+export function createDrumRackModes(rack, controlSurface) {
     // todo: dynamic creation via reflection
     return [
-        new InactiveMode(drumRack, controlSurface),
-        new ChainParamsMode(drumRack, controlSurface),
-        new ChainFxMode(drumRack, controlSurface),
-        new InstrumentRackMixerMode(drumRack, controlSurface),
-        new InstrumentRackFxMode(drumRack, controlSurface),
-        new DrumRackMixerMode(drumRack, controlSurface),
-        new DrumRackFxMode(drumRack, controlSurface),
+        new InactiveMode(rack, controlSurface),
+        new ChainParamsMode(rack, controlSurface),
+        new ChainFxMode(rack, controlSurface),
+        new InstrumentRackMixerMode(rack, controlSurface),
+        new InstrumentRackFxMode(rack, controlSurface),
+        new DrumRackMixerMode(rack, controlSurface),
+        new DrumRackFxMode(rack, controlSurface),
     ]
+}
+
+export function createInstrumentRackModes(rack, controlSurface) {
+    return [new InactiveMode(rack, controlSurface), new ChainParamsMode(rack, controlSurface), new ChainFxMode(rack, controlSurface), new InstrumentRackMixerMode(rack, controlSurface), new InstrumentRackFxMode(rack, controlSurface)]
 }

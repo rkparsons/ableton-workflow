@@ -17,6 +17,10 @@ export class InstrumentRack extends Rack {
         this.chains.forEach(chain => chain.onValueChanged(callback))
     }
 
+    getActiveInstrumentRack() {
+        return this
+    }
+
     getChains() {
         return this.chains
     }

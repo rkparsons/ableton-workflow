@@ -1,4 +1,5 @@
 import { Liveset } from '../models/liveset'
+import createBassTrack from './bassTrackFactory'
 import { createControlSurface } from './controlSurfaceFactory'
 import createDrumTrack from './drumTrackFactory'
 import path from 'path'
@@ -7,11 +8,11 @@ export function createLiveset(pathToPatcher) {
     const controlSurface = createControlSurface('Tap_Tempo_Button')
     const pathToSamples = path.join(pathToPatcher, '..', 'samples')
 
-    // todo: find track index by name
+    // todo: find name/index dynamically
     const drumTrack = createDrumTrack(controlSurface, pathToSamples, 'Drum', 0)
-    // const bassTrack = createBassTrack(controlSurface, pathToSamples, 1)
+    const bassTrack = createBassTrack(controlSurface, pathToSamples, 'Bass', 1)
 
-    const liveset = new Liveset(drumTrack)
+    const liveset = new Liveset([drumTrack, bassTrack])
 
     controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => liveset.toggleActive(isPressed))
 
@@ -30,6 +31,8 @@ export function createLiveset(pathToPatcher) {
     controlSurface.onActive('Track_State_Buttons', ([, isPressed, buttonIndex]) => liveset.getTrack().onTrackStateButtons(isPressed, buttonIndex))
     controlSurface.onActive('Up_Arrow', ([, isPressed]) => isPressed && liveset.getTrack().onUpArrow())
     controlSurface.onActive('Down_Arrow', ([, isPressed]) => isPressed && liveset.getTrack().onDownArrow())
+    controlSurface.onActive('Left_Arrow', ([, isPressed]) => isPressed && liveset.decrementTrack())
+    controlSurface.onActive('Right_Arrow', ([, isPressed]) => isPressed && liveset.incrementTrack())
 
     return liveset
 }

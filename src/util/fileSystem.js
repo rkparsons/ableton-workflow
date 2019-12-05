@@ -1,5 +1,6 @@
 export function getCategories(samplesFolder, instrumentRackName, chainName) {
-    const folder = new Folder(getSamplesFolderPath(samplesFolder, instrumentRackName, chainName))
+    const folderPath = getSamplesFolderPath(samplesFolder, instrumentRackName, chainName)
+    const folder = new Folder(folderPath)
     folder.typelist = ['fold']
 
     let categories = {}
@@ -46,7 +47,9 @@ function getSamples(samplesFolder, instrumentRackName, chainName, category) {
 
 function getSamplesFolderPath(samplesFolder, instrumentRackName, chainName) {
     const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(chainName.toString()) >= 0
+    const instrumentTrackName = samplesFolder.slice(samplesFolder.lastIndexOf('/') + 1)
+    const isInstrumentTrack = instrumentTrackName === instrumentRackName
     const drumPadFolder = isSharedSampleFolder ? 'Shared' : instrumentRackName
 
-    return samplesFolder + '/' + drumPadFolder + '/' + chainName
+    return isInstrumentTrack ? `${samplesFolder}/${chainName}` : `${samplesFolder}/${drumPadFolder}/${chainName}`
 }

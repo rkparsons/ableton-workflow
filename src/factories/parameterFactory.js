@@ -23,6 +23,7 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             const targetParameterName = parameterNameParts[1]
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
+            // todo: don't update config object, create new type
             const targetDeviceConfig = parameterConfig[targetDeviceType]
             const targetParameterConfig = targetDeviceConfig ? targetDeviceConfig[targetParameterName] : null
 
