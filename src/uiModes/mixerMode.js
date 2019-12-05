@@ -1,6 +1,5 @@
 import { UiMode } from './uiMode'
 import command from '../constants/command'
-import mode from '../constants/mode'
 
 export class MixerMode extends UiMode {
     constructor(rack, controlSurface) {
@@ -76,7 +75,17 @@ export class MixerMode extends UiMode {
             this.displayBlank()
             return
         }
+        const chainOnStates = this.getRack()
+            .getChains()
+            .map(chain => !Boolean(chain.getMuteParameter().getValue()))
+
+        const displayValues = this.getRack()
+            .getActiveMixerPage()
+            .getParameters()
+            .map((parameter, index) => (chainOnStates[index] ? parameter.getDisplayValue() : ''))
+
         const mixerPage = this.getRack().getActiveMixerPage()
+
         const mixerPageNames = this.getRack()
             .getMixerPages()
             .map(page => page.getName())
@@ -87,8 +96,10 @@ export class MixerMode extends UiMode {
             .slice(0, 8)
 
         this.controlSurface.display.line(0, chainNames)
+        this.controlSurface.display.line(1, displayValues)
         this.controlSurface.display.title(2, [this.getTitle()])
         this.controlSurface.display.menu(3, mixerPageNames, mixerPage.getIndex())
         this.controlSurface.trackSelect.map(mixerPageNames.length, mixerPage.getIndex())
+        this.controlSurface.trackState.map(chainOnStates)
     }
 }

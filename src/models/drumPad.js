@@ -1,13 +1,32 @@
-export function DrumPad(id, instrumentRack) {
-    this.getId = function() {
-        return id
+export class DrumPad {
+    constructor(id, instrumentRack, muteParameter) {
+        this.id = id
+        this.instrumentRack = instrumentRack
+        this.muteParameter = muteParameter
     }
 
-    this.getName = function() {
-        return instrumentRack.getName()
+    getId() {
+        return this.id
     }
 
-    this.getInstrumentRack = function() {
-        return instrumentRack
+    onValueChanged(callback) {
+        muteParameter.onValueChanged(callback)
+    }
+
+    getName() {
+        return this.instrumentRack.getName()
+    }
+
+    getInstrumentRack() {
+        return this.instrumentRack
+    }
+
+    // todo: put in base class
+    getMuteParameter() {
+        return this.muteParameter
+    }
+
+    isMuted() {
+        return Boolean(this.muteParameter.getValue())
     }
 }

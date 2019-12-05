@@ -11,7 +11,10 @@ export class DrumRack extends Rack {
 
     onValueChanged(callback) {
         super.onValueChanged(callback)
-        this.drumPads.forEach(pad => pad.getInstrumentRack().onValueChanged(callback))
+        this.drumPads.forEach(pad => {
+            pad.getMuteParameter().onValueChanged(callback)
+            pad.getInstrumentRack().onValueChanged(callback)
+        })
     }
 
     onDrumPadSelected(callback) {
@@ -24,8 +27,12 @@ export class DrumRack extends Rack {
     }
 
     getActiveInstrumentRack() {
-        const drumPad = this.drumPads.find(pad => pad.getId() === this.activeDrumPadId)
+        const drumPad = this.getActiveDrumPad()
         return drumPad ? drumPad.getInstrumentRack() : null
+    }
+
+    getActiveDrumPad() {
+        return this.drumPads.find(pad => pad.getId() === this.activeDrumPadId)
     }
 
     setActiveDrumPad(value) {

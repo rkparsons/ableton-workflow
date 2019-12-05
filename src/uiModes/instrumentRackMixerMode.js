@@ -33,19 +33,4 @@ export class InstrumentRackMixerMode extends MixerMode {
             .getChains()
             .forEach(chain => chain.getMuteParameter().ignore())
     }
-
-    updateDisplay() {
-        super.updateDisplay()
-        const chainOnStates = this.getRack()
-            .getChains()
-            .map(chain => !Boolean(chain.getMuteParameter().getValue()))
-
-        const displayValues = this.getRack()
-            .getActiveMixerPage()
-            .getParameters()
-            .map((parameter, index) => (chainOnStates[index] ? parameter.getDisplayValue() : ''))
-
-        this.controlSurface.display.line(1, displayValues)
-        this.controlSurface.trackState.map(chainOnStates)
-    }
 }

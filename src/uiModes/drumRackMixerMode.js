@@ -6,23 +6,29 @@ export class DrumRackMixerMode extends MixerMode {
         super(rack, controlSurface)
     }
 
+    observe() {
+        super.observe()
+        const drumPad = this.getRack().getActiveDrumPad()
+
+        if (drumPad) {
+            drumPad.getMuteParameter().observe()
+        }
+    }
+
+    ignore() {
+        super.ignore()
+        const drumPad = this.getRack().getActiveDrumPad()
+
+        if (drumPad) {
+            drumPad.getMuteParameter().ignore()
+        }
+    }
+
     canHandle(modeType) {
         return modeType === mode.DRUM_RACK_MIXER
     }
 
     getTitle() {
         return ''
-    }
-
-    updateDisplay() {
-        super.updateDisplay()
-        const displayValues = this.getRack()
-            .getActiveMixerPage()
-            .getParameters()
-            .map(parameter => parameter.getDisplayValue())
-            .slice(0, 8)
-
-        this.controlSurface.display.line(1, displayValues)
-        this.controlSurface.trackState.map([])
     }
 }
