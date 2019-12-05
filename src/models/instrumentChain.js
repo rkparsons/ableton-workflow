@@ -1,9 +1,11 @@
-export class InstrumentChain {
+import { Mutable } from './mutable'
+
+export class InstrumentChain extends Mutable {
     constructor(index, name, parameterPages, muteParameter) {
+        super(muteParameter)
         this.index = index
         this.name = name
         this.parameterPages = parameterPages
-        this.muteParameter = muteParameter
         this.activeParameterPageIndex = 0
     }
 
@@ -16,11 +18,11 @@ export class InstrumentChain {
     }
 
     onValueChanged(callback) {
+        super.onValueChanged(callback)
+
         for (i in this.parameterPages) {
             this.parameterPages[i].onValueChanged(callback)
         }
-
-        this.muteParameter.onValueChanged(callback)
     }
 
     getParameterPages() {
@@ -33,13 +35,5 @@ export class InstrumentChain {
 
     setActiveParameterPage(index) {
         this.activeParameterPageIndex = index
-    }
-
-    getMuteParameter() {
-        return this.muteParameter
-    }
-
-    isMuted() {
-        return Boolean(this.getMuteParameter().getValue())
     }
 }

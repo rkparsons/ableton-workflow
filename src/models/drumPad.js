@@ -1,16 +1,14 @@
-export class DrumPad {
+import { Mutable } from './mutable'
+
+export class DrumPad extends Mutable {
     constructor(id, instrumentRack, muteParameter) {
+        super(muteParameter)
         this.id = id
         this.instrumentRack = instrumentRack
-        this.muteParameter = muteParameter
     }
 
     getId() {
         return this.id
-    }
-
-    onValueChanged(callback) {
-        muteParameter.onValueChanged(callback)
     }
 
     getName() {
@@ -19,14 +17,5 @@ export class DrumPad {
 
     getInstrumentRack() {
         return this.instrumentRack
-    }
-
-    // todo: put in base class
-    getMuteParameter() {
-        return this.muteParameter
-    }
-
-    isMuted() {
-        return Boolean(this.muteParameter.getValue())
     }
 }
