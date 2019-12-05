@@ -1,39 +1,45 @@
-export function InstrumentChain(index, name, parameterPages, muteParameter) {
-    var activeParameterPageIndex = 0
-
-    this.getIndex = function() {
-        return index
+export class InstrumentChain {
+    constructor(index, name, parameterPages, muteParameter) {
+        this.index = index
+        this.name = name
+        this.parameterPages = parameterPages
+        this.muteParameter = muteParameter
+        this.activeParameterPageIndex = 0
     }
 
-    this.getName = function() {
-        return name
+    getIndex() {
+        return this.index
     }
 
-    this.onValueChanged = function(callback) {
-        for (i in parameterPages) {
-            parameterPages[i].onValueChanged(callback)
+    getName() {
+        return this.name
+    }
+
+    onValueChanged(callback) {
+        for (i in this.parameterPages) {
+            this.parameterPages[i].onValueChanged(callback)
         }
 
-        muteParameter.onValueChanged(callback)
+        this.muteParameter.onValueChanged(callback)
     }
 
-    this.getParameterPages = function() {
-        return parameterPages
+    getParameterPages() {
+        return this.parameterPages
     }
 
-    this.getActiveParameterPage = function() {
-        return parameterPages[activeParameterPageIndex]
+    getActiveParameterPage() {
+        return this.parameterPages[this.activeParameterPageIndex]
     }
 
-    this.setActiveParameterPage = function(index) {
-        activeParameterPageIndex = index
+    setActiveParameterPage(index) {
+        this.activeParameterPageIndex = index
     }
 
-    this.getMuteParameter = function() {
-        return muteParameter
+    getMuteParameter() {
+        return this.muteParameter
     }
 
-    this.isMuted = function() {
+    isMuted() {
         return Boolean(this.getMuteParameter().getValue())
     }
 }
