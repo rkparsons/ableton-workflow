@@ -8,7 +8,7 @@ export function createLiveset(pathToPatcher) {
     const pathToSamples = path.join(pathToPatcher, '..', 'samples')
 
     // todo: find track index by name
-    const drumTrack = createDrumTrack(controlSurface, pathToSamples, 0)
+    const drumTrack = createDrumTrack(controlSurface, pathToSamples, 'Drum', 0)
     // const bassTrack = createBassTrack(controlSurface, pathToSamples, 1)
 
     const liveset = new Liveset(drumTrack)
