@@ -22,6 +22,11 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
         }
     }
 
+    // todo: remove this temp check
+    if (parameterPageConfig[instrumentType] === undefined) {
+        return null
+    }
+
     parameterPageConfig[instrumentType].forEach(function(page, index) {
         const result = createParameters(samplesFolder, instrumentRackName, chainName, page.parameters, deviceTypeToIndex, pathToChain)
 
