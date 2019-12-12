@@ -8,7 +8,7 @@ import { ValueParameter } from '../models/valueParameter'
 import { parameterConfig } from '../config/parameterConfig'
 import unitType from '../constants/unitType'
 
-export function createParameters(samplesFolder, instrumentRackName, chainName, parameterNames, deviceTypeToIndex, pathToChain) {
+export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConfigs, deviceTypeToIndex, pathToChain) {
     let parameters = []
     let categoryParameterIndex = null
     let sampleParameterIndex = null
@@ -16,22 +16,13 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
     let bpmParameterIndex = null
     let sampleCategories = null
 
-    for (var parameterindex = 0; parameterindex < parameterNames.length; parameterindex++) {
-        if (parameterNames[parameterindex]) {
-            const parameterNameParts = parameterNames[parameterindex].split('_')
-            const targetDeviceType = parameterNameParts[0]
-            const targetParameterName = parameterNameParts[1]
+    for (var parameterConfigIndex = 0; parameterConfigIndex < parameterConfigs.length; parameterConfigIndex++) {
+        if (parameterConfigs[parameterConfigIndex]) {
+            const targetParameterConfig = parameterConfigs[parameterConfigIndex]
+            const targetDeviceType = targetParameterConfig.type
+            const targetParameterName = targetParameterConfig.name
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
-            // todo: don't update config object, create new type
-            const targetDeviceConfig = parameterConfig[targetDeviceType]
-            const targetParameterConfig = targetDeviceConfig ? targetDeviceConfig[targetParameterName] : null
-
-            // todo: can I remove this check?
-            if (!targetParameterConfig) {
-                continue
-            }
-
             const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
@@ -40,24 +31,24 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             if (targetParameterName === 'Category') {
                 sampleCategories = getCategories(samplesFolder, instrumentRackName, chainName)
                 targetParameterConfig.options = sampleCategories
-                categoryParameterIndex = parameterindex
+                categoryParameterIndex = parameterConfigIndex
 
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
-                sampleParameterIndex = parameterindex
+                sampleParameterIndex = parameterConfigIndex
                 parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
             } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
-                repitchWarpParameterIndex = parameterindex
+                repitchWarpParameterIndex = parameterConfigIndex
                 parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else if (targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
-                bpmParameterIndex = targetParameterName === 'Tempo' ? parameterindex : bpmParameterIndex
+                bpmParameterIndex = targetParameterName === 'Tempo' ? parameterConfigIndex : bpmParameterIndex
                 parameters.push(
                     new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange, targetParameterConfig.showValue, targetParameterConfig.speed)
                 )

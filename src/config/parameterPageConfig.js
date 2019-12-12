@@ -1,71 +1,75 @@
+import { parameterConfig } from './parameterConfig'
+
+const { CC, Chain, Sampler } = parameterConfig
+
 export const parameterPageConfig = {
     Sampler: [
         {
             name: 'Sample',
-            parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Delay', 'CC_Start', 'Sampler_Reverse', 'Chain_Solo', 'Sampler_Repitch', null],
+            parameters: [Sampler.Category, Sampler.Select, CC.Delay, CC.Start, Sampler.Reverse, Chain.Solo, Sampler.Repitch, null],
         },
         {
             name: 'Amp',
-            parameters: ['Sampler_AmpAttack', 'Sampler_AmpDecay', 'Sampler_AmpSustain', 'Sampler_AmpRelease', 'Sampler_AmpLoop', 'Sampler_AmpSync', null, null],
+            parameters: [Sampler.AmpAttack, Sampler.AmpDecay, Sampler.AmpSustain, Sampler.AmpRelease, Sampler.AmpLoop, Sampler.AmpSync, null, null],
         },
         {
             name: 'Pitch',
-            parameters: ['Sampler_Pitch', 'Sampler_Detune', 'Sampler_Spread', 'Sampler_PitchEnv', 'Sampler_PitchEnvAttack', 'Sampler_PitchEnvDecay', null, null],
+            parameters: [Sampler.Pitch, Sampler.Detune, Sampler.Spread, Sampler.PitchEnv, Sampler.PitchEnvAttack, Sampler.PitchEnvDecay, null, null],
         },
         {
             name: 'Filter',
-            parameters: ['Sampler_FilterType', 'Sampler_FilterFreq', 'Sampler_FilterRes', 'Sampler_FilterEnv', 'Sampler_FilterEnvAttack', 'Sampler_FilterEnvDecay', null, null],
+            parameters: [Sampler.FilterType, Sampler.FilterFreq, Sampler.FilterRes, Sampler.FilterEnv, Sampler.FilterEnvAttack, Sampler.FilterEnvDecay, null, null],
         },
         {
             name: 'Tone',
-            parameters: ['Sampler_FilterCircuit', 'Sampler_FilterSlope', 'Sampler_FilterDrive', 'Sampler_ShaperPre', 'Sampler_ShaperType', 'Sampler_ShaperLevel', null, null],
+            parameters: [Sampler.FilterCircuit, Sampler.FilterSlope, Sampler.FilterDrive, Sampler.ShaperPre, Sampler.ShaperType, Sampler.ShaperLevel, null, null],
         },
         {
             name: 'Osc',
-            parameters: ['Sampler_OscLevel', 'Sampler_OscWave', 'Sampler_OscFreq', 'Sampler_OscMulti', 'Sampler_OscEnvAttack', 'Sampler_OscEnvDecay', null, null],
+            parameters: [Sampler.OscLevel, Sampler.OscWave, Sampler.OscFreq, Sampler.OscMulti, Sampler.OscEnvAttack, Sampler.OscEnvDecay, null, null],
         },
         {
             name: 'Velo',
-            parameters: ['Sampler_VolumeVelocity', 'Sampler_OscVelocity', 'Sampler_FilterVelocity', 'CC_DriveVelocity', 'CC_PitchEnvVelocity', 'Sampler_AmpTimeVelocity', null, null],
+            parameters: [Sampler.VolumeVelocity, Sampler.OscVelocity, Sampler.FilterVelocity, CC.DriveVelocity, CC.PitchEnvVelocity, Sampler.AmpTimeVelocity, null, null],
         },
         {
             name: 'Rand',
-            parameters: ['Sampler_VolumeLfo', 'Sampler_PitchLfo', null, 'Sampler_FilterLfo', 'Sampler_PanLfo', 'CC_StartRandom', null, null],
+            parameters: [Sampler.VolumeLfo, Sampler.PitchLfo, null, Sampler.FilterLfo, Sampler.PanLfo, CC.StartRandom, null, null],
         },
     ],
 
     // BreakSampler: [
     //     {
     //         name: 'Sample',
-    //         parameters: ['Sampler_Category', 'Sampler_Select', 'CC_Start', 'Sampler_Reverse', 'Chain_Solo', 'Sampler_Repitch', 'Project_Tempo', null],
+    //         parameters: [Sampler.Category', Sampler.Select', 'CC_Start', Sampler.Reverse', 'Chain_Solo', Sampler.Repitch', 'Project_Tempo', null],
     //     },
     //     {
     //         name: 'Amp',
-    //         parameters: ['Sampler_AmpAttack', 'Sampler_AmpDecay', 'Sampler_AmpSustain', 'Sampler_AmpRelease', 'Sampler_AmpLoop', 'Sampler_AmpSync', null, null],
+    //         parameters: [Sampler.AmpAttack', Sampler.AmpDecay', Sampler.AmpSustain', Sampler.AmpRelease', Sampler.AmpLoop', Sampler.AmpSync', null, null],
     //     },
     //     {
     //         name: 'Pitch',
-    //         parameters: ['Sampler_Pitch', 'Sampler_Detune', 'Sampler_Spread', 'Sampler_PitchEnv', 'Sampler_PitchEnvAttack', 'Sampler_PitchEnvDecay', null, null],
+    //         parameters: [Sampler.Pitch', Sampler.Detune', Sampler.Spread', Sampler.PitchEnv', Sampler.PitchEnvAttack', Sampler.PitchEnvDecay', null, null],
     //     },
     //     {
     //         name: 'Filter',
-    //         parameters: ['Sampler_FilterType', 'Sampler_FilterFreq', 'Sampler_FilterRes', 'Sampler_FilterEnv', 'Sampler_FilterEnvAttack', 'Sampler_FilterEnvDecay', null, null],
+    //         parameters: [Sampler.FilterType', Sampler.FilterFreq', Sampler.FilterRes', Sampler.FilterEnv', Sampler.FilterEnvAttack', Sampler.FilterEnvDecay', null, null],
     //     },
     //     {
     //         name: 'Tone',
-    //         parameters: ['Sampler_FilterCircuit', 'Sampler_FilterSlope', 'Sampler_FilterDrive', 'Sampler_ShaperPre', 'Sampler_ShaperType', 'Sampler_ShaperLevel', null, null],
+    //         parameters: [Sampler.FilterCircuit', Sampler.FilterSlope', Sampler.FilterDrive', Sampler.ShaperPre', Sampler.ShaperType', Sampler.ShaperLevel', null, null],
     //     },
     //     {
     //         name: 'Osc',
-    //         parameters: ['Sampler_OscLevel', 'Sampler_OscWave', 'Sampler_OscFreq', 'Sampler_OscMulti', 'Sampler_OscEnvAttack', 'Sampler_OscEnvDecay', null, null],
+    //         parameters: [Sampler.OscLevel', Sampler.OscWave', Sampler.OscFreq', Sampler.OscMulti', Sampler.OscEnvAttack', Sampler.OscEnvDecay', null, null],
     //     },
     //     {
     //         name: 'Velo',
-    //         parameters: ['Sampler_VolumeVelocity', 'Sampler_OscVelocity', 'Sampler_FilterVelocity', 'CC_DriveVelocity', 'CC_PitchEnvVelocity', 'Sampler_AmpTimeVelocity', null, null],
+    //         parameters: [Sampler.VolumeVelocity', Sampler.OscVelocity', Sampler.FilterVelocity', 'CC_DriveVelocity', 'CC_PitchEnvVelocity', Sampler.AmpTimeVelocity', null, null],
     //     },
     //     {
     //         name: 'Rand',
-    //         parameters: ['Sampler_VolumeLfo', 'Sampler_PitchLfo', null, 'Sampler_FilterLfo', 'Sampler_PanLfo', 'CC_StartRandom', null, null],
+    //         parameters: [Sampler.VolumeLfo', Sampler.PitchLfo', null, Sampler.FilterLfo', Sampler.PanLfo', 'CC_StartRandom', null, null],
     //     },
     // ],
 
