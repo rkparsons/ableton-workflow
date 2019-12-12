@@ -27,7 +27,7 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             const targetDeviceConfig = parameterConfig[targetDeviceType]
             const targetParameterConfig = targetDeviceConfig ? targetDeviceConfig[targetParameterName] : null
 
-            // can remove this check
+            // todo: can I remove this check?
             if (!targetParameterConfig) {
                 continue
             }
