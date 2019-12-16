@@ -8,6 +8,7 @@ import { ChainSolo } from '../parameters/chain/solo'
 import { MixerPanning } from '../parameters/mixer/panning'
 import { MixerVolume } from '../parameters/mixer/volume'
 import { ProjectTempo } from '../parameters/project/tempo'
+import { SamplerCategory } from '../parameters/sampler/category'
 import unitType from '../constants/unitType'
 
 // todo: default to 0,1 float
@@ -37,14 +38,7 @@ export const parameterConfig = {
     },
 
     Sampler: {
-        Category: () => ({
-            type: 'Sampler',
-            name: 'Category',
-            displayName: 'Category',
-            path: 'parameters 29',
-            options: [],
-            unitType: unitType.ENUM,
-        }),
+        Category: () => new SamplerCategory(),
         Select: () => ({
             type: 'Sampler',
             name: 'Select',
