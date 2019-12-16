@@ -21,6 +21,7 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
+            const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
 
             // todo: pass config object and destructure in constructor
             // todo: refactor out conditional logic
@@ -31,10 +32,8 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
             } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
-                const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else if (targetParameterName === 'Repitch') {
-                const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
                 parameters.push(
