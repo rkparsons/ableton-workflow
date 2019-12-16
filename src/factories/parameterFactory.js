@@ -8,51 +8,36 @@ import { ValueParameter } from '../models/valueParameter'
 import { parameterConfig } from '../config/parameterConfig'
 import unitType from '../constants/unitType'
 
-export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConfigs, deviceTypeToIndex, pathToChain) {
+export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConstructors, deviceTypeToIndex, pathToChain) {
     let parameters = []
     const sampleCategories = getCategories(samplesFolder, instrumentRackName, chainName)
     const sampleGroups = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
 
-    for (var parameterConfigIndex = 0; parameterConfigIndex < parameterConfigs.length; parameterConfigIndex++) {
-        if (parameterConfigs[parameterConfigIndex]) {
-            const targetParameterConfig = parameterConfigs[parameterConfigIndex]()
-            const targetDeviceType = targetParameterConfig.type
-            const targetParameterName = targetParameterConfig.name
-            const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-            const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
-            const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
-            const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
+    parameterConstructors.forEach(parameterConstructor => {
+        const config = parameterConstructor()
+        const targetDeviceType = config.type
+        const targetParameterName = config.name
+        const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
+        const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
+        const apiPath = targetDevicePath + ' ' + config.path
+        const apiPathDecimal = targetDevicePath + ' ' + config.pathDecimal
 
-            // todo: pass config object and destructure in constructor
-            // todo: refactor out conditional logic
-            if (targetParameterName === 'Category') {
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, sampleCategories, null, true))
-            } else if (targetParameterName === 'Select') {
-                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, sampleGroups, true))
-            } else if (targetParameterConfig.unitType === unitType.ENUM) {
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
-            } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
-                parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
-            } else if (targetParameterName === 'Repitch') {
-                parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
-            } else {
-                parameters.push(
-                    new ValueParameter(
-                        targetParameterConfig.displayName,
-                        apiPath,
-                        targetParameterConfig.property,
-                        targetParameterConfig.defaultValue,
-                        targetParameterConfig.unitType,
-                        targetParameterConfig.inputRange,
-                        targetParameterConfig.randomRange,
-                        targetParameterConfig.showValue,
-                        targetParameterConfig.speed,
-                        targetParameterName === 'Tempo'
-                    )
-                )
-            }
+        // todo: pass config object and destructure in constructor
+        // todo: refactor out conditional logic
+        if (targetParameterName === 'Category') {
+            parameters.push(new EnumParameter(config.displayName, apiPath, config.property, config.defaultValue, sampleCategories, null, true))
+        } else if (targetParameterName === 'Select') {
+            parameters.push(new FilteredEnumParameter(config.displayName, apiPath, config.property, config.defaultValue, sampleGroups, true))
+        } else if (config.unitType === unitType.ENUM) {
+            parameters.push(new EnumParameter(config.displayName, apiPath, config.property, config.defaultValue, config.options, config.randomRange))
+        } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
+            parameters.push(new RepitchWarpParameter(config.displayName, apiPath, apiPathDecimal, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
+        } else if (targetParameterName === 'Repitch') {
+            parameters.push(new RepitchParameter(config.displayName, apiPath, apiPathDecimal, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
+        } else {
+            parameters.push(new ValueParameter(config.displayName, apiPath, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, targetParameterName === 'Tempo'))
         }
-    }
+    })
 
     return parameters
 }

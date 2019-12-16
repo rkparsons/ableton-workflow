@@ -6,35 +6,35 @@ export const parameterPageConfig = {
     Sampler: [
         {
             name: 'Sample',
-            parameters: [Sampler.Category, Sampler.Select, CC.Start, Sampler.Reverse, Chain.Solo, Sampler.Repitch, null, null],
+            parameters: [Sampler.Category, Sampler.Select, CC.Start, Sampler.Reverse, Chain.Solo, Sampler.Repitch],
         },
         {
             name: 'Amp',
-            parameters: [Sampler.AmpAttack, Sampler.AmpDecay, Sampler.AmpSustain, Sampler.AmpRelease, Sampler.AmpLoop, Sampler.AmpSync, null, null],
+            parameters: [Sampler.AmpAttack, Sampler.AmpDecay, Sampler.AmpSustain, Sampler.AmpRelease, Sampler.AmpLoop, Sampler.AmpSync],
         },
         {
             name: 'Pitch',
-            parameters: [Sampler.Pitch, Sampler.Detune, Sampler.Spread, Sampler.PitchEnv, Sampler.PitchEnvAttack, Sampler.PitchEnvDecay, null, null],
+            parameters: [Sampler.Pitch, Sampler.Detune, Sampler.Spread, Sampler.PitchEnv, Sampler.PitchEnvAttack, Sampler.PitchEnvDecay],
         },
         {
             name: 'Filter',
-            parameters: [Sampler.FilterType, Sampler.FilterFreq, Sampler.FilterRes, Sampler.FilterEnv, Sampler.FilterEnvAttack, Sampler.FilterEnvDecay, null, null],
+            parameters: [Sampler.FilterType, Sampler.FilterFreq, Sampler.FilterRes, Sampler.FilterEnv, Sampler.FilterEnvAttack, Sampler.FilterEnvDecay],
         },
         {
             name: 'Tone',
-            parameters: [Sampler.FilterCircuit, Sampler.FilterSlope, Sampler.FilterDrive, Sampler.ShaperPre, Sampler.ShaperType, Sampler.ShaperLevel, null, null],
+            parameters: [Sampler.FilterCircuit, Sampler.FilterSlope, Sampler.FilterDrive, Sampler.ShaperPre, Sampler.ShaperType, Sampler.ShaperLevel],
         },
         {
             name: 'Osc',
-            parameters: [Sampler.OscLevel, Sampler.OscWave, Sampler.OscFreq, Sampler.OscMulti, Sampler.OscEnvAttack, Sampler.OscEnvDecay, null, null],
+            parameters: [Sampler.OscLevel, Sampler.OscWave, Sampler.OscFreq, Sampler.OscMulti, Sampler.OscEnvAttack, Sampler.OscEnvDecay],
         },
         {
             name: 'Velo',
-            parameters: [Sampler.VolumeVelocity, Sampler.OscVelocity, Sampler.FilterVelocity, CC.DriveVelocity, CC.PitchEnvVelocity, Sampler.AmpTimeVelocity, null, null],
+            parameters: [Sampler.VolumeVelocity, Sampler.OscVelocity, Sampler.FilterVelocity, CC.DriveVelocity, CC.PitchEnvVelocity, Sampler.AmpTimeVelocity],
         },
         {
             name: 'Rand',
-            parameters: [Sampler.VolumeLfo, Sampler.PitchLfo, null, Sampler.FilterLfo, Sampler.PanLfo, CC.StartRandom, null, null],
+            parameters: [Sampler.VolumeLfo, Sampler.PitchLfo, Sampler.FilterLfo, Sampler.PanLfo, CC.StartRandom],
         },
     ],
 
