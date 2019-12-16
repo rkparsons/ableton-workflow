@@ -120,8 +120,8 @@ export class ChainParamsMode extends UiMode {
         const param = page.getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param.default() : param.random()
 
-        if (page.categoryParameterIndex === encoderIndex) {
-            page.getParameter(page.sampleParameterIndex).default()
+        if (page.getCategoryParameterIndex() === encoderIndex) {
+            page.getSampleParameter().default()
         }
 
         this.updateDisplay()
