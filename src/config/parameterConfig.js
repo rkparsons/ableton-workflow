@@ -1,87 +1,35 @@
+import { CCDelay } from '../parameters/cc/delay'
+import { CCStart } from '../parameters/cc/start'
+import { CCStartRandom } from '../parameters/cc/startRandom'
+import { ChainMute } from '../parameters/chain/mute'
+import { ChainSolo } from '../parameters/chain/solo'
+import { MixerPanning } from '../parameters/mixer/panning'
+import { MixerVolume } from '../parameters/mixer/volume'
+import { ProjectTempo } from '../parameters/project/tempo'
 import unitType from '../constants/unitType'
 
 // todo: default to 0,1 float
 // todo: remove name property
+// todo: inherit from original parameter class and move creation logic here
 export const parameterConfig = {
     Project: {
-        Tempo: () => ({
-            type: 'Project',
-            name: 'Tempo',
-            displayName: 'BPM',
-            path: 'master_track mixer_device song_tempo',
-            inputRange: [80, 180],
-            speed: 0.1,
-            unitType: unitType.INT,
-            showValue: true,
-        }),
+        Tempo: () => new ProjectTempo(),
     },
 
     Mixer: {
-        Volume: () => ({
-            type: 'Mixer',
-            name: 'Volume',
-            path: 'mixer_device volume',
-            inputRange: [0, 1],
-            defaultValue: 0.85,
-            unitType: unitType.FLOAT,
-        }),
-        Panning: () => ({
-            type: 'Mixer',
-            name: 'Panning',
-            path: 'mixer_device panning',
-            inputRange: [-1, 1],
-            unitType: unitType.FLOAT,
-        }),
+        Volume: () => new MixerVolume(),
+        Panning: () => new MixerPanning(),
     },
 
     Chain: {
-        Mute: () => ({
-            type: 'Chain',
-            name: 'Mute',
-            displayName: 'Mute',
-            property: 'mute',
-            options: [0, 1],
-            unitType: unitType.ENUM,
-        }),
-        Solo: () => ({
-            type: 'Chain',
-            name: 'Solo',
-            displayName: 'Solo',
-            property: 'solo',
-            path: '',
-            options: ['off', 'on'],
-            randomRange: [0, 0],
-            unitType: unitType.ENUM,
-        }),
+        Mute: () => new ChainMute(),
+        Solo: () => new ChainSolo(),
     },
 
     CC: {
-        Delay: () => ({
-            type: 'CC',
-            name: 'Delay',
-            displayName: 'Delay',
-            path: 'parameters 1',
-            inputRange: [0, 200],
-            randomRange: [0, 0],
-            unitType: unitType.INT,
-        }),
-        Start: () => ({
-            type: 'CC',
-            name: 'Start',
-            displayName: 'Start',
-            path: 'parameters 2',
-            inputRange: [0, 127],
-            randomRange: [0, 0],
-            unitType: unitType.INT,
-        }),
-        StartRandom: () => ({
-            type: 'CC',
-            name: 'StartRandom',
-            displayName: 'Start',
-            path: 'parameters 3',
-            inputRange: [0, 127],
-            unitType: unitType.INT,
-        }),
+        Delay: () => new CCDelay(),
+        Start: () => new CCStart(),
+        StartRandom: () => new CCStartRandom(),
         DriveVelocity: () => ({
             type: 'CC',
             name: 'DriveVelocity',
