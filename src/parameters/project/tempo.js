@@ -1,6 +1,6 @@
-import { Param } from '../param'
+import { ProjectParam } from './project'
 
-export class ProjectTempo extends Param {
+export class ProjectTempo extends ProjectParam {
     constructor() {
         super()
         this.name = 'Tempo'
