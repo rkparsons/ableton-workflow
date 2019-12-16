@@ -2,6 +2,7 @@ import { Parameter } from './parameter'
 import unitType from '../constants/unitType'
 
 export class EnumParameter extends Parameter {
+    // todo: replace isX flags with subclasses
     constructor(displayName, livePath, property, defaultValue, options, randomRange, isCategory) {
         super(displayName, livePath, property, defaultValue, unitType.ENUM)
         this.options = options
