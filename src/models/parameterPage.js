@@ -1,4 +1,4 @@
-export function ParameterPage(index, name, parameters, categoryParameterIndex, sampleParameterIndex, repitchWarpParameterIndex, bpmParameterIndex) {
+export function ParameterPage(index, name, parameters, sampleParameterIndex, repitchWarpParameterIndex, bpmParameterIndex) {
     this.getIndex = function() {
         return index
     }
@@ -21,10 +21,6 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
 
     this.getParameter = function(parameterIndex) {
         return parameters[parameterIndex]
-    }
-
-    this.getCategoryParameterIndex = function() {
-        return categoryParameterIndex
     }
 
     this.getBpmParameterIndex = function() {
@@ -57,15 +53,16 @@ export function ParameterPage(index, name, parameters, categoryParameterIndex, s
         callback()
     }
 
-    // todo: move categoryParameterIndex into parameter class
-    function handleSampleCategoryChange(i) {
-        if (i !== categoryParameterIndex) {
+    function handleSampleCategoryChange(parameterIndex) {
+        const categoryParameter = this.getParameter(parameterIndex)
+
+        if (!categoryParameter.isCategory) {
             return
         }
 
-        parameters[sampleParameterIndex].filterOptions(parameters[i].getDisplayValue())
+        parameters[sampleParameterIndex].filterOptions(categoryParameter.getDisplayValue())
 
-        const sampleBpm = Number(parameters[categoryParameterIndex].getDisplayValue().split('#')[1])
+        const sampleBpm = Number(categoryParameter.getDisplayValue().split('#')[1])
 
         if (sampleBpm) {
             this.getRepitchWarpParameter().warpToSampleBpm(sampleBpm)

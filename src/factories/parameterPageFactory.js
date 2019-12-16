@@ -30,7 +30,7 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
     parameterPageConfig[instrumentType].forEach(function(page, index) {
         const result = createParameters(samplesFolder, instrumentRackName, chainName, page.parameters, deviceTypeToIndex, pathToChain)
 
-        parameterPages.push(new ParameterPage(index, page.name, result.parameters, result.categoryParameterIndex, result.sampleParameterIndex, result.repitchParameterIndex, result.bpmParameterIndex))
+        parameterPages.push(new ParameterPage(index, page.name, result.parameters, result.sampleParameterIndex, result.repitchParameterIndex, result.bpmParameterIndex))
     })
 
     return parameterPages

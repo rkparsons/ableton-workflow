@@ -10,7 +10,6 @@ import unitType from '../constants/unitType'
 
 export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConfigs, deviceTypeToIndex, pathToChain) {
     let parameters = []
-    let categoryParameterIndex = null
     let sampleParameterIndex = null
     let repitchWarpParameterIndex = null
     let bpmParameterIndex = null
@@ -30,9 +29,8 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             if (targetParameterName === 'Category') {
                 sampleCategories = getCategories(samplesFolder, instrumentRackName, chainName)
                 targetParameterConfig.options = sampleCategories
-                categoryParameterIndex = parameterConfigIndex
 
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options))
+                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, null, true))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
                 sampleParameterIndex = parameterConfigIndex
@@ -68,7 +66,6 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
     //todo: remove object return
     return {
         parameters: parameters,
-        categoryParameterIndex: categoryParameterIndex,
         sampleParameterIndex: sampleParameterIndex,
         repitchParameterIndex: repitchWarpParameterIndex,
         bpmParameterIndex: bpmParameterIndex,

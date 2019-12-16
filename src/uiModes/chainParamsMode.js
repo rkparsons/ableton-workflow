@@ -120,7 +120,7 @@ export class ChainParamsMode extends UiMode {
         const param = page.getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param.default() : param.random()
 
-        if (page.getCategoryParameterIndex() === encoderIndex) {
+        if (page.getParameter(encoderIndex).isCategory) {
             page.getSampleParameter().default()
         }
 
@@ -136,7 +136,7 @@ export class ChainParamsMode extends UiMode {
         page.getParameter(encoderIndex).sendValue(value)
 
         //todo: move logic into page
-        if (page.getCategoryParameterIndex() === encoderIndex) {
+        if (page.getParameter(encoderIndex).isCategory) {
             page.getSampleParameter().constrainAndSendValue()
 
             if (page.getRepitchWarpParameter()) {

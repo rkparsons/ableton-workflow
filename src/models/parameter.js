@@ -1,4 +1,3 @@
-import log from '../util/log'
 import unitType from '../constants/unitType'
 
 export class Parameter {
