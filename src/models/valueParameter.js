@@ -9,6 +9,7 @@ export class ValueParameter extends Parameter {
         this.max = this.inputRange[1]
         this.isBipolar = this.max / this.min < 0
         this.showValue = showValue
+        // todo: remove defaults from parameter types
         this.speed = speed || 1
     }
 

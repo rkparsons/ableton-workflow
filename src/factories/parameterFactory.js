@@ -18,12 +18,12 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
 
     for (var parameterConfigIndex = 0; parameterConfigIndex < parameterConfigs.length; parameterConfigIndex++) {
         if (parameterConfigs[parameterConfigIndex]) {
-            const targetParameterConfig = parameterConfigs[parameterConfigIndex]
+            const targetParameterConfig = parameterConfigs[parameterConfigIndex]()
             const targetDeviceType = targetParameterConfig.type
             const targetParameterName = targetParameterConfig.name
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
-            const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
+            const apiProperty = targetParameterConfig.property
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
             //todo: pass config object and destructure in constructor
@@ -67,7 +67,7 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
 }
 
 export function createMixerParameters(parameterName, pathToDevice, chainCount) {
-    const targetParameterConfig = parameterConfig.Mixer[parameterName]
+    const targetParameterConfig = parameterConfig.Mixer[parameterName]()
     var parameters = []
 
     for (var chainIndex = 0; chainIndex < chainCount; chainIndex++) {
@@ -85,7 +85,7 @@ export function createMixerParameters(parameterName, pathToDevice, chainCount) {
 }
 
 export function createParameter(deviceName, parameterName, pathToDevice) {
-    const targetParameterConfig = parameterConfig[deviceName][parameterName]
+    const targetParameterConfig = parameterConfig[deviceName][parameterName]()
     const apiPath = pathToDevice + (targetParameterConfig.path || '')
     const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
 
