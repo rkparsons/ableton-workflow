@@ -23,8 +23,6 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             const targetParameterName = targetParameterConfig.name
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
-            // todo: remove default property
-            const apiProperty = targetParameterConfig.property || 'value'
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
             //todo: pass config object and destructure in constructor
@@ -34,24 +32,34 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
                 targetParameterConfig.options = sampleCategories
                 categoryParameterIndex = parameterConfigIndex
 
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
+                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
                 sampleParameterIndex = parameterConfigIndex
-                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options))
+                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options))
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
-                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
+                parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
             } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 repitchWarpParameterIndex = parameterConfigIndex
-                parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
+                parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else if (targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
-                parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
+                parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
                 bpmParameterIndex = targetParameterName === 'Tempo' ? parameterConfigIndex : bpmParameterIndex
                 parameters.push(
-                    new ValueParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange, targetParameterConfig.showValue, targetParameterConfig.speed)
+                    new ValueParameter(
+                        targetParameterConfig.displayName,
+                        apiPath,
+                        targetParameterConfig.property,
+                        targetParameterConfig.defaultValue,
+                        targetParameterConfig.unitType,
+                        targetParameterConfig.inputRange,
+                        targetParameterConfig.randomRange,
+                        targetParameterConfig.showValue,
+                        targetParameterConfig.speed
+                    )
                 )
             }
         }
@@ -73,12 +81,11 @@ export function createMixerParameters(parameterName, pathToDevice, chainCount) {
 
     for (var chainIndex = 0; chainIndex < chainCount; chainIndex++) {
         const apiPath = pathToDevice + ' chains ' + chainIndex + ' ' + (targetParameterConfig.path || '')
-        const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
 
         if (targetParameterConfig.unitType === unitType.ENUM) {
-            parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
+            parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
         } else {
-            parameters.push(new ValueParameter(parameterName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
+            parameters.push(new ValueParameter(parameterName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
         }
     }
 
@@ -88,11 +95,10 @@ export function createMixerParameters(parameterName, pathToDevice, chainCount) {
 export function createParameter(deviceName, parameterName, pathToDevice) {
     const targetParameterConfig = parameterConfig[deviceName][parameterName]()
     const apiPath = pathToDevice + (targetParameterConfig.path || '')
-    const apiProperty = targetParameterConfig.property ? targetParameterConfig.property : 'value'
 
     if (targetParameterConfig.unitType === unitType.ENUM) {
-        return new EnumParameter(targetParameterConfig.displayName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange)
+        return new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange)
     } else {
-        return new ValueParameter(parameterName, apiPath, apiProperty, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange)
+        return new ValueParameter(parameterName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange)
     }
 }
