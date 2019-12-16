@@ -5,6 +5,6 @@ export class CCPitchEnvVelocity extends CCParam {
         super()
         this.name = 'PitchEnvVelocity'
         this.displayName = 'PEnv'
-        this.path = 'parameters 5'
+        this.path = 'parameters 4'
     }
 }

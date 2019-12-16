@@ -6,7 +6,7 @@ export const parameterPageConfig = {
     Sampler: [
         {
             name: 'Sample',
-            parameters: [Sampler.Category, Sampler.Select, CC.Delay, CC.Start, Sampler.Reverse, Chain.Solo, Sampler.Repitch, null],
+            parameters: [Sampler.Category, Sampler.Select, CC.Start, Sampler.Reverse, Chain.Solo, Sampler.Repitch, null, null],
         },
         {
             name: 'Amp',

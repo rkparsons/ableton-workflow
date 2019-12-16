@@ -1,4 +1,3 @@
-import { CCDelay } from '../parameters/cc/delay'
 import { CCDriveVelocity } from '../parameters/cc/driveVelocity'
 import { CCPitchEnvVelocity } from '../parameters/cc/pitchEnvVelocity'
 import { CCStart } from '../parameters/cc/start'
@@ -8,10 +7,49 @@ import { ChainSolo } from '../parameters/chain/solo'
 import { MixerPanning } from '../parameters/mixer/panning'
 import { MixerVolume } from '../parameters/mixer/volume'
 import { ProjectTempo } from '../parameters/project/tempo'
+import { SamplerAmpAttack } from '../parameters/sampler/ampAttack'
+import { SamplerAmpDecay } from '../parameters/sampler/ampDecay'
+import { SamplerAmpLoop } from '../parameters/sampler/ampLoop'
+import { SamplerAmpRelease } from '../parameters/sampler/ampRelease'
+import { SamplerAmpSustain } from '../parameters/sampler/ampSustain'
+import { SamplerAmpSync } from '../parameters/sampler/ampSync'
+import { SamplerAmpTimeVelocity } from '../parameters/sampler/ampTimeVelocity'
 import { SamplerCategory } from '../parameters/sampler/category'
-import unitType from '../constants/unitType'
+import { SamplerDetune } from '../parameters/sampler/detune'
+import { SamplerFilterCircuit } from '../parameters/sampler/filterCircuit'
+import { SamplerFilterDrive } from '../parameters/sampler/filterDrive'
+import { SamplerFilterEnv } from '../parameters/sampler/filterEnv'
+import { SamplerFilterEnvAttack } from '../parameters/sampler/filterEnvAttack'
+import { SamplerFilterEnvDecay } from '../parameters/sampler/filterEnvDecay'
+import { SamplerFilterFreq } from '../parameters/sampler/filterFreq'
+import { SamplerFilterLfo } from '../parameters/sampler/filterLfo'
+import { SamplerFilterRes } from '../parameters/sampler/filterRes'
+import { SamplerFilterSlope } from '../parameters/sampler/filterSlope'
+import { SamplerFilterType } from '../parameters/sampler/filterType'
+import { SamplerFilterVelocity } from '../parameters/sampler/filterVelocity'
+import { SamplerOscEnvAttack } from '../parameters/sampler/oscEnvAttack'
+import { SamplerOscEnvDecay } from '../parameters/sampler/oscEnvDecay'
+import { SamplerOscFreq } from '../parameters/sampler/oscFreq'
+import { SamplerOscLevel } from '../parameters/sampler/oscLevel'
+import { SamplerOscMulti } from '../parameters/sampler/oscMulti'
+import { SamplerOscVelocity } from '../parameters/sampler/oscVelocity'
+import { SamplerOscWave } from '../parameters/sampler/oscWave'
+import { SamplerPanLfo } from '../parameters/sampler/panLfo'
+import { SamplerPitch } from '../parameters/sampler/pitch'
+import { SamplerPitchEnv } from '../parameters/sampler/pitchEnv'
+import { SamplerPitchEnvAttack } from '../parameters/sampler/pitchEnvAttack'
+import { SamplerPitchEnvDecay } from '../parameters/sampler/pitchEnvDecay'
+import { SamplerPitchLfo } from '../parameters/sampler/pitchLfo'
+import { SamplerRepitch } from '../parameters/sampler/repitch'
+import { SamplerReverse } from '../parameters/sampler/reverse'
+import { SamplerSelect } from '../parameters/sampler/select'
+import { SamplerShaperLevel } from '../parameters/sampler/shaperLevel'
+import { SamplerShaperPre } from '../parameters/sampler/shaperPre'
+import { SamplerShaperType } from '../parameters/sampler/shaperType'
+import { SamplerSpread } from '../parameters/sampler/spread'
+import { SamplerVolumeLfo } from '../parameters/sampler/volumeLfo'
+import { SamplerVolumeVelocity } from '../parameters/sampler/volumeVelocity'
 
-// todo: default to 0,1 float
 // todo: remove name property
 // todo: inherit from original parameter class and move creation logic here
 export const parameterConfig = {
@@ -30,7 +68,6 @@ export const parameterConfig = {
     },
 
     CC: {
-        Delay: () => new CCDelay(),
         Start: () => new CCStart(),
         StartRandom: () => new CCStartRandom(),
         DriveVelocity: () => new CCDriveVelocity(),
@@ -39,341 +76,47 @@ export const parameterConfig = {
 
     Sampler: {
         Category: () => new SamplerCategory(),
-        Select: () => ({
-            type: 'Sampler',
-            name: 'Select',
-            displayName: 'Sample',
-            path: 'parameters 3',
-            options: [],
-            unitType: unitType.ENUM,
-        }),
-        Reverse: () => ({
-            type: 'Sampler',
-            name: 'Reverse',
-            displayName: 'Playback',
-            path: 'parameters 1',
-            options: { 0: '>>>', 1: '<<<' },
-            unitType: unitType.ENUM,
-            randomRange: [0, 0],
-        }),
-        OscWave: () => ({
-            type: 'Sampler',
-            name: 'OscWave',
-            displayName: '/\\/',
-            path: 'parameters 6',
-            options: ['sin', 'sin 4bit', 'sin 8bit', 'saw 3', 'saw 4', 'saw 6', 'saw 8', 'saw 16', 'saw 32', 'saw 64', 'saw D', 'squ 3', 'squ 4', 'squ 6', 'squ 8', 'squ 16', 'squ 32', 'squ 64', 'squ D', 'tri', 'noise'],
-            unitType: unitType.ENUM,
-        }),
-        OscLevel: () => ({
-            type: 'Sampler',
-            name: 'OscLevel',
-            displayName: 'Amount',
-            path: 'parameters 7',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        OscVelocity: () => ({
-            type: 'Sampler',
-            name: 'OscVelocity',
-            displayName: 'Osc',
-            path: 'parameters 8',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        OscFreq: () => ({
-            type: 'Sampler',
-            name: 'OscFreq',
-            displayName: 'Freq',
-            path: 'parameters 12',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        OscMulti: () => ({
-            type: 'Sampler',
-            name: 'OscMulti',
-            displayName: 'Multi',
-            path: 'parameters 13',
-            options: ['x  0.001', 'x  0.01', 'x  0.1', 'x  1', 'x 10'],
-            unitType: unitType.ENUM,
-        }),
-        OscEnvAttack: () => ({
-            type: 'Sampler',
-            name: 'OscEnvAttack',
-            displayName: 'A /',
-            path: 'parameters 14',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        OscEnvDecay: () => ({
-            type: 'Sampler',
-            name: 'OscEnvDecay',
-            displayName: 'D \\',
-            path: 'parameters 17',
-            inputRange: [0, 1],
-            defaultValue: 1,
-            unitType: unitType.FLOAT,
-        }),
-        Spread: () => ({
-            type: 'Sampler',
-            name: 'Spread',
-            displayName: 'Spread',
-            path: 'parameters 28',
-            inputRange: [0, 100],
-            unitType: unitType.INT,
-        }),
-        Pitch: () => ({
-            type: 'Sampler',
-            name: 'Pitch',
-            displayName: 'Pitch',
-            path: 'parameters 34',
-            inputRange: [-48, 48],
-            unitType: unitType.INT,
-        }),
-        Repitch: () => ({
-            type: 'Sampler',
-            name: 'Repitch',
-            displayName: 'Repitch',
-            path: 'parameters 34',
-            pathDecimal: 'parameters 35',
-            inputRange: [-7.5, 7.5],
-            unitType: unitType.FLOAT,
-        }),
-        Detune: () => ({
-            type: 'Sampler',
-            name: 'Detune',
-            displayName: '- / +',
-            path: 'parameters 35',
-            inputRange: [-50, 50],
-            unitType: unitType.INT,
-        }),
-        PitchLfo: () => ({
-            type: 'Sampler',
-            name: 'PitchLfo',
-            displayName: 'Pitch',
-            path: 'parameters 36',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        PitchEnv: () => ({
-            type: 'Sampler',
-            name: 'PitchEnv',
-            displayName: 'Env',
-            path: 'parameters 38',
-            inputRange: [-48, 48],
-            unitType: unitType.INT,
-        }),
-        PitchEnvAttack: () => ({
-            type: 'Sampler',
-            name: 'PitchEnvAttack',
-            displayName: 'A /',
-            path: 'parameters 39',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        PitchEnvDecay: () => ({
-            type: 'Sampler',
-            name: 'PitchEnvDecay',
-            displayName: 'D \\',
-            path: 'parameters 42',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        VolumeVelocity: () => ({
-            type: 'Sampler',
-            name: 'VolumeVelocity',
-            displayName: 'Vol',
-            path: 'parameters 54',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        VolumeLfo: () => ({
-            type: 'Sampler',
-            name: 'VolumeLfo',
-            displayName: 'Vol',
-            path: 'parameters 55',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        PanLfo: () => ({
-            type: 'Sampler',
-            name: 'PanLfo',
-            displayName: 'Pan',
-            path: 'parameters 57',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        AmpAttack: () => ({
-            type: 'Sampler',
-            name: 'AmpAttack',
-            displayName: 'A /',
-            path: 'parameters 59',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        AmpDecay: () => ({
-            type: 'Sampler',
-            name: 'AmpDecay',
-            displayName: 'D \\',
-            path: 'parameters 62',
-            inputRange: [0, 1],
-            defaultValue: 1,
-            unitType: unitType.FLOAT,
-        }),
-        AmpSustain: () => ({
-            type: 'Sampler',
-            name: 'AmpSustain',
-            displayName: 'S --',
-            path: 'parameters 65',
-            inputRange: [0, 1],
-            defaultValue: 1,
-            unitType: unitType.FLOAT,
-        }),
-        AmpRelease: () => ({
-            type: 'Sampler',
-            name: 'AmpRelease',
-            displayName: 'R \\',
-            path: 'parameters 66',
-            inputRange: [0, 1],
-            defaultValue: 1,
-            unitType: unitType.FLOAT,
-        }),
-        AmpLoop: () => ({
-            type: 'Sampler',
-            name: 'AmpLoop',
-            displayName: 'Loop',
-            path: 'parameters 68',
-            options: ['none', 'loop', 'beat', 'sync', 'trig'],
-            unitType: unitType.ENUM,
-        }),
-        AmpSync: () => ({
-            type: 'Sampler',
-            name: 'AmpSync',
-            displayName: 'Sync',
-            path: 'parameters 70',
-            options: ['1/48', '1/32', '1/24', '1/16', '1/12', '1/8', '1/6', '1/4', '1/3', '1/2', '1', '1.5', '2', '3', '4'],
-            unitType: unitType.ENUM,
-        }),
-        AmpTimeVelocity: () => ({
-            type: 'Sampler',
-            name: 'AmpTimeVelocity',
-            displayName: 'Time',
-            path: 'parameters 71',
-            inputRange: [-100, 100],
-            unitType: unitType.FLOAT,
-        }),
-        FilterType: () => ({
-            type: 'Sampler',
-            name: 'FilterType',
-            displayName: 'Type',
-            path: 'parameters 76',
-            options: ['low -\\', 'high /-', 'band /\\', 'notch \\/'],
-            unitType: unitType.ENUM,
-        }),
-        FilterCircuit: () => ({
-            type: 'Sampler',
-            name: 'FilterCircuit',
-            displayName: 'Circuit',
-            path: 'parameters 77',
-            options: ['clean', 'osr', 'ms2', 'smp', 'prd'],
-            unitType: unitType.ENUM,
-        }),
-        FilterSlope: () => ({
-            type: 'Sampler',
-            name: 'FilterSlope',
-            displayName: 'Slope',
-            path: 'parameters 79',
-            options: ['12 dB', '24 dB'],
-            unitType: unitType.ENUM,
-        }),
-        FilterFreq: () => ({
-            type: 'Sampler',
-            name: 'FilterFreq',
-            displayName: 'Freq',
-            path: 'parameters 80',
-            inputRange: [0, 1],
-            defaultValue: 1,
-            unitType: unitType.FLOAT,
-        }),
-        FilterRes: () => ({
-            type: 'Sampler',
-            name: 'FilterRes',
-            displayName: 'Res',
-            path: 'parameters 81',
-            inputRange: [0, 1.25],
-            unitType: unitType.FLOAT,
-        }),
-        FilterDrive: () => ({
-            type: 'Sampler',
-            name: 'FilterDrive',
-            displayName: 'Drive',
-            path: 'parameters 83',
-            inputRange: [0, 24],
-            unitType: unitType.FLOAT,
-        }),
-        FilterEnv: () => ({
-            type: 'Sampler',
-            name: 'FilterEnv',
-            displayName: 'Env',
-            path: 'parameters 85',
-            inputRange: [-72, 72],
-        }),
-        FilterEnvAttack: () => ({
-            type: 'Sampler',
-            name: 'FilterEnvAttack',
-            displayName: 'A /',
-            path: 'parameters 86',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        FilterEnvDecay: () => ({
-            type: 'Sampler',
-            name: 'FilterEnvDecay',
-            displayName: 'D \\',
-            path: 'parameters 89',
-            inputRange: [0, 1],
-            defaultValue: 1,
-            unitType: unitType.FLOAT,
-        }),
-        FilterVelocity: () => ({
-            type: 'Sampler',
-            name: 'FilterVelocity',
-            displayName: 'Filter',
-            path: 'parameters 101',
-            inputRange: [0, 1],
-            unitType: unitType.FLOAT,
-        }),
-        FilterLfo: () => ({
-            type: 'Sampler',
-            name: 'FilterLfo',
-            displayName: 'Filter',
-            path: 'parameters 102',
-            inputRange: [0, 24],
-            unitType: unitType.FLOAT,
-        }),
-        ShaperType: () => ({
-            type: 'Sampler',
-            name: 'ShaperType',
-            displayName: 'Shaper',
-            path: 'parameters 104',
-            options: ['soft', 'hard', 'sine', '4bit'],
-            unitType: unitType.ENUM,
-        }),
-        ShaperLevel: () => ({
-            type: 'Sampler',
-            name: 'ShaperLevel',
-            displayName: '- / +',
-            path: 'parameters 105',
-            inputRange: [0, 100],
-            unitType: unitType.INT,
-        }),
-        ShaperPre: () => ({
-            type: 'Sampler',
-            name: 'ShaperPrev',
-            displayName: 'Route',
-            path: 'parameters 106',
-            options: ['<<<', '>>>'],
-            unitType: unitType.ENUM,
-        }),
+        Select: () => new SamplerSelect(),
+        Reverse: () => new SamplerReverse(),
+        OscWave: () => new SamplerOscWave(),
+        OscLevel: () => new SamplerOscLevel(),
+        OscVelocity: () => new SamplerOscVelocity(),
+        OscFreq: () => new SamplerOscFreq(),
+        OscMulti: () => new SamplerOscMulti(),
+        OscEnvAttack: () => new SamplerOscEnvAttack(),
+        OscEnvDecay: () => new SamplerOscEnvDecay(),
+        Spread: () => new SamplerSpread(),
+        Pitch: () => new SamplerPitch(),
+        Repitch: () => new SamplerRepitch(),
+        Detune: () => new SamplerDetune(),
+        PitchLfo: () => new SamplerPitchLfo(),
+        PitchEnv: () => new SamplerPitchEnv(),
+        PitchEnvAttack: () => new SamplerPitchEnvAttack(),
+        PitchEnvDecay: () => new SamplerPitchEnvDecay(),
+        VolumeVelocity: () => new SamplerVolumeVelocity(),
+        VolumeLfo: () => new SamplerVolumeLfo(),
+        PanLfo: () => new SamplerPanLfo(),
+        AmpAttack: () => new SamplerAmpAttack(),
+        AmpDecay: () => new SamplerAmpDecay(),
+        AmpSustain: () => new SamplerAmpSustain(),
+        AmpRelease: () => new SamplerAmpRelease(),
+        AmpLoop: () => new SamplerAmpLoop(),
+        AmpSync: () => new SamplerAmpSync(),
+        AmpTimeVelocity: () => new SamplerAmpTimeVelocity(),
+        FilterType: () => new SamplerFilterType(),
+        FilterCircuit: () => new SamplerFilterCircuit(),
+        FilterSlope: () => new SamplerFilterSlope(),
+        FilterFreq: () => new SamplerFilterFreq(),
+        FilterRes: () => new SamplerFilterRes(),
+        FilterDrive: () => new SamplerFilterDrive(),
+        FilterEnv: () => new SamplerFilterEnv(),
+        FilterEnvAttack: () => new SamplerFilterEnvAttack(),
+        FilterEnvDecay: () => new SamplerFilterEnvDecay(),
+        FilterVelocity: () => new SamplerFilterVelocity(),
+        FilterLfo: () => new SamplerFilterLfo(),
+        ShaperType: () => new SamplerShaperType(),
+        ShaperLevel: () => new SamplerShaperLevel(),
+        ShaperPre: () => new SamplerShaperPre(),
     },
 
     // // synth kick
@@ -383,7 +126,7 @@ export const parameterConfig = {
     //     path: 'parameters 1',
     //     inputRange: [0, 100],
     //     exponent: 0.8,
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'pitch',
@@ -391,7 +134,7 @@ export const parameterConfig = {
     //     path: 'parameters 2',
     //     inputRange: [30, 200],
     //     exponent: 3.333,
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'env',
@@ -399,14 +142,14 @@ export const parameterConfig = {
     //     path: 'parameters 3',
     //     inputRange: [0, 100],
     //     exponent: 0.8,
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'attack',
     //     displayName: 'Attack',
     //     path: 'parameters 4',
     //     inputRange: [0, 100],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'click',
@@ -420,14 +163,14 @@ export const parameterConfig = {
     //     displayName: 'Drive',
     //     path: 'parameters 6',
     //     inputRange: [0, 100],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'tone',
     //     displayName: 'Tone',
     //     path: 'parameters 7',
     //     inputRange: [0, 100],
-    //     unitType: unitType.FLOAT,
+    //
     // }
 
     // // synth snare
@@ -436,14 +179,14 @@ export const parameterConfig = {
     //     displayName: 'Decay',
     //     path: 'parameters 1',
     //     inputRange: [0, 100],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'tune',
     //     displayName: 'Tune',
     //     path: 'parameters 2',
     //     inputRange: [0, 100],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'filter',
@@ -713,7 +456,7 @@ export const parameterConfig = {
     //     path: 'parameters 36',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'velocity_stiffness',
@@ -721,7 +464,7 @@ export const parameterConfig = {
     //     path: 'parameters 39',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'velocity_speed',
@@ -729,7 +472,7 @@ export const parameterConfig = {
     //     path: 'parameters 42',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'velocity_position',
@@ -737,7 +480,7 @@ export const parameterConfig = {
     //     path: 'parameters 27',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'velocity_damper',
@@ -745,7 +488,7 @@ export const parameterConfig = {
     //     path: 'parameters 31',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'velocity_finger',
@@ -753,7 +496,7 @@ export const parameterConfig = {
     //     path: 'parameters 65',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
 
     // // collision
@@ -777,7 +520,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 7',
     //     inputRange: [-60, 0],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'mallet_volume_vel',
@@ -785,7 +528,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 8',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'mallet_stiffness',
@@ -793,7 +536,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 10',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'mallet_stiffness_vel',
@@ -801,7 +544,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 11',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'mallet_noise',
@@ -809,7 +552,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 13',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'mallet_noise_vel',
@@ -817,7 +560,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 14',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'mallet_colour',
@@ -825,7 +568,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 16',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'noise_on',
@@ -840,7 +583,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 18',
     //     inputRange: [-60, 0],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'filter_type',
@@ -853,15 +596,15 @@ export const parameterConfig = {
     //     name: 'filter_freq',
     //     displayName: 'Freq',
     //     path: 'devices 0 parameters 22',
-    //     inputRange: [0, 1],
-    //     unitType: unitType.FLOAT,
+    //
+    //
     // }
     // exports.xxx = {
     //     name: 'filter_res',
     //     displayName: 'Res',
     //     path: 'devices 0 parameters 26',
-    //     inputRange: [0, 1],
-    //     unitType: unitType.FLOAT,
+    //
+    //
     // }
     // exports.xxx = {
     //     name: 'env_freq',
@@ -869,21 +612,21 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 25',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'env_attack',
     //     displayName: 'A /',
     //     path: 'devices 0 parameters 27',
-    //     inputRange: [0, 1],
-    //     unitType: unitType.FLOAT,
+    //
+    //
     // }
     // exports.xxx = {
     //     name: 'env_decay',
     //     displayName: 'D \\',
     //     path: 'devices 0 parameters 28',
-    //     inputRange: [0, 1],
-    //     unitType: unitType.FLOAT,
+    //
+    //
     // }
     // exports.xxx = {
     //     name: 'env_sustain',
@@ -891,14 +634,14 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 29',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'env_release',
     //     displayName: 'R \\',
     //     path: 'devices 0 parameters 30',
-    //     inputRange: [0, 1],
-    //     unitType: unitType.FLOAT,
+    //
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_on',
@@ -927,7 +670,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 40',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_material',
@@ -935,7 +678,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 44',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_ratio',
@@ -943,7 +686,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 50',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_brightness',
@@ -951,7 +694,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 51',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_inharmonics',
@@ -959,7 +702,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 53',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_position',
@@ -967,15 +710,15 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 57',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_volume',
     //     displayName: 'Volume',
     //     path: 'devices 0 parameters 63',
-    //     inputRange: [0, 1],
+    //
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_radius',
@@ -983,7 +726,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 47',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_opening',
@@ -991,7 +734,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 55',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_tune',
@@ -1013,7 +756,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 37',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso1_time',
@@ -1021,7 +764,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 39',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_on',
@@ -1050,7 +793,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 73',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_material',
@@ -1058,7 +801,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 77',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_ratio',
@@ -1066,7 +809,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 83',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_brightness',
@@ -1074,7 +817,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 84',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_inharmonics',
@@ -1082,7 +825,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 86',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_position',
@@ -1090,15 +833,15 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 90',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_volume',
     //     displayName: 'Volume',
     //     path: 'devices 0 parameters 96',
-    //     inputRange: [0, 1],
+    //
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_radius',
@@ -1106,7 +849,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 80',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_opening',
@@ -1114,7 +857,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 88',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_tune',
@@ -1136,7 +879,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 70',
     //     inputRange: [-100, 100],
     //     outputRange: ['-1.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'reso2_time',
@@ -1144,7 +887,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 72',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo1_shape',
@@ -1166,15 +909,15 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 105',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo1_rate',
     //     displayName: 'Rate',
     //     path: 'devices 0 parameters 101',
-    //     inputRange: [0, 1],
+    //
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo1_dest_a',
@@ -1188,7 +931,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 108',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo1_dest_b',
@@ -1202,7 +945,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 110',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo2_shape',
@@ -1224,15 +967,15 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 119',
     //     inputRange: [0, 100],
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo2_rate',
     //     displayName: 'Rate',
     //     path: 'devices 0 parameters 115',
-    //     inputRange: [0, 1],
+    //
     //     outputRange: ['0.', '1.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo2_dest_a',
@@ -1246,7 +989,7 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 122',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
     // exports.xxx = {
     //     name: 'lfo2_dest_b',
@@ -1260,6 +1003,6 @@ export const parameterConfig = {
     //     path: 'devices 0 parameters 124',
     //     inputRange: [-20, 20],
     //     outputRange: ['-5.', '5.'],
-    //     unitType: unitType.FLOAT,
+    //
     // }
 }

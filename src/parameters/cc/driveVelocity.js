@@ -5,6 +5,6 @@ export class CCDriveVelocity extends CCParam {
         super()
         this.name = 'DriveVelocity'
         this.displayName = 'Drive'
-        this.path = 'parameters 4'
+        this.path = 'parameters 3'
     }
 }
