@@ -11,7 +11,6 @@ import unitType from '../constants/unitType'
 export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConfigs, deviceTypeToIndex, pathToChain) {
     let parameters = []
     let repitchWarpParameterIndex = null
-    let bpmParameterIndex = null
     let sampleCategories = null
 
     for (var parameterConfigIndex = 0; parameterConfigIndex < parameterConfigs.length; parameterConfigIndex++) {
@@ -43,7 +42,6 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
                 parameters.push(new RepitchParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else {
-                bpmParameterIndex = targetParameterName === 'Tempo' ? parameterConfigIndex : bpmParameterIndex
                 parameters.push(
                     new ValueParameter(
                         targetParameterConfig.displayName,
@@ -54,7 +52,8 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
                         targetParameterConfig.inputRange,
                         targetParameterConfig.randomRange,
                         targetParameterConfig.showValue,
-                        targetParameterConfig.speed
+                        targetParameterConfig.speed,
+                        targetParameterName === 'Tempo'
                     )
                 )
             }
@@ -65,7 +64,6 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
     return {
         parameters: parameters,
         repitchParameterIndex: repitchWarpParameterIndex,
-        bpmParameterIndex: bpmParameterIndex,
     }
 }
 

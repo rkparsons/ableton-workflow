@@ -147,7 +147,7 @@ export class ChainParamsMode extends UiMode {
             if (page.getRepitchWarpParameter()) {
                 page.getRepitchWarpParameter().constrainAndSendValue()
             }
-        } else if (page.getBpmParameterIndex() === encoderIndex) {
+        } else if (page.getParameter(encoderIndex).isBpm) {
             page.getRepitchWarpParameter().constrainAndSendValue()
         }
 

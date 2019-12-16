@@ -1,4 +1,4 @@
-export function ParameterPage(index, name, parameters, repitchWarpParameterIndex, bpmParameterIndex) {
+export function ParameterPage(index, name, parameters, repitchWarpParameterIndex) {
     this.getIndex = function() {
         return index
     }
@@ -21,10 +21,6 @@ export function ParameterPage(index, name, parameters, repitchWarpParameterIndex
 
     this.getParameter = function(parameterIndex) {
         return parameters[parameterIndex]
-    }
-
-    this.getBpmParameterIndex = function() {
-        return bpmParameterIndex
     }
 
     this.getRepitchWarpParameter = function() {

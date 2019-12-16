@@ -2,15 +2,15 @@ import { Parameter } from './parameter'
 import ascii from '../constants/ascii'
 
 export class ValueParameter extends Parameter {
-    constructor(displayName, livePath, property, defaultValue, unitType, inputRange, randomRange, showValue, speed) {
+    constructor(displayName, livePath, property, defaultValue, unitType, inputRange, randomRange, showValue, speed, isBpm) {
         super(displayName, livePath, property, defaultValue, unitType, randomRange)
         this.inputRange = inputRange
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
         this.isBipolar = this.max / this.min < 0
         this.showValue = showValue
-        // todo: remove defaults from parameter types
-        this.speed = speed || 1
+        this.speed = speed
+        this.isBpm = isBpm
     }
 
     getDisplayValue() {

@@ -5,6 +5,7 @@ export class Parameter {
         this.name = name
         this.livePath = livePath
         this.property = property
+        // todo: remove defaults from parameter classes
         this.defaultValue = defaultValue || 0
         this.unitType = unitType
         this.randomRange = randomRange
