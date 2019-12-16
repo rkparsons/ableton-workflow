@@ -23,7 +23,8 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             const targetParameterName = targetParameterConfig.name
             const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
-            const apiProperty = targetParameterConfig.property
+            // todo: remove default property
+            const apiProperty = targetParameterConfig.property || 'value'
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
             //todo: pass config object and destructure in constructor
