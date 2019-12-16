@@ -15,27 +15,23 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
 
     parameterConstructors.forEach(parameterConstructor => {
         const config = parameterConstructor()
-        const targetDeviceType = config.type
-        const targetParameterName = config.name
-        const targetDeviceIndex = deviceTypeToIndex[targetDeviceType]
-        const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
+        const targetDeviceIndex = deviceTypeToIndex[config.type]
+        const targetDevicePath = config.type === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
         const apiPath = targetDevicePath + ' ' + config.path
         const apiPathDecimal = targetDevicePath + ' ' + config.pathDecimal
 
-        // todo: pass config object and destructure in constructor
-        // todo: refactor out conditional logic
-        if (targetParameterName === 'Category') {
+        if (config.name === 'Category') {
             parameters.push(new EnumParameter(config.displayName, apiPath, config.property, config.defaultValue, sampleCategories, null, true))
-        } else if (targetParameterName === 'Select') {
+        } else if (config.name === 'Select') {
             parameters.push(new FilteredEnumParameter(config.displayName, apiPath, config.property, config.defaultValue, sampleGroups, true))
         } else if (config.unitType === unitType.ENUM) {
             parameters.push(new EnumParameter(config.displayName, apiPath, config.property, config.defaultValue, config.options, config.randomRange))
-        } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
+        } else if (instrumentRackName === 'Break' && config.name === 'Repitch') {
             parameters.push(new RepitchWarpParameter(config.displayName, apiPath, apiPathDecimal, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
-        } else if (targetParameterName === 'Repitch') {
+        } else if (config.name === 'Repitch') {
             parameters.push(new RepitchParameter(config.displayName, apiPath, apiPathDecimal, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
         } else {
-            parameters.push(new ValueParameter(config.displayName, apiPath, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, targetParameterName === 'Tempo'))
+            parameters.push(new ValueParameter(config.displayName, apiPath, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.name === 'Tempo'))
         }
     })
 
