@@ -136,19 +136,25 @@ export class ChainParamsMode extends UiMode {
             .getActiveChain()
             .getActiveParameterPage()
 
-        page.getParameter(encoderIndex).sendValue(value)
+        const parameter = page.getParameter(encoderIndex)
+
+        parameter.sendValue(value)
 
         //todo: move logic into page
-        if (page.getParameter(encoderIndex).isCategory) {
+        if (parameter.isCategory) {
             page.getParameters()
                 .find(parameter => parameter.isSample)
                 .constrainAndSendValue()
 
-            if (page.getRepitchWarpParameter()) {
-                page.getRepitchWarpParameter().constrainAndSendValue()
+            const repitchWarpParameter = page.getParameters().find(parameter => parameter.isRepitchWarp)
+
+            if (repitchWarpParameter) {
+                repitchWarpParameter.constrainAndSendValue()
             }
-        } else if (page.getParameter(encoderIndex).isBpm) {
-            page.getRepitchWarpParameter().constrainAndSendValue()
+        } else if (parameter.isBpm) {
+            page.getParameters()
+                .find(parameter => parameter.isRepitchWarp)
+                .constrainAndSendValue()
         }
 
         this.updateDisplay()

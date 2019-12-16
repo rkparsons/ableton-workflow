@@ -5,6 +5,7 @@ export class RepitchWarpParameter extends RepitchParameter {
         super(displayName, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange)
         this.observeTempo()
         this.sampleBpm = null
+        this.isRepitchWarp = true
     }
 
     observeTempo() {

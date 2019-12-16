@@ -10,7 +10,6 @@ import unitType from '../constants/unitType'
 
 export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConfigs, deviceTypeToIndex, pathToChain) {
     let parameters = []
-    let repitchWarpParameterIndex = null
     let sampleCategories = null
 
     for (var parameterConfigIndex = 0; parameterConfigIndex < parameterConfigs.length; parameterConfigIndex++) {
@@ -36,7 +35,6 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
             } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
-                repitchWarpParameterIndex = parameterConfigIndex
                 parameters.push(new RepitchWarpParameter(targetParameterConfig.displayName, apiPath, apiPathDecimal, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange, targetParameterConfig.randomRange))
             } else if (targetParameterName === 'Repitch') {
                 const apiPathDecimal = targetDevicePath + ' ' + targetParameterConfig.pathDecimal
@@ -60,11 +58,7 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
         }
     }
 
-    //todo: remove object return
-    return {
-        parameters: parameters,
-        repitchParameterIndex: repitchWarpParameterIndex,
-    }
+    return parameters
 }
 
 export function createMixerParameters(parameterName, pathToDevice, chainCount) {
