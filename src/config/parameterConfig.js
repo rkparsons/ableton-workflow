@@ -1,4 +1,6 @@
 import { CCDelay } from '../parameters/cc/delay'
+import { CCDriveVelocity } from '../parameters/cc/driveVelocity'
+import { CCPitchEnvVelocity } from '../parameters/cc/pitchEnvVelocity'
 import { CCStart } from '../parameters/cc/start'
 import { CCStartRandom } from '../parameters/cc/startRandom'
 import { ChainMute } from '../parameters/chain/mute'
@@ -30,22 +32,8 @@ export const parameterConfig = {
         Delay: () => new CCDelay(),
         Start: () => new CCStart(),
         StartRandom: () => new CCStartRandom(),
-        DriveVelocity: () => ({
-            type: 'CC',
-            name: 'DriveVelocity',
-            displayName: 'Drive',
-            path: 'parameters 4',
-            inputRange: [0, 127],
-            unitType: unitType.INT,
-        }),
-        PitchEnvVelocity: () => ({
-            type: 'CC',
-            name: 'PitchEnvVelocity',
-            displayName: 'PEnv',
-            path: 'parameters 5',
-            inputRange: [0, 127],
-            unitType: unitType.INT,
-        }),
+        DriveVelocity: () => new CCDriveVelocity(),
+        PitchEnvVelocity: () => new CCPitchEnvVelocity(),
     },
 
     Sampler: {
