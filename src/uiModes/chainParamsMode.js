@@ -57,7 +57,8 @@ export class ChainParamsMode extends UiMode {
             .getActiveInstrumentRack()
             .getActiveChain()
             .getActiveParameterPage()
-            .getSampleParameter()
+            .getParameters()
+            .find(parameter => parameter.isSample)
 
         if (!sampleParameter) {
             return
@@ -121,7 +122,9 @@ export class ChainParamsMode extends UiMode {
         targetCommand === command.DEFAULT ? param.default() : param.random()
 
         if (page.getParameter(encoderIndex).isCategory) {
-            page.getSampleParameter().default()
+            page.getParameters()
+                .find(parameter => parameter.isSample)
+                .default()
         }
 
         this.updateDisplay()
@@ -137,7 +140,9 @@ export class ChainParamsMode extends UiMode {
 
         //todo: move logic into page
         if (page.getParameter(encoderIndex).isCategory) {
-            page.getSampleParameter().constrainAndSendValue()
+            page.getParameters()
+                .find(parameter => parameter.isSample)
+                .constrainAndSendValue()
 
             if (page.getRepitchWarpParameter()) {
                 page.getRepitchWarpParameter().constrainAndSendValue()

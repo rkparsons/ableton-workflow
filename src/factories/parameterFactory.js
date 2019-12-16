@@ -10,7 +10,6 @@ import unitType from '../constants/unitType'
 
 export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConfigs, deviceTypeToIndex, pathToChain) {
     let parameters = []
-    let sampleParameterIndex = null
     let repitchWarpParameterIndex = null
     let bpmParameterIndex = null
     let sampleCategories = null
@@ -24,8 +23,8 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
             const targetDevicePath = targetDeviceType === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
             const apiPath = targetDevicePath + ' ' + targetParameterConfig.path
 
-            //todo: pass config object and destructure in constructor
-            // refactor out conditional logic
+            // todo: pass config object and destructure in constructor
+            // todo: refactor out conditional logic
             if (targetParameterName === 'Category') {
                 sampleCategories = getCategories(samplesFolder, instrumentRackName, chainName)
                 targetParameterConfig.options = sampleCategories
@@ -33,8 +32,7 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, null, true))
             } else if (targetParameterName === 'Select') {
                 targetParameterConfig.options = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
-                sampleParameterIndex = parameterConfigIndex
-                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options))
+                parameters.push(new FilteredEnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, true))
             } else if (targetParameterConfig.unitType === unitType.ENUM) {
                 parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
             } else if (instrumentRackName === 'Break' && targetParameterName === 'Repitch') {
@@ -66,7 +64,6 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
     //todo: remove object return
     return {
         parameters: parameters,
-        sampleParameterIndex: sampleParameterIndex,
         repitchParameterIndex: repitchWarpParameterIndex,
         bpmParameterIndex: bpmParameterIndex,
     }
