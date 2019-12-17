@@ -1,13 +1,13 @@
-import unitType from '../constants/unitType'
+import unit from '../constants/unitType'
 
 export class Parameter {
-    constructor({ name = '', livePath, property = 'value', defaultValue = 0, type = unitType.FLOAT, randomRange, speed = 1, showValue = false }) {
+    constructor({ name = '', livePath, property = 'value', defaultValue = 0, unitType = unit.FLOAT, randomRange, speed = 1, showValue = false }) {
         this.name = name
         this.livePath = livePath
         this.property = property
         this.defaultValue = defaultValue
         // todo: replace unitType with subclasses
-        this.unitType = type
+        this.unitType = unitType
         this.randomRange = randomRange
         this.speed = speed
         this.showValue = showValue
@@ -89,6 +89,6 @@ export class Parameter {
     }
 
     getOutputValue() {
-        return this.unitType === unitType.FLOAT ? Math.round(this.value * 1000) / 1000 : Math.round(this.value)
+        return this.unitType === unit.FLOAT ? Math.round(this.value * 1000) / 1000 : Math.round(this.value)
     }
 }

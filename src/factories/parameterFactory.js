@@ -37,16 +37,45 @@ export function createParameter(deviceName, pathToChain, parameterName, deviceTy
 
 function create(config) {
     if (config.name === 'Category') {
-        return new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, config.isCategory)
+        return new EnumParameter({ name: config.displayName, livePath: `${config.basePath} ${config.path}`, property: config.property, defaultValue: config.defaultValue, options: config.options, randomRange: config.randomRange, isCategory: config.isCategory })
     } else if (config.name === 'Select') {
-        return new FilteredEnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.optionGroups, config.isSample)
+        return new FilteredEnumParameter({ name: config.displayName, livePath: `${config.basePath} ${config.path}`, property: config.property, defaultValue: config.defaultValue, optionGroups: config.optionGroups, isSample: config.isSample })
     } else if (config.unitType === unitType.ENUM) {
-        return new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, config.isCategory)
+        return new EnumParameter({ name: config.displayName, livePath: `${config.basePath} ${config.path}`, property: config.property, defaultValue: config.defaultValue, options: config.options, randomRange: config.randomRange, isCategory: config.isCategory })
     } else if (config.isRepitch && config.isWarp) {
-        return new RepitchWarpParameter(config.displayName, `${config.basePath} ${config.path}`, `${config.basePath} ${config.pathDecimal}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange)
+        return new RepitchWarpParameter({
+            name: config.displayName,
+            livePath: `${config.basePath} ${config.path}`,
+            livePathDecimal: `${config.basePath} ${config.pathDecimal}`,
+            property: config.property,
+            defaultValue: config.defaultValue,
+            unitType: config.unitType,
+            inputRange: config.inputRange,
+            randomRange: config.randomRange,
+        })
     } else if (config.isRepitch) {
-        return new RepitchParameter(config.displayName, `${config.basePath} ${config.path}`, `${config.basePath} ${config.pathDecimal}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange)
+        return new RepitchParameter({
+            name: config.displayName,
+            livePath: `${config.basePath} ${config.path}`,
+            livePathDecimal: `${config.basePath} ${config.pathDecimal}`,
+            property: config.property,
+            defaultValue: config.defaultValue,
+            unitType: config.unitType,
+            inputRange: config.inputRange,
+            randomRange: config.randomRange,
+        })
     } else {
-        return new ValueParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.isBpm)
+        return new ValueParameter({
+            name: config.displayName,
+            livePath: `${config.basePath} ${config.path}`,
+            property: config.property,
+            defaultValue: config.defaultValue,
+            unitType: config.unitType,
+            inputRange: config.inputRange,
+            randomRange: config.randomRange,
+            showValue: config.showValue,
+            speed: config.speed,
+            isBpm: config.isBpm,
+        })
     }
 }
