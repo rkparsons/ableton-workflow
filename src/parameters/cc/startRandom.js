@@ -5,8 +5,7 @@ export class CCStartRandom {
         this.basePath = `${pathToChain} devices ${deviceTypeToIndex['CC']}`
         this.inputRange = [0, 127]
         this.unitType = unitType.INT
-        this.name = 'StartRandom'
-        this.displayName = 'Start'
+        this.name = 'Start'
         this.path = 'parameters 2'
     }
 }

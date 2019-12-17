@@ -6,7 +6,6 @@ export class CCStart {
         this.inputRange = [0, 127]
         this.unitType = unitType.INT
         this.name = 'Start'
-        this.displayName = 'Start'
         this.path = 'parameters 1'
         this.randomRange = [0, 0]
     }

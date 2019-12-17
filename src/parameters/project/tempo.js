@@ -3,8 +3,7 @@ import unitType from '../../constants/unitType'
 export class ProjectTempo {
     constructor() {
         this.basePath = 'live_set'
-        this.name = 'Tempo'
-        this.displayName = 'BPM'
+        this.name = 'BPM'
         this.path = 'master_track mixer_device song_tempo'
         this.inputRange = [80, 180]
         this.speed = 0.1

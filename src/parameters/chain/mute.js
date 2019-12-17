@@ -5,7 +5,6 @@ export class ChainMute {
         this.basePath = pathToChain
         this.path = ''
         this.name = 'Mute'
-        this.displayName = 'Mute'
         this.property = 'mute'
         this.options = [0, 1]
         this.unitType = unitType.ENUM

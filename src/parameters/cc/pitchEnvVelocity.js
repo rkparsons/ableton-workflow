@@ -5,8 +5,7 @@ export class CCPitchEnvVelocity {
         this.basePath = `${pathToChain} devices ${deviceTypeToIndex['CC']}`
         this.inputRange = [0, 127]
         this.unitType = unitType.INT
-        this.name = 'PitchEnvVelocity'
-        this.displayName = 'PEnv'
+        this.name = 'PEnv'
         this.path = 'parameters 4'
     }
 }

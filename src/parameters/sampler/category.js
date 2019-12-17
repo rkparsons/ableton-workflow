@@ -4,7 +4,6 @@ export class SamplerCategory {
     constructor(pathToChain, deviceTypeToIndex) {
         this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'Category'
-        this.displayName = 'Category'
         this.path = 'parameters 29'
         this.options = []
         this.unitType = unitType.ENUM

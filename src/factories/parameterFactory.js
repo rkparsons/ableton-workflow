@@ -6,7 +6,7 @@ import { RepitchParameter } from '../models/repitchParameter'
 import { RepitchWarpParameter } from '../models/repitchWarpParameter'
 import { ValueParameter } from '../models/valueParameter'
 import { parameterConfig } from '../config/parameterConfig'
-import unitType from '../constants/unitType'
+import unit from '../constants/unitType'
 
 export function createParameters(samplesFolder, instrumentRackName, chainName, parameterConstructors, deviceTypeToIndex, pathToChain) {
     let parameters = []
@@ -36,46 +36,50 @@ export function createParameter(deviceName, pathToChain, parameterName, deviceTy
 }
 
 function create(config) {
+    const { name, basePath, path, pathDecimal, property, defaultValue, options, randomRange, isCategory, optionGroups, isSample, unitType, inputRange, showValue, speed, isBpm } = config
+    const livePath = `${basePath} ${path}`
+    const livePathDecimal = `${basePath} ${pathDecimal}`
+
     if (config.name === 'Category') {
-        return new EnumParameter({ name: config.displayName, livePath: `${config.basePath} ${config.path}`, property: config.property, defaultValue: config.defaultValue, options: config.options, randomRange: config.randomRange, isCategory: config.isCategory })
-    } else if (config.name === 'Select') {
-        return new FilteredEnumParameter({ name: config.displayName, livePath: `${config.basePath} ${config.path}`, property: config.property, defaultValue: config.defaultValue, optionGroups: config.optionGroups, isSample: config.isSample })
-    } else if (config.unitType === unitType.ENUM) {
-        return new EnumParameter({ name: config.displayName, livePath: `${config.basePath} ${config.path}`, property: config.property, defaultValue: config.defaultValue, options: config.options, randomRange: config.randomRange, isCategory: config.isCategory })
+        return new EnumParameter({ name, livePath, property, defaultValue, options, randomRange, isCategory })
+    } else if (config.name === 'Sample') {
+        return new FilteredEnumParameter({ name, livePath, property, defaultValue, optionGroups, isSample })
+    } else if (config.unitType === unit.ENUM) {
+        return new EnumParameter({ name, livePath, property, defaultValue, options, randomRange, isCategory })
     } else if (config.isRepitch && config.isWarp) {
         return new RepitchWarpParameter({
-            name: config.displayName,
-            livePath: `${config.basePath} ${config.path}`,
-            livePathDecimal: `${config.basePath} ${config.pathDecimal}`,
-            property: config.property,
-            defaultValue: config.defaultValue,
-            unitType: config.unitType,
-            inputRange: config.inputRange,
-            randomRange: config.randomRange,
+            name,
+            livePath,
+            livePathDecimal,
+            property,
+            defaultValue,
+            unitType,
+            inputRange,
+            randomRange,
         })
     } else if (config.isRepitch) {
         return new RepitchParameter({
-            name: config.displayName,
-            livePath: `${config.basePath} ${config.path}`,
-            livePathDecimal: `${config.basePath} ${config.pathDecimal}`,
-            property: config.property,
-            defaultValue: config.defaultValue,
-            unitType: config.unitType,
-            inputRange: config.inputRange,
-            randomRange: config.randomRange,
+            name,
+            livePath,
+            livePathDecimal,
+            property,
+            defaultValue,
+            unitType,
+            inputRange,
+            randomRange,
         })
     } else {
         return new ValueParameter({
-            name: config.displayName,
-            livePath: `${config.basePath} ${config.path}`,
-            property: config.property,
-            defaultValue: config.defaultValue,
-            unitType: config.unitType,
-            inputRange: config.inputRange,
-            randomRange: config.randomRange,
-            showValue: config.showValue,
-            speed: config.speed,
-            isBpm: config.isBpm,
+            name,
+            livePath,
+            property,
+            defaultValue,
+            unitType,
+            inputRange,
+            randomRange,
+            showValue,
+            speed,
+            isBpm,
         })
     }
 }
