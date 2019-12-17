@@ -3,8 +3,8 @@ import unitType from '../constants/unitType'
 
 export class EnumParameter extends Parameter {
     // todo: replace isX flags with subclasses
-    constructor(displayName, livePath, property, defaultValue, options, randomRange, isCategory) {
-        super(displayName, livePath, property, defaultValue, unitType.ENUM, null, 0.05)
+    constructor(name, livePath, property, defaultValue, options, randomRange, isCategory) {
+        super({ name: name, livePath: livePath, property: property, defaultValue: defaultValue, type: unitType.ENUM, speed: 0.05 })
         this.options = options
         this.optionKeys = Object.keys(options)
         this.min = this.optionKeys[0]

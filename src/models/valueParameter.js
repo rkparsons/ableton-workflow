@@ -3,7 +3,7 @@ import ascii from '../constants/ascii'
 
 export class ValueParameter extends Parameter {
     constructor(name, livePath, property, defaultValue, unitType, inputRange, randomRange, showValue, speed, isBpm) {
-        super(name, livePath, property, defaultValue, unitType, randomRange, speed)
+        super({ name: name, livePath: livePath, property: property, defaultValue: defaultValue, type: unitType, randomRange: randomRange, speed: speed })
         this.inputRange = inputRange || [0, 1]
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
