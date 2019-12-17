@@ -1,8 +1,8 @@
 import { RepitchParameter } from './repitchParameter'
 
 export class RepitchWarpParameter extends RepitchParameter {
-    constructor({ name, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange }) {
-        super({ name, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange })
+    constructor({ name, basePath, path, pathDecimal, property, defaultValue, unitType, inputRange, randomRange }) {
+        super({ name, basePath, path, pathDecimal, property, defaultValue, unitType, inputRange, randomRange })
         this.observeTempo()
         this.sampleBpm = null
         this.isRepitchWarp = true

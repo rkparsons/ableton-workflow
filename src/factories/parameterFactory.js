@@ -36,20 +36,18 @@ export function createParameter(deviceName, pathToChain, parameterName, deviceTy
 }
 
 function create({ name, basePath, path, pathDecimal, property, defaultValue, options, randomRange, isCategory, optionGroups, isSample, unitType, inputRange, showValue, speed, isBpm, isRepitch, isWarp }) {
-    const livePath = `${basePath} ${path}`
-    const livePathDecimal = `${basePath} ${pathDecimal}`
-
     if (name === 'Category') {
-        return new EnumParameter({ name, livePath, property, defaultValue, options, randomRange, isCategory })
+        return new EnumParameter({ name, basePath, path, property, defaultValue, options, randomRange, isCategory })
     } else if (name === 'Sample') {
-        return new FilteredEnumParameter({ name, livePath, property, defaultValue, optionGroups, isSample })
+        return new FilteredEnumParameter({ name, basePath, path, property, defaultValue, optionGroups, isSample })
     } else if (unitType === unit.ENUM) {
-        return new EnumParameter({ name, livePath, property, defaultValue, options, randomRange, isCategory })
+        return new EnumParameter({ name, basePath, path, property, defaultValue, options, randomRange, isCategory })
     } else if (isRepitch && isWarp) {
         return new RepitchWarpParameter({
             name,
-            livePath,
-            livePathDecimal,
+            basePath,
+            path,
+            pathDecimal,
             property,
             defaultValue,
             unitType,
@@ -59,8 +57,9 @@ function create({ name, basePath, path, pathDecimal, property, defaultValue, opt
     } else if (isRepitch) {
         return new RepitchParameter({
             name,
-            livePath,
-            livePathDecimal,
+            basePath,
+            path,
+            pathDecimal,
             property,
             defaultValue,
             unitType,
@@ -70,7 +69,8 @@ function create({ name, basePath, path, pathDecimal, property, defaultValue, opt
     } else {
         return new ValueParameter({
             name,
-            livePath,
+            basePath,
+            path,
             property,
             defaultValue,
             unitType,

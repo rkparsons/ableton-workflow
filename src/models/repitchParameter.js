@@ -1,9 +1,9 @@
 import { ValueParameter } from './valueParameter'
 
 export class RepitchParameter extends ValueParameter {
-    constructor({ name, livePath, livePathDecimal, property, defaultValue, unitType, inputRange, randomRange }) {
-        super({ name, livePath, property, defaultValue, unitType, inputRange, randomRange })
-        this.livePathDecimal = livePathDecimal
+    constructor({ name, basePath, path, pathDecimal, property, defaultValue, unitType, inputRange, randomRange }) {
+        super({ name, basePath, path, property, defaultValue, unitType, inputRange, randomRange })
+        this.livePathDecimal = `${basePath} ${pathDecimal}`
     }
 
     onValueChanged(callback) {
