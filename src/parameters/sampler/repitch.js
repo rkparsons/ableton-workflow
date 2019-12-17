@@ -8,5 +8,6 @@ export class SamplerRepitch extends SamplerParam {
         this.path = 'parameters 34'
         this.pathDecimal = 'parameters 35'
         this.inputRange = [-7.5, 7.5]
+        this.isRepitch = true
     }
 }
