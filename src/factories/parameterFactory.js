@@ -35,18 +35,17 @@ export function createParameter(deviceName, pathToChain, parameterName, deviceTy
     return create(config)
 }
 
-function create(config) {
-    const { name, basePath, path, pathDecimal, property, defaultValue, options, randomRange, isCategory, optionGroups, isSample, unitType, inputRange, showValue, speed, isBpm } = config
+function create({ name, basePath, path, pathDecimal, property, defaultValue, options, randomRange, isCategory, optionGroups, isSample, unitType, inputRange, showValue, speed, isBpm, isRepitch, isWarp }) {
     const livePath = `${basePath} ${path}`
     const livePathDecimal = `${basePath} ${pathDecimal}`
 
-    if (config.name === 'Category') {
+    if (name === 'Category') {
         return new EnumParameter({ name, livePath, property, defaultValue, options, randomRange, isCategory })
-    } else if (config.name === 'Sample') {
+    } else if (name === 'Sample') {
         return new FilteredEnumParameter({ name, livePath, property, defaultValue, optionGroups, isSample })
-    } else if (config.unitType === unit.ENUM) {
+    } else if (unitType === unit.ENUM) {
         return new EnumParameter({ name, livePath, property, defaultValue, options, randomRange, isCategory })
-    } else if (config.isRepitch && config.isWarp) {
+    } else if (isRepitch && isWarp) {
         return new RepitchWarpParameter({
             name,
             livePath,
@@ -57,7 +56,7 @@ function create(config) {
             inputRange,
             randomRange,
         })
-    } else if (config.isRepitch) {
+    } else if (isRepitch) {
         return new RepitchParameter({
             name,
             livePath,
