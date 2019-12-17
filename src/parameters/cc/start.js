@@ -1,8 +1,10 @@
-import { CCParam } from './cc'
+import unitType from '../../constants/unitType'
 
-export class CCStart extends CCParam {
+export class CCStart {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['CC']}`
+        this.inputRange = [0, 127]
+        this.unitType = unitType.INT
         this.name = 'Start'
         this.displayName = 'Start'
         this.path = 'parameters 1'

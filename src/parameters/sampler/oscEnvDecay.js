@@ -1,8 +1,6 @@
-import { SamplerParam } from './sampler'
-
-export class SamplerOscEnvDecay extends SamplerParam {
+export class SamplerOscEnvDecay {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'OscEnvDecay'
         this.displayName = 'D \\'
         this.path = 'parameters 17'

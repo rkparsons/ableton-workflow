@@ -1,9 +1,8 @@
-import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
-export class SamplerShaperPre extends SamplerParam {
+export class SamplerShaperPre {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'ShaperPre'
         this.displayName = 'Route'
         this.path = 'parameters 106'

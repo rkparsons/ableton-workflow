@@ -1,9 +1,8 @@
-import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
-export class SamplerOscWave extends SamplerParam {
+export class SamplerOscWave {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'OscWave'
         this.displayName = '/\\/'
         this.path = 'parameters 6'

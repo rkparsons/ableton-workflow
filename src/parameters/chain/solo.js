@@ -1,9 +1,9 @@
-import { ChainParam } from './chain'
 import unitType from '../../constants/unitType'
 
-export class ChainSolo extends ChainParam {
+export class ChainSolo {
     constructor(pathToChain) {
-        super(pathToChain)
+        this.basePath = pathToChain
+        this.path = ''
         this.name = 'Solo'
         this.displayName = 'Solo'
         this.property = 'solo'

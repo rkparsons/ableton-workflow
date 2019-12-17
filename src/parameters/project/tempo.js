@@ -1,8 +1,8 @@
-import { ProjectParam } from './project'
+import unitType from '../../constants/unitType'
 
-export class ProjectTempo extends ProjectParam {
+export class ProjectTempo {
     constructor() {
-        super()
+        this.basePath = 'live_set'
         this.name = 'Tempo'
         this.displayName = 'BPM'
         this.path = 'master_track mixer_device song_tempo'

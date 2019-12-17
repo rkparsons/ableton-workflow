@@ -1,8 +1,6 @@
-import { SamplerParam } from './sampler'
-
-export class SamplerPitchEnvAttack extends SamplerParam {
+export class SamplerPitchEnvAttack {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'PitchEnvAttack'
         this.displayName = 'A /'
         this.path = 'parameters 39'

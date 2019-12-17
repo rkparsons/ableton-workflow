@@ -1,18 +1,19 @@
 import unitType from '../constants/unitType'
 
 export class Parameter {
-    constructor(name, livePath, property, defaultValue, unitType, randomRange) {
-        this.name = name
+    constructor(name, livePath, property, defaultValue, type, randomRange, speed) {
+        this.name = name || ''
         this.livePath = livePath
-        this.property = property
-        // todo: remove defaults from parameter classes
+        this.property = property || 'value'
         this.defaultValue = defaultValue || 0
-        this.unitType = unitType
+        // todo: replace unitType with subclasses
+        this.unitType = type || unitType.FLOAT
         this.randomRange = randomRange
-        this.speed = 1
+        this.speed = speed || 1
         this.api = null
         this.value = null
         this.callback = null
+        this.showValue = false
     }
 
     getName() {
@@ -49,6 +50,7 @@ export class Parameter {
 
     setValue(value) {
         this.value = value
+
         this.constrainAndSendValue()
     }
 
@@ -78,6 +80,7 @@ export class Parameter {
 
     sendValue(delta) {
         this.value += this.getIncrement(delta)
+
         this.constrainAndSendValue()
     }
 

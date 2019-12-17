@@ -1,8 +1,6 @@
-import { SamplerParam } from './sampler'
-
-export class SamplerFilterEnv extends SamplerParam {
+export class SamplerFilterEnv {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'FilterEnv'
         this.displayName = 'Env'
         this.path = 'parameters 85'

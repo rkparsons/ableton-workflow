@@ -1,8 +1,6 @@
-import { SamplerParam } from './sampler'
-
-export class SamplerAmpTimeVelocity extends SamplerParam {
+export class SamplerAmpTimeVelocity {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'AmpTimeVelocity'
         this.displayName = 'Time'
         this.path = 'parameters 71'

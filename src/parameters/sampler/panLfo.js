@@ -1,8 +1,6 @@
-import { SamplerParam } from './sampler'
-
-export class SamplerPanLfo extends SamplerParam {
+export class SamplerPanLfo {
     constructor(pathToChain, deviceTypeToIndex) {
-        super(pathToChain, deviceTypeToIndex)
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
         this.name = 'PanLfo'
         this.displayName = 'Pan'
         this.path = 'parameters 57'
