@@ -17,17 +17,17 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
         const config = parameterConstructor(pathToChain, deviceTypeToIndex)
 
         if (config.name === 'Category') {
-            parameters.push(new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, sampleCategories, null, true))
+            parameters.push(new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, sampleCategories, config.randomRange, config.isCategory))
         } else if (config.name === 'Select') {
-            parameters.push(new FilteredEnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, sampleGroups, true))
+            parameters.push(new FilteredEnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, sampleGroups, config.isSample))
         } else if (config.unitType === unitType.ENUM) {
-            parameters.push(new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, false))
+            parameters.push(new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, config.isCategory))
         } else if (instrumentRackName === 'Break' && config.name === 'Repitch') {
             parameters.push(new RepitchWarpParameter(config.displayName, `${config.basePath} ${config.path}`, `${config.basePath} ${config.pathDecimal}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
         } else if (config.name === 'Repitch') {
             parameters.push(new RepitchParameter(config.displayName, `${config.basePath} ${config.path}`, `${config.basePath} ${config.pathDecimal}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
         } else {
-            parameters.push(new ValueParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.name === 'Tempo'))
+            parameters.push(new ValueParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.isBpm))
         }
     })
 
@@ -35,11 +35,12 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
 }
 
 export function createParameter(deviceName, pathToChain, parameterName, deviceTypeToIndex = {}) {
-    const config = parameterConfig[deviceName][parameterName](pathToChain, deviceTypeToIndex)
+    const parameterConstructor = parameterConfig[deviceName][parameterName]
+    const config = parameterConstructor(pathToChain, deviceTypeToIndex)
 
     if (config.unitType === unitType.ENUM) {
         return new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, config.isCategory)
     } else {
-        return new ValueParameter(parameterName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.isBpm)
+        return new ValueParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.isBpm)
     }
 }

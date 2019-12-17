@@ -10,5 +10,6 @@ export class ProjectTempo extends ProjectParam {
         this.speed = 0.1
         this.unitType = unitType.INT
         this.showValue = true
+        this.isBpm = true
     }
 }

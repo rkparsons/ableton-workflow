@@ -9,5 +9,6 @@ export class SamplerSelect extends SamplerParam {
         this.path = 'parameters 3'
         this.options = []
         this.unitType = unitType.ENUM
+        this.isSample = true
     }
 }
