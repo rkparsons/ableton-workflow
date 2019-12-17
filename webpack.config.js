@@ -23,3 +23,5 @@ let babelLoader = {
 }
 webpack_rules.push(babelLoader)
 module.exports = webpackOption
+
+// todo: use import path aliases

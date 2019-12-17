@@ -1,10 +1,10 @@
 import { MixerParam } from './mixer'
 
 export class MixerVolume extends MixerParam {
-    constructor() {
-        super()
+    constructor(pathToChain) {
+        super(pathToChain)
         this.name = 'Volume'
-        this.path = 'mixer_device volume'
+        this.path = 'volume'
         this.defaultValue = 0.85
     }
 }

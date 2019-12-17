@@ -2,8 +2,8 @@ import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
 export class SamplerFilterCircuit extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'FilterCircuit'
         this.displayName = 'Circuit'
         this.path = 'parameters 77'

@@ -11,9 +11,10 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
         const drumPadName = drumPadApi.get('name').toString()
 
         if (!drumPadName.startsWith('^') && drumPadApi.get('chains')[1]) {
-            const pathToInstrumentRack = pathToDrumPad + ' chains 0 devices 0'
-            const instrumentRack = createInstrumentRack(samplesFolder, pathToInstrumentRack)
-            const muteParameter = createParameter('Chain', 'Mute', pathToDrumPad)
+            const pathToChain = `${pathToDrumPad} chains 0`
+            const muteParameter = createParameter('Chain', pathToChain, 'Mute')
+            const pathToRack = `${pathToChain} devices 0`
+            const instrumentRack = createInstrumentRack(samplesFolder, pathToRack)
             const drumPad = new DrumPad(parseInt(drumPadApi.id), instrumentRack, muteParameter)
 
             drumPads.push(drumPad)

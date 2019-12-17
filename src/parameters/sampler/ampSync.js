@@ -2,8 +2,8 @@ import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
 export class SamplerAmpSync extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'AmpSync'
         this.displayName = 'Sync'
         this.path = 'parameters 70'

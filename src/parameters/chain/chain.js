@@ -1,8 +1,9 @@
 import { Param } from '../param'
 
 export class ChainParam extends Param {
-    constructor() {
+    constructor(pathToChain) {
         super()
-        this.type = 'Chain'
+        this.basePath = pathToChain
+        this.path = ''
     }
 }

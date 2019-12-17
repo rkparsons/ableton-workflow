@@ -2,8 +2,8 @@ import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
 export class SamplerOscMulti extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'OscMulti'
         this.displayName = 'Multi'
         this.path = 'parameters 13'

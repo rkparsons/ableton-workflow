@@ -1,8 +1,8 @@
 import { Param } from '../param'
 
 export class MixerParam extends Param {
-    constructor() {
+    constructor(pathToChain) {
         super()
-        this.type = 'Mixer'
+        this.basePath = `${pathToChain} mixer_device`
     }
 }

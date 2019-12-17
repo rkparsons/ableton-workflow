@@ -1,10 +1,10 @@
 import { MixerParam } from './mixer'
 
 export class MixerPanning extends MixerParam {
-    constructor() {
-        super()
+    constructor(pathToChain) {
+        super(pathToChain)
         this.name = 'Panning'
-        this.path = 'mixer_device panning'
+        this.path = 'panning'
         this.inputRange = [-1, 1]
     }
 }

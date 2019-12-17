@@ -2,8 +2,8 @@ import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
 export class SamplerAmpLoop extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'AmpLoop'
         this.displayName = 'Loop'
         this.path = 'parameters 68'

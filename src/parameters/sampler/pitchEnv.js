@@ -2,8 +2,8 @@ import { SamplerParam } from './sampler'
 import unitType from '../../constants/unitType'
 
 export class SamplerPitchEnv extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'PitchEnv'
         this.displayName = 'Env'
         this.path = 'parameters 38'

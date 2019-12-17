@@ -1,8 +1,8 @@
 import { SamplerParam } from './sampler'
 
 export class SamplerFilterDrive extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'FilterDrive'
         this.displayName = 'Drive'
         this.path = 'parameters 83'

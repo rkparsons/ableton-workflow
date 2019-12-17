@@ -1,8 +1,8 @@
 import { Param } from '../param'
 
 export class SamplerParam extends Param {
-    constructor() {
+    constructor(pathToChain, deviceTypeToIndex) {
         super()
-        this.type = 'Sampler'
+        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
     }
 }

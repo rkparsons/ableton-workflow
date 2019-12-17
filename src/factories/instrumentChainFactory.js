@@ -11,7 +11,7 @@ export function createInstrumentChains(samplesFolder, instrumentRackName, pathTo
         const chainName = chainApi.get('name').toString()
         const devicesCount = chainApi.get('devices').length / 2
         const parameterPages = createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, devicesCount)
-        const muteParameter = createParameter('Chain', 'Mute', pathToChain)
+        const muteParameter = createParameter('Chain', pathToChain, 'Mute')
 
         chains[i] = new InstrumentChain(i, chainName, parameterPages, muteParameter)
     }

@@ -1,8 +1,8 @@
 import { SamplerParam } from './sampler'
 
 export class SamplerAmpSustain extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'AmpSustain'
         this.displayName = 'S --'
         this.path = 'parameters 65'

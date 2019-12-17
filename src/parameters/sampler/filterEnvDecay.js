@@ -1,8 +1,8 @@
 import { SamplerParam } from './sampler'
 
 export class SamplerFilterEnvDecay extends SamplerParam {
-    constructor() {
-        super()
+    constructor(pathToChain, deviceTypeToIndex) {
+        super(pathToChain, deviceTypeToIndex)
         this.name = 'FilterEnvDecay'
         this.displayName = 'D \\'
         this.path = 'parameters 89'

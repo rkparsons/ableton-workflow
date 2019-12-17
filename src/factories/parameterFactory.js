@@ -14,54 +14,32 @@ export function createParameters(samplesFolder, instrumentRackName, chainName, p
     const sampleGroups = getSampleGroups(samplesFolder, instrumentRackName, chainName, sampleCategories)
 
     parameterConstructors.forEach(parameterConstructor => {
-        const config = parameterConstructor()
-        const targetDeviceIndex = deviceTypeToIndex[config.type]
-        const targetDevicePath = config.type === 'Project' ? 'live_set' : targetDeviceIndex !== undefined ? pathToChain + ' devices ' + targetDeviceIndex : pathToChain
-        const apiPath = targetDevicePath + ' ' + config.path
-        const apiPathDecimal = targetDevicePath + ' ' + config.pathDecimal
+        const config = parameterConstructor(pathToChain, deviceTypeToIndex)
 
         if (config.name === 'Category') {
-            parameters.push(new EnumParameter(config.displayName, apiPath, config.property, config.defaultValue, sampleCategories, null, true))
+            parameters.push(new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, sampleCategories, null, true))
         } else if (config.name === 'Select') {
-            parameters.push(new FilteredEnumParameter(config.displayName, apiPath, config.property, config.defaultValue, sampleGroups, true))
+            parameters.push(new FilteredEnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, sampleGroups, true))
         } else if (config.unitType === unitType.ENUM) {
-            parameters.push(new EnumParameter(config.displayName, apiPath, config.property, config.defaultValue, config.options, config.randomRange))
+            parameters.push(new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, false))
         } else if (instrumentRackName === 'Break' && config.name === 'Repitch') {
-            parameters.push(new RepitchWarpParameter(config.displayName, apiPath, apiPathDecimal, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
+            parameters.push(new RepitchWarpParameter(config.displayName, `${config.basePath} ${config.path}`, `${config.basePath} ${config.pathDecimal}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
         } else if (config.name === 'Repitch') {
-            parameters.push(new RepitchParameter(config.displayName, apiPath, apiPathDecimal, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
+            parameters.push(new RepitchParameter(config.displayName, `${config.basePath} ${config.path}`, `${config.basePath} ${config.pathDecimal}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange))
         } else {
-            parameters.push(new ValueParameter(config.displayName, apiPath, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.name === 'Tempo'))
+            parameters.push(new ValueParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.name === 'Tempo'))
         }
     })
 
     return parameters
 }
 
-export function createMixerParameters(parameterName, pathToDevice, chainCount) {
-    const targetParameterConfig = parameterConfig.Mixer[parameterName]()
-    var parameters = []
+export function createParameter(deviceName, pathToChain, parameterName, deviceTypeToIndex = {}) {
+    const config = parameterConfig[deviceName][parameterName](pathToChain, deviceTypeToIndex)
 
-    for (var chainIndex = 0; chainIndex < chainCount; chainIndex++) {
-        const apiPath = pathToDevice + ' chains ' + chainIndex + ' ' + (targetParameterConfig.path || '')
-
-        if (targetParameterConfig.unitType === unitType.ENUM) {
-            parameters.push(new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange))
-        } else {
-            parameters.push(new ValueParameter(parameterName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange))
-        }
-    }
-
-    return parameters
-}
-
-export function createParameter(deviceName, parameterName, pathToDevice) {
-    const targetParameterConfig = parameterConfig[deviceName][parameterName]()
-    const apiPath = pathToDevice + (targetParameterConfig.path || '')
-
-    if (targetParameterConfig.unitType === unitType.ENUM) {
-        return new EnumParameter(targetParameterConfig.displayName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.options, targetParameterConfig.randomRange)
+    if (config.unitType === unitType.ENUM) {
+        return new EnumParameter(config.displayName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.options, config.randomRange, config.isCategory)
     } else {
-        return new ValueParameter(parameterName, apiPath, targetParameterConfig.property, targetParameterConfig.defaultValue, targetParameterConfig.unitType, targetParameterConfig.inputRange)
+        return new ValueParameter(parameterName, `${config.basePath} ${config.path}`, config.property, config.defaultValue, config.unitType, config.inputRange, config.randomRange, config.showValue, config.speed, config.isBpm)
     }
 }
