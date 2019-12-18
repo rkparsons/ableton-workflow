@@ -1,6 +1,6 @@
 import { DrumPad } from '../models/drumPad'
 import { createInstrumentRack } from './instrumentRackFactory'
-import { createParameter } from './parameterFactory'
+import { parameterConfig } from '../config/parameterConfig'
 
 export function createDrumPads(samplesFolder, pathToDrumRack) {
     var drumPads = []
@@ -12,7 +12,7 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
 
         if (!drumPadName.startsWith('^') && drumPadApi.get('chains')[1]) {
             const pathToChain = `${pathToDrumPad} chains 0`
-            const muteParameter = createParameter('Chain', pathToChain, 'Mute')
+            const muteParameter = parameterConfig['Chain']['Mute']({ pathToChain })
             const pathToRack = `${pathToChain} devices 0`
             const instrumentRack = createInstrumentRack(samplesFolder, pathToRack)
             const drumPad = new DrumPad(parseInt(drumPadApi.id), instrumentRack, muteParameter)

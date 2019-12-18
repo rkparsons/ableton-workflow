@@ -1,6 +1,5 @@
-import { createParameter, createParameters } from './parameterFactory'
-
 import { ParameterPage } from '../models/parameterPage'
+import { createParameters } from './parameterFactory'
 import { parameterConfig } from '../config/parameterConfig'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
@@ -47,7 +46,7 @@ export function createMixerPages(pathToRack, chainCount) {
         for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
             const pathToChain = `${pathToRack} chains ${chainIndex}`
 
-            parameters.push(createParameter('Mixer', pathToChain, parameterNames[i]))
+            parameters.push(parameterConfig['Mixer'][parameterNames[i]]({ pathToChain }))
         }
 
         mixerPages.push(new ParameterPage(i, parameterNames[i], parameters))
