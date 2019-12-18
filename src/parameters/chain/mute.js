@@ -1,12 +1,7 @@
-import unitType from '../../constants/unitType'
+import { EnumParameter } from '../../models/enumParameter'
 
-export class ChainMute {
+export class ChainMute extends EnumParameter {
     constructor(pathToChain) {
-        this.basePath = pathToChain
-        this.path = ''
-        this.name = 'Mute'
-        this.property = 'mute'
-        this.options = [0, 1]
-        this.unitType = unitType.ENUM
+        super({ name: 'Mute', basePath: pathToChain, property: 'mute', options: [0, 1] })
     }
 }

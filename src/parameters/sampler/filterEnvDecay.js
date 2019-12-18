@@ -1,8 +1,12 @@
-export class SamplerFilterEnvDecay {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerFilterEnvDecay extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'D \\'
-        this.path = 'parameters 89'
-        this.defaultValue = 1
+        super({
+            name: 'D \\',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 89',
+            defaultValue: 1,
+        })
     }
 }

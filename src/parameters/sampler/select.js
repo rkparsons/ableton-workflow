@@ -1,12 +1,8 @@
-import unitType from '../../constants/unitType'
+import { FilteredEnumParameter } from '../../models/filteredEnumParameter'
 
-export class SamplerSelect {
+export class SamplerSelect extends FilteredEnumParameter {
+    // todo: use named params
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Sample'
-        this.path = 'parameters 3'
-        this.options = []
-        this.unitType = unitType.ENUM
-        this.isSample = true
+        super({ name: 'Sample', basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`, path: 'parameters 3', isSample: true })
     }
 }

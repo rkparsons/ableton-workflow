@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class SamplerPitch {
+export class SamplerPitch extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Pitch'
-        this.path = 'parameters 34'
-        this.inputRange = [-48, 48]
-        this.unitType = unitType.INT
+        super({
+            name: 'Pitch',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 34',
+            unitType: unitType.INT,
+            inputRange: [-48, 48],
+        })
     }
 }

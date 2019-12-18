@@ -1,8 +1,12 @@
-export class SamplerOscEnvDecay {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerOscEnvDecay extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'D \\'
-        this.path = 'parameters 17'
-        this.defaultValue = 1
+        super({
+            name: 'D \\',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 17',
+            defaultValue: 1,
+        })
     }
 }

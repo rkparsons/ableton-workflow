@@ -1,8 +1,12 @@
-export class SamplerFilterFreq {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerFilterFreq extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Freq'
-        this.path = 'parameters 80'
-        this.defaultValue = 1
+        super({
+            name: 'Freq',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 80',
+            defaultValue: 1,
+        })
     }
 }

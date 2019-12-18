@@ -1,7 +1,12 @@
-export class SamplerPitchEnvDecay {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerPitchEnvDecay extends ValueParameter {
+    // todo: create generic AmpDecay baseclass
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'D \\'
-        this.path = 'parameters 42'
+        super({
+            name: 'D \\',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 42',
+        })
     }
 }

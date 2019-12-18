@@ -2,8 +2,9 @@ import { Parameter } from './parameter'
 import unitType from '../constants/unitType'
 
 export class EnumParameter extends Parameter {
+    // todo: use same prop for inputRange and options
     // todo: replace isX flags with subclasses
-    constructor({ name, basePath, path, property, defaultValue, options, randomRange, isCategory }) {
+    constructor({ name, basePath, path, property, defaultValue, options = [], randomRange, isCategory }) {
         super({ name, basePath, path, property, defaultValue, unitType: unitType.ENUM, speed: 0.05 })
         this.options = options
         this.optionKeys = Object.keys(options)

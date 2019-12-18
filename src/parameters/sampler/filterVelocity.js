@@ -1,7 +1,11 @@
-export class SamplerFilterVelocity {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerFilterVelocity extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Filter'
-        this.path = 'parameters 101'
+        super({
+            name: 'Filter',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 101',
+        })
     }
 }

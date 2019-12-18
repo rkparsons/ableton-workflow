@@ -1,7 +1,11 @@
-export class SamplerPitchEnvAttack {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerPitchEnvAttack extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'A /'
-        this.path = 'parameters 39'
+        super({
+            name: 'A /',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 39',
+        })
     }
 }

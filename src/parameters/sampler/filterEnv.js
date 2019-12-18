@@ -1,8 +1,12 @@
-export class SamplerFilterEnv {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerFilterEnv extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Env'
-        this.path = 'parameters 85'
-        this.inputRange = [-72, 72]
+        super({
+            name: 'Env',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 85',
+            inputRange: [-72, 72],
+        })
     }
 }

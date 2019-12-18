@@ -1,8 +1,12 @@
-export class SamplerAmpTimeVelocity {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerAmpTimeVelocity extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Time'
-        this.path = 'parameters 71'
-        this.inputRange = [-100, 100]
+        super({
+            name: 'Time',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 71',
+            inputRange: [-100, 100],
+        })
     }
 }

@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class SamplerSpread {
+export class SamplerSpread extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Spread'
-        this.path = 'parameters 28'
-        this.inputRange = [0, 100]
-        this.unitType = unitType.INT
+        super({
+            name: 'Spread',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 28',
+            unitType: unitType.INT,
+            inputRange: [0, 100],
+        })
     }
 }

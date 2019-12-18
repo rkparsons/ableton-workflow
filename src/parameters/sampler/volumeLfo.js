@@ -1,7 +1,11 @@
-export class SamplerVolumeLfo {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerVolumeLfo extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Vol'
-        this.path = 'parameters 55'
+        super({
+            name: 'Vol',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 55',
+        })
     }
 }

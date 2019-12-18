@@ -1,7 +1,11 @@
-export class SamplerOscVelocity {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerOscVelocity extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Osc'
-        this.path = 'parameters 8'
+        super({
+            name: 'Osc',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 8',
+        })
     }
 }

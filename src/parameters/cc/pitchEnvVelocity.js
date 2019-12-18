@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class CCPitchEnvVelocity {
+export class CCPitchEnvVelocity extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['CC']}`
-        this.inputRange = [0, 127]
-        this.unitType = unitType.INT
-        this.name = 'PEnv'
-        this.path = 'parameters 4'
+        super({
+            name: 'PEnv',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['CC']}`,
+            path: 'parameters 4',
+            unitType: unitType.INT,
+            inputRange: [0, 127],
+        })
     }
 }

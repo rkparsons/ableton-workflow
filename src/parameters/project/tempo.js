@@ -1,14 +1,17 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class ProjectTempo {
+export class ProjectTempo extends ValueParameter {
     constructor() {
-        this.basePath = 'live_set'
-        this.name = 'BPM'
-        this.path = 'master_track mixer_device song_tempo'
-        this.inputRange = [80, 180]
-        this.speed = 0.1
-        this.unitType = unitType.INT
-        this.showValue = true
-        this.isBpm = true
+        super({
+            name: 'BPM',
+            basePath: 'live_set',
+            path: 'master_track mixer_device song_tempo',
+            unitType: unitType.INT,
+            inputRange: [80, 180],
+            showValue: true,
+            speed: 0.1,
+            isBpm: true,
+        })
     }
 }

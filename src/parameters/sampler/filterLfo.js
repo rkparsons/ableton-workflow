@@ -1,8 +1,12 @@
-export class SamplerFilterLfo {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerFilterLfo extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Filter'
-        this.path = 'parameters 102'
-        this.inputRange = [0, 24]
+        super({
+            name: 'Filter',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 102',
+            inputRange: [0, 24],
+        })
     }
 }

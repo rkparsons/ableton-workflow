@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class SamplerDetune {
+export class SamplerDetune extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = '- / +'
-        this.path = 'parameters 35'
-        this.inputRange = [-50, 50]
-        this.unitType = unitType.INT
+        super({
+            name: '- / +',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 35',
+            unitType: unitType.INT,
+            inputRange: [-50, 50],
+        })
     }
 }

@@ -1,11 +1,15 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class SamplerPitchEnv {
+export class SamplerPitchEnv extends ValueParameter {
+    // todo: create subclasses to integers/floats
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Env'
-        this.path = 'parameters 38'
-        this.inputRange = [-48, 48]
-        this.unitType = unitType.INT
+        super({
+            name: 'Env',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 38',
+            unitType: unitType.INT,
+            inputRange: [-48, 48],
+        })
     }
 }

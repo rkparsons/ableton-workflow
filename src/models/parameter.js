@@ -1,7 +1,7 @@
 import unit from '../constants/unitType'
 
 export class Parameter {
-    constructor({ name = '', basePath, path, property = 'value', defaultValue = 0, unitType = unit.FLOAT, randomRange, speed = 1, showValue = false }) {
+    constructor({ name = '', basePath, path = '', property = 'value', defaultValue = 0, unitType = unit.FLOAT, randomRange, speed = 1, showValue = false }) {
         this.name = name
         this.livePath = `${basePath} ${path}`
         this.property = property

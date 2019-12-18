@@ -1,12 +1,7 @@
-import unitType from '../../constants/unitType'
+import { EnumParameter } from '../../models/enumParameter'
 
-export class SamplerReverse {
+export class SamplerReverse extends EnumParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Playback'
-        this.path = 'parameters 1'
-        this.options = ['>>>', '<<<']
-        this.unitType = unitType.ENUM
-        this.randomRange = [0, 0]
+        super({ name: 'Playback', basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`, path: 'parameters 1', options: ['>>>', '<<<'], randomRange: [0, 0] })
     }
 }

@@ -1,10 +1,13 @@
-export class SamplerRepitch {
+import { RepitchParameter } from '../../models/repitchParameter'
+
+export class SamplerRepitch extends RepitchParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Repitch'
-        this.path = 'parameters 34'
-        this.pathDecimal = 'parameters 35'
-        this.inputRange = [-7.5, 7.5]
-        this.isRepitch = true
+        super({
+            name: 'Repitch',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 34',
+            pathDecimal: 'parameters 35',
+            inputRange: [-7.5, 7.5],
+        })
     }
 }

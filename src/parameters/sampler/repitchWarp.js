@@ -1,8 +1,13 @@
-import { SamplerRepitch } from './repitch'
+import { RepitchWarpParameter } from '../../models/repitchWarpParameter'
 
-export class SamplerRepitchWarp extends SamplerRepitch {
+export class SamplerRepitchWarp extends RepitchWarpParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.isWarp = true
+        super({
+            name: 'Repitch',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 34',
+            pathDecimal: 'parameters 35',
+            inputRange: [-7.5, 7.5],
+        })
     }
 }

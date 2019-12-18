@@ -1,8 +1,12 @@
-export class MixerVolume {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class MixerVolume extends ValueParameter {
     constructor(pathToChain) {
-        this.basePath = `${pathToChain} mixer_device`
-        this.name = 'Volume'
-        this.path = 'volume'
-        this.defaultValue = 0.85
+        super({
+            name: 'Volume',
+            basePath: `${pathToChain} mixer_device`,
+            path: 'volume',
+            defaultValue: 0.85,
+        })
     }
 }

@@ -1,8 +1,12 @@
-export class SamplerAmpSustain {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerAmpSustain extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'S --'
-        this.path = 'parameters 65'
-        this.defaultValue = 1
+        super({
+            name: 'S --',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 65',
+            defaultValue: 1,
+        })
     }
 }

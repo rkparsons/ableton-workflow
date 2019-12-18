@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class SamplerShaperLevel {
+export class SamplerShaperLevel extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = '- / +'
-        this.path = 'parameters 105'
-        this.inputRange = [0, 100]
-        this.unitType = unitType.INT
+        super({
+            name: '- / +',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 105',
+            unitType: unitType.INT,
+            inputRange: [0, 100],
+        })
     }
 }

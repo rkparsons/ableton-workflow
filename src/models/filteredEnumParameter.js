@@ -1,7 +1,7 @@
 import { EnumParameter } from './enumParameter'
 
 export class FilteredEnumParameter extends EnumParameter {
-    constructor({ name, basePath, path, property, defaultValue, optionGroups, isSample }) {
+    constructor({ name, basePath, path, property, defaultValue, optionGroups = {}, isSample }) {
         super({ name, basePath, path, property, defaultValue, options: optionGroups[Object.keys(optionGroups)[0]] })
         this.optionGroups = optionGroups
         this.isSample = isSample

@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class CCStartRandom {
+export class CCStartRandom extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['CC']}`
-        this.inputRange = [0, 127]
-        this.unitType = unitType.INT
-        this.name = 'Start'
-        this.path = 'parameters 2'
+        super({
+            name: 'Start',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['CC']}`,
+            path: 'parameters 2',
+            unitType: unitType.INT,
+            inputRange: [0, 127],
+        })
     }
 }

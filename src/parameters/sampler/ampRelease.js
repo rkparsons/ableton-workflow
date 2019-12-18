@@ -1,8 +1,12 @@
-export class SamplerAmpRelease {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerAmpRelease extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'R \\'
-        this.path = 'parameters 66'
-        this.defaultValue = 1
+        super({
+            name: 'R \\',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 66',
+            defaultValue: 1,
+        })
     }
 }

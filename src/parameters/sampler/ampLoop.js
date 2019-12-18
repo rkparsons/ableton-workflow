@@ -1,11 +1,7 @@
-import unitType from '../../constants/unitType'
+import { EnumParameter } from '../../models/enumParameter'
 
-export class SamplerAmpLoop {
+export class SamplerAmpLoop extends EnumParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Loop'
-        this.path = 'parameters 68'
-        this.options = ['none', 'loop', 'beat', 'sync', 'trig']
-        this.unitType = unitType.ENUM
+        super({ name: 'Loop', basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`, path: 'parameters 68', options: ['none', 'loop', 'beat', 'sync', 'trig'] })
     }
 }

@@ -2,6 +2,7 @@ import { UiMode } from './uiMode'
 import mode from '../constants/mode'
 
 export class ChainFxMode extends UiMode {
+    // rename directory as strategies
     constructor(rack, controlSurface) {
         super(rack, controlSurface)
     }

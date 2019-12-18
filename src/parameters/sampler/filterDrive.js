@@ -1,8 +1,12 @@
-export class SamplerFilterDrive {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class SamplerFilterDrive extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`
-        this.name = 'Drive'
-        this.path = 'parameters 83'
-        this.inputRange = [0, 24]
+        super({
+            name: 'Drive',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            path: 'parameters 83',
+            inputRange: [0, 24],
+        })
     }
 }

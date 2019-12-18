@@ -1,8 +1,12 @@
-export class MixerPanning {
+import { ValueParameter } from '../../models/valueParameter'
+
+export class MixerPanning extends ValueParameter {
     constructor(pathToChain) {
-        this.basePath = `${pathToChain} mixer_device`
-        this.name = 'Panning'
-        this.path = 'panning'
-        this.inputRange = [-1, 1]
+        super({
+            name: 'Panning',
+            basePath: `${pathToChain} mixer_device`,
+            path: 'panning',
+            inputRange: [-1, 1],
+        })
     }
 }

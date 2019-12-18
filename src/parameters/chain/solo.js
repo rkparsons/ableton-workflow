@@ -1,13 +1,7 @@
-import unitType from '../../constants/unitType'
+import { EnumParameter } from '../../models/enumParameter'
 
-export class ChainSolo {
+export class ChainSolo extends EnumParameter {
     constructor(pathToChain) {
-        this.basePath = pathToChain
-        this.path = ''
-        this.name = 'Solo'
-        this.property = 'solo'
-        this.options = ['off', 'on']
-        this.randomRange = [0, 0]
-        this.unitType = unitType.ENUM
+        super({ name: 'Solo', basePath: pathToChain, property: 'solo', options: ['off', 'on'], randomRange: [0, 0] })
     }
 }

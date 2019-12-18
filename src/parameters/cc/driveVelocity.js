@@ -1,11 +1,14 @@
+import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class CCDriveVelocity {
+export class CCDriveVelocity extends ValueParameter {
     constructor(pathToChain, deviceTypeToIndex) {
-        this.basePath = `${pathToChain} devices ${deviceTypeToIndex['CC']}`
-        this.inputRange = [0, 127]
-        this.unitType = unitType.INT
-        this.name = 'Drive'
-        this.path = 'parameters 3'
+        super({
+            name: 'Drive',
+            basePath: `${pathToChain} devices ${deviceTypeToIndex['CC']}`,
+            path: 'parameters 3',
+            unitType: unitType.INT,
+            inputRange: [0, 127],
+        })
     }
 }
