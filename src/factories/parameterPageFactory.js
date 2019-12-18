@@ -1,7 +1,6 @@
 import { getCategories, getSampleGroups } from '../util/fileSystem'
 
 import { ParameterPage } from '../models/parameterPage'
-import { createParameter } from './parameterFactory'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
 export function createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, devicesCount) {
@@ -30,7 +29,7 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
     parameterPageConfig[instrumentType].forEach(function(page, index) {
         const categories = getCategories(samplesFolder, instrumentRackName, chainName)
         const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
-        const parameters = page.parameters.map(constructor => constructor({ pathToChain, deviceTypeToIndex, options: categories, optionGroups: samples }))
+        const parameters = page.parameters.map(ParameterClass => new ParameterClass({ pathToChain, deviceTypeToIndex, options: categories, optionGroups: samples }))
 
         parameterPages.push(new ParameterPage(index, page.name, parameters))
     })
@@ -39,21 +38,19 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
 }
 
 export function createMixerPages(pathToRack, chainCount) {
-    const parameterNames = Object.keys(createParameter.Mixer)
     const mixerPages = []
 
-    //todo: replace all object loops with forEach
-    for (i in parameterNames) {
+    parameterPageConfig.Mixer.forEach(ParameterClass => {
         let parameters = []
 
         for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
             const pathToChain = `${pathToRack} chains ${chainIndex}`
 
-            parameters.push(createParameter['Mixer'][parameterNames[i]]({ pathToChain }))
+            parameters.push(new ParameterClass({ pathToChain }))
         }
 
-        mixerPages.push(new ParameterPage(i, parameterNames[i], parameters))
-    }
+        mixerPages.push(new ParameterPage(i, parameters[0].name, parameters))
+    })
 
     return mixerPages
 }
