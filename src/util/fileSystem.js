@@ -1,3 +1,4 @@
+// todo: refactor to separate fs from sample logic
 export function getCategories(samplesFolder, instrumentRackName, chainName) {
     const folderPath = getSamplesFolderPath(samplesFolder, instrumentRackName, chainName)
     const folder = new Folder(folderPath)

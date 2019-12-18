@@ -1,5 +1,6 @@
+import { getCategories, getSampleGroups } from '../util/fileSystem'
+
 import { ParameterPage } from '../models/parameterPage'
-import { createParameters } from './parameterFactory'
 import { parameterConfig } from '../config/parameterConfig'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
@@ -27,7 +28,9 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
     }
 
     parameterPageConfig[instrumentType].forEach(function(page, index) {
-        const parameters = createParameters(samplesFolder, instrumentRackName, chainName, page.parameters, deviceTypeToIndex, pathToChain)
+        const categories = getCategories(samplesFolder, instrumentRackName, chainName)
+        const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
+        const parameters = page.parameters.map(constructor => constructor({ pathToChain, deviceTypeToIndex, options: categories, optionGroups: samples }))
 
         parameterPages.push(new ParameterPage(index, page.name, parameters))
     })
