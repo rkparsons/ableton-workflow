@@ -50,8 +50,6 @@ import { SamplerSpread } from '../parameters/sampler/spread'
 import { SamplerVolumeLfo } from '../parameters/sampler/volumeLfo'
 import { SamplerVolumeVelocity } from '../parameters/sampler/volumeVelocity'
 
-// todo: remove name property
-// todo: inherit from original parameter class and move creation logic here
 export const parameterConfig = {
     Project: {
         Tempo: () => new ProjectTempo(),

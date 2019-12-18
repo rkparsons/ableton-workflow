@@ -1,6 +1,6 @@
 import { DrumPad } from '../models/drumPad'
 import { createInstrumentRack } from './instrumentRackFactory'
-import { parameterConfig } from '../factories/parameterConfig'
+import { parameterConfig } from './parameterFactory'
 
 export function createDrumPads(samplesFolder, pathToDrumRack) {
     var drumPads = []

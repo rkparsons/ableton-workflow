@@ -1,7 +1,7 @@
 import { getCategories, getSampleGroups } from '../util/fileSystem'
 
 import { ParameterPage } from '../models/parameterPage'
-import { parameterConfig } from './parameterConfig'
+import { parameterConfig } from './parameterFactory'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
 export function createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, devicesCount) {
