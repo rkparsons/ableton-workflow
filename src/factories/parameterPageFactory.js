@@ -21,12 +21,7 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
         }
     }
 
-    // todo: remove this temp check
-    if (parameterPageConfig[instrumentType] === undefined) {
-        return null
-    }
-
-    parameterPageConfig[instrumentType].forEach(function(page, index) {
+    parameterPageConfig[instrumentType].forEach((page, index) => {
         const categories = getCategories(samplesFolder, instrumentRackName, chainName)
         const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
         const parameters = page.parameters.map(ParameterClass => new ParameterClass({ pathToChain, deviceTypeToIndex, options: categories, optionGroups: samples }))
