@@ -1,7 +1,7 @@
 import { ValueParameter } from '../../models/valueParameter'
 
 export class SamplerFilterLfo extends ValueParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Filter',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

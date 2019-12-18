@@ -1,7 +1,7 @@
 import { ValueParameter } from '../../models/valueParameter'
 
 export class SamplerFilterRes extends ValueParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Res',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

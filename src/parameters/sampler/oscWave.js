@@ -1,7 +1,7 @@
 import { EnumParameter } from '../../models/enumParameter'
 
 export class SamplerOscWave extends EnumParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: '/\\/',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

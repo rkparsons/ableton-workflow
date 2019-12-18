@@ -2,7 +2,7 @@ import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
 export class SamplerSpread extends ValueParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Spread',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

@@ -1,7 +1,7 @@
 import { RepitchWarpParameter } from '../../models/repitchWarpParameter'
 
 export class SamplerRepitchWarp extends RepitchWarpParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Repitch',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

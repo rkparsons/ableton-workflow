@@ -3,7 +3,7 @@ import unitType from '../../constants/unitType'
 
 export class SamplerPitchEnv extends ValueParameter {
     // todo: create subclasses to integers/floats
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Env',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

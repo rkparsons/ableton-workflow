@@ -1,7 +1,7 @@
 import { ValueParameter } from '../../models/valueParameter'
 
 export class MixerPanning extends ValueParameter {
-    constructor(pathToChain) {
+    constructor({ pathToChain }) {
         super({
             name: 'Panning',
             basePath: `${pathToChain} mixer_device`,

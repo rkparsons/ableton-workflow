@@ -2,7 +2,7 @@ import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
 export class CCDriveVelocity extends ValueParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Drive',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['CC']}`,

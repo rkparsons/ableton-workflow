@@ -1,7 +1,7 @@
 import { ValueParameter } from '../../models/valueParameter'
 
 export class SamplerAmpSustain extends ValueParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'S --',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,

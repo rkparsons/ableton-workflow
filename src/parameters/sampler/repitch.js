@@ -1,7 +1,7 @@
 import { RepitchParameter } from '../../models/repitchParameter'
 
 export class SamplerRepitch extends RepitchParameter {
-    constructor(pathToChain, deviceTypeToIndex) {
+    constructor({ pathToChain, deviceTypeToIndex }) {
         super({
             name: 'Repitch',
             basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
