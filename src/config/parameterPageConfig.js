@@ -1,4 +1,4 @@
-import { parameterConfig } from './parameterConfig'
+import { parameterConfig } from '../factories/parameterConfig'
 
 const { CC, Chain, Sampler } = parameterConfig
 

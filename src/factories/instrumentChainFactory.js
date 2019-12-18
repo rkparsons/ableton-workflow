@@ -1,6 +1,6 @@
 import { InstrumentChain } from '../models/instrumentChain'
 import { createParameterPages } from './parameterPageFactory'
-import { parameterConfig } from '../config/parameterConfig'
+import { parameterConfig } from '../factories/parameterConfig'
 
 export function createInstrumentChains(samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
     var chains = []
