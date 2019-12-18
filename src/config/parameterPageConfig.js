@@ -1,6 +1,6 @@
-import { parameterConfig } from '../factories/parameterFactory'
+import { createParameter } from '../factories/parameterFactory'
 
-const { CC, Chain, Sampler } = parameterConfig
+const { CC, Chain, Sampler } = createParameter
 
 export const parameterPageConfig = {
     Sampler: [

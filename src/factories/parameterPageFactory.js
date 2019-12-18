@@ -1,7 +1,7 @@
 import { getCategories, getSampleGroups } from '../util/fileSystem'
 
 import { ParameterPage } from '../models/parameterPage'
-import { parameterConfig } from './parameterFactory'
+import { createParameter } from './parameterFactory'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
 export function createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, devicesCount) {
@@ -39,7 +39,7 @@ export function createParameterPages(samplesFolder, instrumentRackName, chainNam
 }
 
 export function createMixerPages(pathToRack, chainCount) {
-    const parameterNames = Object.keys(parameterConfig.Mixer)
+    const parameterNames = Object.keys(createParameter.Mixer)
     const mixerPages = []
 
     //todo: replace all object loops with forEach
@@ -49,7 +49,7 @@ export function createMixerPages(pathToRack, chainCount) {
         for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
             const pathToChain = `${pathToRack} chains ${chainIndex}`
 
-            parameters.push(parameterConfig['Mixer'][parameterNames[i]]({ pathToChain }))
+            parameters.push(createParameter['Mixer'][parameterNames[i]]({ pathToChain }))
         }
 
         mixerPages.push(new ParameterPage(i, parameterNames[i], parameters))

@@ -1,6 +1,6 @@
 import { InstrumentChain } from '../models/instrumentChain'
+import { createParameter } from './parameterFactory'
 import { createParameterPages } from './parameterPageFactory'
-import { parameterConfig } from './parameterFactory'
 
 export function createInstrumentChains(samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
     var chains = []
@@ -11,7 +11,7 @@ export function createInstrumentChains(samplesFolder, instrumentRackName, pathTo
         const chainName = chainApi.get('name').toString()
         const devicesCount = chainApi.get('devices').length / 2
         const parameterPages = createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, devicesCount)
-        const muteParameter = parameterConfig['Chain']['Mute']({ pathToChain })
+        const muteParameter = createParameter['Chain']['Mute']({ pathToChain })
 
         chains[i] = new InstrumentChain(i, chainName, parameterPages, muteParameter)
     }

@@ -50,7 +50,7 @@ import { SamplerSpread } from '../parameters/sampler/spread'
 import { SamplerVolumeLfo } from '../parameters/sampler/volumeLfo'
 import { SamplerVolumeVelocity } from '../parameters/sampler/volumeVelocity'
 
-export const parameterConfig = {
+export const createParameter = {
     Project: {
         Tempo: () => new ProjectTempo(),
     },
