@@ -3,6 +3,7 @@ import { getCategories, getSampleGroups } from '../util/fileSystem'
 import { ParameterPage } from '../models/parameterPage'
 import amplifier from '../parameterPages/sampler/amplifier'
 import filter from '../parameterPages/sampler/filter'
+import mixer from '../parameterPages/mixer'
 import oscillator from '../parameterPages/sampler/oscillator'
 import pitch from '../parameterPages/sampler/pitch'
 import random from '../parameterPages/sampler/random'
@@ -11,7 +12,19 @@ import tone from '../parameterPages/sampler/tone'
 import velocity from '../parameterPages/sampler/velocity'
 
 export const createDevice = {
-    Mixer: {},
+    Mixer: (pathToRack, chainCount) => {
+        return mixer.parameters.map(ParameterClass => {
+            let parameters = []
+
+            for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
+                const pathToChain = `${pathToRack} chains ${chainIndex}`
+
+                parameters.push(new ParameterClass({ pathToChain }))
+            }
+
+            return new ParameterPage(i, parameters[0].name, parameters)
+        })
+    },
 
     Instrument: {
         Sampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
