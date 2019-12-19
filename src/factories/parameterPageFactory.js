@@ -1,12 +1,10 @@
-import { MixerPanning } from '../parameters/mixer/panning'
-import { MixerVolume } from '../parameters/mixer/volume'
 import { ParameterPage } from '../models/parameterPage'
+import mixer from '../parameterPages/mixer'
 
 export function createMixerPages(pathToRack, chainCount) {
     const mixerPages = []
-    const pages = [MixerVolume, MixerPanning]
 
-    pages.forEach(ParameterClass => {
+    mixer.parameters.forEach(ParameterClass => {
         let parameters = []
 
         for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
