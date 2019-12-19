@@ -1,5 +1,7 @@
 export default {
-    INSTRUMENT: 1,
-    AUDIO_EFFECT: 2,
-    MIDI_EFFECT: 4,
+    '1': 'Instrument',
+    '2': 'AudioEffect',
+    '4': 'MidiEffect',
 }
+
+// todo: can remove if not in use
