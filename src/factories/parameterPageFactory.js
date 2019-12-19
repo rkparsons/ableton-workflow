@@ -1,7 +1,7 @@
 import { ParameterPage } from '../models/parameterPage'
 import { parameterPageConfig } from '../config/parameterPageConfig'
 
-export function createParameterPages(pathToChain, deviceIndex, options, optionGroups, pages) {
+export function createParameterPages(pages, pathToChain, deviceIndex, options, optionGroups) {
     return pages.map((page, index) => {
         const parameters = page.parameters.map(ParameterClass => new ParameterClass({ pathToChain, deviceIndex, options, optionGroups }))
 

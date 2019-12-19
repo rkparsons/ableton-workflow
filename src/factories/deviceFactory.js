@@ -17,7 +17,7 @@ export const createDevice = {
             const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
             const pages = [sample, amplifier, pitch, filter, tone, oscillator, velocity, random]
 
-            return createParameterPages(pathToChain, deviceIndex, categories, samples, pages)
+            return createParameterPages(pages, pathToChain, deviceIndex, categories, samples)
         },
 
         // todo: implement break sampler
