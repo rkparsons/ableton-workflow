@@ -1,7 +1,7 @@
 import { getCategories, getSampleGroups } from '../util/fileSystem'
 
-import { Sampler } from '../models/sampler'
 import amplifier from '../parameterPages/sampler/amplifier'
+import { createParameterPages } from './parameterPageFactory'
 import filter from '../parameterPages/sampler/filter'
 import oscillator from '../parameterPages/sampler/oscillator'
 import pitch from '../parameterPages/sampler/pitch'
@@ -17,10 +17,10 @@ export const createDevice = {
             const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
             const pages = [sample, amplifier, pitch, filter, tone, oscillator, velocity, random]
 
-            // todo: return sampler not just pages
-            return new Sampler(pathToChain, deviceIndex, categories, samples, pages).getParameterPages()
+            return createParameterPages(pathToChain, deviceIndex, categories, samples, pages)
         },
 
+        // todo: implement break sampler
         // BreakSampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
         //     return createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, 'BreakSampler')
         // },
