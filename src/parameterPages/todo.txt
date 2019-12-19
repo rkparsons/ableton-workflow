@@ -1,9 +1,4 @@
-import { MixerPanning } from '../parameters/mixer/panning'
-import { MixerVolume } from '../parameters/mixer/volume'
-
 export const parameterPageConfig = {
-    Mixer: [MixerVolume, MixerPanning],
-
     // BreakSampler: [
     //     {
     //         name: 'Sample',
