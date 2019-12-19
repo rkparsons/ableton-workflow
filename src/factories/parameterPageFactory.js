@@ -15,7 +15,7 @@ import velocity from '../parameterPages/sampler/velocity'
 // todo: separate files per type
 export const createParameterPages = {
     Mixer: (pathToRack, chainCount) => {
-        return mixer.parameters.map(ParameterClass => {
+        return mixer.parameters.map((ParameterClass, pageIndex) => {
             let parameters = []
 
             for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
@@ -24,7 +24,7 @@ export const createParameterPages = {
                 parameters.push(new ParameterClass({ pathToChain }))
             }
 
-            return new ParameterPage(i, parameters[0].name, parameters)
+            return new ParameterPage(pageIndex, parameters[0].name, parameters)
         })
     },
 
