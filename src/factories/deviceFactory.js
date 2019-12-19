@@ -1,7 +1,6 @@
 import { getCategories, getSampleGroups } from '../util/fileSystem'
 
-import { ParameterPage } from '../models/parameterPage'
-import { parameterPageConfig } from '../config/parameterPageConfig'
+import { Sampler } from '../models/sampler'
 
 export const createDevice = {
     Instrument: {
@@ -9,11 +8,8 @@ export const createDevice = {
             const categories = getCategories(samplesFolder, instrumentRackName, chainName)
             const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
 
-            return parameterPageConfig['Sampler'].map((page, index) => {
-                const parameters = page.parameters.map(ParameterClass => new ParameterClass({ pathToChain, deviceIndex, options: categories, optionGroups: samples }))
-
-                return new ParameterPage(index, page.name, parameters)
-            })
+            // todo: return sampler not just pages
+            return new Sampler(pathToChain, deviceIndex, categories, samples).getParameterPages()
         },
 
         // BreakSampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
