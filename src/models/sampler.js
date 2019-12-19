@@ -1,21 +1,12 @@
 import { ParameterPage } from '../models/parameterPage'
-import amplifier from '../parameterPages/sampler/amplifier'
-import filter from '../parameterPages/sampler/filter'
-import oscillator from '../parameterPages/sampler/oscillator'
-import pitch from '../parameterPages/sampler/pitch'
-import random from '../parameterPages/sampler/random'
-import sample from '../parameterPages/sampler/sample'
-import tone from '../parameterPages/sampler/tone'
-import velocity from '../parameterPages/sampler/velocity'
 
 export class Sampler {
-    constructor(pathToChain, deviceIndex, categories, samples) {
+    constructor(pathToChain, deviceIndex, categories, samples, pages) {
         this.pathToChain = pathToChain
         this.deviceIndex = deviceIndex
         this.categories = categories
         this.samples = samples
-
-        this.pages = [sample, amplifier, pitch, filter, tone, oscillator, velocity, random]
+        this.pages = pages
     }
 
     getParameterPages() {
