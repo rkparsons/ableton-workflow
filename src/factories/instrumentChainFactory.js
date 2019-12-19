@@ -1,6 +1,7 @@
 import { ChainMute } from '../parameters/chain/mute'
 import { InstrumentChain } from '../models/instrumentChain'
 import { createParameterPages } from './parameterPageFactory'
+import device from '../constants/deviceType'
 
 export function createInstrumentChains(samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
     let chains = []
@@ -28,7 +29,7 @@ function createInstrumentChain(samplesFolder, instrumentRackName, pathToInstrume
 
         deviceTypeToIndex[deviceName] = deviceIndex
 
-        if (deviceType === 1) {
+        if (deviceType === device.INSTRUMENT) {
             instrumentType = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
         }
     }
