@@ -1,6 +1,6 @@
 import { ChainMute } from '../parameters/chain/mute'
 import { InstrumentChain } from '../models/instrumentChain'
-import { createDevice } from '../factories/deviceFactory'
+import { createParameterPages } from './parameterPageFactory'
 
 export function createInstrumentChains(samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
     let chains = []
@@ -24,7 +24,7 @@ function createInstrumentChain(samplesFolder, instrumentRackName, pathToInstrume
         const deviceApi = new LiveAPI(null, pathToChain + ' devices ' + deviceIndex)
         const deviceName = deviceApi.get('name').toString()
         deviceName = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
-        const constructor = createDevice[deviceName]
+        const constructor = createParameterPages[deviceName]
 
         if (constructor) {
             instrumentParameterPages.push(constructor(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex))

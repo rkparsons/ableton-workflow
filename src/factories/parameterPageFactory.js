@@ -12,7 +12,8 @@ import tone from '../parameterPages/sampler/tone'
 import velocity from '../parameterPages/sampler/velocity'
 
 // todo: get rid of object wrapper
-export const createDevice = {
+// todo: separate files per type
+export const createParameterPages = {
     Mixer: (pathToRack, chainCount) => {
         return mixer.parameters.map(ParameterClass => {
             let parameters = []
