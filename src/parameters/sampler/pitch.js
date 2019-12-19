@@ -2,10 +2,10 @@ import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
 export class SamplerPitch extends ValueParameter {
-    constructor({ pathToChain, deviceTypeToIndex }) {
+    constructor({ pathToChain, deviceIndex }) {
         super({
             name: 'Pitch',
-            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            basePath: `${pathToChain} devices ${deviceIndex}`,
             path: 'parameters 34',
             unitType: unitType.INT,
             inputRange: [-48, 48],

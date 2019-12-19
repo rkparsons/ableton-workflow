@@ -18,8 +18,6 @@ function createInstrumentChain(samplesFolder, instrumentRackName, pathToInstrume
     const chainApi = new LiveAPI(null, pathToChain)
     const chainName = chainApi.get('name').toString()
     const devicesCount = chainApi.get('devices').length / 2
-    let deviceTypeToIndex = {}
-    let instrumentType = null
     let instrumentParameterPages = []
 
     // todo: refactor device iteration into separate class
@@ -28,11 +26,9 @@ function createInstrumentChain(samplesFolder, instrumentRackName, pathToInstrume
         const deviceType = parseInt(deviceApi.get('type'))
         const deviceName = deviceApi.get('name').toString()
 
-        deviceTypeToIndex[deviceName] = deviceIndex
-
         if (deviceType === device.INSTRUMENT) {
-            instrumentType = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
-            instrumentParameterPages = createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, deviceTypeToIndex, instrumentType)
+            const instrumentType = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
+            instrumentParameterPages = createParameterPages(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, instrumentType)
         }
     }
 

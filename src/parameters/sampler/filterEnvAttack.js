@@ -1,10 +1,10 @@
 import { ValueParameter } from '../../models/valueParameter'
 
 export class SamplerFilterEnvAttack extends ValueParameter {
-    constructor({ pathToChain, deviceTypeToIndex }) {
+    constructor({ pathToChain, deviceIndex }) {
         super({
             name: 'A /',
-            basePath: `${pathToChain} devices ${deviceTypeToIndex['Sampler']}`,
+            basePath: `${pathToChain} devices ${deviceIndex}`,
             path: 'parameters 86',
         })
     }
