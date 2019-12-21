@@ -1,15 +1,15 @@
 import { getCategories, getSampleGroups } from '../util/fileSystem'
 
+import { AmplifierPage } from '../parameterPages/sampler/amplifierPage'
+import { FilterPage } from '../parameterPages/sampler/filterPage'
+import { OscillatorPage } from '../parameterPages/sampler/oscillatorPage'
 import { ParameterPage } from '../models/parameterPage'
-import amplifier from '../parameterPages/sampler/amplifier'
-import filter from '../parameterPages/sampler/filter'
+import { PitchPage } from '../parameterPages/sampler/pitchPage'
+import { RandomPage } from '../parameterPages/sampler/randomPage'
+import { SamplePage } from '../parameterPages/sampler/samplePage'
+import { TonePage } from '../parameterPages/sampler/tonePage'
+import { VelocityPage } from '../parameterPages/sampler/velocityPage'
 import mixer from '../parameterPages/mixer'
-import oscillator from '../parameterPages/sampler/oscillator'
-import pitch from '../parameterPages/sampler/pitch'
-import random from '../parameterPages/sampler/random'
-import sample from '../parameterPages/sampler/sample'
-import tone from '../parameterPages/sampler/tone'
-import velocity from '../parameterPages/sampler/velocity'
 
 // todo: get rid of object wrapper
 // todo: separate files per type
@@ -31,12 +31,16 @@ export const createParameterPages = {
     Sampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
         const categories = getCategories(samplesFolder, instrumentRackName, chainName)
         const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
-        const pages = [sample, amplifier, pitch, filter, tone, oscillator, velocity, random]
 
-        return pages.map((page, index) => {
-            const parameters = page.parameters.map(ParameterClass => new ParameterClass({ pathToChain, deviceIndex, options: categories, optionGroups: samples }))
-
-            return new ParameterPage(index, page.name, parameters)
-        })
+        return [
+            new SamplePage(0, pathToChain, deviceIndex, categories, samples),
+            new AmplifierPage(1, pathToChain, deviceIndex),
+            new PitchPage(2, pathToChain, deviceIndex),
+            new FilterPage(3, pathToChain, deviceIndex),
+            new TonePage(4, pathToChain, deviceIndex),
+            new OscillatorPage(5, pathToChain, deviceIndex),
+            new VelocityPage(6, pathToChain, deviceIndex),
+            new RandomPage(7, pathToChain, deviceIndex),
+        ]
     },
 }

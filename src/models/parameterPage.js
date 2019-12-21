@@ -1,47 +1,53 @@
-export function ParameterPage(index, name, parameters) {
-    this.getIndex = function() {
-        return index
+export class ParameterPage {
+    constructor(index, name, parameters) {
+        this.index = index
+        this.name = name
+        this.parameters = parameters
     }
 
-    this.getName = function() {
-        return name
+    getIndex() {
+        return this.index
     }
 
-    this.onValueChanged = function(callback) {
-        for (i in parameters) {
-            if (parameters[i]) {
-                parameters[i].onValueChanged(handleParameterChange.bind(this, parseInt(i), callback))
+    getName() {
+        return this.name
+    }
+
+    onValueChanged(callback) {
+        for (i in this.parameters) {
+            if (this.parameters[i]) {
+                this.parameters[i].onValueChanged(this.handleParameterChange.bind(this, parseInt(i), callback))
             }
         }
     }
 
-    this.getParameters = function() {
-        return parameters
+    getParameters() {
+        return this.parameters
     }
 
-    this.getParameter = function(parameterIndex) {
-        return parameters[parameterIndex]
+    getParameter(parameterIndex) {
+        return this.parameters[parameterIndex]
     }
 
-    this.default = function() {
-        for (i in parameters) {
-            parameters[i].default()
+    default() {
+        for (i in this.parameters) {
+            this.parameters[i].default()
         }
     }
 
-    this.random = function() {
-        for (i in parameters) {
-            parameters[i].random()
-            handleSampleCategoryChange.call(this, parseInt(i))
+    random() {
+        for (i in this.parameters) {
+            this.parameters[i].random()
+            this.handleSampleCategoryChange(parseInt(i))
         }
     }
 
-    function handleParameterChange(i, callback) {
-        handleSampleCategoryChange.call(this, i)
+    handleParameterChange(i, callback) {
+        this.handleSampleCategoryChange(i)
         callback()
     }
 
-    function handleSampleCategoryChange(parameterIndex) {
+    handleSampleCategoryChange(parameterIndex) {
         const categoryParameter = this.getParameter(parameterIndex)
 
         if (!categoryParameter.isCategory) {
