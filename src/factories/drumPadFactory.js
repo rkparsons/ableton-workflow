@@ -15,7 +15,7 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
             const muteParameter = new ChainMute({ pathToChain })
 
             const pathToRack = `${pathToChain} devices 0`
-            const instrumentRack = createInstrumentRack(samplesFolder, pathToRack)
+            const instrumentRack = createInstrumentRack('Drum', samplesFolder, pathToRack)
             const drumPad = new DrumPad(parseInt(drumPadApi.id), instrumentRack, muteParameter)
 
             drumPads.push(drumPad)

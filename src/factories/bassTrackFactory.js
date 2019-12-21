@@ -6,7 +6,7 @@ import path from 'path'
 export default function(controlSurface, basePath, bassSamplesDirectory, bassTrackIndex) {
     const pathToBassSamples = path.join(basePath, bassSamplesDirectory)
     const pathToInstrumentRack = `live_set tracks ${bassTrackIndex} devices 0`
-    const instrumentRack = createInstrumentRack(pathToBassSamples, pathToInstrumentRack)
+    const instrumentRack = createInstrumentRack('Melodic', pathToBassSamples, pathToInstrumentRack)
 
     const modes = createInstrumentRackModes(instrumentRack, controlSurface)
     const instrumentTrack = new InstrumentTrack(modes, bassTrackIndex)
