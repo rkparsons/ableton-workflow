@@ -3,29 +3,19 @@ import { getCategories, getSampleGroups } from '../util/fileSystem'
 import { AmplifierPage } from '../parameterPages/sampler/amplifierPage'
 import { FilterPage } from '../parameterPages/sampler/filterPage'
 import { OscillatorPage } from '../parameterPages/sampler/oscillatorPage'
-import { ParameterPage } from '../models/parameterPage'
+import { PanningPage } from '../parameterPages/mixer/panningPage'
 import { PitchPage } from '../parameterPages/sampler/pitchPage'
 import { RandomPage } from '../parameterPages/sampler/randomPage'
 import { SamplePage } from '../parameterPages/sampler/samplePage'
 import { TonePage } from '../parameterPages/sampler/tonePage'
 import { VelocityPage } from '../parameterPages/sampler/velocityPage'
-import mixer from '../parameterPages/mixer'
+import { VolumePage } from '../parameterPages/mixer/volumePage'
 
 // todo: get rid of object wrapper
 // todo: separate files per type
 export const createParameterPages = {
     Mixer: (pathToRack, chainCount) => {
-        return mixer.parameters.map((ParameterClass, pageIndex) => {
-            let parameters = []
-
-            for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
-                const pathToChain = `${pathToRack} chains ${chainIndex}`
-
-                parameters.push(new ParameterClass({ pathToChain }))
-            }
-
-            return new ParameterPage(pageIndex, parameters[0].name, parameters)
-        })
+        return [new VolumePage(0, pathToRack, chainCount), new PanningPage(1, pathToRack, chainCount)]
     },
 
     Sampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
