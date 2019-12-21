@@ -1,14 +1,8 @@
+import { MixerPage } from './mixerPage'
 import { MixerVolume } from '../../parameters/mixer/volume'
-import { ParameterPage } from '../../models/parameterPage'
 
-export class VolumePage extends ParameterPage {
+export class VolumePage extends MixerPage {
     constructor(pageIndex, pathToRack, chainCount) {
-        let parameters = []
-
-        for (let chainIndex = 0; chainIndex < chainCount; chainIndex++) {
-            parameters.push(new MixerVolume({ pathToChain: `${pathToRack} chains ${chainIndex}` }))
-        }
-
-        super(pageIndex, 'Volume', parameters)
+        super(pageIndex, pathToRack, chainCount, 'Volume', MixerVolume)
     }
 }
