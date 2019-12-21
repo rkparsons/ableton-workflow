@@ -43,27 +43,6 @@ export class ParameterPage {
     }
 
     handleParameterChange(i, callback) {
-        this.handleSampleCategoryChange(i)
         callback()
-    }
-
-    handleSampleCategoryChange(parameterIndex) {
-        const categoryParameter = this.getParameter(parameterIndex)
-
-        if (!categoryParameter.isCategory) {
-            return
-        }
-
-        this.getParameters()
-            .find(parameter => parameter.isSample)
-            .filterOptions(categoryParameter.getDisplayValue())
-
-        const sampleBpm = Number(categoryParameter.getDisplayValue().split('#')[1])
-
-        if (sampleBpm) {
-            this.getParameters()
-                .find(parameter => parameter.isRepitchWarp)
-                .warpToSampleBpm(sampleBpm)
-        }
     }
 }
