@@ -50,9 +50,5 @@ export class SamplerMelodicCategory extends EnumParameter {
     constrainAndSendValue() {
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
-
-        if (this.api) {
-            this.api.set(this.property, this.getChainSelectorOffset())
-        }
     }
 }

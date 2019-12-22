@@ -142,11 +142,6 @@ export class ChainParamsMode extends UiMode {
 
         //todo: move logic into page
         if (parameter.isCategory) {
-            // todo: remove this hack
-            page.getParameters()
-                .find(parameter => parameter.isSample)
-                .default()
-
             page.getParameters()
                 .find(parameter => parameter.isSample)
                 .constrainAndSendValue()
