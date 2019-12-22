@@ -1,11 +1,12 @@
 const path = require('path')
 const webpack_rules = []
+// todo: replace path with env var
 const webpackOption = {
     entry: './src/app.js',
     watch: true,
     devtool: 'source-map',
     output: {
-        path: path.resolve('D:/Dropbox/Documents/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/PushCtrl/js'),
+        path: path.resolve('E:/PushCtrl/js'),
         filename: 'pushCtrlBundle.js',
         library: 'init',
         libraryExport: 'default',
