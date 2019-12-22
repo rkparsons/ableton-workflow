@@ -5,7 +5,7 @@ export class CCStart extends ValueParameter {
     constructor({ pathToChain, deviceIndex }) {
         super({
             name: 'Start',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
             path: 'parameters 1',
             unitType: unitType.INT,
             inputRange: [0, 127],
