@@ -36,4 +36,8 @@ export class SamplerMelodicCategory extends EnumParameter {
             sum += nextCategorySize
         }
     }
+
+    getChainSelectorOffset() {
+        return this.categorySizes.slice(0, this.getOutputValue()).reduce((a, b) => a + b, 0)
+    }
 }

@@ -19,4 +19,10 @@ export class MelodicSamplePage extends SamplePage {
 
         super(pageIndex, parameters)
     }
+
+    filterSampleParameter(categoryParameter) {
+        this.getParameters()
+            .find(parameter => parameter.isSample)
+            .filterOptions(categoryParameter.getDisplayValue(), categoryParameter.getChainSelectorOffset())
+    }
 }
