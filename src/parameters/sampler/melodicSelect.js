@@ -1,4 +1,5 @@
 import { FilteredEnumParameter } from '../../models/filteredEnumParameter'
+import log from '../../util/log'
 
 export class SamplerMelodicSelect extends FilteredEnumParameter {
     constructor({ pathToChain, deviceIndex, optionGroups, category }) {
@@ -8,7 +9,8 @@ export class SamplerMelodicSelect extends FilteredEnumParameter {
 
     observeValue([property, value]) {
         if (property === this.property) {
-            this.value = value - this.category.getChainSelectorOffset()
+            this.chainSelectorOffset = this.category.getChainSelectorOffset()
+            this.value = value - this.chainSelectorOffset
             this.callback()
         }
     }
@@ -17,8 +19,11 @@ export class SamplerMelodicSelect extends FilteredEnumParameter {
         this.value = Math.max(this.min, this.value)
         this.value = Math.min(this.max, this.value)
 
+        const isCategoryChanged = this.category.getChainSelectorOffset() !== this.chainSelectorOffset
+        const outputValue = isCategoryChanged ? this.category.getChainSelectorOffset() : this.category.getChainSelectorOffset() + this.getOutputValue()
+
         if (this.api) {
-            this.api.set(this.property, this.category.getChainSelectorOffset() + this.getOutputValue())
+            this.api.set(this.property, outputValue)
         }
     }
 }
