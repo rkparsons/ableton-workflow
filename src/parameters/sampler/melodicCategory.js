@@ -1,5 +1,4 @@
 import { EnumParameter } from '../../models/enumParameter'
-import log from '../../util/log'
 
 export class SamplerMelodicCategory extends EnumParameter {
     constructor({ pathToChain, deviceIndex, options, optionGroups }) {
@@ -9,7 +8,6 @@ export class SamplerMelodicCategory extends EnumParameter {
 
     observeValue([property, chainSelector]) {
         if (property === this.property) {
-            log('observeValue', this.getCategoryIndex(chainSelector))
             this.value = this.getCategoryIndex(chainSelector)
             this.callback()
         }
@@ -44,7 +42,6 @@ export class SamplerMelodicCategory extends EnumParameter {
     }
 
     sendValue(delta) {
-        log('sendValue', this.value, this.getIncrement(delta))
         this.value += this.getIncrement(delta)
 
         this.constrainAndSendValue()
