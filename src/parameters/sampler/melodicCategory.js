@@ -40,4 +40,13 @@ export class SamplerMelodicCategory extends EnumParameter {
     getChainSelectorOffset() {
         return this.categorySizes.slice(0, this.getOutputValue()).reduce((a, b) => a + b, 0)
     }
+
+    constrainAndSendValue() {
+        this.value = Math.max(this.min, this.value)
+        this.value = Math.min(this.max, this.value)
+
+        if (this.api) {
+            this.api.set(this.property, this.getChainSelectorOffset())
+        }
+    }
 }

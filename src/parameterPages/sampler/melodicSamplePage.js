@@ -8,9 +8,10 @@ import { SamplerReverse } from '../../parameters/sampler/reverse'
 
 export class MelodicSamplePage extends SamplePage {
     constructor(pageIndex, pathToChain, deviceIndex, categories, samples) {
+        const category = new SamplerMelodicCategory({ pathToChain, deviceIndex, options: categories, optionGroups: samples })
         const parameters = [
-            new SamplerMelodicCategory({ pathToChain, deviceIndex, options: categories, optionGroups: samples }),
-            new SamplerMelodicSelect({ pathToChain, deviceIndex, optionGroups: samples }),
+            category,
+            new SamplerMelodicSelect({ pathToChain, deviceIndex, optionGroups: samples, category }),
             new CCStart({ pathToChain, deviceIndex }),
             new SamplerReverse({ pathToChain, deviceIndex }),
             new ChainSolo({ pathToChain, deviceIndex }),
@@ -18,11 +19,5 @@ export class MelodicSamplePage extends SamplePage {
         ]
 
         super(pageIndex, parameters)
-    }
-
-    filterSampleParameter(categoryParameter) {
-        this.getParameters()
-            .find(parameter => parameter.isSample)
-            .filterOptions(categoryParameter.getDisplayValue(), categoryParameter.getChainSelectorOffset())
     }
 }

@@ -1,27 +1,16 @@
 import { FilteredEnumParameter } from '../../models/filteredEnumParameter'
 
 export class SamplerMelodicSelect extends FilteredEnumParameter {
-    constructor({ pathToChain, deviceIndex, optionGroups }) {
+    constructor({ pathToChain, deviceIndex, optionGroups, category }) {
         super({ name: 'Sample', basePath: `${pathToChain} devices ${deviceIndex}`, path: 'parameters 3', optionGroups, isSample: true })
-
-        this.chainSelectorOffset = 0
+        this.category = category
     }
 
     observeValue([property, value]) {
         if (property === this.property) {
-            this.value = value - this.chainSelectorOffset
+            this.value = value - this.category.getChainSelectorOffset()
             this.callback()
         }
-    }
-
-    filterOptions(optionGroupKey, chainSelectorOffset) {
-        this.value = 0
-        this.chainSelectorOffset = chainSelectorOffset
-        this.options = this.optionGroups[optionGroupKey]
-        this.optionKeys = Object.keys(this.options)
-        this.min = this.optionKeys[0]
-        this.max = this.optionKeys[this.optionKeys.length - 1]
-        this.randomRange = [this.min, this.max]
     }
 
     constrainAndSendValue() {
@@ -29,7 +18,7 @@ export class SamplerMelodicSelect extends FilteredEnumParameter {
         this.value = Math.min(this.max, this.value)
 
         if (this.api) {
-            this.api.set(this.property, this.chainSelectorOffset + this.getOutputValue())
+            this.api.set(this.property, this.category.getChainSelectorOffset() + this.getOutputValue())
         }
     }
 }
