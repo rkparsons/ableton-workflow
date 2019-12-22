@@ -38,7 +38,6 @@ export class ParameterPage {
     random() {
         for (i in this.parameters) {
             this.parameters[i].random()
-            this.handleSampleCategoryChange(parseInt(i))
         }
     }
 
