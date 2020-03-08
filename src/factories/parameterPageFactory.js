@@ -3,6 +3,7 @@ import { getCategories, getSampleGroups } from '../util/fileSystem'
 import { AmplifierPage } from '../parameterPages/sampler/amplifierPage'
 import { DrumSamplePage } from '../parameterPages/sampler/drumSamplePage'
 import { FilterPage } from '../parameterPages/sampler/filterPage'
+import { MalletPage } from '../parameterPages/collision/malletPage'
 import { MelodicSamplePage } from '../parameterPages/sampler/melodicSamplePage'
 import { OscillatorPage } from '../parameterPages/sampler/oscillatorPage'
 import { PanningPage } from '../parameterPages/mixer/panningPage'
@@ -11,6 +12,7 @@ import { RandomPage } from '../parameterPages/sampler/randomPage'
 import { TonePage } from '../parameterPages/sampler/tonePage'
 import { VelocityPage } from '../parameterPages/sampler/velocityPage'
 import { VolumePage } from '../parameterPages/mixer/volumePage'
+import log from '../util/log'
 
 // todo: get rid of object wrapper
 // todo: separate files per type
@@ -25,6 +27,11 @@ export const createParameterPages = {
 
     MelodicSampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
         return Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, MelodicSamplePage)
+    },
+
+    Collision: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
+        log(pathToChain, deviceIndex)
+        return Collision(pathToChain, deviceIndex)
     },
 }
 
@@ -42,4 +49,8 @@ function Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, devi
         new VelocityPage(6, pathToChain, deviceIndex),
         new RandomPage(7, pathToChain, deviceIndex),
     ]
+}
+
+function Collision(pathToChain, deviceIndex) {
+    return [new MalletPage(0, pathToChain, deviceIndex)]
 }
