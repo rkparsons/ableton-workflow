@@ -1,11 +1,12 @@
 import { ValueParameter } from '../../models/valueParameter'
 
-export class CollisionMalletNoise extends ValueParameter {
+export class CollisionMalletNoiseVelocity extends ValueParameter {
     constructor({ pathToChain, deviceIndex }) {
         super({
-            name: 'Noise',
+            name: '< vel',
             basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 13',
+            path: 'parameters 14',
+            inputRange: [-5, 5],
         })
     }
 }

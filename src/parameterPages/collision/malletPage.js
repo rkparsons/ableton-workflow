@@ -1,4 +1,5 @@
 import { CollisionMalletNoise } from '../../parameters/collision/malletNoise'
+import { CollisionMalletNoiseVelocity } from '../../parameters/collision/malletNoiseVelocity'
 import { CollisionMalletStiffness } from '../../parameters/collision/malletStiffness'
 import { CollisionMalletStiffnessVelocity } from '../../parameters/collision/malletStiffnessVelocity'
 import { CollisionMalletVolume } from '../../parameters/collision/malletVolume'
@@ -13,6 +14,7 @@ export class MalletPage extends ParameterPage {
             new CollisionMalletStiffness({ pathToChain, deviceIndex }),
             new CollisionMalletStiffnessVelocity({ pathToChain, deviceIndex }),
             new CollisionMalletNoise({ pathToChain, deviceIndex }),
+            new CollisionMalletNoiseVelocity({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Mallet', parameters)
