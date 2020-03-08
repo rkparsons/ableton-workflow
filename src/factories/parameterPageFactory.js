@@ -30,7 +30,6 @@ export const createParameterPages = {
     },
 
     Collision: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
-        log(pathToChain, deviceIndex)
         return Collision(pathToChain, deviceIndex)
     },
 }
