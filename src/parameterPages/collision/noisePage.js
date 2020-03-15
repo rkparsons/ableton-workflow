@@ -1,3 +1,4 @@
+import { Blank } from '../../parameters/blank'
 import { CollisionNoiseFilterFreq } from '../../parameters/collision/noiseFilterFreq'
 import { CollisionNoiseFilterFreqVelocity } from '../../parameters/collision/noiseFilterFreqVelocity'
 import { CollisionNoiseFilterRes } from '../../parameters/collision/noiseFilterRes'
@@ -13,6 +14,7 @@ export class NoisePage extends ParameterPage {
             new CollisionNoiseOn({ pathToChain, deviceIndex }),
             new CollisionNoiseVolume({ pathToChain, deviceIndex }),
             new CollisionNoiseVelocity({ pathToChain, deviceIndex }),
+            new Blank(),
             new CollisionNoiseFilterType({ pathToChain, deviceIndex }),
             new CollisionNoiseFilterFreq({ pathToChain, deviceIndex }),
             new CollisionNoiseFilterFreqVelocity({ pathToChain, deviceIndex }),
