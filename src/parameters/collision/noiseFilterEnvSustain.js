@@ -1,11 +1,12 @@
 import { ValueParameter } from '../../models/valueParameter'
 
-export class CollisionMalletNoise extends ValueParameter {
+export class CollisionNoiseFilterEnvSustain extends ValueParameter {
     constructor({ pathToChain, deviceIndex }) {
         super({
-            name: 'Impact',
+            name: 'S --',
             basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 13',
+            path: 'parameters 29',
+            defaultValue: 1,
         })
     }
 }

@@ -1,22 +1,24 @@
 import { Blank } from '../../parameters/blank'
+import { CollisionNoiseFilterEnv } from '../../parameters/collision/noiseFilterEnv'
+import { CollisionNoiseFilterEnvAttack } from '../../parameters/collision/noiseFilterEnvAttack'
+import { CollisionNoiseFilterEnvDecay } from '../../parameters/collision/noiseFilterEnvDecay'
+import { CollisionNoiseFilterEnvRelease } from '../../parameters/collision/noiseFilterEnvRelease'
+import { CollisionNoiseFilterEnvSustain } from '../../parameters/collision/noiseFilterEnvSustain'
 import { CollisionNoiseFilterFreq } from '../../parameters/collision/noiseFilterFreq'
-import { CollisionNoiseFilterFreqVelocity } from '../../parameters/collision/noiseFilterFreqVelocity'
-import { CollisionNoiseFilterRes } from '../../parameters/collision/noiseFilterRes'
 import { CollisionNoiseFilterType } from '../../parameters/collision/noiseFilterType'
-import { CollisionNoiseVelocity } from '../../parameters/collision/noiseVelocity'
-import { CollisionNoiseVolume } from '../../parameters/collision/noiseVolume'
 import { ParameterPage } from '../../models/parameterPage'
 
 export class NoiseEnvPage extends ParameterPage {
     constructor(pageIndex, pathToChain, deviceIndex) {
         const parameters = [
-            new Blank(),
-            new CollisionNoiseVolume({ pathToChain, deviceIndex }),
-            new CollisionNoiseVelocity({ pathToChain, deviceIndex }),
             new CollisionNoiseFilterType({ pathToChain, deviceIndex }),
             new CollisionNoiseFilterFreq({ pathToChain, deviceIndex }),
-            new CollisionNoiseFilterFreqVelocity({ pathToChain, deviceIndex }),
-            new CollisionNoiseFilterRes({ pathToChain, deviceIndex }),
+            new CollisionNoiseFilterEnv({ pathToChain, deviceIndex }),
+            new Blank(),
+            new CollisionNoiseFilterEnvAttack({ pathToChain, deviceIndex }),
+            new CollisionNoiseFilterEnvDecay({ pathToChain, deviceIndex }),
+            new CollisionNoiseFilterEnvSustain({ pathToChain, deviceIndex }),
+            new CollisionNoiseFilterEnvRelease({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Env', parameters)
