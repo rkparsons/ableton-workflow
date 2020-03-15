@@ -1,16 +1,16 @@
+import { Blank } from '../../parameters/blank'
 import { CollisionNoiseFilterFreq } from '../../parameters/collision/noiseFilterFreq'
 import { CollisionNoiseFilterFreqVelocity } from '../../parameters/collision/noiseFilterFreqVelocity'
 import { CollisionNoiseFilterRes } from '../../parameters/collision/noiseFilterRes'
 import { CollisionNoiseFilterType } from '../../parameters/collision/noiseFilterType'
-import { CollisionNoiseOn } from '../../parameters/collision/noiseOn'
 import { CollisionNoiseVelocity } from '../../parameters/collision/noiseVelocity'
 import { CollisionNoiseVolume } from '../../parameters/collision/noiseVolume'
 import { ParameterPage } from '../../models/parameterPage'
 
-export class NoisePage extends ParameterPage {
+export class NoiseEnvPage extends ParameterPage {
     constructor(pageIndex, pathToChain, deviceIndex) {
         const parameters = [
-            new CollisionNoiseOn({ pathToChain, deviceIndex }),
+            new Blank(),
             new CollisionNoiseVolume({ pathToChain, deviceIndex }),
             new CollisionNoiseVelocity({ pathToChain, deviceIndex }),
             new CollisionNoiseFilterType({ pathToChain, deviceIndex }),
@@ -19,6 +19,6 @@ export class NoisePage extends ParameterPage {
             new CollisionNoiseFilterRes({ pathToChain, deviceIndex }),
         ]
 
-        super(pageIndex, 'Noise', parameters)
+        super(pageIndex, 'Env', parameters)
     }
 }
