@@ -12,6 +12,9 @@ import { OscillatorPage } from '../parameterPages/sampler/oscillatorPage'
 import { PanningPage } from '../parameterPages/mixer/panningPage'
 import { PitchPage } from '../parameterPages/sampler/pitchPage'
 import { RandomPage } from '../parameterPages/sampler/randomPage'
+import { Reso1aPage } from '../parameterPages/collision/reso1aPage'
+import { Reso1bPage } from '../parameterPages/collision/reso1bPage'
+import { Reso1cPage } from '../parameterPages/collision/reso1cPage'
 import { TonePage } from '../parameterPages/sampler/tonePage'
 import { VelocityPage } from '../parameterPages/sampler/velocityPage'
 import { VolumePage } from '../parameterPages/mixer/volumePage'
@@ -53,5 +56,13 @@ function Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, devi
 }
 
 function Collision(pathToChain, deviceIndex) {
-    return [new MalletPage(0, pathToChain, deviceIndex), new NoisePage(1, pathToChain, deviceIndex), new NoiseEnvPage(2, pathToChain, deviceIndex), new MixerPage(3, pathToChain, deviceIndex)]
+    return [
+        new MalletPage(0, pathToChain, deviceIndex),
+        new NoisePage(1, pathToChain, deviceIndex),
+        new NoiseEnvPage(2, pathToChain, deviceIndex),
+        new MixerPage(3, pathToChain, deviceIndex),
+        new Reso1aPage(4, pathToChain, deviceIndex),
+        new Reso1bPage(5, pathToChain, deviceIndex),
+        new Reso1cPage(6, pathToChain, deviceIndex),
+    ]
 }
