@@ -5,6 +5,7 @@ import { DrumSamplePage } from '../parameterPages/sampler/drumSamplePage'
 import { FilterPage } from '../parameterPages/sampler/filterPage'
 import { MalletPage } from '../parameterPages/collision/malletPage'
 import { MelodicSamplePage } from '../parameterPages/sampler/melodicSamplePage'
+import { NoisePage } from '../parameterPages/collision/noisePage'
 import { OscillatorPage } from '../parameterPages/sampler/oscillatorPage'
 import { PanningPage } from '../parameterPages/mixer/panningPage'
 import { PitchPage } from '../parameterPages/sampler/pitchPage'
@@ -12,7 +13,6 @@ import { RandomPage } from '../parameterPages/sampler/randomPage'
 import { TonePage } from '../parameterPages/sampler/tonePage'
 import { VelocityPage } from '../parameterPages/sampler/velocityPage'
 import { VolumePage } from '../parameterPages/mixer/volumePage'
-import log from '../util/log'
 
 // todo: get rid of object wrapper
 // todo: separate files per type
@@ -51,5 +51,5 @@ function Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, devi
 }
 
 function Collision(pathToChain, deviceIndex) {
-    return [new MalletPage(0, pathToChain, deviceIndex)]
+    return [new MalletPage(0, pathToChain, deviceIndex), new NoisePage(1, pathToChain, deviceIndex)]
 }
