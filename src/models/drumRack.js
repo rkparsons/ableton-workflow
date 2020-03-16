@@ -1,3 +1,4 @@
+import { LiveAPI } from '../types/m4l.d.ts'
 import { Rack } from './rack'
 
 export class DrumRack extends Rack {

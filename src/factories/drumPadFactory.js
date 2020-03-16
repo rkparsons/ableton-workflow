@@ -1,5 +1,6 @@
 import { ChainMute } from '../parameters/chain/mute'
 import { DrumPad } from '../models/drumPad'
+import { LiveAPI } from '../types/m4l.d.ts'
 import { createInstrumentRack } from './instrumentRackFactory'
 
 export function createDrumPads(samplesFolder, pathToDrumRack) {

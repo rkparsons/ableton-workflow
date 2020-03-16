@@ -1,3 +1,7 @@
+/* eslint-disable */
+
+import { Folder } from '../types/m4l.d.ts'
+
 // todo: refactor to separate fs from sample logic
 export function getCategories(samplesFolder, instrumentRackName, chainName) {
     const folderPath = getSamplesFolderPath(samplesFolder, instrumentRackName, chainName)

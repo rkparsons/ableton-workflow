@@ -1,3 +1,5 @@
+import { post } from '../types/m4l.d.ts'
+
 export default function() {
     for (var i = 0, len = arguments.length; i < len; i++) {
         var message = arguments[i]

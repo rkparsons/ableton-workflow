@@ -1,4 +1,5 @@
 import { ControlSurfaceDisplay } from './controlSurfaceDisplay'
+import { LiveAPI } from '../types/m4l.d.ts'
 import { TrackSelect } from './trackSelect'
 import { TrackState } from './trackState'
 import pushControls from '../constants/pushControls'

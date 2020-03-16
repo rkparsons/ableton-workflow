@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { UiMode } from './uiMode'
 import command from '../constants/command'
 

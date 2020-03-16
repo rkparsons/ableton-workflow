@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { EnumParameter } from '../../models/enumParameter'
 
 export class SamplerMelodicCategory extends EnumParameter {

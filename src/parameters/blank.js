@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Parameter } from '../models/parameter'
 
 export class Blank extends Parameter {

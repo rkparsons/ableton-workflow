@@ -1,3 +1,4 @@
+import { LiveAPI } from '../types/m4l.d.ts'
 import stateButtonColour from '../constants/stateButtonColour'
 
 export function TrackState(getControl) {

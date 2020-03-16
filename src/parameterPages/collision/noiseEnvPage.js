@@ -1,4 +1,3 @@
-import { Blank } from '../../parameters/blank'
 import { CollisionNoiseFilterEnv } from '../../parameters/collision/noiseFilterEnv'
 import { CollisionNoiseFilterEnvAttack } from '../../parameters/collision/noiseFilterEnvAttack'
 import { CollisionNoiseFilterEnvDecay } from '../../parameters/collision/noiseFilterEnvDecay'

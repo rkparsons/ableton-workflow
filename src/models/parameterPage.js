@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export class ParameterPage {
     constructor(index, name, parameters) {
         this.index = index

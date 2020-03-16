@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Mutable } from './mutable'
 
 export class InstrumentChain extends Mutable {

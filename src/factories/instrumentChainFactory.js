@@ -1,5 +1,6 @@
 import { ChainMute } from '../parameters/chain/mute'
 import { InstrumentChain } from '../models/instrumentChain'
+import { LiveAPI } from '../types/m4l.d.ts'
 import { createParameterPages } from './parameterPageFactory'
 
 export function createInstrumentChains(rackType, samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
@@ -22,7 +23,7 @@ function createInstrumentChain(rackType, samplesFolder, instrumentRackName, path
     // todo: refactor device iteration into separate class
     for (let deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
         const deviceApi = new LiveAPI(null, pathToChain + ' devices ' + deviceIndex)
-        const deviceName = deviceApi.get('name').toString()
+        let deviceName = deviceApi.get('name').toString()
         deviceName = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
         deviceName = deviceName === 'Sampler' ? `${rackType}Sampler` : deviceName
         const constructor = createParameterPages[deviceName]
