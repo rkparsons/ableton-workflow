@@ -15,6 +15,9 @@ const webpackOption = {
     },
     resolve: {
         extensions: ['.ts', '.js'],
+        alias: {
+            '~': path.resolve(__dirname, 'src/'),
+        },
     },
 }
 let babelLoader = {

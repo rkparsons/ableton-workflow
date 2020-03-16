@@ -4,7 +4,7 @@
 // import createDrumTrack from './drumTrackFactory'
 // import path from 'path'
 
-import log from '../util/log'
+import log from '~/util/log'
 
 export function createLiveset(pathToPatcher: string) {
     log('createLiveset')
