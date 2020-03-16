@@ -9,4 +9,4 @@
 
 //     typelist: string[]
 // }
-export function postM4l(message: string) {}
+declare const post: (message: string) => void

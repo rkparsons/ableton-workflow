@@ -1,5 +1,3 @@
-declare const post: (message: string) => void
-
 export default function(message: string) {
     for (var i = 0, len = arguments.length; i < len; i++) {
         if (message && message.toString) {
