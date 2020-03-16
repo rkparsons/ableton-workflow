@@ -1,5 +1,6 @@
 {
     "presets": [
+        "@babel/preset-typescript",
         [
             "@babel/preset-env",
             {
@@ -7,5 +8,6 @@
                 "corejs": 3
             }
         ]
-    ]
+    ],
+    "plugins": ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread"]
 }

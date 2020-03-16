@@ -1,7 +1,8 @@
-import ascii from '../constants/ascii'
+import ascii from '../constants/ascii.ts'
 
 export function ControlSurfaceDisplay(getControl) {
     const x = ascii.ELLIPSIS
+    // prettier-ignore
     this.padding = String.fromCharCode(x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x)
 
     this.displayApi = []

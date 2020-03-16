@@ -4,7 +4,6 @@ const webpack_rules = []
 const webpackOption = {
     entry: './src/app.js',
     watch: true,
-    devtool: 'source-map',
     output: {
         path: path.resolve('E:/PushCtrl/js'),
         filename: 'pushCtrlBundle.js',
@@ -16,7 +15,7 @@ const webpackOption = {
     },
 }
 let babelLoader = {
-    test: /\.js$/,
+    test: /\.(ts|js)$/,
     exclude: /node_modules/,
     use: {
         loader: 'babel-loader',

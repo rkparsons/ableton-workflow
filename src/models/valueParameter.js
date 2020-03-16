@@ -1,5 +1,5 @@
 import { Parameter } from './parameter'
-import ascii from '../constants/ascii'
+import ascii from '../constants/ascii.ts'
 
 export class ValueParameter extends Parameter {
     constructor({ name, basePath, path, property, defaultValue, unitType, inputRange, randomRange, showValue, speed, isBpm }) {
