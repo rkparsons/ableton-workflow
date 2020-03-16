@@ -1,4 +1,5 @@
-import { LiveAPI } from '../types/m4l.d.ts'
+/* eslint-disable */
+
 import { ValueParameter } from './valueParameter'
 
 export class RepitchParameter extends ValueParameter {

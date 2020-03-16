@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-import { LiveAPI } from '../types/m4l.d.ts'
 import ascii from '../constants/ascii.ts'
 
 export function ControlSurfaceDisplay(getControl) {

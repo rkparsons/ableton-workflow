@@ -1,4 +1,4 @@
-import { post } from '../types/m4l.d.ts'
+/* eslint-disable */
 
 export default function() {
     for (var i = 0, len = arguments.length; i < len; i++) {

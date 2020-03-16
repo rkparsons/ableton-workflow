@@ -1,4 +1,5 @@
-import { LiveAPI } from '../types/m4l.d.ts'
+/* eslint-disable */
+
 import command from '../constants/command'
 import mode from '../constants/mode'
 

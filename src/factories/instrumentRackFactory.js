@@ -1,5 +1,6 @@
+/* eslint-disable */
+
 import { InstrumentRack } from '../models/instrumentRack'
-import { LiveAPI } from '../types/m4l.d.ts'
 import { createInstrumentChains } from './instrumentChainFactory'
 import { createParameterPages } from './parameterPageFactory'
 

@@ -1,4 +1,5 @@
-import { LiveAPI } from '../types/m4l.d.ts'
+/* eslint-disable */
+
 import { Rack } from './rack'
 
 export class DrumRack extends Rack {

@@ -1,6 +1,7 @@
+/* eslint-disable */
+
 import { ChainMute } from '../parameters/chain/mute'
 import { InstrumentChain } from '../models/instrumentChain'
-import { LiveAPI } from '../types/m4l.d.ts'
 import { createParameterPages } from './parameterPageFactory'
 
 export function createInstrumentChains(rackType, samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
