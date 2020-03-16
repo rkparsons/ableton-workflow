@@ -21,7 +21,14 @@ let babelLoader = {
         loader: 'babel-loader',
     },
 }
+let esLintLoader = {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: 'eslint-loader',
+}
+
 webpack_rules.push(babelLoader)
+webpack_rules.push(esLintLoader)
 module.exports = webpackOption
 
 // todo: use import path aliases

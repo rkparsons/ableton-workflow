@@ -11,4 +11,8 @@ enum ASCII {
     ARROW_LEFT = 31,
 }
 
+export const testTs = test => {
+    return test
+}
+
 export default ASCII
