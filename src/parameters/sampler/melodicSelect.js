@@ -1,5 +1,4 @@
 import { FilteredEnumParameter } from '../../models/filteredEnumParameter'
-import log from '../../util/log'
 
 export class SamplerMelodicSelect extends FilteredEnumParameter {
     constructor({ pathToChain, deviceIndex, optionGroups, category }) {
