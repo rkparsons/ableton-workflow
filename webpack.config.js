@@ -2,7 +2,7 @@ const path = require('path')
 const webpack_rules = []
 // todo: replace path with env var
 const webpackOption = {
-    entry: './src/app.js',
+    entry: './src/app.ts',
     watch: true,
     output: {
         path: path.resolve('E:/PushCtrl/js'),
@@ -12,6 +12,9 @@ const webpackOption = {
     },
     module: {
         rules: webpack_rules,
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
     },
 }
 let babelLoader = {

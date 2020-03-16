@@ -1,8 +1,7 @@
-/* eslint-disable */
+declare const post: any
 
-export default function() {
+export default function(message: string) {
     for (var i = 0, len = arguments.length; i < len; i++) {
-        var message = arguments[i]
         if (message && message.toString) {
             var s = message.toString()
             if (s.indexOf('[object ') >= 0) {
