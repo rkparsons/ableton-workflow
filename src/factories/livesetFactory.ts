@@ -1,14 +1,16 @@
 // import { Liveset } from '../models/liveset'
 // import createBassTrack from './bassTrackFactory'
-// import { createControlSurface } from './controlSurfaceFactory'
+
+import { createControlSurface } from '~/factories/controlSurfaceFactory'
+import log from '~/util/log'
+
 // import createDrumTrack from './drumTrackFactory'
 // import path from 'path'
 
-import log from '~/util/log'
+
 
 export function createLiveset(pathToPatcher: string) {
-    log('createLiveset')
-    // const controlSurface = createControlSurface('Tap_Tempo_Button')
+    const controlSurface = createControlSurface('Tap_Tempo_Button')
     // const pathToSamples = path.join(pathToPatcher, '..', 'samples')
     // // todo: find name/index dynamically
     // const drumTrack = createDrumTrack(controlSurface, pathToSamples, 'Drum', 0)

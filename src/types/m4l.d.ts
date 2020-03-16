@@ -1,6 +1,7 @@
-// class LiveAPI {
-//     constructor(callback: () => void, path: string)
-// }
+declare class LiveAPI {
+    constructor(path: string)
+    constructor(callback: () => void, path: string)
+}
 
 // class Folder {
 //     constructor(path: string)
