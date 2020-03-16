@@ -1,9 +1,8 @@
-// import { createLiveset } from './factories/livesetFactory'
-
+import { createLiveset } from './factories/livesetFactory'
 import log from './util/log'
 
-export default function init() {
+export default function init(this: any) {
     log('init')
 
-    // createLiveset(this.patcher.filepath)
+    createLiveset(this.patcher.filepath)
 }

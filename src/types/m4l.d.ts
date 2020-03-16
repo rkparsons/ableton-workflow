@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 // class LiveAPI {
 //     constructor(callback: () => void, path: string)
 // }
