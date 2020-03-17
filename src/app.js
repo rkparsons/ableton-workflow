@@ -8,7 +8,7 @@ log('Checking for LiveAPI...')
 outlet(0, 'bang')
 
 export default function init() {
-    log('init')
+    log('Initialised!')
 
     createLiveset(this.patcher.filepath)
 }
