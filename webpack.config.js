@@ -2,7 +2,7 @@ const path = require('path')
 const webpack_rules = []
 // todo: replace path with env var
 const webpackOption = {
-    entry: './src/app.ts',
+    entry: './src/app.js',
     watch: true,
     output: {
         path: path.resolve('E:/PushCtrl/js'),
