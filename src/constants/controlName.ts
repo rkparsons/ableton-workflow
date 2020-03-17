@@ -1,4 +1,4 @@
-enum PushControls {
+enum ControlName {
     FOOT_PEDAL = 'Foot_Pedal',
     UP_ARROW = 'Up_Arrow',
     DOWN_ARROW = 'Down_Arrow',
@@ -168,4 +168,4 @@ enum PushControls {
     TOUCH_STRIP_CONTROL = 'Touch_Strip_Control',
 }
 
-export default PushControls
+export default ControlName

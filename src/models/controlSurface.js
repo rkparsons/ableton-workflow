@@ -3,7 +3,7 @@
 import { ControlSurfaceDisplay } from '~/models/controlSurfaceDisplay'
 import { TrackSelect } from '~/models/trackSelect'
 import { TrackState } from '~/models/trackState'
-import pushControls from '~/constants/pushControls'
+import controlName from '~/constants/controlName'
 
 // todo: refactor as class
 export function ControlSurface(onOffControlName) {
@@ -16,8 +16,8 @@ export function ControlSurface(onOffControlName) {
     this.trackState = new TrackState(getControl.bind(this))
 
     this.activate = function() {
-        for (var i in pushControls) {
-            const control = this.controlSurfaceApi.call('get_control_by_name', [pushControls[i]])
+        for (var i in controlName) {
+            const control = this.controlSurfaceApi.call('get_control_by_name', [controlName[i]])
             this.controlSurfaceApi.call('grab_control', control)
         }
 
@@ -27,9 +27,9 @@ export function ControlSurface(onOffControlName) {
     this.deactivate = function() {
         this.isActive = false
 
-        for (var i in pushControls) {
-            if (pushControls[i] !== this.onOffControlName) {
-                const control = this.controlSurfaceApi.call('get_control_by_name', [pushControls[i]])
+        for (var i in controlName) {
+            if (controlName[i] !== this.onOffControlName) {
+                const control = this.controlSurfaceApi.call('get_control_by_name', [controlName[i]])
                 this.controlSurfaceApi.call('release_control', control)
             }
         }
