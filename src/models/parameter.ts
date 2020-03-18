@@ -1,14 +1,14 @@
 import UnitType from '../constants/unitType'
 
 type Props = {
-    name: string
+    name?: string
     basePath: string
-    path: string
-    property: string
-    defaultValue: number
-    unitType: UnitType
+    path?: string
+    property?: string
+    defaultValue?: number
+    unitType?: UnitType
     randomRange?: number[]
-    speed: number
+    speed?: number
     showValue?: boolean
 }
 export class Parameter {
