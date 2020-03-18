@@ -59,11 +59,8 @@ export class Parameter {
     }
 
     onValueChanged(callback: () => void) {
-        if (callback === undefined) {
-            log(`callback undefined ${this.getName()}`)
-        }
         this.callback = callback
-        this.api = new LiveAPI(this.observeValue, this.livePath)
+        this.api = new LiveAPI(this.observeValue.bind(this), this.livePath)
     }
 
     observeValue([property, value]: string[]) {
@@ -72,10 +69,6 @@ export class Parameter {
         }
 
         this.value = Number(value)
-
-        if (this.callback === undefined) {
-            log(`callback undefined ${this.getName()}`)
-        }
 
         if (this.callback !== undefined) {
             this.callback()
