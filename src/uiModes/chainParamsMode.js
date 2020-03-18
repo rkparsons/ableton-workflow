@@ -164,10 +164,6 @@ export class ChainParamsMode extends UiMode {
 
     // todo: check why this gets called so many times
     updateDisplay() {
-        if (!this.isUpdateDue()) {
-            return
-        }
-
         const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {

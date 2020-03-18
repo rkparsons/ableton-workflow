@@ -8,17 +8,6 @@ export class UiMode {
         this.refreshRateMs = 100
     }
 
-    isUpdateDue() {
-        const currentTimeMs = new Date().getTime()
-
-        if (currentTimeMs - this.lastUpdatedMs > this.refreshRateMs) {
-            this.lastUpdatedMs = currentTimeMs
-            return true
-        } else {
-            return false
-        }
-    }
-
     getRack() {
         return this.rack
     }
