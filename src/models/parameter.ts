@@ -7,9 +7,9 @@ type Props = {
     property: string
     defaultValue: number
     unitType: UnitType
-    randomRange: number[]
+    randomRange?: number[]
     speed: number
-    showValue: boolean
+    showValue?: boolean
 }
 export class Parameter {
     name: string
@@ -17,14 +17,14 @@ export class Parameter {
     property: string
     defaultValue: number
     unitType: UnitType
-    randomRange: number[]
+    randomRange?: number[]
     speed: number
     showValue: boolean
-    api: LiveAPI | undefined
+    api?: LiveAPI
     value: number
     min: number
     max: number
-    callback: (() => void) | undefined
+    callback?: () => void
 
     constructor({ name = '', basePath, path = '', property = 'value', defaultValue = 0, unitType = UnitType.FLOAT, randomRange, speed = 1, showValue = false }: Props) {
         this.name = name
@@ -75,7 +75,7 @@ export class Parameter {
     }
 
     getDisplayValue() {
-        return Math.round(this.value)
+        return Math.round(this.value).toString()
     }
 
     getValue() {
