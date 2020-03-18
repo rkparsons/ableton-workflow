@@ -4,6 +4,19 @@ export class UiMode {
         this.rack = rack
         this.controlSurface = controlSurface
         this.command = null
+        this.lastUpdatedMs = new Date().getTime()
+        this.refreshRateMs = 100
+    }
+
+    isUpdateDue() {
+        const currentTimeMs = new Date().getTime()
+
+        if (currentTimeMs - this.lastUpdatedMs > this.refreshRateMs) {
+            this.lastUpdatedMs = currentTimeMs
+            return true
+        } else {
+            return false
+        }
     }
 
     getRack() {
