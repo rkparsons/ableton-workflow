@@ -1,5 +1,9 @@
-export default function(message: string) {
-    for (var i = 0, len = arguments.length; i < len; i++) {
+export default function(messages: string | string[]) {
+    if (typeof messages === 'string') {
+        messages = <string[]>[messages]
+    }
+
+    messages.forEach(message => {
         if (message && message.toString) {
             var s = message.toString()
             if (s.indexOf('[object ') >= 0) {
@@ -11,6 +15,6 @@ export default function(message: string) {
         } else {
             post(message)
         }
-    }
+    })
     post('\n')
 }
