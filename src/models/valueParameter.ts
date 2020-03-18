@@ -13,22 +13,19 @@ type Props = {
     randomRange?: number[]
     showValue: boolean
     speed: number
-    isBpm: boolean
 }
 
 export class ValueParameter extends Parameter {
     inputRange: number[]
     isBipolar: boolean
-    isBpm: boolean
 
-    constructor({ name, basePath, path, property, defaultValue, unitType, inputRange, randomRange, showValue, speed, isBpm }: Props) {
+    constructor({ name, basePath, path, property, defaultValue, unitType, inputRange, randomRange, showValue, speed }: Props) {
         super({ name, basePath, path, property, defaultValue, unitType, randomRange, speed })
         this.inputRange = inputRange || [0, 1]
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
         this.isBipolar = this.max / this.min < 0
         this.showValue = showValue
-        this.isBpm = isBpm
     }
 
     getDisplayValue() {

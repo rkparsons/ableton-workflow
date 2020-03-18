@@ -25,7 +25,6 @@ function createInstrumentChain(rackType, samplesFolder, instrumentRackName, path
     for (let deviceIndex = 0; deviceIndex < devicesCount; deviceIndex++) {
         const deviceApi = new LiveAPI(null, pathToChain + ' devices ' + deviceIndex)
         let deviceName = deviceApi.get('name').toString()
-        deviceName = instrumentRackName === 'Break' ? 'BreakSampler' : deviceName
         deviceName = deviceName === 'Sampler' ? `${rackType}Sampler` : deviceName
         const constructor = createParameterPages[deviceName]
 

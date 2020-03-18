@@ -89,11 +89,8 @@ export class Parameter {
     }
 
     default() {
-        //todo: remove breaks related check
-        if (this.name !== 'BPM') {
-            this.value = this.defaultValue
-            this.constrainAndSendValue()
-        }
+        this.value = this.defaultValue
+        this.constrainAndSendValue()
     }
 
     random() {

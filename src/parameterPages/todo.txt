@@ -1,39 +1,5 @@
 export const parameterPageConfig = {
-    // BreakSampler: [
-    //     {
-    //         name: 'Sample',
-    //         parameters: [SamplerCategory', SamplerSelect', 'CC_Start', SamplerReverse', 'Chain_Solo', SamplerRepitch', 'Project_Tempo', null],
-    //     },
-    //     {
-    //         name: 'Amp',
-    //         parameters: [SamplerAmpAttack', SamplerAmpDecay', SamplerAmpSustain', SamplerAmpRelease', SamplerAmpLoop', SamplerAmpSync', null, null],
-    //     },
-    //     {
-    //         name: 'Pitch',
-    //         parameters: [SamplerPitch', SamplerDetune', SamplerSpread', SamplerPitchEnv', SamplerPitchEnvAttack', SamplerPitchEnvDecay', null, null],
-    //     },
-    //     {
-    //         name: 'Filter',
-    //         parameters: [SamplerFilterType', SamplerFilterFreq', SamplerFilterRes', SamplerFilterEnv', SamplerFilterEnvAttack', SamplerFilterEnvDecay', null, null],
-    //     },
-    //     {
-    //         name: 'Tone',
-    //         parameters: [SamplerFilterCircuit', SamplerFilterSlope', SamplerFilterDrive', SamplerShaperPre', SamplerShaperType', SamplerShaperLevel', null, null],
-    //     },
-    //     {
-    //         name: 'Osc',
-    //         parameters: [SamplerOscLevel', SamplerOscWave', SamplerOscFreq', SamplerOscMulti', SamplerOscEnvAttack', SamplerOscEnvDecay', null, null],
-    //     },
-    //     {
-    //         name: 'Velo',
-    //         parameters: [SamplerVolumeVelocity', SamplerOscVelocity', SamplerFilterVelocity', 'CC_DriveVelocity', 'CC_PitchEnvVelocity', SamplerAmpTimeVelocity', null, null],
-    //     },
-    //     {
-    //         name: 'Rand',
-    //         parameters: [SamplerVolumeLfo', SamplerPitchLfo', null, SamplerFilterLfo', SamplerPanLfo', 'CC_StartRandom', null, null],
-    //     },
-    // ],
-
+  
     KickSynth: [
         // {
         //     name: 'On',

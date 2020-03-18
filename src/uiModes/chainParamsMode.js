@@ -147,16 +147,6 @@ export class ChainParamsMode extends UiMode {
             page.getParameters()
                 .find(parameter => parameter.isSample)
                 .constrainAndSendValue()
-
-            const repitchWarpParameter = page.getParameters().find(parameter => parameter.isRepitchWarp)
-
-            if (repitchWarpParameter) {
-                repitchWarpParameter.constrainAndSendValue()
-            }
-        } else if (parameter.isBpm) {
-            page.getParameters()
-                .find(parameter => parameter.isRepitchWarp)
-                .constrainAndSendValue()
         }
 
         this.updateDisplay()
