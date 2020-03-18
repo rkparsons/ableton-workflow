@@ -48,7 +48,12 @@ export class UiMode {
 
         this.ignore()
         this.rack.setActiveDrumPad(drumPadId)
-        this.observe()
+
+        if (!this.rack.getActiveInstrumentRack()) {
+            this.rack.getTrack().toggleActive()
+        } else {
+            this.observe()
+        }
     }
 
     incrementChain() {}

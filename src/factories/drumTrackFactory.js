@@ -8,6 +8,7 @@ export default function(controlSurface, basePath, drumSamplesDirectory, drumTrac
     const drumRack = createDrumRack(pathToDrumSamples, drumTrackIndex)
     const modes = createDrumRackModes(drumRack, controlSurface)
     const drumTrack = new DrumTrack(modes, drumTrackIndex)
+    drumRack.setTrack(drumTrack)
 
     drumRack.onValueChanged(() => {
         drumTrack.getMode().updateDisplay()

@@ -40,4 +40,12 @@ export class DrumRack extends Rack {
     setActiveDrumPad(value) {
         this.activeDrumPadId = value
     }
+
+    getTrack() {
+        return this.track
+    }
+
+    setTrack(track) {
+        this.track = track
+    }
 }
