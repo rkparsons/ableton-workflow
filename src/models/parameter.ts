@@ -1,5 +1,4 @@
 import UnitType from '../constants/unitType'
-import log from '~/util/log'
 
 type Props = {
     name: string
