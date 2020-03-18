@@ -10,7 +10,6 @@ export class InactiveMode extends UiMode {
         return modeType === mode.INACTIVE
     }
 
-    //todo: move into drum rack
     focusDrumPad(property, drumPadId) {
         if (property !== 'selected_drum_pad') {
             return

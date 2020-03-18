@@ -40,7 +40,6 @@ export class UiMode {
         }
     }
 
-    //todo: move into drum rack
     focusDrumPad(property, drumPadId) {
         if (property !== 'selected_drum_pad') {
             return
@@ -49,7 +48,10 @@ export class UiMode {
         this.ignore()
         this.rack.setActiveDrumPad(drumPadId)
 
-        if (!this.rack.getActiveInstrumentRack()) {
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
+        const isBlank = !activeInstrumentRack || !activeInstrumentRack.getActiveChain()
+
+        if (isBlank) {
             this.rack.getTrack().toggleActive()
         } else {
             this.observe()
