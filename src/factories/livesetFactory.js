@@ -1,16 +1,17 @@
 import { Liveset } from '../models/liveset'
-import createBassTrack from './bassTrackFactory'
 import { createControlSurface } from '~/factories/controlSurfaceFactory'
 import createDrumTrack from './drumTrackFactory'
 import path from 'path'
+
+// import createBassTrack from './bassTrackFactory'
 
 export function createLiveset(pathToPatcher) {
     const controlSurface = createControlSurface('Tap_Tempo_Button')
     const pathToSamples = path.join(pathToPatcher, '..', 'samples')
     // todo: find name/index dynamically
     const drumTrack = createDrumTrack(controlSurface, pathToSamples, 'Drum', 0)
-    const bassTrack = createBassTrack(controlSurface, pathToSamples, 'Bass', 1)
-    const liveset = new Liveset([drumTrack, bassTrack])
+    // const bassTrack = createBassTrack(controlSurface, pathToSamples, 'Bass', 1)
+    const liveset = new Liveset([drumTrack])
     controlSurface.on('Tap_Tempo_Button', ([, isPressed]) => liveset.toggleActive(isPressed))
     controlSurface.onActive('Vol_Mix_Mode_Button', ([, isPressed]) => isPressed && liveset.getTrack().onVolMixModeButton())
     controlSurface.onActive('Pan_Send_Mode_Button', ([, isPressed]) => isPressed && liveset.getTrack().onPanSendModeButton())
