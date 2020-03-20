@@ -5,16 +5,15 @@ export class TrackSelect {
     buttonApi: LiveAPI[]
 
     constructor(getControl: (controlName: ControlName) => string) {
-        // todo: remove blank functions
         this.buttonApi = [
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_0)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_1)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_2)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_3)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_4)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_5)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_6)),
-            new LiveAPI(function() {}, getControl(ControlName.TRACK_SELECT_BUTTON_7)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_0)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_1)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_2)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_3)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_4)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_5)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_6)),
+            new LiveAPI(() => {}, getControl(ControlName.TRACK_SELECT_BUTTON_7)),
         ]
     }
 
