@@ -3,12 +3,14 @@
 import { createLiveset } from '~/factories/livesetFactory'
 import log from '~/util/log'
 
-log('Compiling...')
-log('Checking for LiveAPI...')
-outlet(0, 'bang')
+let isInitialised = false
+
+log('Compiled!')
 
 export default function init() {
-    log('Initialised!')
-
-    createLiveset(this.patcher.filepath)
+    if (!isInitialised) {
+        createLiveset(this.patcher.filepath)
+        isInitialised = true
+        log('Initialised!')
+    }
 }
