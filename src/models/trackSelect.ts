@@ -21,7 +21,7 @@ export class TrackSelect {
         for (var i = 0; i < 8; i++) {
             var buttonValue = i >= itemsCount ? SelectButtonColour.BLACK : i == activeItemIndex ? specifiedColour + 3 : specifiedColour
 
-            this.buttonApi[i].call('send_value', buttonValue.toString())
+            this.buttonApi[i].call('send_value', buttonValue)
         }
     }
 }
