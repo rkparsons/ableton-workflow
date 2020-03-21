@@ -1,6 +1,6 @@
 declare class LiveAPI {
     property: string | undefined
-    constructor(callback: LiveApiCallback, path: string)
+    constructor(callback: LiveApiCallback | null, path: string)
     set(property: string, value: number): void
     call(methodName: string, args: string | string[] | number): string
 }
