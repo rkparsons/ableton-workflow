@@ -1,12 +1,13 @@
+import { ParameterProps } from '~/types/parameterProps'
 import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
-export class CCPitchEnvVelocity extends ValueParameter {
-    constructor({ pathToChain, deviceIndex }) {
+export class CCStartRandom extends ValueParameter {
+    constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
-            name: 'PEnv',
+            name: 'Start',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 4',
+            path: 'parameters 2',
             unitType: unitType.INT,
             inputRange: [0, 127],
         })
