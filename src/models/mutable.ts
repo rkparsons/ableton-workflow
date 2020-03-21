@@ -1,9 +1,13 @@
+import { ChainMute } from '~/parameters/chain/mute'
+
 export class Mutable {
-    constructor(muteParameter) {
+    muteParameter: ChainMute
+
+    constructor(muteParameter: ChainMute) {
         this.muteParameter = muteParameter
     }
 
-    onValueChanged(callback) {
+    onValueChanged(callback: () => void) {
         this.muteParameter.onValueChanged(callback)
     }
 
