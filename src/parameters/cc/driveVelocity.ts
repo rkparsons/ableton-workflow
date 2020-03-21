@@ -1,3 +1,4 @@
+import { ParameterProps } from '~/types/parameterProps'
 import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
