@@ -2,7 +2,7 @@ import { ValueParameter } from '../../models/valueParameter'
 import unitType from '../../constants/unitType'
 
 export class CCDriveVelocity extends ValueParameter {
-    constructor({ pathToChain, deviceIndex }) {
+    constructor({ pathToChain, deviceIndex }: ParameterProps) {
         // todo: handle device index better
         super({
             name: 'Drive',

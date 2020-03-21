@@ -6,8 +6,8 @@ type Props = {
     name: string
     basePath: string
     path: string
-    property: string
-    defaultValue: number
+    property?: string
+    defaultValue?: number
     unitType: UnitType
     inputRange: number[]
     randomRange?: number[]
