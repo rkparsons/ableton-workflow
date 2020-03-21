@@ -2,7 +2,7 @@ declare class LiveAPI {
     property: string | undefined
     constructor(callback: LiveApiCallback, path: string)
     set(property: string, value: number): void
-    call(methodName: string, args: string | string[] | number): void
+    call(methodName: string, args: string | string[] | number): string
 }
 
 // class Folder {
