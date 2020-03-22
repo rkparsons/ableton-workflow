@@ -1,5 +1,5 @@
-import { Parameter } from './parameter'
-import UnitType from '../constants/unitType'
+import { Parameter } from '~/models/parameter'
+import UnitType from '~/constants/unitType'
 
 type Props = {
     name: string

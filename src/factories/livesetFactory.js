@@ -1,9 +1,9 @@
-import { Liveset } from '../models/liveset'
+import { Liveset } from '~/models/liveset'
 import { createControlSurface } from '~/factories/controlSurfaceFactory'
-import createDrumTrack from './drumTrackFactory'
+import createDrumTrack from '~/factories/drumTrackFactory'
 import path from 'path'
 
-// import createBassTrack from './bassTrackFactory'
+// import createBassTrack from '~/factories/bassTrackFactory'
 
 export function createLiveset(pathToPatcher) {
     const controlSurface = createControlSurface('Tap_Tempo_Button')

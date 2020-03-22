@@ -1,6 +1,6 @@
-import { DrumRack } from '../models/drumRack'
-import { createDrumPads } from './drumPadFactory'
-import { createParameterPages } from './parameterPageFactory'
+import { DrumRack } from '~/models/drumRack'
+import { createDrumPads } from '~/factories/drumPadFactory'
+import { createParameterPages } from '~/factories/parameterPageFactory'
 
 export function createDrumRack(samplesFolder, drumTrackIndex) {
     const pathToDrumRack = `live_set tracks ${drumTrackIndex} devices 0`

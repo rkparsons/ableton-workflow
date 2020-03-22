@@ -1,4 +1,4 @@
-import { Track } from './track'
+import { Track } from '~/models/track'
 
 export class InstrumentTrack extends Track {
     constructor(modes, trackIndex) {

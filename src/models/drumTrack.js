@@ -1,5 +1,5 @@
-import { Track } from './track'
-import mode from '../constants/mode'
+import { Track } from '~/models/track'
+import mode from '~/constants/mode'
 
 export class DrumTrack extends Track {
     constructor(modes, trackIndex) {

@@ -1,5 +1,5 @@
 import { ParameterProps } from '~/types/parameterProps'
-import { ValueParameter } from '../../models/valueParameter'
+import { ValueParameter } from '~/models/valueParameter'
 
 export class CollisionReso1Brightness extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {

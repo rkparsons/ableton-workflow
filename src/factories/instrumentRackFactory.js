@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import { InstrumentRack } from '../models/instrumentRack'
-import { createInstrumentChains } from './instrumentChainFactory'
-import { createParameterPages } from './parameterPageFactory'
+import { InstrumentRack } from '~/models/instrumentRack'
+import { createInstrumentChains } from '~/factories/instrumentChainFactory'
+import { createParameterPages } from '~/factories/parameterPageFactory'
 
 export function createInstrumentRack(rackType, samplesFolder, pathToInstrumentRack) {
     const instrumentRackApi = new LiveAPI(null, pathToInstrumentRack)

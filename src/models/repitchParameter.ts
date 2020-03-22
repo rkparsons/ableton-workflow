@@ -1,14 +1,14 @@
 import UnitType from '~/constants/unitType'
-import { ValueParameter } from './valueParameter'
+import { ValueParameter } from '~/models/valueParameter'
 
 type Props = {
     name: string
     basePath: string
     path: string
     pathDecimal: string
-    property: string
-    defaultValue: number
-    unitType: UnitType
+    property?: string
+    defaultValue?: number
+    unitType?: UnitType
     inputRange: number[]
     randomRange?: number[]
 }

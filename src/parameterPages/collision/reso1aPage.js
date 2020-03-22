@@ -1,12 +1,12 @@
-import { Blank } from '../../parameters/blank'
-import { CollisionReso1Brightness } from '../../parameters/collision/reso1Brightness'
-import { CollisionReso1Decay } from '../../parameters/collision/reso1Decay'
-import { CollisionReso1Inharmonics } from '../../parameters/collision/reso1Inharmonics'
-import { CollisionReso1Material } from '../../parameters/collision/reso1Material'
-import { CollisionReso1Position } from '../../parameters/collision/reso1Position'
-import { CollisionReso1Ratio } from '../../parameters/collision/reso1Ratio'
-import { CollisionReso1Type } from '../../parameters/collision/reso1Type'
-import { ParameterPage } from '../../models/parameterPage'
+import { Blank } from '~/parameters/blank'
+import { CollisionReso1Brightness } from '~/parameters/collision/reso1Brightness'
+import { CollisionReso1Decay } from '~/parameters/collision/reso1Decay'
+import { CollisionReso1Inharmonics } from '~/parameters/collision/reso1Inharmonics'
+import { CollisionReso1Material } from '~/parameters/collision/reso1Material'
+import { CollisionReso1Position } from '~/parameters/collision/reso1Position'
+import { CollisionReso1Ratio } from '~/parameters/collision/reso1Ratio'
+import { CollisionReso1Type } from '~/parameters/collision/reso1Type'
+import { ParameterPage } from '~/models/parameterPage'
 
 export class Reso1aPage extends ParameterPage {
     constructor(pageIndex, pathToChain, deviceIndex) {

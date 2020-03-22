@@ -1,5 +1,5 @@
 import { ParameterProps } from '~/types/parameterProps'
-import { ValueParameter } from '../../models/valueParameter'
+import { ValueParameter } from '~/models/valueParameter'
 
 export class CollisionMalletVolume extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {

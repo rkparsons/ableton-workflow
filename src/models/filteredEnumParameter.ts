@@ -1,10 +1,10 @@
-import { EnumParameter } from './enumParameter'
+import { EnumParameter } from '~/models/enumParameter'
 
 type Props = {
     name: string
     basePath: string
     path?: string
-    property: string
+    property?: string
     defaultValue?: number
     optionGroups: Record<string, string[]>
     isSample: boolean

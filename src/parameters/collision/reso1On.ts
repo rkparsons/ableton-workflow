@@ -1,4 +1,4 @@
-import { EnumParameter } from '../../models/enumParameter'
+import { EnumParameter } from '~/models/enumParameter'
 import { ParameterProps } from '~/types/parameterProps'
 
 export class CollisionReso1On extends EnumParameter {

@@ -1,6 +1,6 @@
 import { ParameterProps } from '~/types/parameterProps'
-import { ValueParameter } from '../../models/valueParameter'
-import unitType from '../../constants/unitType'
+import { ValueParameter } from '~/models/valueParameter'
+import unitType from '~/constants/unitType'
 
 export class CCStart extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {

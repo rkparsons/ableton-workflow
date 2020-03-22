@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import command from '../constants/command'
-import mode from '../constants/mode'
+import command from '~/constants/command'
+import mode from '~/constants/mode'
 
 export class Track {
     constructor(modes, trackIndex) {

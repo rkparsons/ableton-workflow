@@ -1,4 +1,4 @@
-import { ParameterPage } from '../../models/parameterPage'
+import { ParameterPage } from '~/models/parameterPage'
 
 export class SamplePage extends ParameterPage {
     constructor(pageIndex, parameters) {

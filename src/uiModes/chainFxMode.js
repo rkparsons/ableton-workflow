@@ -1,5 +1,5 @@
-import { UiMode } from './uiMode'
-import mode from '../constants/mode'
+import { UiMode } from '~/uiModes/uiMode'
+import mode from '~/constants/mode'
 
 export class ChainFxMode extends UiMode {
     // rename directory as strategies

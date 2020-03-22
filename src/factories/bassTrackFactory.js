@@ -1,6 +1,6 @@
-import { InstrumentTrack } from '../models/instrumentTrack'
-import { createInstrumentRack } from './instrumentRackFactory'
-import { createInstrumentRackModes } from './modeFactory'
+import { InstrumentTrack } from '~/models/instrumentTrack'
+import { createInstrumentRack } from '~/factories/instrumentRackFactory'
+import { createInstrumentRackModes } from '~/factories/modeFactory'
 import path from 'path'
 
 export default function(controlSurface, basePath, bassSamplesDirectory, bassTrackIndex) {

@@ -1,9 +1,9 @@
-import { CCStart } from '../../parameters/cc/start'
-import { ChainSolo } from '../../parameters/chain/solo'
-import { SamplePage } from './samplePage'
-import { SamplerMelodicCategory } from '../../parameters/sampler/melodicCategory'
-import { SamplerMelodicSelect } from '../../parameters/sampler/melodicSelect'
-import { SamplerReverse } from '../../parameters/sampler/reverse'
+import { CCStart } from '~/parameters/cc/start'
+import { ChainSolo } from '~/parameters/chain/solo'
+import { SamplePage } from '~/parameterPages/sampler/samplePage'
+import { SamplerMelodicCategory } from '~/parameters/sampler/melodicCategory'
+import { SamplerMelodicSelect } from '~/parameters/sampler/melodicSelect'
+import { SamplerReverse } from '~/parameters/sampler/reverse'
 
 export class MelodicSamplePage extends SamplePage {
     constructor(pageIndex, pathToChain, deviceIndex, categories, samples) {

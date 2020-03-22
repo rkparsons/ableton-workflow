@@ -1,3 +1,4 @@
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const path = require('path')
 const webpack_rules = []
 // todo: replace path with env var
@@ -14,6 +15,7 @@ const webpackOption = {
     module: {
         rules: webpack_rules,
     },
+    plugins: [new ForkTsCheckerWebpackPlugin()],
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
@@ -37,5 +39,3 @@ let esLintLoader = {
 webpack_rules.push(babelLoader)
 webpack_rules.push(esLintLoader)
 module.exports = webpackOption
-
-// todo: use import path aliases

@@ -1,5 +1,5 @@
 import { MixerMode } from './mixerMode'
-import mode from '../constants/mode'
+import mode from '~/constants/mode'
 
 export class InstrumentRackMixerMode extends MixerMode {
     constructor(rack, controlSurface) {

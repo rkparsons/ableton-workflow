@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import { UiMode } from './uiMode'
-import command from '../constants/command'
+import { UiMode } from '~/uiModes/uiMode'
+import command from '~/constants/command'
 
 export class MixerMode extends UiMode {
     constructor(rack, controlSurface) {

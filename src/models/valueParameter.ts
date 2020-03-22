@@ -1,6 +1,6 @@
-import ASCII from '../constants/ascii'
-import { Parameter } from './parameter'
-import UnitType from '../constants/unitType'
+import ASCII from '~/constants/ascii'
+import { Parameter } from '~/models/parameter'
+import UnitType from '~/constants/unitType'
 
 type Props = {
     name: string

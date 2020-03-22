@@ -1,4 +1,4 @@
-import { ValueParameter } from '../../models/valueParameter'
+import { ValueParameter } from '~/models/valueParameter'
 
 type Props = {
     pathToChain: string

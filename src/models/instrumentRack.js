@@ -1,4 +1,4 @@
-import { Rack } from './rack'
+import { Rack } from '~/models/rack'
 
 export class InstrumentRack extends Rack {
     constructor(name, chains, mixerPages) {

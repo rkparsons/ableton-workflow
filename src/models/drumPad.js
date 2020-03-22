@@ -1,4 +1,4 @@
-import { Mutable } from './mutable'
+import { Mutable } from '~/models/mutable'
 
 export class DrumPad extends Mutable {
     constructor(id, instrumentRack, muteParameter) {

@@ -1,4 +1,4 @@
-import { ParameterPage } from '../../models/parameterPage'
+import { ParameterPage } from '~/models/parameterPage'
 
 export class MixerPage extends ParameterPage {
     constructor(pageIndex, pathToRack, chainCount, name, ParameterType) {

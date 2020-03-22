@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import { ChainMute } from '../parameters/chain/mute'
-import { DrumPad } from '../models/drumPad'
-import { createInstrumentRack } from './instrumentRackFactory'
+import { ChainMute } from '~/parameters/chain/mute'
+import { DrumPad } from '~/models/drumPad'
+import { createInstrumentRack } from '~/factories/instrumentRackFactory'
 
 export function createDrumPads(samplesFolder, pathToDrumRack) {
     var drumPads = []

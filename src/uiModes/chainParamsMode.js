@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import { UiMode } from './uiMode'
-import command from '../constants/command'
-import mode from '../constants/mode'
+import { UiMode } from '~/uiModes/uiMode'
+import command from '~/constants/command'
+import mode from '~/constants/mode'
 
 //todo: add can handle enum to strategies
 export class ChainParamsMode extends UiMode {

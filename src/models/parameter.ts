@@ -1,4 +1,4 @@
-import UnitType from '../constants/unitType'
+import UnitType from '~/constants/unitType'
 
 type Props = {
     name?: string

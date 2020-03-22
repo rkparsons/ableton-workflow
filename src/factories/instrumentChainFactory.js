@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import { ChainMute } from '../parameters/chain/mute'
-import { InstrumentChain } from '../models/instrumentChain'
-import { createParameterPages } from './parameterPageFactory'
+import { ChainMute } from '~/parameters/chain/mute'
+import { InstrumentChain } from '~/models/instrumentChain'
+import { createParameterPages } from '~/factories/parameterPageFactory'
 
 export function createInstrumentChains(rackType, samplesFolder, instrumentRackName, pathToInstrumentRack, chainCount) {
     let chains = []

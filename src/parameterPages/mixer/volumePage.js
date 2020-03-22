@@ -1,5 +1,5 @@
-import { MixerPage } from './mixerPage'
-import { MixerVolume } from '../../parameters/mixer/volume'
+import { MixerPage } from '~/parameterPages/mixer/mixerPage'
+import { MixerVolume } from '~/parameters/mixer/volume'
 
 export class VolumePage extends MixerPage {
     constructor(pageIndex, pathToRack, chainCount) {

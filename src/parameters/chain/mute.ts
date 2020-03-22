@@ -1,4 +1,4 @@
-import { EnumParameter } from '../../models/enumParameter'
+import { EnumParameter } from '~/models/enumParameter'
 
 type Props = {
     pathToChain: string

@@ -1,7 +1,7 @@
-import { Blank } from '../../parameters/blank'
-import { CollisionReso1Opening } from '../../parameters/collision/reso1Opening'
-import { CollisionReso1Radius } from '../../parameters/collision/reso1Radius'
-import { ParameterPage } from '../../models/parameterPage'
+import { Blank } from '~/parameters/blank'
+import { CollisionReso1Opening } from '~/parameters/collision/reso1Opening'
+import { CollisionReso1Radius } from '~/parameters/collision/reso1Radius'
+import { ParameterPage } from '~/models/parameterPage'
 
 export class Reso1bPage extends ParameterPage {
     constructor(pageIndex, pathToChain, deviceIndex) {

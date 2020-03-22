@@ -1,6 +1,6 @@
-import { DrumTrack } from '../models/drumTrack'
-import { createDrumRack } from './drumRackFactory'
-import { createDrumRackModes } from './modeFactory'
+import { DrumTrack } from '~/models/drumTrack'
+import { createDrumRack } from '~/factories/drumRackFactory'
+import { createDrumRackModes } from '~/factories/modeFactory'
 import path from 'path'
 
 export default function(controlSurface, basePath, drumSamplesDirectory, drumTrackIndex) {

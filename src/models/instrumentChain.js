@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { Mutable } from './mutable'
+import { Mutable } from '~/models/mutable'
 
 export class InstrumentChain extends Mutable {
     constructor(index, name, parameterPages, muteParameter) {

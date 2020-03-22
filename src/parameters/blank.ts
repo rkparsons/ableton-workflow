@@ -1,4 +1,4 @@
-import { Parameter } from '../models/parameter'
+import { Parameter } from '~/models/parameter'
 
 export class Blank extends Parameter {
     constructor() {

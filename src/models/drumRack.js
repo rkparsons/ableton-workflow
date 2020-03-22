@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { Rack } from './rack'
+import { Rack } from '~/models/rack'
 
 export class DrumRack extends Rack {
     constructor(pathToRack, drumPads, mixerPages) {
