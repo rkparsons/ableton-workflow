@@ -8,8 +8,8 @@ type Props = {
     path: string
     property?: string
     defaultValue?: number
-    unitType: UnitType
-    inputRange: number[]
+    unitType?: UnitType
+    inputRange?: number[]
     randomRange?: number[]
     showValue?: boolean
     speed?: number
@@ -19,9 +19,9 @@ export class ValueParameter extends Parameter {
     inputRange: number[]
     isBipolar: boolean
 
-    constructor({ name, basePath, path, property, defaultValue, unitType, inputRange, randomRange, showValue, speed }: Props) {
+    constructor({ name, basePath, path, property, defaultValue, unitType = UnitType.FLOAT, inputRange = [0, 1], randomRange, showValue, speed }: Props) {
         super({ name, basePath, path, property, defaultValue, unitType, randomRange, speed, showValue })
-        this.inputRange = inputRange || [0, 1]
+        this.inputRange = inputRange
         this.min = this.inputRange[0]
         this.max = this.inputRange[1]
         this.isBipolar = this.max / this.min < 0

@@ -5,7 +5,7 @@ type Props = {
     name: string
     basePath: string
     path?: string
-    property: string
+    property?: string
     defaultValue?: number
     options: string[]
     randomRange?: number[]
