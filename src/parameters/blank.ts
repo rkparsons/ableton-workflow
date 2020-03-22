@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { Parameter } from '../models/parameter'
 
 export class Blank extends Parameter {
@@ -15,17 +13,17 @@ export class Blank extends Parameter {
 
     ignore() {}
 
-    onValueChanged(callback) {}
+    onValueChanged() {}
 
     getDisplayValue() {
         return ''
     }
 
     getValue() {
-        return ''
+        return 0
     }
 
-    setValue(value) {}
+    setValue() {}
 
     default() {}
 
@@ -33,9 +31,9 @@ export class Blank extends Parameter {
 
     constrainAndSendValue() {}
 
-    sendValue(delta) {}
+    sendValue() {}
 
     getOutputValue() {
-        return ''
+        return 0
     }
 }
