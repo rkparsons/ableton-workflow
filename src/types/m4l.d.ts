@@ -13,3 +13,5 @@ declare class LiveAPI {
 declare const post: (message: string) => void
 
 declare type LiveApiCallback = (args: any[]) => void
+
+declare const outlet: (index: number, args: string | string[] | number | number[]) => void
