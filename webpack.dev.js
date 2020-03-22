@@ -2,11 +2,18 @@ const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
-const webpackOption = {
+module.exports = merge(common, {
     mode: 'development',
     watch: true,
     devtool: 'source-map',
     plugins: [new ForkTsCheckerWebpackPlugin()],
-}
-
-module.exports = merge(common, webpackOption)
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+            },
+        ],
+    },
+})

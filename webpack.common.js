@@ -1,7 +1,7 @@
 const path = require('path')
-const webpack_rules = []
 // todo: replace path with env var
-const webpackOption = {
+
+module.exports = {
     entry: './src/app.js',
     output: {
         path: path.resolve('E:/PushCtrl/js'),
@@ -10,7 +10,15 @@ const webpackOption = {
         libraryExport: 'default',
     },
     module: {
-        rules: webpack_rules,
+        rules: [
+            {
+                test: /\.(ts|js)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                },
+            },
+        ],
     },
     resolve: {
         extensions: ['.ts', '.js'],
@@ -19,19 +27,3 @@ const webpackOption = {
         },
     },
 }
-let babelLoader = {
-    test: /\.(ts|js)$/,
-    exclude: /node_modules/,
-    use: {
-        loader: 'babel-loader',
-    },
-}
-let esLintLoader = {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: 'eslint-loader',
-}
-
-webpack_rules.push(babelLoader)
-webpack_rules.push(esLintLoader)
-module.exports = webpackOption
