@@ -6,7 +6,7 @@ import { SamplerPitchLfo } from '~/parameters/sampler/pitchLfo'
 import { SamplerVolumeLfo } from '~/parameters/sampler/volumeLfo'
 
 export class RandomPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerVolumeLfo({ pathToChain, deviceIndex }),
             new SamplerPitchLfo({ pathToChain, deviceIndex }),

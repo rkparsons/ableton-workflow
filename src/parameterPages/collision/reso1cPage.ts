@@ -7,7 +7,7 @@ import { CollisionReso1Tune } from '~/parameters/collision/reso1Tune'
 import { ParameterPage } from '~/models/parameterPage'
 
 export class Reso1cPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionReso1Tune({ pathToChain, deviceIndex }),
             new CollisionReso1Fine({ pathToChain, deviceIndex }),

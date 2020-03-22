@@ -7,7 +7,7 @@ import { SamplerPitchEnvDecay } from '~/parameters/sampler/pitchEnvDecay'
 import { SamplerSpread } from '~/parameters/sampler/spread'
 
 export class PitchPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerPitch({ pathToChain, deviceIndex }),
             new SamplerDetune({ pathToChain, deviceIndex }),

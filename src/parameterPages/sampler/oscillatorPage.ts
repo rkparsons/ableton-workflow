@@ -7,7 +7,7 @@ import { SamplerOscMulti } from '~/parameters/sampler/oscMulti'
 import { SamplerOscWave } from '~/parameters/sampler/oscWave'
 
 export class OscillatorPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerOscLevel({ pathToChain, deviceIndex }),
             new SamplerOscWave({ pathToChain, deviceIndex }),

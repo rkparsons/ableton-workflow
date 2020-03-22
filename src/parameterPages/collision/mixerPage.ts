@@ -9,7 +9,7 @@ import { CollisionRouting } from '~/parameters/collision/routing'
 import { ParameterPage } from '~/models/parameterPage'
 
 export class MixerPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionRouting({ pathToChain, deviceIndex }),
             new CollisionReso1On({ pathToChain, deviceIndex }),

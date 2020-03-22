@@ -9,7 +9,7 @@ import { CollisionMalletVolumeVelocity } from '~/parameters/collision/malletVolu
 import { ParameterPage } from '~/models/parameterPage'
 
 export class MalletPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionMalletOn({ pathToChain, deviceIndex }),
             new CollisionMalletVolume({ pathToChain, deviceIndex }),

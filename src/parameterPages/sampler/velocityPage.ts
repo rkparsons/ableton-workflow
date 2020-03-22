@@ -7,7 +7,7 @@ import { SamplerOscVelocity } from '~/parameters/sampler/oscVelocity'
 import { SamplerVolumeVelocity } from '~/parameters/sampler/volumeVelocity'
 
 export class VelocityPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerVolumeVelocity({ pathToChain, deviceIndex }),
             new SamplerOscVelocity({ pathToChain, deviceIndex }),

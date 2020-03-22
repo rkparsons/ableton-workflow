@@ -9,7 +9,7 @@ import { CollisionNoiseVolume } from '~/parameters/collision/noiseVolume'
 import { ParameterPage } from '~/models/parameterPage'
 
 export class NoisePage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionNoiseOn({ pathToChain, deviceIndex }),
             new CollisionNoiseVolume({ pathToChain, deviceIndex }),

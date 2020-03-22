@@ -9,7 +9,7 @@ import { CollisionReso1Type } from '~/parameters/collision/reso1Type'
 import { ParameterPage } from '~/models/parameterPage'
 
 export class Reso1aPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionReso1Type({ pathToChain, deviceIndex }),
             new CollisionReso1Decay({ pathToChain, deviceIndex }),

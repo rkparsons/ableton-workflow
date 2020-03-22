@@ -9,7 +9,7 @@ import { CollisionNoiseFilterType } from '~/parameters/collision/noiseFilterType
 import { ParameterPage } from '~/models/parameterPage'
 
 export class NoiseEnvPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionNoiseFilterType({ pathToChain, deviceIndex }),
             new CollisionNoiseFilterFreq({ pathToChain, deviceIndex }),

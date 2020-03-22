@@ -7,7 +7,7 @@ import { SamplerAmpSustain } from '~/parameters/sampler/ampSustain'
 import { SamplerAmpSync } from '~/parameters/sampler/ampSync'
 
 export class AmplifierPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerAmpAttack({ pathToChain, deviceIndex }),
             new SamplerAmpDecay({ pathToChain, deviceIndex }),

@@ -7,7 +7,7 @@ import { SamplerFilterRes } from '~/parameters/sampler/filterRes'
 import { SamplerFilterType } from '~/parameters/sampler/filterType'
 
 export class FilterPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerFilterType({ pathToChain, deviceIndex }),
             new SamplerFilterFreq({ pathToChain, deviceIndex }),

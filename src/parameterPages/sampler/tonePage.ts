@@ -7,7 +7,7 @@ import { SamplerShaperPre } from '~/parameters/sampler/shaperPre'
 import { SamplerShaperType } from '~/parameters/sampler/shaperType'
 
 export class TonePage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new SamplerFilterCircuit({ pathToChain, deviceIndex }),
             new SamplerFilterSlope({ pathToChain, deviceIndex }),

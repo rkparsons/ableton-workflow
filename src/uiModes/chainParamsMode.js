@@ -60,6 +60,7 @@ export class ChainParamsMode extends UiMode {
             .getActiveChain()
             .getActiveParameterPage()
             .getParameters()
+            // todo: remove isSample flagin favour of checking instance type
             .find(parameter => parameter.isSample)
 
         if (!sampleParameter) {

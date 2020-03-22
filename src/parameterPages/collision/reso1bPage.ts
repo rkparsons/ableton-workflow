@@ -4,7 +4,7 @@ import { CollisionReso1Radius } from '~/parameters/collision/reso1Radius'
 import { ParameterPage } from '~/models/parameterPage'
 
 export class Reso1bPage extends ParameterPage {
-    constructor(pageIndex, pathToChain, deviceIndex) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
             new CollisionReso1Radius({ pathToChain, deviceIndex }),
             new CollisionReso1Opening({ pathToChain, deviceIndex }),
