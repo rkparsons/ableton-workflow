@@ -1,11 +1,8 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const path = require('path')
 const webpack_rules = []
 // todo: replace path with env var
 const webpackOption = {
     entry: './src/app.js',
-    watch: true,
-    devtool: 'source-map',
     output: {
         path: path.resolve('E:/PushCtrl/js'),
         filename: 'pushCtrlBundle.js',
@@ -15,7 +12,6 @@ const webpackOption = {
     module: {
         rules: webpack_rules,
     },
-    plugins: [new ForkTsCheckerWebpackPlugin()],
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
