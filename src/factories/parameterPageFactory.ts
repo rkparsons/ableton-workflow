@@ -21,25 +21,26 @@ import { VolumePage } from '~/parameterPages/mixer/volumePage'
 
 // todo: get rid of object wrapper
 // todo: separate files per type
+
 export const createParameterPages = {
-    Mixer: (pathToRack, chainCount) => {
+    Mixer: (pathToRack: string, chainCount: number) => {
         return [new VolumePage(0, pathToRack, chainCount), new PanningPage(1, pathToRack, chainCount)]
     },
 
-    DrumSampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
+    DrumSampler: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
         return Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, DrumSamplePage)
     },
 
-    MelodicSampler: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
+    MelodicSampler: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
         return Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, MelodicSamplePage)
     },
 
-    Collision: (samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex) => {
+    Collision: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
         return Collision(pathToChain, deviceIndex)
     },
 }
 
-function Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, SamplePageType) {
+function Sampler(samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number, SamplePageType: typeof DrumSamplePage | typeof MelodicSamplePage) {
     const categories = getCategories(samplesFolder, instrumentRackName, chainName)
     const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
 
@@ -55,7 +56,7 @@ function Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, devi
     ]
 }
 
-function Collision(pathToChain, deviceIndex) {
+function Collision(pathToChain: string, deviceIndex: number) {
     return [
         new MalletPage(0, pathToChain, deviceIndex),
         new NoisePage(1, pathToChain, deviceIndex),

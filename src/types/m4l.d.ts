@@ -6,11 +6,15 @@ declare class LiveAPI {
     call(methodName: string, args: string | string[] | number): string
 }
 
-// class Folder {
-//     constructor(path: string)
+declare class Folder {
+    constructor(path: string)
+    filename: string
+    typelist: string[]
+    end: boolean
+    next(): void
+    close(): void
+}
 
-//     typelist: string[]
-// }
 declare const post: (message: string) => void
 
 declare type LiveApiCallback = (args: any[]) => void

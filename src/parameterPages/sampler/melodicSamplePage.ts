@@ -6,7 +6,7 @@ import { SamplerMelodicSelect } from '~/parameters/sampler/melodicSelect'
 import { SamplerReverse } from '~/parameters/sampler/reverse'
 
 export class MelodicSamplePage extends ParameterPage {
-    constructor(pageIndex: number, pathToChain: string, deviceIndex: number, categories: string[], samples: Record<string, string[]>) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number, categories: string[], samples: Map<string, string[]>) {
         const category = new SamplerMelodicCategory({ pathToChain, deviceIndex, options: categories, optionGroups: samples })
         const parameters = [
             category,

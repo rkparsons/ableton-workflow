@@ -4,7 +4,7 @@ type Props = {
     pathToChain: string
     deviceIndex: number
     options: string[]
-    optionGroups: Record<string, string[]>
+    optionGroups: Map<string, string[]>
 }
 export class SamplerMelodicCategory extends EnumParameter {
     categorySizes: number[]

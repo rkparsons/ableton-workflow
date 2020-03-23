@@ -1,36 +1,26 @@
-/* eslint-disable */
-
 // todo: refactor to separate fs from sample logic
-export function getCategories(samplesFolder, instrumentRackName, chainName) {
+export function getCategories(samplesFolder: string, instrumentRackName: string, chainName: string) {
     const folderPath = getSamplesFolderPath(samplesFolder, instrumentRackName, chainName)
     const folder = new Folder(folderPath)
     folder.typelist = ['fold']
 
-    let categories = {}
-    let categoryIndex = 0
+    let categories = []
 
     folder.next()
     while (!folder.end) {
-        categories[categoryIndex] = folder.filename
+        categories.push(folder.filename)
         folder.next()
-        categoryIndex++
     }
     folder.close()
 
     return categories
 }
 
-export function getSampleGroups(samplesFolder, instrumentRackName, chainName, categories) {
-    let sampleGroups = {}
-
-    for (i in categories) {
-        sampleGroups[categories[i]] = getSamples(samplesFolder, instrumentRackName, chainName, categories[i])
-    }
-
-    return sampleGroups
+export function getSampleGroups(samplesFolder: string, instrumentRackName: string, chainName: string, categories: string[]) {
+    return new Map(categories.map(category => [category, getSamples(samplesFolder, instrumentRackName, chainName, category)]))
 }
 
-function getSamples(samplesFolder, instrumentRackName, chainName, category) {
+function getSamples(samplesFolder: string, instrumentRackName: string, chainName: string, category: string) {
     const folder = new Folder(getSamplesFolderPath(samplesFolder, instrumentRackName, chainName) + '/' + category)
     folder.typelist = ['WAVE']
 
@@ -45,10 +35,11 @@ function getSamples(samplesFolder, instrumentRackName, chainName, category) {
         folder.next()
     }
     folder.close()
-    return [...new Set(sampleNames)]
+
+    return sampleNames
 }
 
-function getSamplesFolderPath(samplesFolder, instrumentRackName, chainName) {
+function getSamplesFolderPath(samplesFolder: string, instrumentRackName: string, chainName: string) {
     const isSharedSampleFolder = ['Layer', 'Trans'].indexOf(chainName.toString()) >= 0
     const instrumentTrackName = samplesFolder.slice(samplesFolder.lastIndexOf('/') + 1)
     const isInstrumentTrack = instrumentTrackName === instrumentRackName

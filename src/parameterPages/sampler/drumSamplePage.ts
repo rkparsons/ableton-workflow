@@ -7,7 +7,7 @@ import { SamplerRepitch } from '~/parameters/sampler/repitch'
 import { SamplerReverse } from '~/parameters/sampler/reverse'
 
 export class DrumSamplePage extends ParameterPage {
-    constructor(pageIndex: number, pathToChain: string, deviceIndex: number, categories: string[], samples: Record<string, string[]>) {
+    constructor(pageIndex: number, pathToChain: string, deviceIndex: number, categories: string[], samples: Map<string, string[]>) {
         const parameters = [
             new SamplerDrumCategory({ pathToChain, deviceIndex, options: categories }),
             new SamplerDrumSelect({ pathToChain, deviceIndex, optionGroups: samples }),

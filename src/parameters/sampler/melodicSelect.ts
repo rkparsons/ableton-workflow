@@ -4,7 +4,7 @@ import { SamplerMelodicCategory } from '~/parameters/sampler/melodicCategory'
 type Props = {
     pathToChain: string
     deviceIndex: number
-    optionGroups: Record<string, string[]>
+    optionGroups: Map<string, string[]>
     category: SamplerMelodicCategory
 }
 export class SamplerMelodicSelect extends FilteredEnumParameter {

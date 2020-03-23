@@ -2,7 +2,7 @@ import { FilteredEnumParameter } from '~/models/filteredEnumParameter'
 import { ParameterProps } from '~/types/parameterProps'
 
 type Props = ParameterProps & {
-    optionGroups: Record<string, string[]>
+    optionGroups: Map<string, string[]>
 }
 
 export class SamplerDrumSelect extends FilteredEnumParameter {

@@ -6,20 +6,24 @@ type Props = {
     path?: string
     property?: string
     defaultValue?: number
-    optionGroups: Record<string, string[]>
+    optionGroups: Map<string, string[]>
 }
 
 export class FilteredEnumParameter extends EnumParameter {
-    optionGroups: Record<string, string[]>
-    constructor({ name, basePath, path, property, defaultValue, optionGroups = {} }: Props) {
-        super({ name, basePath, path, property, defaultValue, options: optionGroups[Object.keys(optionGroups)[0]] })
+    optionGroups: Map<string, string[]>
+    constructor({ name, basePath, path, property, defaultValue, optionGroups = new Map() }: Props) {
+        super({ name, basePath, path, property, defaultValue, options: optionGroups.entries().next().value })
         this.optionGroups = optionGroups
     }
 
     filterOptions(optionGroupKey: string) {
         this.value = 0
-        this.options = this.optionGroups[optionGroupKey]
-        this.max = this.options.length - 1
-        this.randomRange = [this.min, this.max]
+        const newOptions = this.optionGroups.get(optionGroupKey)
+
+        if (newOptions) {
+            this.options = newOptions
+            this.max = this.options.length - 1
+            this.randomRange = [this.min, this.max]
+        }
     }
 }
