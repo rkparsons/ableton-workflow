@@ -1,5 +1,10 @@
+import { Track } from '~/models/track'
+
 export class Liveset {
-    constructor(tracks) {
+    tracks: Track[]
+    activeTrackIndex: number
+
+    constructor(tracks: Track[]) {
         this.tracks = tracks
         this.activeTrackIndex = 0
     }
@@ -24,7 +29,7 @@ export class Liveset {
         }
     }
 
-    toggleActive(isPressed) {
+    toggleActive(isPressed: boolean) {
         isPressed
             ? this.getTrack().toggleActive()
             : this.getTrack()
