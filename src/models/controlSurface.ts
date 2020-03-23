@@ -5,7 +5,7 @@ import { TrackState } from '~/models/trackState'
 
 export class ControlSurface {
     isActive: boolean
-    apis: Record<string, LiveAPI>
+    apis: Map<string, LiveAPI>
     onOffControlName: ControlName
     controlSurfaceApi: LiveAPI
     display: ControlSurfaceDisplay
@@ -14,7 +14,7 @@ export class ControlSurface {
 
     constructor(onOffControlName: ControlName) {
         this.isActive = false
-        this.apis = {}
+        this.apis = new Map()
         this.onOffControlName = onOffControlName
         this.controlSurfaceApi = new LiveAPI(() => {}, 'control_surfaces 0')
         this.display = new ControlSurfaceDisplay(this.getControl.bind(this))
@@ -48,7 +48,7 @@ export class ControlSurface {
         const controlApi = new LiveAPI(callback, this.getControl(controlName))
         controlApi.property = 'value'
 
-        this.apis[controlName] = controlApi
+        this.apis.set(controlName, controlApi)
     }
 
     getControl(controlName: ControlName) {
