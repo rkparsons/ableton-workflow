@@ -1,9 +1,15 @@
+import { ControlSurface } from '~/models/controlSurface'
+import { DrumRack } from '~/models/drumRack'
 import { MixerMode } from './mixerMode'
-import mode from '~/constants/mode'
+import Mode from '~/constants/mode'
 
 export class DrumRackMixerMode extends MixerMode {
-    constructor(rack, controlSurface) {
+    constructor(rack: DrumRack, controlSurface: ControlSurface) {
         super(rack, controlSurface)
+    }
+
+    getRack() {
+        return this.rack as DrumRack
     }
 
     observe() {
@@ -24,11 +30,13 @@ export class DrumRackMixerMode extends MixerMode {
         }
     }
 
-    canHandle(modeType) {
-        return modeType === mode.DRUM_RACK_MIXER
+    canHandle(modeType: Mode) {
+        return modeType === Mode.DRUM_RACK_MIXER
     }
 
     getTitle() {
         return ''
     }
+
+    handleTempoControl(encoderValue: number) {}
 }

@@ -1,17 +1,22 @@
-/* eslint-disable */
-
+import Command from '~/constants/command'
+import { ControlSurface } from '~/models/controlSurface'
+import { EnumParameter } from '~/models/enumParameter'
+import Mode from '~/constants/mode'
+import { Rack } from '~/models/rack'
+import { SamplerDrumCategory } from '~/parameters/sampler/drumCategory'
+import { SamplerDrumSelect } from '~/parameters/sampler/drumSelect'
+import { SamplerMelodicCategory } from '~/parameters/sampler/melodicCategory'
+import { SamplerMelodicSelect } from '~/parameters/sampler/melodicSelect'
 import { UiMode } from '~/uiModes/uiMode'
-import command from '~/constants/command'
-import mode from '~/constants/mode'
+import log from '~/util/log'
 
-//todo: add can handle enum to strategies
 export class ChainParamsMode extends UiMode {
-    constructor(rack, controlSurface) {
+    constructor(rack: Rack, controlSurface: ControlSurface) {
         super(rack, controlSurface)
     }
 
-    canHandle(modeType) {
-        return modeType === mode.CHAIN_PARAMS
+    canHandle(modeType: Mode) {
+        return modeType === Mode.CHAIN_PARAMS
     }
 
     observe() {
@@ -42,118 +47,120 @@ export class ChainParamsMode extends UiMode {
         }
     }
 
-    incrementChain() {
-        this.ignore()
-        this.rack.getActiveInstrumentRack().incrementActiveChain()
-        this.observe()
-    }
+    handleTempoControl(encoderValue: number) {
+        const activeInstrumentRack = this.getRack()?.getActiveInstrumentRack()
 
-    decrementChain() {
-        this.ignore()
-        this.rack.getActiveInstrumentRack().decrementActiveChain()
-        this.observe()
-    }
+        if (!activeInstrumentRack) {
+            return
+        }
 
-    handleTempoControl(encoderValue) {
-        const sampleParameter = this.rack
-            .getActiveInstrumentRack()
+        const sampleParameter = activeInstrumentRack
             .getActiveChain()
             .getActiveParameterPage()
             .getParameters()
-            // todo: remove isSample flagin favour of checking instance type
-            .find(parameter => parameter.isSample)
+            .find(parameter => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
 
         if (!sampleParameter) {
             return
         }
 
+        const samplerSelectParam = sampleParameter as EnumParameter
+
         if (encoderValue === 1) {
-            sampleParameter.increment()
+            samplerSelectParam.increment()
         } else if (encoderValue === 127) {
-            sampleParameter.decrement()
+            samplerSelectParam.decrement()
         }
 
         this.updateDisplay()
     }
 
-    handleTrackSelectButtons(isPressed, buttonIndex) {
+    handleTrackSelectButtons(isPressed: boolean, buttonIndex: number) {
         if (!isPressed) {
             return
         }
 
-        //todo: refactor big method chains into class method
-        const activeChain = this.rack.getActiveInstrumentRack().getActiveChain()
-        const isMuted = activeChain.isMuted()
+        const activeChain = this.rack.getActiveInstrumentRack()?.getActiveChain()
+        const isMuted = activeChain && activeChain.isMuted()
 
-        if (!isMuted) {
+        if (activeChain && !isMuted) {
             this.ignore()
             activeChain.setActiveParameterPage(buttonIndex)
             this.observe()
         }
     }
 
-    handleTrackStateButtons(isPressed, buttonIndex) {
+    handleTrackStateButtons(isPressed: boolean, buttonIndex: number) {
         if (!isPressed || buttonIndex !== 0) {
             return
         }
 
-        const muteParameter = this.rack
-            .getActiveInstrumentRack()
-            .getActiveChain()
-            .getMuteParameter()
+        const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
-        muteParameter.setValue(!Boolean(muteParameter.getValue()))
+        if (activeInstrumentRack) {
+            const muteParameter = activeInstrumentRack.getActiveChain().getMuteParameter()
+
+            muteParameter.setValue(muteParameter.getValue() ? 0 : 1)
+        }
     }
 
-    executePageLevelCommand(targetCommand) {
-        const activeChain = this.rack.getActiveInstrumentRack().getActiveChain()
+    executePageLevelCommand(targetCommand: Command) {
+        const activeChain = this.rack.getActiveInstrumentRack()?.getActiveChain()
 
-        if (!activeChain.isMuted()) {
+        if (activeChain && !activeChain.isMuted()) {
             const page = activeChain.getActiveParameterPage()
-            targetCommand === command.DEFAULT ? page.default() : page.random()
+            targetCommand === Command.DEFAULT ? page.default() : page.random()
         }
 
         this.updateDisplay()
     }
 
-    executeParamLevelCommand(targetCommand, encoderIndex) {
+    executeParamLevelCommand(targetCommand: Command, encoderIndex: number) {
         const page = this.rack
             .getActiveInstrumentRack()
-            .getActiveChain()
+            ?.getActiveChain()
             .getActiveParameterPage()
-        const param = page.getParameter(encoderIndex)
-        targetCommand === command.DEFAULT ? param.default() : param.random()
 
-        if (page.getParameter(encoderIndex).isCategory) {
+        if (!page) {
+            return
+        }
+
+        const parameter = page.getParameter(encoderIndex)
+        targetCommand === Command.DEFAULT ? parameter.default() : parameter.random()
+
+        if (parameter instanceof SamplerDrumCategory || parameter instanceof SamplerMelodicCategory) {
+            // todo: add common base classes SamplerCategory, SamplerSelect
             page.getParameters()
-                .find(parameter => parameter.isSample)
-                .default()
+                .find(parameter => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
+                ?.default()
         }
 
         this.updateDisplay()
     }
 
-    sendValue(value, encoderIndex) {
+    sendValue(value: number, encoderIndex: number) {
         const page = this.rack
             .getActiveInstrumentRack()
-            .getActiveChain()
+            ?.getActiveChain()
             .getActiveParameterPage()
+
+        if (!page) {
+            return
+        }
 
         const parameter = page.getParameter(encoderIndex)
 
         parameter.sendValue(value)
 
-        //todo: move logic into page
-        if (parameter.isCategory) {
+        if (parameter instanceof SamplerDrumCategory || parameter instanceof SamplerMelodicCategory) {
             page.getParameters()
-                .find(parameter => parameter.isSample)
-                .constrainAndSendValue()
+                .find(parameter => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
+                ?.constrainAndSendValue()
         }
 
         this.updateDisplay()
     }
 
-    // todo: check why this gets called so many times
     updateDisplay() {
         const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
@@ -165,7 +172,6 @@ export class ChainParamsMode extends UiMode {
             const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
             const isChainMuted = activeChain.isMuted()
 
-            // why is this executed so many times when chain changed?
             if (isChainMuted) {
                 this.controlSurface.display.line(0, [' '])
                 this.controlSurface.display.line(1, [' '])

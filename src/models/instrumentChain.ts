@@ -1,9 +1,15 @@
-/* eslint-disable */
-
+import { ChainMute } from '~/parameters/chain/mute'
 import { Mutable } from '~/models/mutable'
+import { ParameterPage } from '~/models/parameterPage'
+import log from '~/util/log'
 
 export class InstrumentChain extends Mutable {
-    constructor(index, name, parameterPages, muteParameter) {
+    index: number
+    name: string
+    parameterPages: ParameterPage[]
+    activeParameterPageIndex: number
+
+    constructor(index: number, name: string, parameterPages: ParameterPage[] = [], muteParameter: ChainMute) {
         super(muteParameter)
         this.index = index
         this.name = name
@@ -19,12 +25,12 @@ export class InstrumentChain extends Mutable {
         return this.name
     }
 
-    onValueChanged(callback) {
+    onValueChanged(callback: () => void) {
         super.onValueChanged(callback)
 
-        for (i in this.parameterPages) {
-            this.parameterPages[i].onValueChanged(callback)
-        }
+        this.parameterPages.forEach(parameterPage => {
+            parameterPage.onValueChanged(callback)
+        })
     }
 
     getParameterPages() {
@@ -35,7 +41,7 @@ export class InstrumentChain extends Mutable {
         return this.parameterPages[this.activeParameterPageIndex]
     }
 
-    setActiveParameterPage(index) {
+    setActiveParameterPage(index: number) {
         this.activeParameterPageIndex = index
     }
 }

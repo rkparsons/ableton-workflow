@@ -1,7 +1,13 @@
+import { InstrumentChain } from './instrumentChain'
+import { MixerPage } from '~/parameterPages/mixer/mixerPage'
 import { Rack } from '~/models/rack'
 
 export class InstrumentRack extends Rack {
-    constructor(name, chains, mixerPages) {
+    name: string
+    chains: InstrumentChain[]
+    activeChainIndex: number
+
+    constructor(name: string, chains: InstrumentChain[], mixerPages: MixerPage[]) {
         super(mixerPages)
         this.name = name
         this.chains = chains
@@ -12,7 +18,7 @@ export class InstrumentRack extends Rack {
         return this.name
     }
 
-    onValueChanged(callback) {
+    onValueChanged(callback: () => void) {
         super.onValueChanged(callback)
         this.chains.forEach(chain => chain.onValueChanged(callback))
     }

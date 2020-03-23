@@ -12,7 +12,7 @@ export class SamplerMelodicSelect extends FilteredEnumParameter {
     chainSelectorOffset: number
 
     constructor({ pathToChain, deviceIndex, optionGroups, category }: Props) {
-        super({ name: 'Sample', basePath: `${pathToChain} devices ${deviceIndex}`, path: 'parameters 3', optionGroups, isSample: true })
+        super({ name: 'Sample', basePath: `${pathToChain} devices ${deviceIndex}`, path: 'parameters 3', optionGroups })
         this.category = category
         this.chainSelectorOffset = 0
     }

@@ -1,7 +1,12 @@
+import { ChainMute } from '~/parameters/chain/mute'
+import { InstrumentRack } from '~/models/instrumentRack'
 import { Mutable } from '~/models/mutable'
 
 export class DrumPad extends Mutable {
-    constructor(id, instrumentRack, muteParameter) {
+    id: number
+    instrumentRack: InstrumentRack
+
+    constructor(id: number, instrumentRack: InstrumentRack, muteParameter: ChainMute) {
         super(muteParameter)
         this.id = id
         this.instrumentRack = instrumentRack

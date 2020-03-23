@@ -1,10 +1,15 @@
-/* eslint-disable */
-
-import command from '~/constants/command'
-import mode from '~/constants/mode'
+import Command from '~/constants/command'
+import Mode from '~/constants/mode'
+import { UiMode } from '~/uiModes/uiMode'
 
 export class Track {
-    constructor(modes, trackIndex) {
+    modes: UiMode[]
+    activeMode: UiMode
+    liveSetViewApi: LiveAPI
+    trackId: number
+    isInitialised: boolean
+
+    constructor(modes: UiMode[], trackIndex: number) {
         this.modes = modes
         this.activeMode = modes[0]
         this.liveSetViewApi = new LiveAPI(null, 'live_set view')
@@ -20,14 +25,19 @@ export class Track {
         return this.activeMode
     }
 
-    setMode(modeType) {
+    setMode(modeType: Mode) {
         if (!this.isInitialised) {
             return
         }
-        this.activeMode.ignore()
-        this.activeMode = this.modes.find(mode => mode.canHandle(modeType))
-        this.activeMode.observe()
-        this.activeMode.updateDisplay()
+
+        const newMode = this.modes.find(mode => mode.canHandle(modeType))
+
+        if (newMode) {
+            this.activeMode.ignore()
+            this.activeMode = newMode
+            this.activeMode.observe()
+            this.activeMode.updateDisplay()
+        }
     }
 
     activate() {
@@ -36,7 +46,7 @@ export class Track {
     }
 
     deactivate() {
-        this.setMode(mode.INACTIVE)
+        this.setMode(Mode.INACTIVE)
     }
 
     toggleActive() {
@@ -44,7 +54,7 @@ export class Track {
             return
         }
 
-        if (this.activeMode.canHandle(mode.INACTIVE)) {
+        if (this.activeMode.canHandle(Mode.INACTIVE)) {
             // todo: move control surface activation into liveset
             this.activeMode.activateControlSurface()
             this.activate()
@@ -55,46 +65,46 @@ export class Track {
     }
 
     onSingleTrackModeButton() {
-        this.setMode(mode.INSTRUMENT_RACK_MIXER)
+        this.setMode(Mode.INSTRUMENT_RACK_MIXER)
     }
 
     onClipModeButton() {
-        this.setMode(mode.INSTRUMENT_RACK_FX)
+        this.setMode(Mode.INSTRUMENT_RACK_FX)
     }
 
     onDeviceModeButton() {
-        this.setMode(mode.CHAIN_PARAMS)
+        this.setMode(Mode.CHAIN_PARAMS)
     }
 
     onBrowseModeButton() {
-        this.setMode(mode.CHAIN_FX)
+        this.setMode(Mode.CHAIN_FX)
     }
 
-    onMasterSelectButton(isPressed) {
-        this.getMode().setCommand(command.DEFAULT, isPressed)
+    onMasterSelectButton(isPressed: boolean) {
+        this.getMode().setCommand(Command.DEFAULT, isPressed)
     }
 
-    onTrackStopButton(isPressed) {
-        this.getMode().setCommand(command.RANDOM, isPressed)
+    onTrackStopButton(isPressed: boolean) {
+        this.getMode().setCommand(Command.RANDOM, isPressed)
     }
 
-    onTrackControlTouches(isPressed, encoderIndex) {
+    onTrackControlTouches(isPressed: boolean, encoderIndex: number) {
         this.getMode().handleTrackControlTouches(isPressed, encoderIndex)
     }
 
-    onTrackControls(value, encoderIndex) {
+    onTrackControls(value: number, encoderIndex: number) {
         this.getMode().sendValue(value, encoderIndex)
     }
 
-    onTempoControl(encoderValue) {
+    onTempoControl(encoderValue: number) {
         this.getMode().handleTempoControl(encoderValue)
     }
 
-    onTrackSelectButtons(isPressed, buttonIndex) {
+    onTrackSelectButtons(isPressed: boolean, buttonIndex: number) {
         this.getMode().handleTrackSelectButtons(isPressed, buttonIndex)
     }
 
-    onTrackStateButtons(isPressed, buttonIndex) {
+    onTrackStateButtons(isPressed: boolean, buttonIndex: number) {
         this.getMode().handleTrackStateButtons(isPressed, buttonIndex)
     }
 

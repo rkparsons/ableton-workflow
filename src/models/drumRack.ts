@@ -1,17 +1,20 @@
-/* eslint-disable */
-
+import { DrumPad } from '~/models/drumPad'
+import { MixerPage } from '~/parameterPages/mixer/mixerPage'
 import { Rack } from '~/models/rack'
 
 export class DrumRack extends Rack {
-    constructor(pathToRack, drumPads, mixerPages) {
+    pathToRack: string
+    drumPads: DrumPad[]
+    activeDrumPadId?: number
+    selectedPadApi?: LiveAPI
+
+    constructor(pathToRack: string, drumPads: DrumPad[], mixerPages: MixerPage[]) {
         super(mixerPages)
         this.pathToRack = pathToRack
         this.drumPads = drumPads
-        this.activeDrumPadId = null
-        this.selectedPadApi = null
     }
 
-    onValueChanged(callback) {
+    onValueChanged(callback: () => void) {
         super.onValueChanged(callback)
         this.drumPads.forEach(pad => {
             pad.getMuteParameter().onValueChanged(callback)
@@ -19,7 +22,7 @@ export class DrumRack extends Rack {
         })
     }
 
-    onDrumPadSelected(callback) {
+    onDrumPadSelected(callback: () => void) {
         this.selectedPadApi = new LiveAPI(callback, this.pathToRack + ' view')
         this.selectedPadApi.property = 'selected_drum_pad'
     }
@@ -29,23 +32,14 @@ export class DrumRack extends Rack {
     }
 
     getActiveInstrumentRack() {
-        const drumPad = this.getActiveDrumPad()
-        return drumPad ? drumPad.getInstrumentRack() : null
+        return this.getActiveDrumPad()?.getInstrumentRack()
     }
 
     getActiveDrumPad() {
         return this.drumPads.find(pad => pad.getId() === this.activeDrumPadId)
     }
 
-    setActiveDrumPad(value) {
-        this.activeDrumPadId = value
-    }
-
-    getTrack() {
-        return this.track
-    }
-
-    setTrack(track) {
-        this.track = track
+    setActiveDrumPad(id: number) {
+        this.activeDrumPadId = id
     }
 }

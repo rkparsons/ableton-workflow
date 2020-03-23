@@ -10,7 +10,7 @@ export class SamplerMelodicCategory extends EnumParameter {
     categorySizes: number[]
 
     constructor({ pathToChain, deviceIndex, options, optionGroups }: Props) {
-        super({ name: 'Category', basePath: `${pathToChain} devices ${deviceIndex}`, path: 'parameters 3', options, isCategory: true })
+        super({ name: 'Category', basePath: `${pathToChain} devices ${deviceIndex}`, path: 'parameters 3', options })
         this.categorySizes = Object.entries(optionGroups).map(([, value]) => value.length)
     }
 

@@ -1,17 +1,20 @@
+import Command from '~/constants/command'
+import { ControlSurface } from '~/models/controlSurface'
+import { InstrumentRack } from '~/models/instrumentRack'
 import { MixerMode } from './mixerMode'
-import mode from '~/constants/mode'
+import Mode from '~/constants/mode'
 
 export class InstrumentRackMixerMode extends MixerMode {
-    constructor(rack, controlSurface) {
+    constructor(rack: InstrumentRack, controlSurface: ControlSurface) {
         super(rack, controlSurface)
     }
 
-    canHandle(modeType) {
-        return modeType === mode.INSTRUMENT_RACK_MIXER
+    canHandle(modeType: Mode) {
+        return modeType === Mode.INSTRUMENT_RACK_MIXER
     }
 
     getTitle() {
-        return this.getRack().getName()
+        return this.getRack()?.getName() || ''
     }
 
     getRack() {
@@ -22,7 +25,7 @@ export class InstrumentRackMixerMode extends MixerMode {
         super.observe()
 
         this.getRack()
-            .getChains()
+            ?.getChains()
             .forEach(chain => chain.getMuteParameter().observe())
     }
 
@@ -30,7 +33,9 @@ export class InstrumentRackMixerMode extends MixerMode {
         super.ignore()
 
         this.getRack()
-            .getChains()
+            ?.getChains()
             .forEach(chain => chain.getMuteParameter().ignore())
     }
+
+    handleTempoControl(encoderValue: number) {}
 }

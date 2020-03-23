@@ -21,7 +21,7 @@ export class ControlSurfaceDisplay {
         this.displayApi[lineIndex].call(DisplayApiMethod.DISPLAY_MESSAGE, values.length === 1 ? values : this.createDisplayMessage(values))
     }
 
-    menu(lineIndex: number, values: string[], selectedIndex: number) {
+    menu(lineIndex: number, values: string[], selectedIndex?: number) {
         this.displayApi[lineIndex].call(DisplayApiMethod.DISPLAY_MESSAGE, values.length === 1 ? values : this.createDisplayMessage(values, selectedIndex))
     }
 

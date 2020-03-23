@@ -17,7 +17,7 @@ export class TrackState {
         ]
     }
 
-    map(itemStates: boolean[]) {
+    map(itemStates: number[]) {
         for (var i = 0; i < 8; i++) {
             var buttonValue = i >= itemStates.length ? StateButtonColour.BLACK : itemStates[i] ? StateButtonColour.YELLOW_BRIGHT : StateButtonColour.YELLOW_DIM
 

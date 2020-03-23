@@ -1,27 +1,34 @@
+import Command from '~/constants/command'
+import { ControlSurface } from '~/models/controlSurface'
+import Mode from '~/constants/mode'
+import { Rack } from '~/models/rack'
 import { UiMode } from '~/uiModes/uiMode'
-import mode from '~/constants/mode'
 
 export class ChainFxMode extends UiMode {
     // rename directory as strategies
-    constructor(rack, controlSurface) {
+    constructor(rack: Rack, controlSurface: ControlSurface) {
         super(rack, controlSurface)
     }
 
-    canHandle(modeType) {
-        return modeType === mode.CHAIN_FX
+    canHandle(modeType: Mode) {
+        return modeType === Mode.CHAIN_FX
     }
 
-    incrementChain() {
-        this.ignore()
-        this.rack.getActiveInstrumentRack().incrementActiveChain()
-        this.observe()
-    }
+    observe() {}
 
-    decrementChain() {
-        this.ignore()
-        this.rack.getActiveInstrumentRack().decrementActiveChain()
-        this.observe()
-    }
+    ignore() {}
+
+    executePageLevelCommand(command: Command) {}
+
+    executeParamLevelCommand(command: Command, index: number) {}
+
+    handleTempoControl(encoderValue: number) {}
+
+    handleTrackSelectButtons(isPressed: boolean, buttonIndex: number) {}
+
+    handleTrackStateButtons(isPressed: boolean, buttonIndex: number) {}
+
+    sendValue(value: number, encoderIndex: number) {}
 
     updateDisplay() {
         const activeInstrumentRack = this.rack.getActiveInstrumentRack()

@@ -7,16 +7,13 @@ type Props = {
     property?: string
     defaultValue?: number
     optionGroups: Record<string, string[]>
-    isSample: boolean
 }
 
 export class FilteredEnumParameter extends EnumParameter {
     optionGroups: Record<string, string[]>
-    isSample: boolean
-    constructor({ name, basePath, path, property, defaultValue, optionGroups = {}, isSample }: Props) {
+    constructor({ name, basePath, path, property, defaultValue, optionGroups = {} }: Props) {
         super({ name, basePath, path, property, defaultValue, options: optionGroups[Object.keys(optionGroups)[0]] })
         this.optionGroups = optionGroups
-        this.isSample = isSample
     }
 
     filterOptions(optionGroupKey: string) {
