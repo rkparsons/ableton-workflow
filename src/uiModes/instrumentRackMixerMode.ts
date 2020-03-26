@@ -1,11 +1,10 @@
-import Command from '~/constants/command'
 import { ControlSurface } from '~/models/controlSurface'
-import { InstrumentRack } from '~/models/instrumentRack'
 import { MixerMode } from './mixerMode'
 import Mode from '~/constants/mode'
+import { Rack } from '~/models/rack'
 
 export class InstrumentRackMixerMode extends MixerMode {
-    constructor(rack: InstrumentRack, controlSurface: ControlSurface) {
+    constructor(rack: Rack, controlSurface: ControlSurface) {
         super(rack, controlSurface)
     }
 

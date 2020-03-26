@@ -22,7 +22,7 @@ export class DrumRack extends Rack {
         })
     }
 
-    onDrumPadSelected(callback: () => void) {
+    onDrumPadSelected(callback: LiveApiCallback) {
         this.selectedPadApi = new LiveAPI(callback, this.pathToRack + ' view')
         this.selectedPadApi.property = 'selected_drum_pad'
     }

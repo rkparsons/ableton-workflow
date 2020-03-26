@@ -1,0 +1,35 @@
+import ControlName from '~/constants/controlName'
+import { Liveset } from '~/models/liveset'
+import { createControlSurface } from '~/factories/controlSurfaceFactory'
+import createDrumTrack from '~/factories/drumTrackFactory'
+import path from 'path'
+
+// import createBassTrack from '~/factories/bassTrackFactory'
+
+export function createLiveset(pathToPatcher: string) {
+    const controlSurface = createControlSurface(ControlName.TAP_TEMPO_BUTTON)
+    const pathToSamples = path.join(pathToPatcher, '..', 'samples')
+    // todo: find name/index dynamically
+    const drumTrack = createDrumTrack(controlSurface, pathToSamples, 'Drum', 0)
+    // const bassTrack = createBassTrack(controlSurface, pathToSamples, 'Bass', 1)
+    const liveset = new Liveset([drumTrack])
+    controlSurface.on(ControlName.TAP_TEMPO_BUTTON, ([, isPressed]) => liveset.toggleActive(isPressed))
+    controlSurface.onActive(ControlName.VOL_MIX_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onVolMixModeButton())
+    controlSurface.onActive(ControlName.PAN_SEND_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onPanSendModeButton())
+    controlSurface.onActive(ControlName.SINGLE_TRACK_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onSingleTrackModeButton())
+    controlSurface.onActive(ControlName.CLIP_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onClipModeButton())
+    controlSurface.onActive(ControlName.DEVICE_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onDeviceModeButton())
+    controlSurface.onActive(ControlName.BROWSE_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onBrowseModeButton())
+    controlSurface.onActive(ControlName.MASTER_SELECT_BUTTON, ([, isPressed]) => liveset.getTrack().onMasterSelectButton(isPressed))
+    controlSurface.onActive(ControlName.TRACK_STOP_BUTTON, ([, isPressed]) => liveset.getTrack().onTrackStopButton(isPressed))
+    controlSurface.onActive(ControlName.TRACK_CONTROL_TOUCHES, ([, isPressed, encoderIndex]) => liveset.getTrack().onTrackControlTouches(isPressed, encoderIndex))
+    controlSurface.onActive(ControlName.TRACK_CONTROLS, ([, value, encoderIndex]) => liveset.getTrack().onTrackControls(value, encoderIndex))
+    controlSurface.onActive(ControlName.TEMPO_CONTROL, ([, encoderValue]) => liveset.getTrack().onTempoControl(encoderValue))
+    controlSurface.onActive(ControlName.TRACK_SELECT_BUTTONS, ([, isPressed, buttonIndex]) => liveset.getTrack().onTrackSelectButtons(isPressed, buttonIndex))
+    controlSurface.onActive(ControlName.TRACK_STATE_BUTTONS, ([, isPressed, buttonIndex]) => liveset.getTrack().onTrackStateButtons(isPressed, buttonIndex))
+    controlSurface.onActive(ControlName.UP_ARROW, ([, isPressed]) => isPressed && liveset.getTrack().onUpArrow())
+    controlSurface.onActive(ControlName.DOWN_ARROW, ([, isPressed]) => isPressed && liveset.getTrack().onDownArrow())
+    controlSurface.onActive(ControlName.LEFT_ARROW, ([, isPressed]) => isPressed && liveset.decrementTrack())
+    controlSurface.onActive(ControlName.RIGHT_ARROW, ([, isPressed]) => isPressed && liveset.incrementTrack())
+    return liveset
+}

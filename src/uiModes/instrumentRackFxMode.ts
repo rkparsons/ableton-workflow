@@ -1,11 +1,11 @@
 import Command from '~/constants/command'
 import { ControlSurface } from '~/models/controlSurface'
-import { InstrumentRack } from '~/models/instrumentRack'
 import Mode from '~/constants/mode'
+import { Rack } from '~/models/rack'
 import { UiMode } from '~/uiModes/uiMode'
 
 export class InstrumentRackFxMode extends UiMode {
-    constructor(rack: InstrumentRack, controlSurface: ControlSurface) {
+    constructor(rack: Rack, controlSurface: ControlSurface) {
         super(rack, controlSurface)
     }
 

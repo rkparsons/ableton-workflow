@@ -1,10 +1,9 @@
-/* eslint-disable */
-
 import { InstrumentRack } from '~/models/instrumentRack'
+import RackType from '~/constants/rackType'
 import { createInstrumentChains } from '~/factories/instrumentChainFactory'
 import { createParameterPages } from '~/factories/parameterPageFactory'
 
-export function createInstrumentRack(rackType, samplesFolder, pathToInstrumentRack) {
+export function createInstrumentRack(rackType: RackType, samplesFolder: string, pathToInstrumentRack: string) {
     const instrumentRackApi = new LiveAPI(null, pathToInstrumentRack)
     const name = instrumentRackApi.get('name').toString()
     const isInstrumentRack = instrumentRackApi.get('can_have_chains')[0] === 1

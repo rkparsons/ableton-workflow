@@ -40,11 +40,11 @@ export class ControlSurface {
         })
     }
 
-    onActive(controlName: ControlName, callback: (args: any[]) => void) {
+    onActive(controlName: ControlName, callback: LiveApiCallback) {
         this.on(controlName, (args: any[]) => this.isActive && callback(args))
     }
 
-    on(controlName: ControlName, callback: (args: any[]) => void) {
+    on(controlName: ControlName, callback: LiveApiCallback) {
         const controlApi = new LiveAPI(callback, this.getControl(controlName))
         controlApi.property = 'value'
 

@@ -2,7 +2,7 @@ import Command from '~/constants/command'
 import Mode from '~/constants/mode'
 import { UiMode } from '~/uiModes/uiMode'
 
-export class Track {
+export abstract class Track {
     modes: UiMode[]
     activeMode: UiMode
     liveSetViewApi: LiveAPI
@@ -16,6 +16,10 @@ export class Track {
         this.trackId = parseInt(new LiveAPI(null, `live_set tracks ${trackIndex}`).id)
         this.isInitialised = false
     }
+
+    abstract onVolMixModeButton(): void
+
+    abstract onPanSendModeButton(): void
 
     initialise() {
         this.isInitialised = true

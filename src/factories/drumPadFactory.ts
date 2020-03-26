@@ -1,10 +1,9 @@
-/* eslint-disable */
-
 import { ChainMute } from '~/parameters/chain/mute'
 import { DrumPad } from '~/models/drumPad'
+import RackType from '~/constants/rackType'
 import { createInstrumentRack } from '~/factories/instrumentRackFactory'
 
-export function createDrumPads(samplesFolder, pathToDrumRack) {
+export function createDrumPads(samplesFolder: string, pathToDrumRack: string) {
     var drumPads = []
 
     for (var i = 0; i < 16; i++) {
@@ -15,7 +14,7 @@ export function createDrumPads(samplesFolder, pathToDrumRack) {
             const pathToChain = `${pathToDrumPad} chains 0`
             const muteParameter = new ChainMute({ pathToChain })
             const pathToRack = `${pathToChain} devices 0`
-            const instrumentRack = createInstrumentRack('Drum', samplesFolder, pathToRack)
+            const instrumentRack = createInstrumentRack(RackType.DRUM, samplesFolder, pathToRack)
 
             if (instrumentRack) {
                 const drumPad = new DrumPad(parseInt(drumPadApi.id), instrumentRack, muteParameter)

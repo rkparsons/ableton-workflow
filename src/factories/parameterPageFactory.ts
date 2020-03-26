@@ -22,7 +22,7 @@ import { VolumePage } from '~/parameterPages/mixer/volumePage'
 // todo: get rid of object wrapper
 // todo: separate files per type
 
-export const createParameterPages = {
+export const createParameterPages: any = {
     Mixer: (pathToRack: string, chainCount: number) => {
         return [new VolumePage(0, pathToRack, chainCount), new PanningPage(1, pathToRack, chainCount)]
     },
