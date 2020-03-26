@@ -2,7 +2,7 @@ const path = require('path')
 // todo: replace path with env var
 
 module.exports = {
-    entry: './src/app.js',
+    entry: './src/app.ts',
     output: {
         path: path.resolve('E:/PushCtrl/js'),
         filename: 'pushCtrlBundle.js',

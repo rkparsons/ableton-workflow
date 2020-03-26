@@ -16,8 +16,10 @@ declare class Folder {
     close(): void
 }
 
+declare type LiveApiCallback = (args: any[]) => void
+
 declare const post: (message: string) => void
 
-declare type LiveApiCallback = (args: any[]) => void
+declare const messnamed: (objectName: string, message: string) => void
 
 declare const outlet: (index: number, args: string | string[] | number | number[]) => void
