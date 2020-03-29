@@ -39,7 +39,6 @@ export class TonePage extends ParameterPage {
         this.blankParam = blankParam
     }
 
-    // todo: setup handlers for each param
     handleParameterChange(index: number, callback: () => void) {
         const parameter = this.getParameter(index)
 
