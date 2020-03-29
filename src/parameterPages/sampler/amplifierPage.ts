@@ -3,10 +3,10 @@ import { ParameterPage } from '~/models/parameterPage'
 import { SamplerAmpAttack } from '~/parameters/sampler/ampAttack'
 import { SamplerAmpDecay } from '~/parameters/sampler/ampDecay'
 import { SamplerAmpLoop } from '~/parameters/sampler/ampLoop'
+import { SamplerAmpLoopRepeat } from '~/parameters/sampler/ampLoopRepeat'
 import { SamplerAmpLoopTime } from '~/parameters/sampler/ampLoopTime'
 import { SamplerAmpRelease } from '~/parameters/sampler/ampRelease'
 import { SamplerAmpSustain } from '~/parameters/sampler/ampSustain'
-import { SamplerAmpSync } from '~/parameters/sampler/ampSync'
 
 export class AmplifierPage extends ParameterPage {
     ampAttack: SamplerAmpAttack
@@ -14,7 +14,7 @@ export class AmplifierPage extends ParameterPage {
     ampSustain: SamplerAmpSustain
     ampRelease: SamplerAmpRelease
     ampLoop: SamplerAmpLoop
-    ampSync: SamplerAmpSync
+    ampLoopRepeat: SamplerAmpLoopRepeat
     ampLoopTime: SamplerAmpLoopTime
 
     constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
@@ -23,10 +23,10 @@ export class AmplifierPage extends ParameterPage {
         const ampSustain = new SamplerAmpSustain({ pathToChain, deviceIndex })
         const ampRelease = new SamplerAmpRelease({ pathToChain, deviceIndex })
         const ampLoop = new SamplerAmpLoop({ pathToChain, deviceIndex })
-        const ampSync = new SamplerAmpSync({ pathToChain, deviceIndex })
+        const ampLoopRepeat = new SamplerAmpLoopRepeat({ pathToChain, deviceIndex })
         const ampLoopTime = new SamplerAmpLoopTime({ pathToChain, deviceIndex })
 
-        const parameters = [ampAttack, ampDecay, ampSustain, ampRelease, ampLoop, ampSync, ampLoopTime]
+        const parameters = [ampAttack, ampDecay, ampSustain, ampRelease, ampLoop, ampLoopRepeat, ampLoopTime]
 
         super(pageIndex, 'Amp', parameters)
 
@@ -35,11 +35,10 @@ export class AmplifierPage extends ParameterPage {
         this.ampSustain = ampSustain
         this.ampRelease = ampRelease
         this.ampLoop = ampLoop
-        this.ampSync = ampSync
+        this.ampLoopRepeat = ampLoopRepeat
         this.ampLoopTime = ampLoopTime
     }
 
-    // todo: rename sync
     handleParameterChange(index: number, callback: () => void) {
         const parameter = this.getParameter(index)
 
@@ -54,7 +53,7 @@ export class AmplifierPage extends ParameterPage {
         if (this.ampLoop.getDisplayValue() === AmpLoop.LOOP) {
             this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampLoopTime]
         } else if (this.ampLoop.getDisplayValue() === AmpLoop.BEAT || this.ampLoop.getDisplayValue() === AmpLoop.SYNC) {
-            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampSync]
+            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampLoopRepeat]
         } else {
             this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop]
         }
