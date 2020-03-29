@@ -1,4 +1,5 @@
 import AmpLoop from '~/constants/ampLoop'
+import { Blank } from '~/parameters/blank'
 import { ParameterPage } from '~/models/parameterPage'
 import { SamplerAmpAttack } from '~/parameters/sampler/ampAttack'
 import { SamplerAmpDecay } from '~/parameters/sampler/ampDecay'
@@ -16,6 +17,7 @@ export class AmplifierPage extends ParameterPage {
     ampLoop: SamplerAmpLoop
     ampLoopRepeat: SamplerAmpLoopRepeat
     ampLoopTime: SamplerAmpLoopTime
+    blankParam: Blank
 
     constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const ampAttack = new SamplerAmpAttack({ pathToChain, deviceIndex })
@@ -25,6 +27,7 @@ export class AmplifierPage extends ParameterPage {
         const ampLoop = new SamplerAmpLoop({ pathToChain, deviceIndex })
         const ampLoopRepeat = new SamplerAmpLoopRepeat({ pathToChain, deviceIndex })
         const ampLoopTime = new SamplerAmpLoopTime({ pathToChain, deviceIndex })
+        const blankParam = new Blank()
 
         const parameters = [ampAttack, ampDecay, ampSustain, ampRelease, ampLoop, ampLoopRepeat, ampLoopTime]
 
@@ -37,6 +40,7 @@ export class AmplifierPage extends ParameterPage {
         this.ampLoop = ampLoop
         this.ampLoopRepeat = ampLoopRepeat
         this.ampLoopTime = ampLoopTime
+        this.blankParam = blankParam
     }
 
     handleParameterChange(index: number, callback: () => void) {
@@ -51,11 +55,11 @@ export class AmplifierPage extends ParameterPage {
 
     handleAmpLoop() {
         if (this.ampLoop.getDisplayValue() === AmpLoop.LOOP) {
-            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampLoopTime]
+            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampLoopTime, this.blankParam, this.blankParam]
         } else if (this.ampLoop.getDisplayValue() === AmpLoop.BEAT || this.ampLoop.getDisplayValue() === AmpLoop.SYNC) {
-            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampLoopRepeat]
+            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.ampLoopRepeat, this.blankParam, this.blankParam]
         } else {
-            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop]
+            this.parameters = [this.ampAttack, this.ampDecay, this.ampSustain, this.ampRelease, this.ampLoop, this.blankParam, this.blankParam, this.blankParam]
         }
     }
 }
