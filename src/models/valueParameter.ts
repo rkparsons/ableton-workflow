@@ -17,6 +17,7 @@ type Props = {
 
 export class ValueParameter extends Parameter {
     inputRange: number[]
+    // todo: allow bipolar parameters with range 0-1 to support vsts
     isBipolar: boolean
 
     constructor({ name, basePath, path, property, defaultValue, unitType = UnitType.FLOAT, inputRange = [0, 1], randomRange, showValue, speed }: Props) {
