@@ -8,6 +8,7 @@ import { MelodicSamplePage } from '~/parameterPages/sampler/melodicSamplePage'
 import { MixerPage } from '~/parameterPages/collision/mixerPage'
 import { NoiseEnvPage } from '~/parameterPages/collision/noiseEnvPage'
 import { NoisePage } from '~/parameterPages/collision/noisePage'
+import { FilterPage as OmniFilterPage } from '~/parameterPages/omnisphere/filterPage'
 import { OscillatorPage } from '~/parameterPages/sampler/oscillatorPage'
 import { PanningPage } from '~/parameterPages/mixer/panningPage'
 import { PitchPage } from '~/parameterPages/sampler/pitchPage'
@@ -38,6 +39,10 @@ export const createParameterPages: any = {
     Collision: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
         return Collision(pathToChain, deviceIndex)
     },
+
+    Omnisphere: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
+        return Omnisphere(pathToChain, deviceIndex)
+    },
 }
 
 function Sampler(samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number, SamplePageType: typeof DrumSamplePage | typeof MelodicSamplePage) {
@@ -66,4 +71,8 @@ function Collision(pathToChain: string, deviceIndex: number) {
         new Reso1bPage(5, pathToChain, deviceIndex),
         new Reso1cPage(6, pathToChain, deviceIndex),
     ]
+}
+
+function Omnisphere(pathToChain: string, deviceIndex: number) {
+    return [new OmniFilterPage(0, pathToChain, deviceIndex)]
 }

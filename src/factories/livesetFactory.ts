@@ -1,7 +1,9 @@
 import ControlName from '~/constants/controlName'
 import { Liveset } from '~/models/liveset'
+import { Track } from '~/models/track'
 import { createControlSurface } from '~/factories/controlSurfaceFactory'
 import createDrumTrack from '~/factories/drumTrackFactory'
+import createOmnisphereTrack from '~/factories/omnisphereTrackFactory'
 import log from '~/util/log'
 import path from 'path'
 
@@ -11,13 +13,18 @@ export function createLiveset(pathToPatcher: string) {
     const controlSurface = createControlSurface(ControlName.TAP_TEMPO_BUTTON)
     const pathToSamples = path.join(pathToPatcher, '..', 'samples')
     const trackCount = new LiveAPI(null, 'live_set').get('tracks').length / 2
-    let tracks = []
+    let tracks: Track[] = []
 
     for (let i = 0; i < trackCount; i++) {
         const trackName = new LiveAPI(null, `live_set tracks ${i}`).get('name').toString().trim()
 
         if (trackName === 'Drum') {
             tracks.push(createDrumTrack(controlSurface, pathToSamples, 'Drum', i))
+        } else if (trackName === 'Omni') {
+            const omniTrack = createOmnisphereTrack(controlSurface, i)
+            if (omniTrack) {
+                tracks.push(omniTrack)
+            }
         }
     }
 

@@ -3,6 +3,7 @@ import RackType from '~/constants/rackType'
 import { createInstrumentChains } from '~/factories/instrumentChainFactory'
 import { createParameterPages } from '~/factories/parameterPageFactory'
 
+// todo: make samplesFolder optional param
 export function createInstrumentRack(rackType: RackType, samplesFolder: string, pathToInstrumentRack: string) {
     const instrumentRackApi = new LiveAPI(null, pathToInstrumentRack)
     const name = instrumentRackApi.get('name').toString()
