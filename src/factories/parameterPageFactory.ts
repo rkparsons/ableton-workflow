@@ -26,6 +26,6 @@ export const createParameterPages: any = {
     },
 
     Omnisphere: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
-        return createOmnispherePages(pathToChain, deviceIndex)
+        return createOmnispherePages(chainName, pathToChain, deviceIndex)
     },
 }
