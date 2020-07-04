@@ -69,7 +69,7 @@ export abstract class UiMode {
     }
 
     handleTrackControlTouches(isPressed: boolean, encoderIndex: number) {
-        if (isPressed && this.command) {
+        if (isPressed && this.command !== undefined) {
             this.executeParamLevelCommand(this.command, encoderIndex)
             this.command = undefined
         }
