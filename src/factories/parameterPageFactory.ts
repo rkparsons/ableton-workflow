@@ -1,27 +1,12 @@
-import { getCategories, getSampleGroups } from '~/util/fileSystem'
-
-import { AmplifierPage } from '~/parameterPages/sampler/amplifierPage'
 import { DrumSamplePage } from '~/parameterPages/sampler/drumSamplePage'
-import { FilterPage } from '~/parameterPages/sampler/filterPage'
-import { MalletPage } from '~/parameterPages/collision/malletPage'
 import { MelodicSamplePage } from '~/parameterPages/sampler/melodicSamplePage'
-import { MixerPage } from '~/parameterPages/collision/mixerPage'
-import { NoiseEnvPage } from '~/parameterPages/collision/noiseEnvPage'
-import { NoisePage } from '~/parameterPages/collision/noisePage'
-import { FilterPage as OmniFilterPage } from '~/parameterPages/omnisphere/filterPage'
-import { OscillatorPage } from '~/parameterPages/sampler/oscillatorPage'
 import { PanningPage } from '~/parameterPages/mixer/panningPage'
-import { PitchPage } from '~/parameterPages/sampler/pitchPage'
-import { RandomPage } from '~/parameterPages/sampler/randomPage'
-import { Reso1aPage } from '~/parameterPages/collision/reso1aPage'
-import { Reso1bPage } from '~/parameterPages/collision/reso1bPage'
-import { Reso1cPage } from '~/parameterPages/collision/reso1cPage'
-import { TonePage } from '~/parameterPages/sampler/tonePage'
-import { VelocityPage } from '~/parameterPages/sampler/velocityPage'
 import { VolumePage } from '~/parameterPages/mixer/volumePage'
+import createCollisionPages from './collisionPageFactory'
+import createOmnispherePages from './omnispherePageFactory'
+import createSamplePages from './samplerPageFactory'
 
 // todo: get rid of object wrapper
-// todo: separate files per type
 
 export const createParameterPages: any = {
     Mixer: (pathToRack: string, chainCount: number) => {
@@ -29,50 +14,18 @@ export const createParameterPages: any = {
     },
 
     DrumSampler: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
-        return Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, DrumSamplePage)
+        return createSamplePages(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, DrumSamplePage)
     },
 
     MelodicSampler: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
-        return Sampler(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, MelodicSamplePage)
+        return createSamplePages(samplesFolder, instrumentRackName, chainName, pathToChain, deviceIndex, MelodicSamplePage)
     },
 
     Collision: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
-        return Collision(pathToChain, deviceIndex)
+        return createCollisionPages(pathToChain, deviceIndex)
     },
 
     Omnisphere: (samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number) => {
-        return Omnisphere(pathToChain, deviceIndex)
+        return createOmnispherePages(pathToChain, deviceIndex)
     },
-}
-
-function Sampler(samplesFolder: string, instrumentRackName: string, chainName: string, pathToChain: string, deviceIndex: number, SamplePageType: typeof DrumSamplePage | typeof MelodicSamplePage) {
-    const categories = getCategories(samplesFolder, instrumentRackName, chainName)
-    const samples = getSampleGroups(samplesFolder, instrumentRackName, chainName, categories)
-
-    return [
-        new SamplePageType(0, pathToChain, deviceIndex, categories, samples),
-        new AmplifierPage(1, pathToChain, deviceIndex),
-        new PitchPage(2, pathToChain, deviceIndex),
-        new FilterPage(3, pathToChain, deviceIndex),
-        new TonePage(4, pathToChain, deviceIndex),
-        new OscillatorPage(5, pathToChain, deviceIndex),
-        new VelocityPage(6, pathToChain, deviceIndex),
-        new RandomPage(7, pathToChain, deviceIndex),
-    ]
-}
-
-function Collision(pathToChain: string, deviceIndex: number) {
-    return [
-        new MalletPage(0, pathToChain, deviceIndex),
-        new NoisePage(1, pathToChain, deviceIndex),
-        new NoiseEnvPage(2, pathToChain, deviceIndex),
-        new MixerPage(3, pathToChain, deviceIndex),
-        new Reso1aPage(4, pathToChain, deviceIndex),
-        new Reso1bPage(5, pathToChain, deviceIndex),
-        new Reso1cPage(6, pathToChain, deviceIndex),
-    ]
-}
-
-function Omnisphere(pathToChain: string, deviceIndex: number) {
-    return [new OmniFilterPage(0, pathToChain, deviceIndex)]
 }
