@@ -11,14 +11,14 @@ import { ParameterPage } from '~/models/parameterPage'
 export class WSPage extends ParameterPage {
     constructor(pageIndex: number, pathToChain: string, deviceIndex: number) {
         const parameters = [
+            new OmnisphereWSMix({ pathToChain, deviceIndex }),
+            new OmnisphereWSGain({ pathToChain, deviceIndex }),
+            new OmnisphereWSType({ pathToChain, deviceIndex }),
+            new OmnisphereWSFreq({ pathToChain, deviceIndex }),
             new OmnisphereWSBitCrush({ pathToChain, deviceIndex }),
             new OmnisphereWSCrushForce({ pathToChain, deviceIndex }),
-            new OmnisphereWSMix({ pathToChain, deviceIndex }),
-            new OmnisphereWSFreq({ pathToChain, deviceIndex }),
-            new OmnisphereWSType({ pathToChain, deviceIndex }),
             new OmnisphereWSSampleRate({ pathToChain, deviceIndex }),
             new OmnisphereWSAnimation({ pathToChain, deviceIndex }),
-            new OmnisphereWSGain({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Shaper', parameters)
