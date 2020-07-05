@@ -5,8 +5,8 @@ export class OmnisphereUnisonRange extends EnumParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Range',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 34',
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 38',
             options: ['fine', 'coarse'],
         })
     }

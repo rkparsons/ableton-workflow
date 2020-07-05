@@ -5,9 +5,9 @@ export class OmnisphereUnisonDetune extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Detune',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 33',
-            defaultValue: 0.5,
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 37',
+            inputRange: [-1, 1],
         })
     }
 }
