@@ -5,10 +5,9 @@ export class OmnisphereTimbre extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: '- / +',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 2',
-            inputRange: [0, 1],
-            defaultValue: 0.5,
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 3',
+            inputRange: [-1, 1],
         })
     }
 }

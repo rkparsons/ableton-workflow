@@ -5,8 +5,8 @@ export class OmnisphereFMTracking extends EnumParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Tracking',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 6',
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 10',
             options: ['off', 'on'],
             defaultValue: 1,
         })

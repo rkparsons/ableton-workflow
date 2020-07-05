@@ -5,8 +5,9 @@ export class OmnisphereAMFreq extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Freq',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 15',
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 19',
+            inputRange: [0, 127],
         })
     }
 }

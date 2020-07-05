@@ -5,8 +5,9 @@ export class OmnisphereFMSync extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Sync',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 12',
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 16',
+            inputRange: [0, 127],
         })
     }
 }

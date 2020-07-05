@@ -5,8 +5,8 @@ export class OmnisphereFMOn extends EnumParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'I/O',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 5',
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 9',
             options: ['off', 'on'],
         })
     }
