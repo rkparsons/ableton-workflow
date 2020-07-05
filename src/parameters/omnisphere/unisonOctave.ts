@@ -8,6 +8,7 @@ export class OmnisphereUnisonOctave extends EnumParameter {
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
             path: 'parameters 36',
             options: [' -2', ' -1', '  0', ' +1', ' +2'],
+            defaultValue: 2,
         })
     }
 }
