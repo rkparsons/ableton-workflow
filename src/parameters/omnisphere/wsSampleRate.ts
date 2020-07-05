@@ -5,8 +5,9 @@ export class OmnisphereWSSampleRate extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Downsamp',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 26',
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 31',
+            inputRange: [0, 127],
         })
     }
 }

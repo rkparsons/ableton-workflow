@@ -5,9 +5,9 @@ export class OmnisphereWSGain extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
             name: 'Gain',
-            basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 28',
-            defaultValue: 0.5,
+            basePath: `${pathToChain} devices ${deviceIndex - 1}`,
+            path: 'parameters 26',
+            inputRange: [-1, 1],
         })
     }
 }
