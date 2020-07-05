@@ -1,12 +1,13 @@
+import { EnumParameter } from '~/models/enumParameter'
 import { ParameterProps } from '~/types/parameterProps'
-import { ValueParameter } from '~/models/valueParameter'
 
-export class OmnisphereWSAnimation extends ValueParameter {
+export class OmnisphereUnisonRange extends EnumParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
-            name: 'Animate',
+            name: 'Range',
             basePath: `${pathToChain} devices ${deviceIndex}`,
-            path: 'parameters 27',
+            path: 'parameters 34',
+            options: ['fine', 'coarse'],
         })
     }
 }
