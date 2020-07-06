@@ -34,9 +34,11 @@ export class ChainFxMode extends UiMode {
         const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 
         if (activeInstrumentRack) {
+            const activeChain = activeInstrumentRack.getActiveChain()
+
             this.controlSurface.display.line(0, [' '])
             this.controlSurface.display.line(1, [' '])
-            this.controlSurface.display.title(2, [activeInstrumentRack.getActiveChain().getName() + ' FX'])
+            this.controlSurface.display.title(2, [activeChain.getName() + ' FX'])
             this.controlSurface.display.line(3, [' '])
             this.controlSurface.trackSelect.map(0, 0)
             this.controlSurface.trackState.map([])

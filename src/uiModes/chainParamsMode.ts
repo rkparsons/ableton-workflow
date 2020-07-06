@@ -29,7 +29,7 @@ export class ChainParamsMode extends UiMode {
             activeChain
                 .getActiveParameterPage()
                 .getParameters()
-                .forEach(parameter => parameter.observe())
+                .forEach((parameter) => parameter.observe())
         }
     }
 
@@ -43,7 +43,7 @@ export class ChainParamsMode extends UiMode {
             activeChain
                 .getActiveParameterPage()
                 .getParameters()
-                .forEach(parameter => parameter.ignore())
+                .forEach((parameter) => parameter.ignore())
         }
     }
 
@@ -58,7 +58,7 @@ export class ChainParamsMode extends UiMode {
             .getActiveChain()
             .getActiveParameterPage()
             .getParameters()
-            .find(parameter => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
+            .find((parameter) => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
 
         if (!sampleParameter) {
             return
@@ -116,10 +116,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     executeParamLevelCommand(targetCommand: Command, encoderIndex: number) {
-        const page = this.rack
-            .getActiveInstrumentRack()
-            ?.getActiveChain()
-            .getActiveParameterPage()
+        const page = this.rack.getActiveInstrumentRack()?.getActiveChain().getActiveParameterPage()
 
         if (!page) {
             return
@@ -131,7 +128,7 @@ export class ChainParamsMode extends UiMode {
         if (parameter instanceof SamplerDrumCategory || parameter instanceof SamplerMelodicCategory) {
             // todo: add common base classes SamplerCategory, SamplerSelect
             page.getParameters()
-                .find(parameter => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
+                .find((parameter) => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
                 ?.default()
         }
 
@@ -139,10 +136,7 @@ export class ChainParamsMode extends UiMode {
     }
 
     sendValue(value: number, encoderIndex: number) {
-        const page = this.rack
-            .getActiveInstrumentRack()
-            ?.getActiveChain()
-            .getActiveParameterPage()
+        const page = this.rack.getActiveInstrumentRack()?.getActiveChain().getActiveParameterPage()
 
         if (!page) {
             return
@@ -154,7 +148,7 @@ export class ChainParamsMode extends UiMode {
 
         if (parameter instanceof SamplerDrumCategory || parameter instanceof SamplerMelodicCategory) {
             page.getParameters()
-                .find(parameter => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
+                .find((parameter) => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
                 ?.constrainAndSendValue()
         }
 
@@ -167,9 +161,11 @@ export class ChainParamsMode extends UiMode {
         if (activeInstrumentRack) {
             const activeChain = activeInstrumentRack.getActiveChain()
             const activeParameterPage = activeChain.getActiveParameterPage()
-            const parameterPageNames = activeChain.getParameterPages().map(page => page.getName())
+            const parameterPageNames = activeChain.getParameterPages().map((page) => page.getName())
             const activeParameterPageIndex = activeChain.getActiveParameterPage().getIndex()
-            const parameterNames = activeParameterPage.getParameters().map(parameter => parameter.getName())
+            const subPageIndex = activeParameterPage.getSubPageIndex()
+            const subPageCount = activeParameterPage.getSubPages().length
+            const parameterNames = activeParameterPage.getParameters().map((parameter) => parameter.getName())
             const isChainMuted = activeChain.isMuted()
 
             if (isChainMuted) {
@@ -183,9 +179,9 @@ export class ChainParamsMode extends UiMode {
                 this.controlSurface.display.line(0, parameterNames)
                 this.controlSurface.display.line(
                     1,
-                    activeParameterPage.getParameters().map(parameter => parameter.getDisplayValue())
+                    activeParameterPage.getParameters().map((parameter) => parameter.getDisplayValue())
                 )
-                this.controlSurface.display.title(2, [activeChain.getName()])
+                this.controlSurface.display.title(2, [activeChain.getName()], subPageIndex, subPageCount)
                 this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
                 this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)
                 this.controlSurface.trackState.map([1])
