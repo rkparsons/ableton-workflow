@@ -22,15 +22,19 @@ export abstract class MixerMode extends UiMode {
         this.getRack()
             ?.getActiveMixerPage()
             .getParameters()
-            .forEach(parameter => parameter.observe())
+            .forEach((parameter) => parameter.observe())
     }
 
     ignore() {
         this.getRack()
             ?.getActiveMixerPage()
             .getParameters()
-            .forEach(parameter => parameter.ignore())
+            .forEach((parameter) => parameter.ignore())
     }
+
+    incrementSubPage() {}
+
+    decrementSubPage() {}
 
     handleTrackSelectButtons(isPressed: boolean, buttonIndex: number) {
         if (!isPressed) {
@@ -47,9 +51,7 @@ export abstract class MixerMode extends UiMode {
             return
         }
 
-        const muteParameter = this.getRack()
-            ?.getChains()
-            [buttonIndex].getMuteParameter()
+        const muteParameter = this.getRack()?.getChains()[buttonIndex].getMuteParameter()
 
         muteParameter?.setValue(muteParameter.getValue() ? 0 : 1)
 
@@ -65,19 +67,14 @@ export abstract class MixerMode extends UiMode {
     }
 
     executeParamLevelCommand(targetCommand: Command, encoderIndex: number) {
-        const param = this.getRack()
-            ?.getActiveMixerPage()
-            .getParameter(encoderIndex)
+        const param = this.getRack()?.getActiveMixerPage().getParameter(encoderIndex)
         targetCommand === command.DEFAULT ? param?.default() : param?.random()
 
         this.updateDisplay()
     }
 
     sendValue(value: number, encoderIndex: number) {
-        this.getRack()
-            ?.getActiveMixerPage()
-            .getParameter(encoderIndex)
-            .sendValue(value)
+        this.getRack()?.getActiveMixerPage().getParameter(encoderIndex).sendValue(value)
 
         this.updateDisplay()
     }
@@ -90,7 +87,7 @@ export abstract class MixerMode extends UiMode {
             return
         }
         const mutableChains = rack.getChains() as Mutable[]
-        const chainOnStates = mutableChains.map(chain => (chain.getMuteParameter().getValue() ? 0 : 1))
+        const chainOnStates = mutableChains.map((chain) => (chain.getMuteParameter().getValue() ? 0 : 1))
 
         const displayValues = rack
             .getActiveMixerPage()
@@ -99,9 +96,9 @@ export abstract class MixerMode extends UiMode {
 
         const mixerPage = rack.getActiveMixerPage()
 
-        const mixerPageNames = rack.getMixerPages().map(page => page.getName())
+        const mixerPageNames = rack.getMixerPages().map((page) => page.getName())
 
-        const chainNames = (rack.getChains() as (DrumPad | InstrumentChain)[]).map(chain => chain.getName()).slice(0, 8)
+        const chainNames = (rack.getChains() as (DrumPad | InstrumentChain)[]).map((chain) => chain.getName()).slice(0, 8)
 
         this.controlSurface.display.line(0, chainNames)
         this.controlSurface.display.line(1, displayValues)

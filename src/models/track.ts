@@ -34,7 +34,7 @@ export abstract class Track {
             return
         }
 
-        const newMode = this.modes.find(mode => mode.canHandle(modeType))
+        const newMode = this.modes.find((mode) => mode.canHandle(modeType))
 
         if (newMode) {
             this.activeMode.ignore()
@@ -82,6 +82,14 @@ export abstract class Track {
 
     onBrowseModeButton() {
         this.setMode(Mode.CHAIN_FX)
+    }
+
+    onInButton() {
+        this.getMode().decrementSubPage()
+    }
+
+    onOutButton() {
+        this.getMode().incrementSubPage()
     }
 
     onMasterSelectButton(isPressed: boolean) {

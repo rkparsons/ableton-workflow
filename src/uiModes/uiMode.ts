@@ -21,6 +21,10 @@ export abstract class UiMode {
 
     abstract ignore(): void
 
+    abstract incrementSubPage(): void
+
+    abstract decrementSubPage(): void
+
     abstract executePageLevelCommand(command: Command): void
 
     abstract executeParamLevelCommand(command: Command, index: number): void

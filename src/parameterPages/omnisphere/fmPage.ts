@@ -1,4 +1,3 @@
-import { Blank } from '~/parameters/blank'
 import { OmnisphereFMAmount } from '~/parameters/omnisphere/fmAmount'
 import { OmnisphereFMFreq } from '~/parameters/omnisphere/fmFreq'
 import { OmnisphereFMOn } from '~/parameters/omnisphere/fmOn'
@@ -18,8 +17,6 @@ export class FMPage extends ParameterPage {
             new OmnisphereFMAmount({ pathToChain, deviceIndex }),
             new OmnisphereFMScale({ pathToChain, deviceIndex }),
             new OmnisphereFMShape({ pathToChain, deviceIndex }),
-            new Blank(),
-            new Blank(),
             new OmnisphereFMSymmetry({ pathToChain, deviceIndex }),
             new OmnisphereFMSync({ pathToChain, deviceIndex }),
         ]

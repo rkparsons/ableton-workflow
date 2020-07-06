@@ -24,6 +24,18 @@ export class ParameterPage {
         return this.subPageIndex
     }
 
+    incrementSubPage() {
+        if (this.subPageIndex < this.subPages.length - 1) {
+            this.subPageIndex++
+        }
+    }
+
+    decrementSubPage() {
+        if (this.subPageIndex > 0) {
+            this.subPageIndex--
+        }
+    }
+
     getName() {
         return this.name
     }
@@ -47,11 +59,11 @@ export class ParameterPage {
     }
 
     default() {
-        this.parameters.forEach((parameter) => parameter.default())
+        this.getParameters().forEach((parameter) => parameter.default())
     }
 
     random() {
-        this.parameters.forEach((parameter) => parameter.random())
+        this.getParameters().forEach((parameter) => parameter.random())
     }
 
     handleParameterChange(index: number, callback: () => void) {

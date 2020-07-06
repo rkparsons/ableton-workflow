@@ -36,6 +36,8 @@ export function createLiveset(pathToPatcher: string) {
     controlSurface.onActive(ControlName.CLIP_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onClipModeButton())
     controlSurface.onActive(ControlName.DEVICE_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onDeviceModeButton())
     controlSurface.onActive(ControlName.BROWSE_MODE_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onBrowseModeButton())
+    controlSurface.onActive(ControlName.IN_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onInButton())
+    controlSurface.onActive(ControlName.OUT_BUTTON, ([, isPressed]) => isPressed && liveset.getTrack().onOutButton())
     controlSurface.onActive(ControlName.MASTER_SELECT_BUTTON, ([, isPressed]) => liveset.getTrack().onMasterSelectButton(isPressed))
     controlSurface.onActive(ControlName.TRACK_STOP_BUTTON, ([, isPressed]) => liveset.getTrack().onTrackStopButton(isPressed))
     controlSurface.onActive(ControlName.TRACK_CONTROL_TOUCHES, ([, isPressed, encoderIndex]) => liveset.getTrack().onTrackControlTouches(isPressed, encoderIndex))

@@ -104,6 +104,16 @@ export class ChainParamsMode extends UiMode {
         }
     }
 
+    incrementSubPage() {
+        this.rack.getActiveInstrumentRack()?.getActiveChain().getActiveParameterPage().incrementSubPage()
+        this.updateDisplay()
+    }
+
+    decrementSubPage() {
+        this.rack.getActiveInstrumentRack()?.getActiveChain().getActiveParameterPage().decrementSubPage()
+        this.updateDisplay()
+    }
+
     executePageLevelCommand(targetCommand: Command) {
         const activeChain = this.rack.getActiveInstrumentRack()?.getActiveChain()
 

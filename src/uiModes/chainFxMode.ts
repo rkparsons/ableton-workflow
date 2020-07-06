@@ -18,6 +18,10 @@ export class ChainFxMode extends UiMode {
 
     ignore() {}
 
+    incrementSubPage() {}
+
+    decrementSubPage() {}
+
     executePageLevelCommand(command: Command) {}
 
     executeParamLevelCommand(command: Command, index: number) {}

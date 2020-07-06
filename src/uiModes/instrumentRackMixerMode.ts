@@ -25,7 +25,7 @@ export class InstrumentRackMixerMode extends MixerMode {
 
         this.getRack()
             ?.getChains()
-            .forEach(chain => chain.getMuteParameter().observe())
+            .forEach((chain) => chain.getMuteParameter().observe())
     }
 
     ignore() {
@@ -33,7 +33,7 @@ export class InstrumentRackMixerMode extends MixerMode {
 
         this.getRack()
             ?.getChains()
-            .forEach(chain => chain.getMuteParameter().ignore())
+            .forEach((chain) => chain.getMuteParameter().ignore())
     }
 
     handleTempoControl(encoderValue: number) {}

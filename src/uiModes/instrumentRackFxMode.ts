@@ -13,6 +13,10 @@ export class InstrumentRackFxMode extends UiMode {
         return modeType === Mode.INSTRUMENT_RACK_FX
     }
 
+    incrementSubPage() {}
+
+    decrementSubPage() {}
+
     updateDisplay() {
         const activeInstrumentRack = this.rack.getActiveInstrumentRack()
 

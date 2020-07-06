@@ -26,6 +26,10 @@ export class DrumRackFxMode extends UiMode {
 
     ignore() {}
 
+    incrementSubPage() {}
+
+    decrementSubPage() {}
+
     executePageLevelCommand(command: Command) {}
 
     executeParamLevelCommand(command: Command, index: number) {}
