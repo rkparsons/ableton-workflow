@@ -176,15 +176,8 @@ export class ChainParamsMode extends UiMode {
             const activeParameterPageIndex = activeChain.getActiveParameterPage().getIndex()
             const subPageIndex = activeParameterPage.getSubPageIndex()
             const subPageCount = activeParameterPage.getSubPages().length
-            const parameterNames = activeParameterPage
-                .getParameters()
-                .map((parameter) => parameter.getNames())
-                .flat()
-            const parameterValues = activeParameterPage
-                .getParameters()
-                .map((parameter) => parameter.getDisplayValues())
-                .flat()
-
+            const parameterNames = activeParameterPage.getParameters().map((parameter) => parameter.getName())
+            const parameterValues = activeParameterPage.getParameters().map((parameter) => parameter.getDisplayValue())
             const isChainMuted = activeChain.isMuted()
 
             if (isChainMuted) {

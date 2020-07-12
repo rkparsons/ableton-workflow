@@ -9,7 +9,8 @@ import { ParameterPage } from '~/models/parameterPage'
 export class SamplePage extends ParameterPage {
     constructor(pageIndex: number, chainName: string, pathToChain: string, deviceIndex: number) {
         const parameters = [
-            new OmnisphereSampleSelect({ chainName, pathToChain, deviceIndex }),
+            new OmnisphereSampleSelect({ chainName, pathToChain, deviceIndex, displayIndex: 0 }),
+            new OmnisphereSampleSelect({ chainName, pathToChain, deviceIndex, displayIndex: 1 }),
             new OmnisphereTimbreMode({ pathToChain, deviceIndex }),
             new OmnisphereTimbre({ pathToChain, deviceIndex }),
             new OmnisphereStart({ pathToChain, deviceIndex }),

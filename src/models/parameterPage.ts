@@ -55,9 +55,7 @@ export class ParameterPage {
     }
 
     getParameter(parameterIndex: number) {
-        return this.getParameters()
-            .map((param) => (param.length === 1 ? param : new Array<Parameter>(param.length).fill(param)))
-            .flat()[parameterIndex]
+        return this.getParameters()[parameterIndex]
     }
 
     default() {

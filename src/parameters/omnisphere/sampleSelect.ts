@@ -80,8 +80,13 @@ function getOptions(chainName: string) {
     }
 }
 
+type OmnisphereSampleSelectProps = Props & {
+    displayIndex: number
+}
+
 export class OmnisphereSampleSelect extends EnumParameter {
-    constructor({ chainName, pathToChain, deviceIndex }: Props) {
+    displayIndex: number
+    constructor({ chainName, pathToChain, deviceIndex, displayIndex }: OmnisphereSampleSelectProps) {
         const options = getOptions(chainName)
         super({
             name: 'Sample',
@@ -89,6 +94,14 @@ export class OmnisphereSampleSelect extends EnumParameter {
             path: 'parameters 1',
             options,
         })
-        this.length = 2
+        this.displayIndex = displayIndex
+    }
+
+    getName() {
+        return super.getName().slice(8 * this.displayIndex)
+    }
+
+    getDisplayValue() {
+        return super.getDisplayValue().slice(8 * this.displayIndex)
     }
 }
