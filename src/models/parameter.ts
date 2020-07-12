@@ -1,4 +1,5 @@
 import UnitType from '~/constants/unitType'
+import { chunkString } from '~/util/array'
 
 type Props = {
     name?: string
@@ -24,6 +25,7 @@ export class Parameter {
     value: number
     min: number
     max: number
+    length = 1
     callback?: () => void
 
     constructor({ name = '', basePath, path = '', property = 'value', defaultValue = 0, unitType = UnitType.FLOAT, randomRange, speed = 1, showValue = false }: Props) {
@@ -43,6 +45,23 @@ export class Parameter {
 
     getName() {
         return this.name
+    }
+
+    getNames() {
+        if (this.length === 1) {
+            return [this.getName()]
+        }
+
+        const namesArray = new Array<string>(this.length).fill('')
+        const nameChunks = chunkString(this.getName(), 8)
+        for (let i = 0; i < this.length; i++) {
+            namesArray[i] = nameChunks[i] || ''
+        }
+        return namesArray
+    }
+
+    getLength() {
+        return this.length
     }
 
     observe() {
@@ -76,6 +95,19 @@ export class Parameter {
 
     getDisplayValue() {
         return Math.round(this.value).toString()
+    }
+
+    getDisplayValues() {
+        if (this.length === 1) {
+            return [this.getDisplayValue()]
+        }
+
+        const valuesArray = new Array<string>(this.length).fill('')
+        const valueChunks = chunkString(this.getDisplayValue(), 8)
+        for (let i = 0; i < this.length; i++) {
+            valuesArray[i] = valueChunks[i] || ''
+        }
+        return valuesArray
     }
 
     getValue() {

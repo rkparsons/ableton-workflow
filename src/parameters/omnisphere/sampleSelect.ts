@@ -17,7 +17,7 @@ function getOptions(chainName: string) {
                 'aura',
                 'beacon',
                 'blue',
-                'cs80',
+                'cs80 with more text',
                 'dragons',
                 'dream',
                 'eternal',
@@ -89,5 +89,6 @@ export class OmnisphereSampleSelect extends EnumParameter {
             path: 'parameters 1',
             options,
         })
+        this.length = 2
     }
 }
