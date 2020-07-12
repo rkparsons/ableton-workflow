@@ -2,6 +2,7 @@ import Command from '~/constants/command'
 import { ControlSurface } from '~/models/controlSurface'
 import { EnumParameter } from '~/models/enumParameter'
 import Mode from '~/constants/mode'
+import { OmnisphereSampleSelect } from '~/parameters/omnisphere/sampleSelect'
 import { Rack } from '~/models/rack'
 import { SamplerDrumCategory } from '~/parameters/sampler/drumCategory'
 import { SamplerDrumSelect } from '~/parameters/sampler/drumSelect'
@@ -58,7 +59,7 @@ export class ChainParamsMode extends UiMode {
             .getActiveChain()
             .getActiveParameterPage()
             .getParameters()
-            .find((parameter) => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect)
+            .find((parameter) => parameter instanceof SamplerDrumSelect || parameter instanceof SamplerMelodicSelect || parameter instanceof OmnisphereSampleSelect)
 
         if (!sampleParameter) {
             return
