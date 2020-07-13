@@ -176,8 +176,10 @@ export class ChainParamsMode extends UiMode {
             const activeParameterPageIndex = activeChain.getActiveParameterPage().getIndex()
             const subPageIndex = activeParameterPage.getSubPageIndex()
             const subPageCount = activeParameterPage.getSubPages().length
-            const parameterNames = activeParameterPage.getParameters().map((parameter) => parameter.getName())
-            const parameterValues = activeParameterPage.getParameters().map((parameter) => parameter.getDisplayValue())
+            const parameters = activeParameterPage.getParameters()
+            const parameterNames = parameters.map((parameter) => parameter.getName())
+            const parameterValues = parameters.map((parameter) => parameter.getDisplayValue())
+            const isFirstParameterDoubleLength = activeParameterPage.isFirstParameterDoubleLength
             const isChainMuted = activeChain.isMuted()
 
             if (isChainMuted) {
@@ -188,8 +190,8 @@ export class ChainParamsMode extends UiMode {
                 this.controlSurface.trackSelect.map(0, 0)
                 this.controlSurface.trackState.map([0])
             } else {
-                this.controlSurface.display.line(0, parameterNames)
-                this.controlSurface.display.line(1, parameterValues)
+                this.controlSurface.display.line(0, parameterNames, isFirstParameterDoubleLength)
+                this.controlSurface.display.line(1, parameterValues, isFirstParameterDoubleLength)
                 this.controlSurface.display.title(2, [activeChain.getName()], subPageIndex, subPageCount)
                 this.controlSurface.display.menu(3, parameterPageNames, activeParameterPageIndex)
                 this.controlSurface.trackSelect.map(parameterPageNames.length, activeParameterPageIndex)

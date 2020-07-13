@@ -18,5 +18,6 @@ export class SamplePage extends ParameterPage {
         ]
 
         super(pageIndex, 'Sample', parameters)
+        this.isFirstParameterDoubleLength = true
     }
 }

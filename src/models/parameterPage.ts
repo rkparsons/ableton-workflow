@@ -7,6 +7,7 @@ export class ParameterPage {
     name: string
     parameters: Parameter[]
     subPages: Parameter[][]
+    isFirstParameterDoubleLength: boolean
 
     constructor(index: number, name: string, parameters: Parameter[]) {
         this.index = index
@@ -14,6 +15,7 @@ export class ParameterPage {
         this.name = name
         this.parameters = parameters
         this.subPages = chunk(parameters, 8)
+        this.isFirstParameterDoubleLength = false
     }
 
     getIndex() {

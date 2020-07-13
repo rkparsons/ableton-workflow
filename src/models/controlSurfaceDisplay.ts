@@ -17,8 +17,8 @@ export class ControlSurfaceDisplay {
         this.displayApi[3] = new LiveAPI(function () {}, getControl(ControlName.DISPLAY_LINE_3))
     }
 
-    line(lineIndex: number, values: string[]) {
-        this.displayApi[lineIndex].call(DisplayApiMethod.DISPLAY_MESSAGE, values.length === 1 ? values : this.createDisplayMessage(values))
+    line(lineIndex: number, values: string[], isFirstMessageItemDoubleLength = false) {
+        this.displayApi[lineIndex].call(DisplayApiMethod.DISPLAY_MESSAGE, values.length === 1 ? values : this.createDisplayMessage(values, undefined, isFirstMessageItemDoubleLength))
     }
 
     menu(lineIndex: number, values: string[], selectedIndex?: number) {
@@ -40,14 +40,21 @@ export class ControlSurfaceDisplay {
         this.displayApi[lineIndex].call(DisplayApiMethod.DISPLAY_MESSAGE, output)
     }
 
-    createDisplayMessage(messageItems: string[], selectedIndex?: number) {
+    // todo: generalise this for long params of different lengths at different positions
+    createDisplayMessage(messageItems: string[], selectedIndex?: number, isFirstMessageItemDoubleLength = false) {
         const paddingEnd = '        '
         let itemsPadded = ''
 
         messageItems.slice(0, 8).forEach((messageItem, index) => {
             const prefix = selectedIndex === undefined ? '' : index == selectedIndex ? String.fromCharCode(ASCII.ARROW_RIGHT) : ' '
             itemsPadded += (prefix + messageItem + paddingEnd).slice(0, 8)
-            itemsPadded += index % 2 === 0 ? ' ' : ''
+
+            if (!isFirstMessageItemDoubleLength || index > 0) {
+                itemsPadded += index % 2 === 0 ? ' ' : ''
+            }
+            if (isFirstMessageItemDoubleLength && index === 1) {
+                itemsPadded += ' '
+            }
         })
 
         return itemsPadded
