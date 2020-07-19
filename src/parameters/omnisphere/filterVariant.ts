@@ -1,12 +1,12 @@
 import { ParameterProps } from '~/types/parameterProps'
 import { ValueParameter } from '~/models/valueParameter'
 
-export class OmnisphereFilterFreq extends ValueParameter {
+export class OmnisphereFilterVariant extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
-            name: 'Freq',
+            name: 'Variant',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 57',
+            path: 'parameters 59',
             inputRange: [-1, 1],
         })
     }

@@ -14,5 +14,6 @@ export default function (chainName: string, pathToChain: string, deviceIndex: nu
         new WSPage(3, pathToChain, deviceIndex),
         new UnisonPage(4, pathToChain, deviceIndex),
         new GranulatorPage(5, pathToChain, deviceIndex),
+        new FilterPage(6, pathToChain, deviceIndex),
     ]
 }
