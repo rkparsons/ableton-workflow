@@ -6,7 +6,7 @@ export class OmnisphereFilterFreq extends ValueParameter {
         super({
             name: 'Freq',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 57',
+            path: 'parameters 65',
             inputRange: [-1, 1],
         })
     }

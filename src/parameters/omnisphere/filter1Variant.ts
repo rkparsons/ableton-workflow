@@ -6,7 +6,7 @@ export class OmnisphereFilter1Variant extends ValueParameter {
         super({
             name: 'Var 1',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 68',
+            path: 'parameters 60',
             inputRange: [-1, 1],
         })
     }

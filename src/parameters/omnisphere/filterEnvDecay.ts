@@ -6,8 +6,9 @@ export class OmnisphereFilterEnvDecay extends ValueParameter {
         super({
             name: 'D \\',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 62',
+            path: 'parameters 70',
             inputRange: [0, 127],
+            defaultValue: 45,
         })
     }
 }

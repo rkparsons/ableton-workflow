@@ -1,13 +1,13 @@
+import { EnumParameter } from '~/models/enumParameter'
 import { ParameterProps } from '~/types/parameterProps'
-import { ValueParameter } from '~/models/valueParameter'
 
-export class OmnisphereFilter2Variant extends ValueParameter {
+export class OmnisphereFilter2On extends EnumParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
-            name: 'Var 2',
+            name: 'I/O',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 64',
-            inputRange: [-1, 1],
+            path: 'parameters 61',
+            options: ['off', 'on'],
         })
     }
 }
