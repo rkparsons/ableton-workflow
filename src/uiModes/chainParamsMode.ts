@@ -29,7 +29,8 @@ export class ChainParamsMode extends UiMode {
             activeChain.getMuteParameter().observe()
             activeChain
                 .getActiveParameterPage()
-                .getParameters()
+                .getSubPages()
+                .flat()
                 .forEach((parameter) => parameter.observe())
         }
     }
