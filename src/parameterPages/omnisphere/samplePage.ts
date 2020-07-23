@@ -1,4 +1,5 @@
 import { Blank } from '~/parameters/blank'
+import { OmnisphereOscLFOAmount } from '~/parameters/omnisphere/oscLFOAmount'
 import { OmnisphereReverse } from '~/parameters/omnisphere/reverse'
 import { OmnisphereSampleSelect } from '~/parameters/omnisphere/sampleSelect'
 import { OmnisphereStart } from '~/parameters/omnisphere/start'
@@ -15,6 +16,7 @@ export class SamplePage extends ParameterPage {
             new OmnisphereTimbre({ pathToChain, deviceIndex }),
             new OmnisphereStart({ pathToChain, deviceIndex }),
             new OmnisphereReverse({ pathToChain, deviceIndex }),
+            new OmnisphereOscLFOAmount({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Sample', parameters)

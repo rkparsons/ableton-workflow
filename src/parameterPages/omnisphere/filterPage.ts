@@ -1,3 +1,4 @@
+import { Blank } from '~/parameters/blank'
 import { OmnisphereFilter1Freq } from '~/parameters/omnisphere/filter1Freq'
 import { OmnisphereFilter1On } from '~/parameters/omnisphere/filter1On'
 import { OmnisphereFilter1Res } from '~/parameters/omnisphere/filter1Res'
@@ -11,9 +12,9 @@ import { OmnisphereFilterEnvAttack } from '~/parameters/omnisphere/filterEnvAtta
 import { OmnisphereFilterEnvDecay } from '~/parameters/omnisphere/filterEnvDecay'
 import { OmnisphereFilterEnvRelease } from '~/parameters/omnisphere/filterEnvRelease'
 import { OmnisphereFilterEnvSustain } from '~/parameters/omnisphere/filterEnvSustain'
-import { OmnisphereFilterFreq } from '~/parameters/omnisphere/filterFreq'
-import { OmnisphereFilterRes } from '~/parameters/omnisphere/filterRes'
-import { OmnisphereFilterVariant } from '~/parameters/omnisphere/filterVariant'
+import { OmnisphereFilterLFOCutoff } from '~/parameters/omnisphere/filterLFOCutoff'
+import { OmnisphereFilterLFOFreq } from '~/parameters/omnisphere/filterLFOFreq'
+import { OmnisphereFilterLFOVariant } from '~/parameters/omnisphere/filterLFOVariant'
 import { ParameterPage } from '~/models/parameterPage'
 
 export class FilterPage extends ParameterPage {
@@ -28,9 +29,9 @@ export class FilterPage extends ParameterPage {
             new OmnisphereFilter2Res({ pathToChain, deviceIndex }),
             new OmnisphereFilter2Variant({ pathToChain, deviceIndex }),
 
-            new OmnisphereFilterFreq({ pathToChain, deviceIndex }),
-            new OmnisphereFilterRes({ pathToChain, deviceIndex }),
-            new OmnisphereFilterVariant({ pathToChain, deviceIndex }),
+            new OmnisphereFilterLFOFreq({ pathToChain, deviceIndex }),
+            new OmnisphereFilterLFOCutoff({ pathToChain, deviceIndex }),
+            new OmnisphereFilterLFOVariant({ pathToChain, deviceIndex }),
             new OmnisphereFilterEnv({ pathToChain, deviceIndex }),
             new OmnisphereFilterEnvAttack({ pathToChain, deviceIndex }),
             new OmnisphereFilterEnvDecay({ pathToChain, deviceIndex }),

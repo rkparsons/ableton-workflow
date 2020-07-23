@@ -1,13 +1,13 @@
 import { ParameterProps } from '~/types/parameterProps'
 import { ValueParameter } from '~/models/valueParameter'
 
-export class OmnisphereFilterVariant extends ValueParameter {
+export class OmnisphereFilterLFOVariant extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
-            name: 'Variant',
+            name: '> Var',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 67',
-            inputRange: [-1, 1],
+            path: 'parameters 65',
+            inputRange: [0, 127],
         })
     }
 }
