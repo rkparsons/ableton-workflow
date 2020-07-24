@@ -1,4 +1,5 @@
 import { Blank } from '~/parameters/blank'
+import { OmnisphereDrift } from '~/parameters/omnisphere/drift'
 import { OmnisphereOscLFOAmount } from '~/parameters/omnisphere/oscLFOAmount'
 import { OmnisphereOscLFORate } from '~/parameters/omnisphere/oscLFORate'
 import { OmnisphereReverse } from '~/parameters/omnisphere/reverse'
@@ -15,10 +16,13 @@ export class SamplePage extends ParameterPage {
             new OmnisphereSampleSelect({ chainName, pathToChain, deviceIndex, displayIndex: 1 }),
             new OmnisphereTimbreMode({ pathToChain, deviceIndex }),
             new OmnisphereTimbre({ pathToChain, deviceIndex }),
-            new OmnisphereStart({ pathToChain, deviceIndex }),
-            new OmnisphereReverse({ pathToChain, deviceIndex }),
+            new OmnisphereDrift({ pathToChain, deviceIndex }),
             new OmnisphereOscLFOAmount({ pathToChain, deviceIndex }),
             new OmnisphereOscLFORate({ pathToChain, deviceIndex }),
+            new Blank(),
+
+            new OmnisphereStart({ pathToChain, deviceIndex }),
+            new OmnisphereReverse({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Sample', parameters)
