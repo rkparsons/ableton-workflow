@@ -1,5 +1,7 @@
 import { OmnisphereUnisonDepth } from '~/parameters/omnisphere/unisonDepth'
 import { OmnisphereUnisonDetune } from '~/parameters/omnisphere/unisonDetune'
+import { OmnisphereUnisonDetuneLFOAmount } from '~/parameters/omnisphere/unisonDetuneLFOAmount'
+import { OmnisphereUnisonDetuneLFOFreq } from '~/parameters/omnisphere/UnisonDetuneLFOFreq'
 import { OmnisphereUnisonOctave } from '~/parameters/omnisphere/unisonOctave'
 import { OmnisphereUnisonOn } from '~/parameters/omnisphere/unisonOn'
 import { OmnisphereUnisonRange } from '~/parameters/omnisphere/unisonRange'
@@ -15,6 +17,8 @@ export class UnisonPage extends ParameterPage {
             new OmnisphereUnisonOctave({ pathToChain, deviceIndex }),
             new OmnisphereUnisonDetune({ pathToChain, deviceIndex }),
             new OmnisphereUnisonRange({ pathToChain, deviceIndex }),
+            new OmnisphereUnisonDetuneLFOAmount({ pathToChain, deviceIndex }),
+            new OmnisphereUnisonDetuneLFOFreq({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Unison', parameters)
