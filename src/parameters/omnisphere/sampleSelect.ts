@@ -9,9 +9,6 @@ function getOptions(chainName: string) {
     switch (chainName) {
         case 'Pad':
             return [
-                'abandoned 1',
-                'abandoned 2',
-                'abandoned 3',
                 'angelos tube',
                 'aqua flute',
                 'aura',

@@ -1,4 +1,8 @@
 import { Blank } from '~/parameters/blank'
+import { OmnisphereAmpAttack } from '~/parameters/omnisphere/ampAttack'
+import { OmnisphereAmpDecay } from '~/parameters/omnisphere/ampDecay'
+import { OmnisphereAmpRelease } from '~/parameters/omnisphere/ampRelease'
+import { OmnisphereAmpSustain } from '~/parameters/omnisphere/ampSustain'
 import { OmnisphereDrift } from '~/parameters/omnisphere/drift'
 import { OmnisphereOctave } from '~/parameters/omnisphere/octave'
 import { OmnisphereOscLFOAmount } from '~/parameters/omnisphere/oscLFOAmount'
@@ -24,6 +28,12 @@ export class SamplePage extends ParameterPage {
 
             new OmnisphereStart({ pathToChain, deviceIndex }),
             new OmnisphereReverse({ pathToChain, deviceIndex }),
+            new Blank(),
+            new Blank(),
+            new OmnisphereAmpAttack({ pathToChain, deviceIndex }),
+            new OmnisphereAmpDecay({ pathToChain, deviceIndex }),
+            new OmnisphereAmpSustain({ pathToChain, deviceIndex }),
+            new OmnisphereAmpRelease({ pathToChain, deviceIndex }),
         ]
 
         super(pageIndex, 'Sample', parameters)

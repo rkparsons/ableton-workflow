@@ -1,14 +1,14 @@
 import { ParameterProps } from '~/types/parameterProps'
 import { ValueParameter } from '~/models/valueParameter'
 
-export class OmnisphereWSGain extends ValueParameter {
+export class OmnisphereAmpAttack extends ValueParameter {
     constructor({ pathToChain, deviceIndex }: ParameterProps) {
         super({
-            name: 'Gain',
+            name: 'A /',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
-            path: 'parameters 26',
-            inputRange: [-1, 1],
-            defaultValue: 1,
+            path: 'parameters 81',
+            inputRange: [0, 127],
+            defaultValue: 40,
         })
     }
 }
