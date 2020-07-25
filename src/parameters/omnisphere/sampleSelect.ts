@@ -135,7 +135,7 @@ function getOptions(chainName: string) {
                 'metalurgy',
                 'mothers fizz',
                 'mt-240 forest',
-                'mt-240 glitchharm',
+                'mt-240 droplets',
                 'mt-240 ring bell',
                 'mt-240 satellite organ',
                 'mt-240 vibestrum',
