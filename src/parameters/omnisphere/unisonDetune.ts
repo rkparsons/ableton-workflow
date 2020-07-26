@@ -7,7 +7,7 @@ export class OmnisphereUnisonDetune extends ValueParameter {
             name: 'Detune',
             basePath: `${pathToChain} devices ${deviceIndex - 1}`,
             path: 'parameters 37',
-            inputRange: [-1, 1],
+            inputRange: [0, 127],
         })
     }
 }
