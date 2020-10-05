@@ -17,7 +17,7 @@ export function getCategories(samplesFolder: string, instrumentRackName: string,
 }
 
 export function getSampleGroups(samplesFolder: string, instrumentRackName: string, chainName: string, categories: string[]) {
-    return new Map(categories.map(category => [category, getSamples(samplesFolder, instrumentRackName, chainName, category)]))
+    return new Map(categories.map((category) => [category, getSamples(samplesFolder, instrumentRackName, chainName, category)]))
 }
 
 function getSamples(samplesFolder: string, instrumentRackName: string, chainName: string, category: string) {
@@ -31,7 +31,14 @@ function getSamples(samplesFolder: string, instrumentRackName: string, chainName
         const indexStart = folder.filename.indexOf('_') + 1
         const indexEnd = folder.filename.indexOf('.')
 
-        sampleNames.push(folder.filename.slice(indexStart, indexEnd).split('#')[0])
+        const filenameParts = folder.filename.slice(indexStart, indexEnd).split('#')
+        const sampleName = filenameParts[0]
+        const multisampleNumber = filenameParts[1]
+
+        if (!multisampleNumber || multisampleNumber === '1') {
+            sampleNames.push(sampleName)
+        }
+
         folder.next()
     }
     folder.close()
