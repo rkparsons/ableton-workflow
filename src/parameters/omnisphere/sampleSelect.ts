@@ -425,6 +425,7 @@ function getOptions(chainName: string) {
                 'vinyl scratch A',
                 'vinyl scratch B',
                 'wasp', 
+                'water roars',
                 'white', 
                 'white sands',
                 'whizzbys',
